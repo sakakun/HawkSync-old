@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"] - BMTv4 Admin Panel</title>
+    <link href="../css/application.min.css" rel="stylesheet">
+    <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
+    <!--[if IE 9]>
+        <link href="css/application-ie9-part2.css" rel="stylesheet">
+        <![endif]-->
+    <!--<link rel="shortcut icon" href="img/favicon.html" />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Babstats 4 Admin Panel" />
+    <meta name="keywords" content="bootstrap admin template,admin template,admin dashboard,admin dashboard template,admin,dashboard,bootstrap,template" />
+    <meta name="author" content="Babstats.net" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <script>
+        /* yeah we need this empty stylesheet here. It's cool chrome & chromium fix
+        chrome fix https://code.google.com/p/chromium/issues/detail?id=167083
+        https://code.google.com/p/chromium/issues/detail?id=332189
+        */
+    </script>
+    <script src="../js/charts/d3-version-wrapper.js"></script>
+</head>
+
+<body class="">
+    <!-- This is the white navigation bar seen on the top. A bit enhanced BS navbar. See .page-controls in _base.scss. -->
+    @Html.Partial("_Nav")
+    <!--
+      Main sidebar seen on the left. may be static or collapsing depending on selected state.
+
+        * Collapsing - navigation automatically collapse when mouse leaves it and expand when enters.
+        * Static - stays always open.
+    -->
+    <nav id="sidebar" class="sidebar" role="navigation">
+        <!-- need this .js class to initiate slimscroll -->
+        <div class="js-sidebar-content">
+            <header class="logo d-none d-md-block">
+                <a href="@Url.Action("Index", "Home")"><span class="fw-thin">Babstats</span> <b>4</b></a>
+            </header>
+            <!-- seems like lots of recent admin template have this feature of user info in the sidebar.
+                 looks good, so adding it and enhancing with notifications -->
+            <!-- main notification links are placed inside of .sidebar-nav -->
+            <ul class="sidebar-nav">
+                <li class=" active ">
+                    <!-- an example of nested submenu. basic bootstrap collapse component -->
+                    <a href="@Url.Action("Index", "Home")">
+                        <span class="icon">
+                            <i class="fi flaticon-home"></i>
+                        </span>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="">
+                    <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/other/package.html">
+                        <span class="icon">
+                            <i class="fi flaticon-database-1"></i>
+                        </span>
+                        LB Package
+                    </a>
+                </li>
+                <li class="">
+                    <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/other/profile.html">
+                        <span class="icon">
+                            <i class="fi flaticon-user"></i>
+                        </span>
+                        Profile
+                    </a>
+                </li>
+                <li class="">
+                    <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/other/inbox.html">
+                        <span class="icon">
+                            <i class="fi flaticon-paper-plane"></i>
+                        </span>
+                        Email
+                        <span class="badge badge-primary">
+                            9
+                        </span>
+                    </a>
+                </li>
+                <li class="">
+                    <a class="collapsed" href="#sidebar-pages" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-diamond"></i>
+                        </span>
+                        E-commerce
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-pages" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/e-commerce/product_detail.html">Product Detail</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/e-commerce/product_grid.html">Product Grid</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- every .sidebar-nav may have a title -->
+            <h5 class="sidebar-nav-title">Template <a class="action-link" href="#"><i class="glyphicon glyphicon-refresh"></i></a></h5>
+            <ul class="sidebar-nav">
+                <li class="">
+                    <!-- an example of nested submenu. basic bootstrap collapse component -->
+                    <a class="collapsed" href="#sidebar-core" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-network"></i>
+                        </span>
+                        Core
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-core" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/core/core_typography.html">Typography</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/core/core_colors.html">Colors</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/core/core_grid.html">Grid</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a class="collapsed" href="#sidebar-ui" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-layers"></i>
+                        </span>
+                        UI Elements
+                        <sup class="text-success fw-semi-bold">
+                            new
+                        </sup>
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-ui" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_alerts.html">Alerts</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_badge.html">Badge</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_buttons.html">Buttons</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_card.html">Card</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_carousel.html">Carousel</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_jumbotron.html">Jumbotron</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_icons.html">Icons</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_list_groups.html">List Groups</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_modal.html" data-no-pjax>Modal</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_nav.html">Nav</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_navbar.html">Navbar</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_notifications.html">Notifications</a></li>
+                        <li><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/tables/tables_dynamic.html">Pagination</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_popovers_tooltips.html">Popovers & Tooltips</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_progress.html">Progress</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/components/ui_tabs_accordion.html">Tabs & Accordion</a></li>
+
+                    </ul>
+                </li>
+                <li class="">
+                    <!-- an example of nested submenu. basic bootstrap collapse component -->
+                    <a class="collapsed" href="#sidebar-forms" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-list"></i>
+                        </span>
+                        Forms
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-forms" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/form/form_elements.html">Form Elements</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/form/form_validation.html">Form Validation</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/form/form_wizard.html">Form Wizard</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <!-- an example of nested submenu. basic bootstrap collapse component -->
+                    <a class="collapsed" href="#sidebar-charts" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-controls"></i>
+                        </span>
+                        Charts
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-charts"
+                        class="collapse ">
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/charts.html" data-no-pjax>Charts Overview</a>
+                        </li>
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/flot.html" data-no-pjax>Flot Charts</a>
+                        </li>
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/morris.html" data-no-pjax>Morris Charts</a>
+                        </li>
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/rickshaw.html" data-no-pjax>Rickshaw Charts</a>
+                        </li>
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/sparkline.html" data-no-pjax>Sparkline Charts</a>
+                        </li>
+                        <li class="">
+                            <a class="no-pjax" href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/d3_plain.html" data-no-pjax>D3 version 5 Charts</a>
+                        </li>
+                        <li class="">
+                            <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/charts/easy_pie.html" data-no-pjax>Easy Pie Charts</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/other/grid.html">
+                        <span class="icon">
+                            <i class="fi flaticon-menu-4"></i>
+                        </span>
+                        Grid
+                    </a>
+                </li>
+                <li class="">
+                    <a class="collapsed" href="#sidebar-maps" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-map-location"></i>
+                        </span>
+                        Maps
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-maps" class="collapse ">
+                        <!-- data-no-pjax turns off pjax loading for this link. Use in case of complicated js loading on the
+                             target page -->
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/maps/maps_google.html" data-no-pjax>Google Maps</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/maps/maps_vector.html">Vector Maps</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <!-- an example of nested submenu. basic bootstrap collapse component -->
+                    <a class="collapsed" href="#sidebar-tables" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-equal-1"></i>
+                        </span>
+                        Tables
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-tables" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/tables/tables_basic.html">Tables Basic</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/tables/tables_dynamic.html">Tables Dynamic</a></li>
+                    </ul>
+                </li>
+                <li class="">
+                    <a class="collapsed" href="#sidebar-extra" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-star"></i>
+                        </span>
+                        Extra
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-extra" class="collapse ">
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/calendar.html">Calendar</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/invoice.html">Invoice</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/login.html" target="_blank" data-no-pjax>Login Page</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/error.html" target="_blank" data-no-pjax>Error Page</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/gallery.html">Gallery</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/search.html">Search Results</a></li>
+                        <li class=""><a href="https://templates-flatlogic.herokuapp.com/light-blue/html5/extra/time_line.html" data-no-pjax>Time Line</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="collapsed" href="#sidebar-levels" data-toggle="collapse" data-parent="#sidebar">
+                        <span class="icon">
+                            <i class="fi flaticon-folder-10"></i>
+                        </span>
+                        Menu Levels
+                        <i class="toggle fa fa-angle-down"></i>
+                    </a>
+                    <ul id="sidebar-levels" class="collapse">
+                        <li><a href="#">Level 1</a></li>
+                        <li>
+                            <a class="collapsed" href="#sidebar-sub-levels" data-toggle="collapse" data-parent="#sidebar-levels">
+                                Level 2
+                                <i class="toggle fa fa-angle-down"></i>
+                            </a>
+                            <ul id="sidebar-sub-levels" class="collapse">
+                                <li><a href="#">Level 3</a></li>
+                                <li><a href="#">Level 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h5 class="sidebar-nav-title">Labels <a class="action-link" href="#"><i class="glyphicon glyphicon-plus"></i></a></h5>
+            <!-- some styled links in sidebar. ready to use as links to email folders, projects, groups, etc -->
+            <ul class="sidebar-labels">
+                <li>
+                    <a href="#">
+                        <!-- yep, .circle again -->
+                        <i class="fa fa-circle text-danger mr-xs"></i>
+                        <span class="label-name">My Recent</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-circle text-primary mr-xs"></i>
+                        <span class="label-name">Starred</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-circle mr-xs"></i>
+                        <span class="label-name">Background</span>
+                    </a>
+                </li>
+            </ul>
+            <h5 class="sidebar-nav-title">Projects</h5>
+            <!-- A place for sidebar notifications & alerts -->
+            <div class="sidebar-alerts">
+                <div class="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                    <span class="fw-normal">Sales Report</span> <br>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 16%" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small>Calculating x-axis bias... 65%</small>
+                </div>
+                <div class="alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
+                    <span class="fw-normal">Personal Responsibility</span> <br>
+                    <div class="progress progress-xs mt-2">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 23%" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <small>Provide required notes</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrap">
+        <!-- main page content. the place to put widgets in. usually consists of .row > .col-lg-* > .widget.  -->
+        <main id="content" class="content" role="main">
+            <!-- Page content -->
+            @RenderBody()
+        </main>
+    </div>
+    <!-- The Loader. Is shown when pjax happens -->
+    <div class="loader-wrap hiding hide">
+        <i class="fa fa-circle-o-notch fa-spin-fast"></i>
+    </div>
+
+    <!-- common libraries. required for every page-->
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="../../node_modules/jquery-pjax/jquery.pjax.js"></script>
+    <script src='../../node_modules/popper.js/dist/umd/popper.js'></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../node_modules/bootstrap/js/dist/util.js"></script>
+    <script src="../../node_modules/widgster/widgster.js"></script>
+    <script src="../../node_modules/hammerjs/hammer.js"></script>
+    <script src="../../node_modules/jquery-hammerjs/jquery.hammer.js"></script>
+
+    <!-- common app js -->
+    <script src="../js/settings.js"></script>
+    <script src="../js/app.js"></script>
+
+    <!-- Page scripts -->
+
+    <script id="test" src="../../node_modules/underscore/underscore.js"></script>
+    <script src="../../node_modules/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="../../node_modules/d3/d3.min.js"></script>
+    <script src="../../node_modules/rickshaw/rickshaw.min.js"></script>
+    <script src="../../node_modules/raphael/raphael.min.js"></script>
+
+    <script src="../../node_modules/jquery-mapael/js/jquery.mapael.js"></script>
+    <script src="../../node_modules/jquery-mapael/js/maps/usa_states.js"></script>
+    <script src="../../node_modules/jquery-mapael/js/maps/world_countries.js"></script>
+    <script src="../../node_modules/bootstrap_calendar/bootstrap_calendar/js/bootstrap_calendar.min.js"></script>
+    <script src="../../node_modules/jquery.animate-number/jquery.animateNumber.min.js"></script>
+    <!-- page specific js -->
+    <script src="../js/dashboard/index.js"></script>
+</body>
+</html>

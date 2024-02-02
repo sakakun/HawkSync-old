@@ -1,0 +1,2 @@
+To Do
+ - Test Generic Kick Function - Intent to reduce the number of functions to kick a player.  To be repeated for other PlayerList Context Menu functions.
