@@ -392,7 +392,7 @@ namespace HawkSync_SM
             update_query.Parameters.AddWithValue("@servername", server_name);
             update_query.Parameters.AddWithValue("@motd", motd);
             update_query.Parameters.AddWithValue("@countrycode", country_code);
-            update_query.Parameters.AddWithValue("@sessiontype", comboBox_sessionType.SelectedIndex);
+            update_query.Parameters.AddWithValue("@sessiontype", _state.Instances[ArrayID].SessionType);
             update_query.Parameters.AddWithValue("@server_password", server_password);
             update_query.Parameters.AddWithValue("@max_slots", max_slots);
             update_query.Parameters.AddWithValue("@start_delay", start_delay);
@@ -1095,7 +1095,7 @@ namespace HawkSync_SM
             textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
             textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
             textBox_passServer.Text = _state.Instances[ArrayID].Password;
-            comboBox_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            // comboBox_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
             comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
             comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);

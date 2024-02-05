@@ -277,6 +277,7 @@
     <Compile Include="Api\v1\PlayerManager.cs" />
     <Compile Include="Api\v1\UserController.cs" />
     <Compile Include="AppState.cs" />
+    <Compile Include="classes\IPManagement\IPManagement.cs" />
     <Compile Include="classes\MapManagement\autoRes.cs" />
     <Compile Include="classes\ChatManagement\auto_messages.cs" />
     <Compile Include="classes\MapManagement\AvailMaps.cs" />
@@ -328,8 +329,8 @@
     <Compile Include="GlobalAppState.cs" />
     <Compile Include="classes\StatManagement\InternalPlayerStats.cs" />
     <Compile Include="classes\StatManagement\InternalWeaponStats.cs" />
-    <Compile Include="classes\IPchecking\ipqualityClass.cs" />
-    <Compile Include="classes\IPchecking\ipqualityscore.cs" />
+    <Compile Include="classes\IPManagement\ipqualityClass.cs" />
+    <Compile Include="classes\IPManagement\ipqualityscore.cs" />
     <Compile Include="classes\MapManagement\MapList.cs" />
     <Compile Include="classes\StatManagement\monthlystats.cs" />
     <Compile Include="classes\PlayerManagement\playerbans.cs" />
@@ -382,9 +383,7 @@
       <DependentUpon>SM_ServerManager.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\ServerManagement\Instance.cs" />
-    <Compile Include="Main_Load.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Main_Load.cs" />
     <Compile Include="Main_Load.Designer.cs">
       <DependentUpon>Main_Load.cs</DependentUpon>
     </Compile>
@@ -401,11 +400,11 @@
     <Compile Include="Panels\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Main_Profilelist.cs">
+    <Compile Include="Panels\SM_Profilelist.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Main_Profilelist.Designer.cs">
-      <DependentUpon>Main_Profilelist.cs</DependentUpon>
+    <Compile Include="Panels\SM_Profilelist.Designer.cs">
+      <DependentUpon>SM_Profilelist.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -425,7 +424,6 @@
     <Compile Include="classes\PlayerManagement\VPNWhiteListClass.cs" />
     <Compile Include="classes\ChatManagement\WarnPlayerClass.cs" />
     <Compile Include="classes\SupportClasses\WeaponsClass.cs" />
-    <Compile Include="classes\RCClasses\WebAPIServer.cs" />
     <EmbeddedResource Include="Panels\ChatHistory.resx">
       <DependentUpon>ChatHistory.cs</DependentUpon>
     </EmbeddedResource>
@@ -459,8 +457,8 @@
     <EmbeddedResource Include="Main_Load.resx">
       <DependentUpon>Main_Load.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Main_Profilelist.resx">
-      <DependentUpon>Main_Profilelist.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\SM_Profilelist.resx">
+      <DependentUpon>SM_Profilelist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>

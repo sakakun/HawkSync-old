@@ -40,9 +40,9 @@ namespace HawkSync_SM
             dataGridView1.Columns["Mod Icon"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns["Mod Icon"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            chbox_enableRemote.Checked = ProgramConfig.EnableRC;
+            chbox_enableRemote.Checked = ProgramConfig.RCEnabled;
             num_remotePort.Value = ProgramConfig.RCPort;
-            num_remotePort.Enabled = ProgramConfig.EnableRC;
+            num_remotePort.Enabled = ProgramConfig.RCEnabled;
 
             if (ProgramConfig.EnableVPNCheck == true)
             {
@@ -100,13 +100,13 @@ namespace HawkSync_SM
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
             }
-            if (ProgramConfig.EnableRC != chbox_enableRemote.Checked)
+            if (ProgramConfig.RCEnabled != chbox_enableRemote.Checked)
             {
                 cmd.Parameters.AddWithValue("@newValue", Convert.ToInt32(chbox_enableRemote.Checked));
                 cmd.Parameters.AddWithValue("@key", "remote_client");
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
-                ProgramConfig.EnableRC = chbox_enableRemote.Checked;
+                ProgramConfig.RCEnabled = chbox_enableRemote.Checked;
                 if (chbox_enableRemote.Checked == false && _state.server.IsListening == true)
                 {
                     _state.server.Stop();

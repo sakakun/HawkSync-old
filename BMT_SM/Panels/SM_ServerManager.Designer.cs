@@ -29,6 +29,7 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_ServerManager));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -202,7 +203,7 @@ namespace HawkSync_SM
             this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.btn_addAutoMsg = new System.Windows.Forms.Button();
             this.text_newAutoMessage = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem134 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem135 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem136 = new System.Windows.Forms.ToolStripMenuItem();
@@ -218,7 +219,7 @@ namespace HawkSync_SM
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.label_interval = new System.Windows.Forms.Label();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -372,10 +373,10 @@ namespace HawkSync_SM
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem132 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
             this.tabControl3.SuspendLayout();
@@ -1765,6 +1766,7 @@ namespace HawkSync_SM
             // 
             // contextMenuStrip3
             // 
+            this.contextMenuStrip3.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem134,
             this.toolStripMenuItem135,
@@ -1885,6 +1887,7 @@ namespace HawkSync_SM
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem12,
             this.toolStripMenuItem133,
@@ -2033,8 +2036,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox2
             // 
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
             resources.ApplyResources(this.toolStripTextBox2, "toolStripTextBox2");
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox2_KeyPress);
             // 
             // toolStripMenuItem1
@@ -2137,8 +2140,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox3
             // 
-            this.toolStripTextBox3.Name = "toolStripTextBox3";
             resources.ApplyResources(this.toolStripTextBox3, "toolStripTextBox3");
+            this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox3_KeyPress);
             // 
             // toolStripMenuItem3
@@ -2226,8 +2229,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox4
             // 
-            this.toolStripTextBox4.Name = "toolStripTextBox4";
             resources.ApplyResources(this.toolStripTextBox4, "toolStripTextBox4");
+            this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox4_KeyPress);
             // 
             // toolStripMenuItem4
@@ -2315,8 +2318,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox5
             // 
-            this.toolStripTextBox5.Name = "toolStripTextBox5";
             resources.ApplyResources(this.toolStripTextBox5, "toolStripTextBox5");
+            this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox5_KeyPress);
             // 
             // toolStripMenuItem5
@@ -2404,8 +2407,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox6
             // 
-            this.toolStripTextBox6.Name = "toolStripTextBox6";
             resources.ApplyResources(this.toolStripTextBox6, "toolStripTextBox6");
+            this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox6_KeyPress);
             // 
             // toolStripMenuItem6
@@ -2493,8 +2496,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox7
             // 
-            this.toolStripTextBox7.Name = "toolStripTextBox7";
             resources.ApplyResources(this.toolStripTextBox7, "toolStripTextBox7");
+            this.toolStripTextBox7.Name = "toolStripTextBox7";
             this.toolStripTextBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox7_KeyPress);
             // 
             // toolStripMenuItem7
@@ -2582,8 +2585,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox8
             // 
-            this.toolStripTextBox8.Name = "toolStripTextBox8";
             resources.ApplyResources(this.toolStripTextBox8, "toolStripTextBox8");
+            this.toolStripTextBox8.Name = "toolStripTextBox8";
             this.toolStripTextBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox8_KeyPress);
             // 
             // toolStripMenuItem8
@@ -2671,8 +2674,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox9
             // 
-            this.toolStripTextBox9.Name = "toolStripTextBox9";
             resources.ApplyResources(this.toolStripTextBox9, "toolStripTextBox9");
+            this.toolStripTextBox9.Name = "toolStripTextBox9";
             this.toolStripTextBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox9_KeyPress);
             // 
             // toolStripMenuItem9
@@ -2760,8 +2763,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox10
             // 
-            this.toolStripTextBox10.Name = "toolStripTextBox10";
             resources.ApplyResources(this.toolStripTextBox10, "toolStripTextBox10");
+            this.toolStripTextBox10.Name = "toolStripTextBox10";
             this.toolStripTextBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox10_KeyPress);
             // 
             // toolStripMenuItem10
@@ -2849,8 +2852,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox11
             // 
-            this.toolStripTextBox11.Name = "toolStripTextBox11";
             resources.ApplyResources(this.toolStripTextBox11, "toolStripTextBox11");
+            this.toolStripTextBox11.Name = "toolStripTextBox11";
             this.toolStripTextBox11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox11_KeyPress);
             // 
             // toolStripMenuItem11
@@ -2938,8 +2941,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
             resources.ApplyResources(this.toolStripTextBox1, "toolStripTextBox1");
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
             // 
             // toolStripMenuItem132
@@ -2950,6 +2953,7 @@ namespace HawkSync_SM
             // 
             // contextMenuStrip2
             // 
+            this.contextMenuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem16,
             this.toolStripMenuItem35});

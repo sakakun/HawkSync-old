@@ -229,11 +229,11 @@
     <Compile Include="Panels\RC_PopupSaveRotation.Designer.cs">
       <DependentUpon>RC_PopupSaveRotation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Profilelist.cs">
+    <Compile Include="Panels\RC_Profilelist.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Profilelist.Designer.cs">
-      <DependentUpon>Profilelist.cs</DependentUpon>
+    <Compile Include="Panels\RC_Profilelist.Designer.cs">
+      <DependentUpon>RC_Profilelist.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgramConfig.cs" />
@@ -286,8 +286,8 @@
     <EmbeddedResource Include="Panels\RC_PopupSaveRotation.resx">
       <DependentUpon>RC_PopupSaveRotation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Profilelist.resx">
-      <DependentUpon>Profilelist.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\RC_Profilelist.resx">
+      <DependentUpon>RC_Profilelist.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

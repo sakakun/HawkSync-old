@@ -49,7 +49,7 @@ namespace HawkSync_SM
             }
             if (userid == -1)
             {
-                if (ProgramConfig.Debug)
+                if (ProgramConfig.ApplicationDebug)
                 {
                     log.Error("Something went wrong while fetching Player History Users...");
                 }
@@ -209,7 +209,7 @@ namespace HawkSync_SM
             }
             if (found == false || PlayerID == -1)
             {
-                if (ProgramConfig.Debug)
+                if (ProgramConfig.ApplicationDebug)
                 {
                     log.Error("Something went wrong when attempting to form a Player ID.");
                 }

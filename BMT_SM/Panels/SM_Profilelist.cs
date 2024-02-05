@@ -24,7 +24,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_SM
 {
-    public partial class Main_Profilelist : Form
+    public partial class SM_Profilelist : Form
     {
         // Import of Dynamic Link Libraries
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -79,7 +79,7 @@ namespace HawkSync_SM
         // - public Thread QueueHandler { get; set; }
 
         // Server Manager - Game Profile List
-        public Main_Profilelist(AppState state)
+        public SM_Profilelist(AppState state)
         {
             _state = state;
             InitializeComponent();
@@ -90,7 +90,7 @@ namespace HawkSync_SM
                 CheckHandlers();
                 UpdateTick();
                 checkPlayerHistory();
-                plugin_WelcomePlayers();
+                //plugin_WelcomePlayers();
                 //update_master();
                 update_novahq();
                 update_novacc();
@@ -319,7 +319,7 @@ namespace HawkSync_SM
                     {
                         BaseAddress = "http://nw.novahq.net/"
                     };
-                    /*client.Headers["User-Agent"] = "Babstats v4 " + ProgramConfig.version;*/
+                    /*client.Headers["User-Agent"] = "Babstats v4 " + ProgramConfig.ApplicationVersion;*/
                     client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
                     client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
                     NameValueCollection vars = new NameValueCollection
@@ -396,36 +396,6 @@ namespace HawkSync_SM
                 {
                     continue;
                 }
-            }
-        }
-
-        private void CheckForExpiredRCClients()
-        {
-            if (DateTime.Compare(ProgramConfig.checkRCClientsDate, DateTime.Now) == -1)
-            {
-                List<string> removalList = new List<string>();
-                foreach (var RCClient in _state.rcClients)
-                {
-                    if (DateTime.Compare(DateTime.Parse(RCClient.Value.expires), DateTime.Now) == -1)
-                    {
-                        removalList.Add(RCClient.Key);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                foreach (string sessionid in removalList)
-                {
-                    _state.rcClients[sessionid].authenticated = false;
-                    _state.rcClients[sessionid].active = false;
-                    _state.rcClients.Remove(sessionid);
-                }
-                ProgramConfig.checkRCClientsDate = DateTime.Now.AddMinutes(ProgramConfig.checkRCClientsInterval);
-            }
-            else
-            {
-                return;
             }
         }
 
@@ -871,28 +841,6 @@ namespace HawkSync_SM
             return systemInfo;
         }
 
-        private void CheckForUpdates()
-        {
-            // Remove Updates
-            return;
-        }
-
-        private string GetMACAddress()
-        {
-            List<string> macAddresses = new List<string>();
-
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.OperationalStatus == OperationalStatus.Up && nic.NetworkInterfaceType != NetworkInterfaceType.Loopback)
-                {
-                    macAddresses.Add(nic.GetPhysicalAddress().ToString());
-                    break;
-                }
-            }
-            string jsonMacAddresses = JsonConvert.SerializeObject(macAddresses);
-            return jsonMacAddresses;
-        }
-
         private void CheckForExpiredBans()
         {
             foreach (var inst in _state.Instances)
@@ -1019,14 +967,6 @@ namespace HawkSync_SM
             }
         }
 
-        private static string GetCommandLine(Process process)
-        {
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT CommandLine FROM Win32_Process WHERE ProcessId = " + process.Id))
-            using (ManagementObjectCollection objects = searcher.Get())
-            {
-                return objects.Cast<ManagementBaseObject>().SingleOrDefault()?["CommandLine"]?.ToString();
-            }
-        }
         private void beginRCListen()
         {
             try
@@ -1039,7 +979,7 @@ namespace HawkSync_SM
                 server.Events.StreamReceived += Events_StreamReceived;
                 server.Events.ExceptionEncountered += Events_ExceptionEncountered;
                 server.Callbacks.SyncRequestReceived = RunRCCmd;
-                if (ProgramConfig.EnableRC == true)
+                if (ProgramConfig.RCEnabled == true)
                 {
                     server.Start();
                 }
@@ -1448,12 +1388,12 @@ namespace HawkSync_SM
                     var PID = item.Value.PID.GetValueOrDefault();
                     if (ProcessExist(PID))
                     {
-                        if (!string.IsNullOrEmpty(item.Value.ServerName) || !string.IsNullOrEmpty(ProgramConfig.ipaddress))
+                        if (!string.IsNullOrEmpty(item.Value.ServerName) || !string.IsNullOrEmpty(ProgramConfig.PublicIP))
                         {
                             string bindaddr = "";
                             if (item.Value.BindAddress == "0.0.0.0" || item.Value.BindAddress == "")
                             {
-                                bindaddr = ProgramConfig.ipaddress;
+                                bindaddr = ProgramConfig.PublicIP;
                             }
                             else
                             {
@@ -1945,13 +1885,13 @@ namespace HawkSync_SM
                 while (reader.Read())
                 {
                     string bannedIP = "";
-                    if (reader.GetString(reader.GetOrdinal("ipaddress")) == "-1")
+                    if (reader.GetString(reader.GetOrdinal("PublicIP")) == "-1")
                     {
                         bannedIP = "None";
                     }
                     else
                     {
-                        bannedIP = reader.GetString(reader.GetOrdinal("ipaddress"));
+                        bannedIP = reader.GetString(reader.GetOrdinal("PublicIP"));
                     }
                     Currentbans.Add(new playerbans
                     {
@@ -2933,7 +2873,7 @@ namespace HawkSync_SM
                                         if (instance.IsRunningPostGameProcesses == false)
                                         {
                                             instance.IsRunningPostGameProcesses = true;
-                                            if (ProgramConfig.Debug)
+                                            if (ProgramConfig.ApplicationDebug)
                                             {
                                                 log.Info("Instance " + rowId + " is running the Loading Process Handler.");
                                             }
@@ -2952,7 +2892,7 @@ namespace HawkSync_SM
                                     {
                                         if (instance.IsRunningScoringGameProcesses == false)
                                         {
-                                            if (ProgramConfig.Debug)
+                                            if (ProgramConfig.ApplicationDebug)
                                             {
                                                 log.Info("Instance " + rowId + " is running the Scoring Process Handler.");
                                             }
@@ -3040,7 +2980,7 @@ namespace HawkSync_SM
                             }
                             catch (Exception e)
                             {
-                                if (ProgramConfig.Debug)
+                                if (ProgramConfig.ApplicationDebug)
                                 {
                                     _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
                                     log.Error("An error occurred: " + e);

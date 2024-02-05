@@ -86,23 +86,39 @@ namespace HawkSync_SM
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr2Addr + 0x11, CounryCode, CounryCode.Length, ref bytesWritten);
         }
 
-        public void UpdateServerPassword(AppState _state, int InstanceID)
+        public void UpdateServerPassword(AppState _state, int InstanceID, int oldPwLength)
         {
+
             var baseAddr = 0x400000;
 
             byte[] Ptr1 = new byte[4];
-            int PtrRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x00085904, Ptr1, Ptr1.Length, ref PtrRead);
+            byte[] Ptr2 = new byte[4];
+            byte[] Ptr3 = new byte[4];
+            int Ptr1Read = 0;
+            int Ptr2Read = 0;
+            int Ptr3Read = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x005f2028, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x006343A0, Ptr2, Ptr2.Length, ref Ptr2Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x00ACE088, Ptr3, Ptr3.Length, ref Ptr3Read);
 
-            int Ptr2 = BitConverter.ToInt32(Ptr1, 0);
-            byte[] AutoRes_ServerPasswordBytes = new byte[16];
-            int AutoRes_ServerPasswordBytesRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)Ptr2, AutoRes_ServerPasswordBytes, AutoRes_ServerPasswordBytes.Length, ref AutoRes_ServerPasswordBytesRead);
-            string ServerPassword = Encoding.Default.GetString(AutoRes_ServerPasswordBytes);
+            int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
+            int Ptr2Addr = BitConverter.ToInt32(Ptr2, 0);
+            int Ptr3Addr = BitConverter.ToInt32(Ptr3, 0);
+            byte[] ServerPasswordBytes = new byte[16];
+            int ServerPasswordRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, Ptr1Addr, ServerPasswordBytes, ServerPasswordBytes.Length, ref ServerPasswordRead);
+            string ServerPassword = Encoding.Default.GetString(ServerPasswordBytes).Replace("\0", "");
 
-            byte[] AutoResServerPasswordBytes = Encoding.Default.GetBytes(_state.Instances[InstanceID].Password);
-            int AutoResServerPasswordWrittenBytes = 0;
-            MemoryProcessor.Write(_state.Instances[InstanceID], Ptr2, AutoResServerPasswordBytes, AutoResServerPasswordBytes.Length, ref AutoResServerPasswordWrittenBytes);
+            int ServerPasswordWritten = 0;
+            byte[] ServerPasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].Password);
+            if (ServerPasswordWrite.Length == 0)
+            {
+                ServerPasswordWrite = new byte[oldPwLength];
+            }
+            MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, ServerPasswordWrite, ServerPasswordWrite.Length, ref ServerPasswordWritten);
+            MemoryProcessor.Write(_state.Instances[InstanceID], Ptr2Addr, ServerPasswordWrite, ServerPasswordWrite.Length, ref ServerPasswordWritten);
+            MemoryProcessor.Write(_state.Instances[InstanceID], Ptr3Addr, ServerPasswordWrite, ServerPasswordWrite.Length, ref ServerPasswordWritten);
+
         }
 
         internal void UpdateSessionType(AppState _state, int InstanceID)
@@ -425,7 +441,7 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x000A7088, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x005F204A, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] BluePasswordBytes = new byte[16];
@@ -448,7 +464,7 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x00085904, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x006343D3, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] RedPasswordBytes = new byte[16];

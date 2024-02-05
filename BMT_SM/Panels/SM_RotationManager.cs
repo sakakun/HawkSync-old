@@ -160,7 +160,7 @@ namespace HawkSync_SM
                     numCmd.Dispose();
                     nextID++;
                 }
-                if (ProgramConfig.Debug)
+                if (ProgramConfig.ApplicationDebug)
                 {
                     log.Info("Creating new entry for instances_map_rotations: ID: " + nextID);
                 }
@@ -192,7 +192,7 @@ namespace HawkSync_SM
             }
             else
             {
-                if (ProgramConfig.Debug)
+                if (ProgramConfig.ApplicationDebug)
                 {
                     log.Info("Updating entry for instances_map_rotations.");
                 }
@@ -263,7 +263,7 @@ namespace HawkSync_SM
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `rotation_id` = @rotationid;", db);
             int memoryLoc = selectedCycle - 1;
-            if (ProgramConfig.Debug)
+            if (ProgramConfig.ApplicationDebug)
             {
                 log.Info("Removing Rotation: " + _state.Instances[ArrayID].savedmaprotations[memoryLoc].RotationID);
             }

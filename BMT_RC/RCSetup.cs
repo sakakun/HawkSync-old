@@ -86,7 +86,7 @@ namespace HawkSync_RC
                 {
                     sm.Close();
                 }
-                Profilelist pl = (Profilelist)Application.OpenForms["Profilelist"];
+                RC_Profilelist pl = (RC_Profilelist)Application.OpenForms["Profilelist"];
                 if (pl != null)
                 {
                     pl.Close();

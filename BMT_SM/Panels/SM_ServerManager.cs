@@ -1913,8 +1913,9 @@ namespace HawkSync_SM
              */
             if (smT_serverPassword.Text != _state.Instances[ArrayID].Password)
             {
+                int oldPw = _state.Instances[ArrayID].Password.Length;
                 _state.Instances[ArrayID].Password = smT_serverPassword.Text;
-                serverManagerUpdateMemory.UpdateServerPassword(_state, ArrayID);
+                serverManagerUpdateMemory.UpdateServerPassword(_state, ArrayID, oldPw);
                 SQLiteCommand updateServerPasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `server_password` = @serverpassword WHERE `profile_id` = @profileid;", db);
                 updateServerPasswordCmd.Parameters.AddWithValue("@serverpassword", smT_serverPassword.Text);
                 updateServerPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
@@ -2519,10 +2520,10 @@ namespace HawkSync_SM
             });
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
-            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @ipaddress);", db);
+            SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
             cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
             cmd.Parameters.AddWithValue("@description", description);
-            cmd.Parameters.AddWithValue("@ipaddress", ipaddress.ToString());
+            cmd.Parameters.AddWithValue("@PublicIP", ipaddress.ToString());
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
@@ -2556,10 +2557,10 @@ namespace HawkSync_SM
             int index = dataGridView4.SelectedCells[0].RowIndex;
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
-            SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid AND `description` = @description AND `address` = @ipaddress;", db);
+            SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid AND `description` = @description AND `address` = @PublicIP;", db);
             cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
             cmd.Parameters.AddWithValue("@description", _state.Instances[ArrayID].VPNWhiteList[index].Description);
-            cmd.Parameters.AddWithValue("@ipaddress", _state.Instances[ArrayID].VPNWhiteList[index].IPAddress.ToString());
+            cmd.Parameters.AddWithValue("@PublicIP", _state.Instances[ArrayID].VPNWhiteList[index].IPAddress.ToString());
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
@@ -2973,7 +2974,7 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
 
-            SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
+            SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `PublicIP`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
             query.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
             query.Parameters.AddWithValue("@playername", playerName);
             query.Parameters.AddWithValue("@playerip", ipaddress);

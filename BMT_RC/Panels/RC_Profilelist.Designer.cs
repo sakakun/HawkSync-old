@@ -1,7 +1,7 @@
 ﻿
 namespace HawkSync_RC
 {
-    partial class Profilelist
+    partial class RC_Profilelist
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace HawkSync_RC
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profilelist));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RC_Profilelist));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button6 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();

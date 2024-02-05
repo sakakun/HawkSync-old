@@ -519,7 +519,7 @@ namespace HawkSync_SM.RCClasses
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
-                    SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
+                    SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `PublicIP`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
                     query.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
                     query.Parameters.AddWithValue("@playername", playerName);
                     query.Parameters.AddWithValue("@playerip", ipaddress);
@@ -3370,7 +3370,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
                     _state.Instances[InstanceIndex].Password = password;
-                    serverManagerUpdateMemory.UpdateServerPassword(_state, InstanceIndex);
+                    serverManagerUpdateMemory.UpdateServerPassword(_state, InstanceIndex, password.Length);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
@@ -3656,10 +3656,10 @@ namespace HawkSync_SM.RCClasses
                         });
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();
-                        SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @ipaddress);", db);
+                        SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
                         cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
                         cmd.Parameters.AddWithValue("@description", description);
-                        cmd.Parameters.AddWithValue("@ipaddress", PlayerIP.ToString());
+                        cmd.Parameters.AddWithValue("@PublicIP", PlayerIP.ToString());
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
 

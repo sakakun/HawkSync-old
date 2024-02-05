@@ -14,7 +14,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_RC
 {
-    public partial class Profilelist : Form
+    public partial class RC_Profilelist : Form
     {
         AppState _state;
         RCSetup _setup;
@@ -24,7 +24,7 @@ namespace HawkSync_RC
         DataTable TVInstances;
         Bitmap img;
         Bitmap statusIMG;
-        public Profilelist(AppState state, RCSetup setup)
+        public RC_Profilelist(AppState state, RCSetup setup)
         {
             InitializeComponent();
             _state = state;

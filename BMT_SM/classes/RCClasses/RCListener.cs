@@ -67,7 +67,7 @@ namespace HawkSync_SM
                         {
                             reply.Add("action", "BMTRC.Open");
                             reply.Add("LoginMessage", RCListenerClass.StatusCodes.UPDATEREQUIRED);
-                            reply.Add("message", "RC Version is out of date. Please update to the latest version.");
+                            reply.Add("message", "RC Version is out of date. Please update to the latest ApplicationVersion.");
                             reply.Add("sessionID", string.Empty);
                             return Encoding.Default.GetBytes(JsonConvert.SerializeObject(reply));
                         }
@@ -775,7 +775,7 @@ namespace HawkSync_SM
                         var jsonready3 = JsonConvert.SerializeObject(reply);
                         _state.rcClients[json.SessionID].authenticated = false;
                         _state.rcClients[json.SessionID].active = false;
-                        if (ProgramConfig.Debug)
+                        if (ProgramConfig.ApplicationDebug)
                         {
                             log.Info(">> Client Number: " + clientNo + " has disconnected.");
                         }

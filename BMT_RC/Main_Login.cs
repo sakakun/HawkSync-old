@@ -27,7 +27,7 @@ namespace HawkSync_RC
         public Timer Ticker;
         clientClass clientClass;
         Thread updateInternal;
-        Profilelist profileList;
+        RC_Profilelist profileList;
         bool openedProfileList;
         //Timer updateInternal;
 
@@ -54,7 +54,7 @@ namespace HawkSync_RC
             /*updateInternal.Tick += UpdateInternal_Tick;
             updateInternal.Interval = 100;*/
             updateInternal = new Thread(UpdateInternal);
-            profileList = new Profilelist(_state, RCSetup);
+            profileList = new RC_Profilelist(_state, RCSetup);
             openedProfileList = false;
         }
 
@@ -166,7 +166,7 @@ namespace HawkSync_RC
                 {
                     sm.Close();
                 }
-                Profilelist pl = (Profilelist)Application.OpenForms["Profilelist"];
+                RC_Profilelist pl = (RC_Profilelist)Application.OpenForms["Profilelist"];
                 if (pl != null)
                 {
                     pl.Close();
@@ -405,7 +405,7 @@ namespace HawkSync_RC
                     Options(true);
                     clientClass = new clientClass();
                     _state = new AppState(); // added to prevent data overflow from switching between TV clients
-                    profileList = new Profilelist(_state, RCSetup);
+                    profileList = new RC_Profilelist(_state, RCSetup);
                     RCSetup.clientAddress = IPAddress.Parse("0.0.0.0");
                     button12.Enabled = false;
                 }
@@ -652,7 +652,7 @@ namespace HawkSync_RC
 
         private void button12_Click(object sender, EventArgs e)
         {
-            Profilelist profileList = new Profilelist(_state, RCSetup);
+            RC_Profilelist profileList = new RC_Profilelist(_state, RCSetup);
             this.Hide();
             profileList.ShowDialog();
             this.Show();

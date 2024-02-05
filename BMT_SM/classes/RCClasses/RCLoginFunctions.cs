@@ -59,7 +59,7 @@ namespace HawkSync_SM.RCClasses
                         _state.rcClients[sessionid].SetSessionUsername(username);
                         _state.rcClients[sessionid].active = true;
                         _state.rcClients[sessionid].authenticated = true;
-                        if (ProgramConfig.Debug)
+                        if (ProgramConfig.ApplicationDebug)
                         {
                             log.Info(">> Client Number: " + _state.rcClients[sessionid].clientNo + " has authenicated as: " + _state.rcClients[sessionid]._username);
                         }
