@@ -1847,7 +1847,7 @@ namespace HawkSync_SM
         // update server setttings button
         private void click_updateServerSettings(object sender, EventArgs e)
         {
-            ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+            ServerManagement serverManagerUpdateMemory = new ServerManagement();
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -3214,7 +3214,7 @@ namespace HawkSync_SM
             {
                 _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, map);
             }
-            ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+            ServerManagement serverManagerUpdateMemory = new ServerManagement();
             serverManagerUpdateMemory.UpdateMapCycle(_state, ArrayID);
             serverManagerUpdateMemory.UpdateMapCycle2(_state, ArrayID);
 
@@ -3250,7 +3250,7 @@ namespace HawkSync_SM
                 MessageBox.Show("Please select a map on the RIGHT side.", "Error");
                 return;
             }
-            ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+            ServerManagement serverManagerUpdateMemory = new ServerManagement();
             serverManagerUpdateMemory.UpdateNextMap(_state, ArrayID, list_mapRotation.SelectedIndex);
             //_state.Instances[ArrayID].mapListCount = _state.Instances[ArrayID].MapList.Count;
             MessageBox.Show("Next Map Updated Successfully!", "Success");

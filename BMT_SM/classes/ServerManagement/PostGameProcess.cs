@@ -4,8 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace HawkSync_SM
 {
-    public class LoadingProcessHandler : ProcessHandler
+    //
+    public class PostGameProcess : ProcessHandler
     {
+        // Various Hexadecimal values for Windows/Game Console
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
         const int PROCESS_VM_OPERATION = 0x0008;
@@ -42,14 +44,16 @@ namespace HawkSync_SM
         CollectedPlayerStatsPlayers _collectedPlayerStats;
         int ArrayID = 0;
 
-        public LoadingProcessHandler(AppState state, int instanceid, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public PostGameProcess(AppState state, int instanceid, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
         {
+            ArrayID = instanceid;
+
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
             _chatLogs = chatlogs;
-            ArrayID = instanceid;
             _collectedPlayerStats = collectedPlayerStats;
             _connection.Open();
+
         }
         public void Run()
         {

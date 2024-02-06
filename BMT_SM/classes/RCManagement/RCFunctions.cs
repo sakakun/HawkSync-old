@@ -963,7 +963,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateMapCycle(_state, InstanceIndex);
                     Thread.Sleep(1000);
                     _state.Instances[InstanceIndex].previousMapList = new Dictionary<int, MapList>();
@@ -1059,15 +1059,15 @@ namespace HawkSync_SM.RCClasses
                     {
                         case 1:
                             colorcode = HexConverter.ToByteArray("6A 04".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                         case 2:
                             colorcode = HexConverter.ToByteArray("6A 05".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                         default:
                             colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                     }
                     // post message
@@ -1077,7 +1077,7 @@ namespace HawkSync_SM.RCClasses
                     int bytesWritten = 0;
                     byte[] buffer;
                     buffer = Encoding.Default.GetBytes($"{Msg}\0"); // '\0' marks the end of string
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
                     Thread.Sleep(50);
                     PostMessage(h, (ushort)WM_KEYDOWN, (ushort)VK_ENTER, 0);
                     PostMessage(h, (ushort)WM_KEYUP, (ushort)VK_ENTER, 0);
@@ -1086,7 +1086,7 @@ namespace HawkSync_SM.RCClasses
                     Thread.Sleep(50);
                     int revert_colorbuffer = 0;
                     byte[] revert_colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
                     process.Dispose();
 
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1143,7 +1143,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].RespawnTime = respawnTime;
                     serverManagerUpdateMemory.UpdateRespawnTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1206,7 +1206,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].FlagReturnTime = flagReturnTime;
                     serverManagerUpdateMemory.UpdateFlagReturnTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1268,7 +1268,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].FriendlyFireKills = friendlyFireKills;
                     serverManagerUpdateMemory.UpdateFriendlyFireKills(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1476,7 +1476,7 @@ namespace HawkSync_SM.RCClasses
                     int dedicatedSlots = _state.Instances[InstanceIndex].MaxSlots + Convert.ToInt32(_state.Instances[InstanceIndex].Dedicated);
                     bool loopMaps = true;
 
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     int gamePlayOptionsInt = serverManagerUpdateMemory.CalulateGameOptions(_state, InstanceIndex);
 
                     string _miscGraphicSettings = "00 0E 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3F 06 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 10 00 00 00 10 00 00 00 10 00 00 08 00 00 00 01 00 00 00 00 10 00 00 00 00 D0 1E 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 1E 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 03 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 04 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 02 00 00 00 01 00 00 00";
@@ -1789,35 +1789,35 @@ namespace HawkSync_SM.RCClasses
                     updatePID.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
                     updatePID.ExecuteNonQuery();
 
-                    _state.Instances[InstanceIndex].Handle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[InstanceIndex].PID.GetValueOrDefault());
+                    _state.Instances[InstanceIndex].ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[InstanceIndex].PID.GetValueOrDefault());
                     _state.ApplicationProcesses[InstanceIndex] = startInstance;
                     var baseAddr = 0x400000;
 
                     int MapListMoveGarbageAddress = baseAddr + 0x5EA7B8;
                     byte[] CurrentAddressBytes = new byte[4];
                     int CurrentAddressRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceIndex].Handle, MapListMoveGarbageAddress, CurrentAddressBytes, CurrentAddressBytes.Length, ref CurrentAddressRead);
+                    ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, MapListMoveGarbageAddress, CurrentAddressBytes, CurrentAddressBytes.Length, ref CurrentAddressRead);
                     int CurrentAddress = BitConverter.ToInt32(CurrentAddressBytes, 0);
                     int NewAddress = CurrentAddress + 0x350;
 
                     byte[] NewAddressBytes = BitConverter.GetBytes(NewAddress);
                     int NewAddressWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, MapListMoveGarbageAddress, NewAddressBytes, NewAddressBytes.Length, ref NewAddressWritten);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, MapListMoveGarbageAddress, NewAddressBytes, NewAddressBytes.Length, ref NewAddressWritten);
 
                     int mapListLocationPtr = baseAddr + 0x005ED5F8;
                     byte[] mapListLocationPtrBytes = new byte[4];
                     int mapListLocationBytesPtrRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceIndex].Handle, mapListLocationPtr, mapListLocationPtrBytes, mapListLocationPtrBytes.Length, ref mapListLocationBytesPtrRead);
+                    ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListLocationPtr, mapListLocationPtrBytes, mapListLocationPtrBytes.Length, ref mapListLocationBytesPtrRead);
 
                     int mapListNumberOfMaps = BitConverter.ToInt32(mapListLocationPtrBytes, 0) + 0x4;
                     byte[] numberOfMaps = BitConverter.GetBytes(_state.Instances[InstanceIndex].MapList.Count);
                     int numberofMapsWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, mapListNumberOfMaps, numberOfMaps, numberOfMaps.Length, ref numberofMapsWritten);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListNumberOfMaps, numberOfMaps, numberOfMaps.Length, ref numberofMapsWritten);
 
                     mapListNumberOfMaps += 0x4;
                     byte[] TotalnumberOfMaps = BitConverter.GetBytes(_state.Instances[InstanceIndex].MapList.Count);
                     int TotalnumberofMapsWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, mapListNumberOfMaps, TotalnumberOfMaps, TotalnumberOfMaps.Length, ref TotalnumberofMapsWritten);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListNumberOfMaps, TotalnumberOfMaps, TotalnumberOfMaps.Length, ref TotalnumberofMapsWritten);
 
                     serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, InstanceIndex);
                     serverManagerUpdateMemory.UpdateDestroyBuildings(_state, InstanceIndex);
@@ -1997,7 +1997,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].MaxTeamLives = maxTeamLives;
                     serverManagerUpdateMemory.UpdateMaxTeamLives(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -2059,7 +2059,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].PSPTakeOverTime = pSPTime;
                     serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -2121,7 +2121,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].AllowCustomSkins = allowCustomSkins;
                     serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -2183,7 +2183,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     int oldPw = _state.Instances[InstanceIndex].BluePassword.Length;
                     _state.Instances[InstanceIndex].BluePassword = bluePassword;
                     serverManagerUpdateMemory.UpdateBluePassword(_state, InstanceIndex, oldPw);
@@ -2730,7 +2730,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].WeaponRestrictions = weapons;
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
@@ -2857,7 +2857,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].FriendlyFire = friendlyFire;
                     _state.Instances[InstanceIndex].FriendlyTags = friendlyTags;
                     _state.Instances[InstanceIndex].ShowTeamClays = showTeamClays;
@@ -2932,7 +2932,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     int oldPw = _state.Instances[InstanceIndex].RedPassword.Length;
                     _state.Instances[InstanceIndex].RedPassword = redPassword;
                     serverManagerUpdateMemory.UpdateRedPassword(_state, InstanceIndex, oldPw);
@@ -2995,7 +2995,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].MOTD = MOTD;
                     serverManagerUpdateMemory.UpdateMOTD(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3057,7 +3057,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].RequireNovaLogin = requireNovaLogin;
                     serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3120,7 +3120,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].LoopMaps = loopMaps;
                     serverManagerUpdateMemory.UpdateLoopMaps(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3182,7 +3182,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].StartDelay = startDelay;
                     serverManagerUpdateMemory.UpdateStartDelay(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3244,7 +3244,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].TimeLimit = timeLimit;
                     serverManagerUpdateMemory.UpdateTimeLimit(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3306,7 +3306,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].SessionType = sessionType;
                     serverManagerUpdateMemory.UpdateSessionType(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3368,7 +3368,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].Password = password;
                     serverManagerUpdateMemory.UpdateServerPassword(_state, InstanceIndex, password.Length);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3430,7 +3430,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].CountryCode = countryCode;
                     serverManagerUpdateMemory.UpdateCountryCode(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3492,7 +3492,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].ServerName = serverName;
                     serverManagerUpdateMemory.UpdateServerName(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -3563,11 +3563,11 @@ namespace HawkSync_SM.RCClasses
                         var Pointer = baseAddr + 0x005ED600;
 
                         // read the playerlist memory address from the game...
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].Handle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                         var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                         byte[] playerListStartingLocationByteArray = new byte[4];
                         int playerListStartingLocationBuffer = 0;
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].Handle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                         int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                         for (int i = 1; i < slotNum; i++)
@@ -3576,7 +3576,7 @@ namespace HawkSync_SM.RCClasses
                         }
                         byte[] playerObjectLocationBytes = new byte[4];
                         int playerObjectLocationRead = 0;
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].Handle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
                         int playerObjectLocation = BitConverter.ToInt32(playerObjectLocationBytes, 0);
 
                         byte[] setPlayerHealth = BitConverter.GetBytes(100); //set god mode health
@@ -3585,8 +3585,8 @@ namespace HawkSync_SM.RCClasses
                         byte[] setDamageBy = BitConverter.GetBytes(0);
                         int setDamageByWrite = 0;
 
-                        WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
-                        WriteProcessMemory((int)_state.Instances[InstanceIndex].Handle, playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
+                        WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
+                        WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
 
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();
@@ -4031,7 +4031,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateNextMap(_state, InstanceIndex, slot);
                     _state.Instances[InstanceIndex].mapListCount = _state.Instances[InstanceIndex].MapList.Count;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);

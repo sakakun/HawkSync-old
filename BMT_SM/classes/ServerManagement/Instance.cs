@@ -116,7 +116,7 @@ namespace HawkSync_SM
         public List<PreviousTeams> previousTeams { get; set; }
         public Dictionary<int, MapList> availableMaps { get; set; }
         public List<savedmaprotations> savedmaprotations { get; set; }
-        public IntPtr Handle { get; set; }
+        public IntPtr ProcessHandle { get; set; }
         public int nextMapGameType { get; set; }
         public Timer ScoreboardTimer { get; set; }
         public bool ReportNovaHQ { get; set; }

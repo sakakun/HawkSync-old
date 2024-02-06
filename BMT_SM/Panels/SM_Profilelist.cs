@@ -26,6 +26,12 @@ namespace HawkSync_SM
 {
     public partial class SM_Profilelist : Form
     {
+        // Nothing controling the game should be in this window.  Should be in the ServerProcessHandler.cs
+        // Goal to move all game control to ServerProcessHandler.cs and write the RC API to point to those methods.
+
+        // Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         // Import of Dynamic Link Libraries
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
@@ -50,17 +56,18 @@ namespace HawkSync_SM
         const int console = 0xC0;
         const int GlobalChat = 0x54;
 
+        // Number of RC Clients
+        int numClientsRC;
+
         // Object: GameTypes
-        Dictionary<int, GameType> bitmapsAndGameTypes = new Dictionary<int, GameType>();
-        // Object: DataTable
-        public DataTable table = new DataTable();
-        // Object: MapList
-        public Dictionary<int, Dictionary<int, MapList>> maPList = new Dictionary<int, Dictionary<int, MapList>>();
-        // Object: Application Settings Database
-        public SQLiteConnection gametype_db = new SQLiteConnection(ProgramConfig.DBConfig);
+        Dictionary<int, GameType> gameTypes = new Dictionary<int, GameType>();
+        public DataTable table_profileList = new DataTable();
+        public Dictionary<int, Dictionary<int, MapList>> mapList = new Dictionary<int, Dictionary<int, MapList>>();
+        public SQLiteConnection hawkSyncDB = new SQLiteConnection(ProgramConfig.DBConfig);
 
         // Object: Application State (Server Manager)       
         public AppState _state;
+        public ServerManagement serverManagement = new ServerManagement();
 
         // Object: Ticker (Used to Refresh Information x Seconds
         private Timer Ticker = new Timer()
@@ -69,816 +76,35 @@ namespace HawkSync_SM
             Interval = 100
         };
 
-        // Logging
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
-        // Client Number (Unsure Purpose)
-        int clineNo;
-
-        // Disabled or Unused objects.
-        // - public Thread QueueHandler { get; set; }
-
-        // Server Manager - Game Profile List
+        // Server Manager - Game Profile List (Main Process)
         public SM_Profilelist(AppState state)
         {
+            // Launch GUI
             _state = state;
-            InitializeComponent();
+            InitializeComponent();                                                                // Load GUI (Desinger Elements)
 
-            // add autofill on launch for reattachments
+            // Ticker Checks
             Ticker.Tick += (sender, e) =>
             {
-                CheckHandlers();
-                UpdateTick();
-                checkPlayerHistory();
-                //plugin_WelcomePlayers();
-                //update_master();
-                update_novahq();
-                update_novacc();
-                cleanRCClients();
-                CheckForExpiredBans();
-                //CheckForUpdates();
-                //CheckForExpiredRCClients();
+                InstanceSeverCheck();                                                             // Instance Status Check
+                InstanceTicker();                                                                 // Instance Ticker
+                (new PlayerManagement()).checkPlayerHistory(ref _state);                          // Process Player History
+                (new PlayerManagement()).checkExpiredBans(ref _state);                            // Check for Expired Bans
+                (new HeartBeatMonitor()).ProcessHeartBeats(ref _state);                           // HeartBeat Monitor Hook
+
+                RC_CleanClientConnections();                                                      // Clean RC Connections
+                
             };
-            gametype_db.Open();
-            SetupAppState(gametype_db);
-            GetGameTypes(gametype_db);
-            beginRCListen();
-            //SetupWebServer(gametype_db);
-            gametype_db.Close();
+
+            // Server Manager Specific Events
+            hawkSyncDB.Open();
+            SetupAppState(hawkSyncDB);
+            GetGameTypes(hawkSyncDB);
+            RC_BeginListening();
+            hawkSyncDB.Close();
+
         }
 
-        private void CheckHandlers()
-        {
-            foreach (var instance in _state.Instances)
-            {
-                if (instance.Value.Handle == IntPtr.Zero)
-                {
-                    if (ProcessExist(instance.Value.PID.GetValueOrDefault()))
-                    {
-                        instance.Value.Handle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.Value.PID.GetValueOrDefault());
-                        if (instance.Value.Handle == IntPtr.Zero)
-                        {
-                            log.Error("Failed to attach to process " + instance.Value.PID.GetValueOrDefault());
-                        }
-                        else
-                        {
-                            log.Info("Attached to process " + instance.Value.PID.GetValueOrDefault());
-                        }
-                        if (!_state.ApplicationProcesses.ContainsKey(instance.Key))
-                        {
-                            _state.ApplicationProcesses.Add(instance.Key, Process.GetProcessById(instance.Value.PID.GetValueOrDefault()));
-                        }
-                    }
-                }
-            }
-        }
-
-        private void plugin_WelcomePlayers()
-        {
-            foreach (var item in _state.Instances)
-            {
-                if (!item.Value.Plugins.WelcomeMessage)
-                {
-                    return;
-                }
-                else
-                {
-                    if (item.Value.Status == InstanceStatus.OFFLINE || item.Value.Status == InstanceStatus.LOADINGMAP || item.Value.Status == InstanceStatus.SCORING)
-                    {
-                        return;
-                    }
-                    foreach (var wm in item.Value.WelcomeQueue)
-                    {
-                        if (DateTime.Compare(item.Value.WelcomeTimer, DateTime.Now) > 0)
-                        {
-                            return; // since the timer hasn't passed.
-                        }
-                        if (wm.Processed == false && item.Value.PlayerList.ContainsKey(wm.Slot)) // && DateTime.Compare(wm.RunTime, DateTime.Now) < 0
-                        {
-                            if (item.Value.PlayerList[wm.Slot].ping == 0)
-                            {
-                                continue;
-                            }
-
-                            int colorbuffer_written = 0;
-                            byte[] colorcode = HexConverter.ToByteArray("6A 08".Replace(" ", ""));
-                            //WriteProcessMemory((int)_state.Instances[item.Key].Handle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                            MemoryProcessor.Write(_state.Instances[item.Key], 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                            Thread.Sleep(100);
-                            // open console
-                            PostMessage(_state.ApplicationProcesses[item.Key].MainWindowHandle, WM_KEYDOWN, GlobalChat, 0);
-                            PostMessage(_state.ApplicationProcesses[item.Key].MainWindowHandle, WM_KEYUP, GlobalChat, 0);
-                            Thread.Sleep(100);
-                            int bytesWritten = 0;
-                            byte[] buffer;
-                            if (wm.ReturningPlayer == true)
-                            {
-                                buffer = Encoding.Default.GetBytes($"{_state.Instances[item.Key].Plugins.WelcomeMessageSettings.ReturningPlayerMsg.Replace("$(PlayerName)", wm.playerName)}\0"); // '\0' marks the end of string
-                            }
-                            else
-                            {
-                                buffer = Encoding.Default.GetBytes($"{_state.Instances[item.Key].Plugins.WelcomeMessageSettings.NewPlayerMsg.Replace("$(PlayerName)", wm.playerName)}\0"); // '\0' marks the end of string
-                            }
-                            //WriteProcessMemory((int)_state.Instances[item.Key].Handle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
-                            MemoryProcessor.Write(_state.Instances[item.Key], 0x00879A14, buffer, buffer.Length, ref bytesWritten);
-                            Thread.Sleep(100);
-                            PostMessage(_state.ApplicationProcesses[item.Key].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);
-                            PostMessage(_state.ApplicationProcesses[item.Key].MainWindowHandle, WM_KEYUP, VK_ENTER, 0);
-
-                            Thread.Sleep(100);
-                            int revert_colorbuffer = 0;
-                            byte[] revert_colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                            //WriteProcessMemory((int)_state.Instances[item.Key].Handle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
-                            MemoryProcessor.Write(_state.Instances[item.Key], 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
-
-                            // insert memory write here
-                            /*_state.Instances[item.Key].WelcomeQueue.Remove(wm);*/
-                            wm.Processed = true;
-                            _state.Instances[item.Key].WelcomeTimer = DateTime.Now.AddSeconds(5); // prevent console spam
-                        }
-                    }
-                }
-                for (int i = 0; i < item.Value.WelcomeQueue.Count; i++)
-                {
-                    bool plFound = false;
-                    foreach (var onlinePlayer in item.Value.PlayerList)
-                    {
-                        if (item.Value.WelcomeQueue[i].playerName == onlinePlayer.Value.name)
-                        {
-                            plFound = true;
-                            break;
-                        }
-                    }
-                    if (plFound != true)
-                    {
-                        _state.Instances[item.Key].WelcomeQueue.RemoveAt(i);
-                    }
-                }
-            }
-        }
-
-        private void update_novacc()
-        {
-            foreach (var instance in _state.Instances)
-            {
-                if (instance.Value.ReportNovaCC == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaCC, DateTime.Now) < 0 && instance.Value.Status != InstanceStatus.OFFLINE)
-                {
-                    List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
-                    WebClient client = new WebClient
-                    {
-                        BaseAddress = "http://ext.novaworld.cc/"
-                    };
-                    client.Headers["User-Agent"] = "Babstats.net BMTv4";
-                    //client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
-                    client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-                    NameValueCollection vars = new NameValueCollection
-                    {
-                        { "Encoding", "windows-1252" },
-                        { "PKey", "eYkJaPPR-3WNbgPN93,(ZwxBCnEW" },
-                        { "PVer", "1.0.9" },
-                        { "SKey", "SECRET_KEY" },
-                        { "DataType", "0x100" },
-                        { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].ServerName },
-                        { "Port", _state.Instances[instance.Key].GamePort.ToString() },
-                        { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].CountryCode },
-                        { "Type", "Dedicated" },
-                        { "GameType", _state.Instances[instance.Key].GameTypeName },
-                        { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].MaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].CurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].CurrentMap.MapFile },
-                        { "TimeRemaining", (_state.Instances[instance.Key].StartDelay + _state.Instances[instance.Key].TimeRemaining * 60).ToString() }
-                    };
-                    if (_state.Instances[instance.Key].Password != string.Empty)
-                    {
-                        vars.Add("Password", "Y");
-                    }
-                    else
-                    {
-                        vars.Add("Password", "");
-                    }
-                    vars.Add("Message", _state.Instances[instance.Key].MOTD);
-                    if (_state.Instances[instance.Key].IsTeamSabre == true)
-                    {
-                        vars.Add("Mod", "TS:");
-                    }
-                    else
-                    {
-                        vars.Add("Mod", "");
-                    }
-                    if (_state.Instances[instance.Key].PlayerList.Count > 0)
-                    {
-                        foreach (var player in _state.Instances[instance.Key].PlayerList)
-                        {
-                            playerlistHQ.Add(new NovaHQPlayerListClass
-                            {
-                                Deaths = player.Value.deaths,
-                                Kills = player.Value.kills,
-                                NameBase64Encoded = player.Value.nameBase64,
-                                PlayerName = player.Value.name,
-                                TeamId = player.Value.team,
-                                TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(playerlist.WeaponStack), player.Value.selectedWeapon)),
-                                WeaponText = player.Value.selectedWeapon
-                            });
-                        }
-                        vars.Add("PlayerList", Crypt.Base64Encode(JsonConvert.SerializeObject(playerlistHQ)));
-                    }
-                    else
-                    {
-                        vars.Add("PlayerList", "eyIwIjogeyJOYW1lIjoiSG9zdCIsIk5hbWVCYXNlNjRFbmNvZGVkIjoiU0c5emRBPT0iLCJLaWxscyI6IjAiLCJEZWF0aHMiOiIwIiwiV2VhcG9uSWQiOiI1IiwiV2VhcG9uVGV4dCI6IkNBUi0xNSIsIlRlYW1JZCI6IjUiLCJUZWFtVGV4dCI6Ik5vbmUiIH19");
-                    }
-                    try
-                    {
-                        byte[] response = client.UploadValues("nwapi.php", vars);
-                        string getResponse = Encoding.Default.GetString(response);
-                    }
-                    catch
-                    {
-
-                    }
-                    _state.Instances[instance.Key].NextUpdateNovaCC = DateTime.Now.AddMinutes(1.0);
-                }
-                else
-                {
-                    continue;
-                }
-            }
-        }
-
-        private void update_novahq()
-        {
-            foreach (var instance in _state.Instances)
-            {
-                if (instance.Value.ReportNovaHQ == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaHQ, DateTime.Now) < 0 && instance.Value.Status != InstanceStatus.OFFLINE)
-                {
-                    List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
-                    WebClient client = new WebClient
-                    {
-                        BaseAddress = "http://nw.novahq.net/"
-                    };
-                    /*client.Headers["User-Agent"] = "Babstats v4 " + ProgramConfig.ApplicationVersion;*/
-                    client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
-                    client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-                    NameValueCollection vars = new NameValueCollection
-                    {
-                        { "Encoding", "windows-1252" },
-                        { "PKey", "eYkJaPPR-3WNbgPN93,(ZwxBCnEW" },
-                        { "PVer", "1.0.9" },
-                        { "SKey", "SECRET_KEY" },
-                        { "DataType", "0x100" },
-                        { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].ServerName },
-                        { "Port", _state.Instances[instance.Key].GamePort.ToString() },
-                        { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].CountryCode },
-                        { "Type", "Dedicated" },
-                        { "GameType", _state.Instances[instance.Key].GameTypeName },
-                        { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].MaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].CurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].CurrentMap.MapFile },
-                        { "TimeRemaining", (_state.Instances[instance.Key].StartDelay + _state.Instances[instance.Key].TimeRemaining * 60).ToString() }
-                    };
-                    if (_state.Instances[instance.Key].Password != string.Empty)
-                    {
-                        vars.Add("Password", "Y");
-                    }
-                    else
-                    {
-                        vars.Add("Password", "");
-                    }
-                    vars.Add("Message", _state.Instances[instance.Key].MOTD);
-                    if (_state.Instances[instance.Key].IsTeamSabre == true)
-                    {
-                        vars.Add("Mod", "TS:");
-                    }
-                    else
-                    {
-                        vars.Add("Mod", "");
-                    }
-                    if (_state.Instances[instance.Key].PlayerList.Count > 0)
-                    {
-                        foreach (var player in _state.Instances[instance.Key].PlayerList)
-                        {
-                            playerlistHQ.Add(new NovaHQPlayerListClass
-                            {
-                                Deaths = player.Value.deaths,
-                                Kills = player.Value.kills,
-                                NameBase64Encoded = player.Value.nameBase64,
-                                PlayerName = player.Value.name,
-                                TeamId = player.Value.team,
-                                TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(playerlist.WeaponStack), player.Value.selectedWeapon)),
-                                WeaponText = player.Value.selectedWeapon
-                            });
-                        }
-                        vars.Add("PlayerList", Crypt.Base64Encode(JsonConvert.SerializeObject(playerlistHQ)));
-                    }
-                    else
-                    {
-                        vars.Add("PlayerList", "eyIwIjogeyJOYW1lIjoiSG9zdCIsIk5hbWVCYXNlNjRFbmNvZGVkIjoiU0c5emRBPT0iLCJLaWxscyI6IjAiLCJEZWF0aHMiOiIwIiwiV2VhcG9uSWQiOiI1IiwiV2VhcG9uVGV4dCI6IkNBUi0xNSIsIlRlYW1JZCI6IjUiLCJUZWFtVGV4dCI6Ik5vbmUiIH19");
-                    }
-                    try
-                    {
-                        byte[] response = client.UploadValues("server/heartbeat-dll", vars);
-                        string getResponse = Encoding.Default.GetString(response);
-                    }
-                    catch
-                    {
-
-                    }
-                    _state.Instances[instance.Key].NextUpdateNovaHQ = DateTime.Now.AddSeconds(30.0);
-                }
-                else
-                {
-                    continue;
-                }
-            }
-        }
-
-        private void checkPlayerHistory()
-        {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
-            db.Open();
-            foreach (var instance in _state.Instances)
-            {
-                if (instance.Value.PlayerList == null)
-                {
-                    continue;
-                }
-                foreach (var playerObj in instance.Value.PlayerList)
-                {
-                    bool found = false;
-                    foreach (var playerHistory in _state.playerHistories)
-                    {
-                        if (playerHistory.playerName == playerObj.Value.name && playerHistory.playerIP == playerObj.Value.address)
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (found == false)
-                    {
-                        SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `playerhistory` (`id`, `playername`, `ip`, `firstseen`) VALUES (NULL, @playername, @ip, @firstseen);", db);
-                        cmd.Parameters.AddWithValue("@playername", playerObj.Value.name);
-                        cmd.Parameters.AddWithValue("@ip", playerObj.Value.address);
-                        cmd.Parameters.AddWithValue("@firstseen", DateTime.Now);
-                        cmd.ExecuteNonQuery();
-                        cmd.Dispose();
-                        _state.playerHistories.Add(new playerHistory
-                        {
-                            DatabaseId = (int)db.LastInsertRowId,
-                            firstSeen = DateTime.Now,
-                            playerIP = playerObj.Value.address,
-                            playerName = playerObj.Value.name
-                        });
-                        // HOOK: WelcomePlayers
-                        if (_state.Instances[instance.Key].Plugins.WelcomeMessage)
-                        {
-                            _state.Instances[instance.Key].WelcomeQueue.Add(new WelcomePlayer
-                            {
-                                playerName = playerObj.Value.name,
-                                ReturningPlayer = false,
-                                Processed = false,
-                                RunTime = DateTime.Now.AddSeconds(30.0),
-                                Slot = playerObj.Value.slot
-                            });
-                        }
-                    }
-                    else
-                    {
-                        // HOOK: WelcomePlayers
-                        if (_state.Instances[instance.Key].Plugins.WelcomeMessage)
-                        {
-                            bool plFound = false;
-                            int index = -1;
-                            foreach (var item in _state.Instances[instance.Key].WelcomeQueue)
-                            {
-                                index++;
-                                if (item.playerName == playerObj.Value.name)
-                                {
-                                    plFound = true;
-                                    break;
-                                }
-                            }
-                            if (plFound != true)
-                            {
-                                _state.Instances[instance.Key].WelcomeQueue.Add(new WelcomePlayer
-                                {
-                                    playerName = playerObj.Value.name,
-                                    ReturningPlayer = true,
-                                    Processed = false,
-                                    RunTime = DateTime.Now.AddSeconds(30.0),
-                                    Slot = playerObj.Value.slot
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-
-            db.Close();
-            db.Dispose();
-        }
-
-        private void cleanRCClients()
-        {
-            List<string> deleteClients = new List<string>();
-            // clean the dead clients and reopen ports after 30 minutes of inactivity, or if the client never authenicated.
-            foreach (var clientObj in _state.rcClients)
-            {
-                int dateCompare = DateTime.Compare(DateTime.Parse(clientObj.Value.expires), clientObj.Value.lastCMDTime);
-                if (dateCompare < 0)
-                {
-                    deleteClients.Add(clientObj.Key);
-                }
-            }
-            foreach (var client in deleteClients)
-            {
-                _state.rcClients[client].active = false;
-                _state.rcClients.Remove(client);
-            }
-        }
-
-        private void SetupAppState(SQLiteConnection db)
-        {
-            try
-            {
-                string sql = @"SELECT i.*, pi.pid, ic.* FROM instances i 
-                        LEFT JOIN instances_pid pi ON i.id = pi.profile_id 
-                        LEFT JOIN instances_config ic ON i.id = ic.profile_id;";
-                SQLiteCommand command = new SQLiteCommand(sql, db);
-                SQLiteDataReader result = command.ExecuteReader();
-                while (result.Read())
-                {
-                    bool TeamSabre = false;
-                    if (result.GetInt32(result.GetOrdinal("game_type")) == 0)
-                    {
-                        if (File.Exists(result.GetString(result.GetOrdinal("gamepath")) + "\\EXP1.pff"))
-                        {
-                            TeamSabre = true;
-                        }
-                    }
-
-                    string WebstatsURL = "";
-                    bool EnableWebStats;
-                    switch (result.GetInt32(result.GetOrdinal("stats")))
-                    {
-                        case 1:
-                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
-                            EnableWebStats = true;
-                            break;
-                        case 2:
-                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
-                            EnableWebStats = true;
-                            break;
-                        default:
-                            WebstatsURL = "";
-                            EnableWebStats = false;
-                            break;
-                    }
-                    //var jsonWeaponRestrictions = JsonConvert.DeserializeObject<WeaponsClass>(result.GetString(result.GetOrdinal("weaponrestrictions")));
-                    Dictionary<int, MapList> mapList = new Dictionary<int, MapList>();
-                    if (result.GetString(result.GetOrdinal("mapcycle")) != "[]")
-                    {
-                        mapList = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("mapcycle")));
-                    }
-                    Dictionary<int, MapList> availableMaps = new Dictionary<int, MapList>();
-                    if (result.GetString(result.GetOrdinal("availablemaps")) != "[]")
-                    {
-                        availableMaps = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("availablemaps")));
-                    }
-                    int testHQ = result.GetInt32(result.GetOrdinal("novahq_master"));
-                    int testCC = result.GetInt32(result.GetOrdinal("novacc_master"));
-                    PluginsClass plugins;
-                    if (result.GetString(result.GetOrdinal("plugins")) == "[]")
-                    {
-                        plugins = new PluginsClass
-                        {
-                            WelcomeMessage = false,
-                            VoteMaps = false,
-                            WelcomeMessageSettings = new wp_PluginSettings
-                            {
-                                NewPlayerMsg = "Welcome $(PlayerName)!",
-                                ReturningPlayerMsg = "Welcome back $(PlayerName)!"
-                            },
-                            VoteMapSettings = new vm_PluginSettings
-                            {
-                                CoolDown = 1,
-                                CoolDownType = vm_internal.CoolDownTypes.NUM_OF_MINS,
-                                MinPlayers = 3
-                            }
-                        };
-                    }
-                    else
-                    {
-                        plugins = JsonConvert.DeserializeObject<PluginsClass>(result.GetString(result.GetOrdinal("plugins")));
-                    }
-
-                    Instance instance = new Instance()
-                    {
-                        Id = result.GetInt32(result.GetOrdinal("id")),
-                        GamePath = result.GetString(result.GetOrdinal("gamepath")),
-                        GameType = result.GetInt32(result.GetOrdinal("game_type")),
-                        GameName = result.GetString(result.GetOrdinal("name")),
-                        HostName = result.GetString(result.GetOrdinal("host_name")),
-                        CountryCode = result.GetString(result.GetOrdinal("country_code")),
-                        ServerName = result.GetString(result.GetOrdinal("server_name")),
-                        Password = result.GetString(result.GetOrdinal("server_password")),
-                        MOTD = result.GetString(result.GetOrdinal("motd")),
-                        Dedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
-                        SessionType = result.GetInt32(result.GetOrdinal("session_type")),
-                        MaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
-                        GameScore = result.GetInt32(result.GetOrdinal("game_score")),
-                        FBScore = result.GetInt32(result.GetOrdinal("fbscore")),
-                        KOTHScore = result.GetInt32(result.GetOrdinal("kothscore")),
-                        ZoneTimer = result.GetInt32(result.GetOrdinal("zone_timer")),
-                        WindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
-                        LoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
-                        RespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
-                        RequireNovaLogin = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
-                        AllowCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
-                        MaxKills = result.GetInt32(result.GetOrdinal("max_kills")),
-                        BindAddress = result.GetString(result.GetOrdinal("bind_address")),
-                        GamePort = result.GetInt32(result.GetOrdinal("port")),
-                        TimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
-                        StartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
-                        MinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
-                        MinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
-                        MaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
-                        MaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
-                        OneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
-                        FatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
-                        DestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
-                        FriendlyFire = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
-                        FriendlyFireWarning = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
-                        FriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
-                        FriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
-                        PSPTakeOverTime = result.GetInt32(result.GetOrdinal("psptakeover")),
-                        AllowAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
-                        AutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
-                        BluePassword = result.GetString(result.GetOrdinal("blue_team_password")),
-                        RedPassword = result.GetString(result.GetOrdinal("red_team_password")),
-                        FlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
-                        MaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
-                        ShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
-                        ShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
-                        RoleRestrictions = GetRoleRestrictions(result.GetString(result.GetOrdinal("rolerestrictions"))),
-                        WeaponRestrictions = GetWeaponRestrictions(result.GetString(result.GetOrdinal("weaponrestrictions"))),
-                        LastUpdateTime = DateTime.Now,
-                        NextUpdateTime = DateTime.Now.AddSeconds(2.0),
-                        nextWebStatsStatusUpdate = DateTime.Now.AddSeconds(2.0),
-                        EnableWebStats = EnableWebStats,
-                        enableVPNCheck = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNCheck"))),
-                        WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
-                        WebstatsURL = WebstatsURL,
-                        availableMaps = availableMaps,
-                        MapList = mapList,
-                        mapListCount = mapList.Count,
-                        WebstatsIdVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
-                        ReportMaster = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_babstats_master"))),
-                        Status = InstanceStatus.OFFLINE,
-                        anti_stat_padding = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
-                        anti_stat_padding_min_minutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
-                        anti_stat_padding_min_players = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
-                        CrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
-                        misc_show_ranks = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
-                        misc_left_leaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
-                        WebStatsId = result.GetInt32(result.GetOrdinal("stats_server_id")),
-                        PlayerList = new Dictionary<int, playerlist>(),
-                        previousMapList = new Dictionary<int, MapList>(),
-                        IPWhiteList = new Dictionary<string, string>(),
-                        ScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
-                        ReportNovaHQ = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novahq_master"))),
-                        ReportNovaCC = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novacc_master"))),
-                        Plugins = plugins,
-                        VoteMapStandBy = true,
-                        IsTeamSabre = TeamSabre,
-                    };
-                    var collectPlayerStats = new CollectedPlayerStatsPlayers()
-                    {
-                        Player = new Dictionary<string, CollectedPlayerStats>()
-                    };
-
-                    /*ChatLogHandler = new Timer()
-                    {
-                        Enabled = true
-                    };
-                    ChatLogHandler.Tick += (sender, e) => {
-                        for (int i = 0; i < _state.Instances.Count; i++)
-                        {
-                            if (_state.Instances[i].Status != InstanceStatus.OFFLINE && _state.Instances[i].Status != InstanceStatus.LOADINGMAP)
-                            {
-                                GetChatLogs(i);
-                            }
-                        }
-                    };*/
-                    int instanceId = _state.Instances.Count;
-                    _state.ChatHandlerTimer.Add(_state.Instances.Count, new Timer
-                    {
-                        Enabled = true,
-                        Interval = 1
-                    });
-                    _state.ChatHandlerTimer[_state.Instances.Count].Tick += (sender, e) =>
-                    {
-                        if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
-                        {
-                            GetChatLogs(instanceId);
-                        }
-                    };
-
-                    /*QueueHandler = new Thread(() =>
-                    {
-                        while (true)
-                        {
-                            for (int i = 0; i < _state.ConsoleQueue.Count; i++)
-                            {
-                                ProcessConsoleCommands(i);
-                            }
-                        }
-                    });*/
-
-                    if (!result.IsDBNull(result.GetOrdinal("pid")))
-                    {
-                        instance.PID = result.GetInt32(result.GetOrdinal("pid"));
-                        _state.eventLog.WriteEntry("Found PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Information);
-                    }
-
-                    if (ProcessExist(instance.PID.GetValueOrDefault()))
-                    {
-                        _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.Id, EventLogEntryType.Information);
-                        if (!_state.ApplicationProcesses.ContainsKey(_state.Instances.Count))
-                        {
-                            // to do... INCLUDE CUSTOM MODS
-                            if (Process.GetProcessById(instance.PID.GetValueOrDefault()).ProcessName == "dfbhd")
-                            {
-                                _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.PID.GetValueOrDefault()));
-                            }
-                        }
-                        try
-                        {
-                            instance.Handle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.PID.GetValueOrDefault());
-                        }
-                        catch (Exception e)
-                        {
-                            throw e;
-                        }
-
-                        if (instance.Handle == null || instance.Handle == IntPtr.Zero)
-                        {
-                            _state.eventLog.WriteEntry("Unable to attach to process...", EventLogEntryType.Error, 0, 0);
-                            throw new Exception("Unable to attach to process...");
-                        }
-                    }
-                    else
-                    {
-                        _state.eventLog.WriteEntry("Could not find PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Warning);
-                    }
-
-                    _state.eventLog.WriteEntry("Attachment successful: " + instance.Id, EventLogEntryType.Information);
-                    _state.eventLog.WriteEntry("Adding instance: " + instance.Id, EventLogEntryType.Information);
-
-                    // init AppState
-                    _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue
-                    {
-                        queue = new List<Queue>(),
-                        nextCmd = DateTime.Now.AddSeconds(10)
-                    });
-                    _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue
-                    {
-                        text = "BMTv4 is starting...",
-                        Type = ConsoleQueueType.MESSAGE,
-                        color = ChatColor.NORMAL
-                    });
-                    _state.Instances.Add(_state.Instances.Count, instance);
-                    // this should start a timer to automatically check for new messages in a different thread than the main thread.
-                    _state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
-                    // start the chat handler in it's OWN THREAD PER SERVER.
-                    _state.ChatHandlerTimer[instanceId].Start();
-                }
-                command.Dispose();
-                result.Close();
-            }
-            catch (Exception e)
-            {
-                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
-                log.Debug(e);
-            }
-        }
-
-        private void ProcessConsoleCommands(int i)
-        {
-            if (_state.ConsoleQueue[i].queue.Count > 0)
-            {
-                if (DateTime.Compare(DateTime.Now, _state.ConsoleQueue[i].nextCmd) == -1)
-                {
-                    for (int xi = 0; xi < _state.ConsoleQueue[xi].queue.Count; xi++)
-                    {
-                        if (_state.ConsoleQueue[i].queue[xi].Type == ConsoleQueueType.CMD_SCOREMAP)
-                        {
-                            // open console
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYDOWN, console, 0);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYUP, console, 0);
-                            Thread.Sleep(50);
-                            int bytesWritten3 = 0;
-                            byte[] buffer3 = Encoding.Default.GetBytes("resetgames\0"); // '\0' marks the end of string
-                            MemoryProcessor.Write(_state.Instances[i], 0x00879A14, buffer3, buffer3.Length, ref bytesWritten3);
-                            Thread.Sleep(50);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYUP, VK_ENTER, 0);
-                        }
-                        else if (_state.ConsoleQueue[i].queue[xi].Type == ConsoleQueueType.CMD_KICKPLAYER)
-                        {
-                            // open console
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYDOWN, console, 0);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYUP, console, 0);
-                            Thread.Sleep(50);
-                            int bytesWritten3 = 0;
-                            byte[] buffer3 = Encoding.Default.GetBytes("punt \0"); // '\0' marks the end of string
-                            MemoryProcessor.Write(_state.Instances[i], 0x00879A14, buffer3, buffer3.Length, ref bytesWritten3);
-                            Thread.Sleep(50);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);
-                            PostMessage(_state.ApplicationProcesses[i].MainWindowHandle, WM_KEYUP, VK_ENTER, 0);
-                        }
-                        else if (_state.ConsoleQueue[i].queue[xi].Type == ConsoleQueueType.MESSAGE)
-                        {
-
-                        }
-                        else if (_state.ConsoleQueue[i].queue[xi].Type == ConsoleQueueType.PLAYER_WARNING)
-                        {
-
-                        }
-                    }
-                }
-            }
-            _state.ConsoleQueue[i].nextCmd = DateTime.Now.AddSeconds(10);
-        }
-
-        private SystemInfoClass GatherSystemInfo()
-        {
-            SystemInfoClass systemInfo = new SystemInfoClass();
-            ManagementObjectSearcher MOS = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
-            foreach (ManagementObject MOS_info in MOS.Get())
-            {
-                systemInfo.OSName = (string)MOS_info["Caption"];
-                systemInfo.OSVersion = (string)MOS_info["Version"];
-                systemInfo.OSBuild = Environment.OSVersion.Version.Build.ToString();
-                systemInfo.VirtualMemory = Convert.ToString((Convert.ToInt32(MOS_info["TotalVirtualMemorySize"])) / 1024 / 1024) + "GB";
-            }
-            ManagementObjectSearcher CPU = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
-            systemInfo.CPUs = new Dictionary<int, string>();
-            foreach (ManagementObject CPU_info in CPU.Get())
-            {
-                systemInfo.CPUs.Add(systemInfo.CPUs.Count, (string)CPU_info["Name"]);
-            }
-            long memkb;
-            GetPhysicallyInstalledSystemMemory(out memkb);
-            systemInfo.Memory = Convert.ToString((memkb / 1024 / 1024) + "GB");
-
-            return systemInfo;
-        }
-
-        private void CheckForExpiredBans()
-        {
-            foreach (var inst in _state.Instances)
-            {
-                Instance instance = inst.Value;
-                int InstanceID = instance.Id;
-                try
-                {
-                    foreach (var ban in instance.BanList)
-                    {
-                        // remove if it's expired, even if the player isn't on the server...
-                        if (ban.expires != "-1" && ban.expires != null)
-                        {
-                            if (DateTime.Compare(DateTime.Parse(ban.expires), DateTime.Now) < 0)
-                            {
-                                _state.Instances[inst.Key].BanList.Remove(ban);
-                                // remove from SQLiteDB
-                                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
-                                db.Open();
-                                SQLiteCommand cmdRemove = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
-                                cmdRemove.Parameters.AddWithValue("@banid", ban.id);
-                                cmdRemove.Parameters.AddWithValue("@profileid", InstanceID);
-                                cmdRemove.ExecuteNonQuery();
-                                cmdRemove.Dispose();
-                                db.Close();
-                                db.Dispose();
-                            }
-                        }
-                    }
-                }
-                catch
-                {
-                    return;
-                }
-            }
-            // reset checkExpiredBansChecker
-            ProgramConfig.checkExpiredBans = DateTime.Now.AddMinutes(5);
-        }
 
         public List<ipqualityClass> load_ipqualityCache(int profileid, SQLiteConnection db)
         {
@@ -967,111 +193,6 @@ namespace HawkSync_SM
             }
         }
 
-        private void beginRCListen()
-        {
-            try
-            {
-                WatsonTcpServer server = _state.server;
-                server.Events.MessageReceived += Events_MessageReceived;
-                server.Events.ClientConnected += Events_ClientConnected;
-                server.Events.ServerStarted += Events_ServerStarted;
-                server.Events.ServerStopped += Events_ServerStopped;
-                server.Events.StreamReceived += Events_StreamReceived;
-                server.Events.ExceptionEncountered += Events_ExceptionEncountered;
-                server.Callbacks.SyncRequestReceived = RunRCCmd;
-                if (ProgramConfig.RCEnabled == true)
-                {
-                    server.Start();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Failed to bind to port: " + ProgramConfig.RCPort.ToString(), "ERROR");
-                log.Debug(e);
-            }
-        }
-
-        private SyncResponse RunRCCmd(SyncRequest request)
-        {
-            RCListener client = new RCListener(_state);
-            Dictionary<object, object> metadata = new Dictionary<object, object>();
-
-            byte[] bytes = Compression.Compress(client.BMTRemoteFunctions(clineNo, ref metadata, null, request));
-
-            return new SyncResponse(request, bytes);
-        }
-
-        private void Events_ExceptionEncountered(object sender, ExceptionEventArgs e)
-        {
-            Console.WriteLine(e);
-        }
-
-        private void Events_StreamReceived(object sender, StreamReceivedEventArgs e)
-        {
-            Console.WriteLine("Testing");
-        }
-
-        private void Events_ServerStopped(object sender, EventArgs e)
-        {
-            Console.WriteLine(">> Remote Client Listener Stopped.");
-        }
-
-        private void Events_ServerStarted(object sender, EventArgs e)
-        {
-            Console.WriteLine(">> Remote Client Listener Started.");
-        }
-
-        private void Events_ClientConnected(object sender, WatsonTcp.ConnectionEventArgs e)
-        {
-            clineNo++;
-        }
-
-        private void Events_MessageReceived(object sender, MessageReceivedEventArgs msg)
-        {
-            Dictionary<object, object> metadata = new Dictionary<object, object>();
-            RCListener client = new RCListener(_state);
-            client.BMTRemoteFunctions(clineNo, ref metadata, msg, null);
-        }
-
-        public void SetHostnames(Instance _instance)
-        {
-            bool processExists = ProcessExist(_instance.PID.GetValueOrDefault());
-            if (processExists == true)
-            {
-                int buffer = 0;
-                byte[] PointerAddr = new byte[4];
-                var baseAddr = 0x400000;
-                var Pointer = baseAddr + 0x005ED600;
-                ReadProcessMemory((int)_instance.Handle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
-                int buffer2 = 0;
-                byte[] Hostname = Encoding.Default.GetBytes(_instance.HostName + "\0");
-                var Address2HostName = BitConverter.ToInt32(PointerAddr, 0);
-                MemoryProcessor.Write(_instance, (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
-            }
-        }
-
-        private void GetGameTypes(SQLiteConnection conn)
-        {
-            var sql = "SELECT * FROM gametypes;";
-
-            SQLiteCommand defaultmaps_cmd = new SQLiteCommand(sql, conn);
-            SQLiteDataReader defaultmaps_reader = defaultmaps_cmd.ExecuteReader();
-            while (defaultmaps_reader.Read())
-            {
-                bitmapsAndGameTypes.Add(defaultmaps_reader.GetInt32(defaultmaps_reader.GetOrdinal("bitmap")),
-                  new GameType
-                  {
-                      DatabaseId = defaultmaps_reader.GetInt32(defaultmaps_reader.GetOrdinal("id")),
-                      Name = defaultmaps_reader.GetString(defaultmaps_reader.GetOrdinal("name")),
-                      ShortName = defaultmaps_reader.GetString(defaultmaps_reader.GetOrdinal("shortname")),
-                      Bitmap = defaultmaps_reader.GetInt32(defaultmaps_reader.GetOrdinal("bitmap"))
-                  }
-                );
-            }
-            defaultmaps_cmd.Dispose();
-            defaultmaps_reader.Close();
-        }
-
         public void ProcessAutoMessage(int id)
         {
             if (_state.Instances[id].AutoMessages.enable_msg == true)
@@ -1085,7 +206,7 @@ namespace HawkSync_SM
                             _state.Instances[id].AutoMessages.MsgNumber = 0;
                         }
 
-                        // don't do anything if no one is on the server
+                        // don't do anything if no one is on the ServerRC
                         if (_state.Instances[id].PlayerList.Count == 0)
                         {
                             _state.Instances[id].AutoMessages.NextMessage = DateTime.Now.AddMinutes(_state.Instances[id].AutoMessages.interval);
@@ -1277,7 +398,7 @@ namespace HawkSync_SM
         {
             BindingSource bindingSource = new BindingSource
             {
-                DataSource = table
+                DataSource = table_profileList
             };
             for (int i = 0; i < _state.Instances.Count; i++)
             {
@@ -1286,7 +407,7 @@ namespace HawkSync_SM
                 int findInstanceIndex = bindingSource.Find("ID", _state.Instances[i].Id);
                 if (findInstanceIndex == -1)
                 {
-                    DataRow dr = table.NewRow();
+                    DataRow dr = table_profileList.NewRow();
                     statusIMG = "notactive.gif";
                     if (_state.Instances[i].GameType == 0 && _state.Instances[i].IsTeamSabre == true)
                     {
@@ -1304,7 +425,7 @@ namespace HawkSync_SM
                     dr["Game Name"] = _state.Instances[i].GameName;
                     dr["Mod"] = imageToByteArray(img);
                     dr["Server Status"] = imageToByteArray(statusIMG);
-                    table.Rows.Add(dr);
+                    table_profileList.Rows.Add(dr);
                 }
             }
             bindingSource.Dispose();
@@ -1373,101 +494,6 @@ namespace HawkSync_SM
             }
         }
 
-        public static DateTime ConvertUnixTime(int unixtime)
-        {
-            DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            dateTime = dateTime.AddSeconds(unixtime).ToLocalTime();
-            return dateTime;
-        }
-        public void update_master()
-        {
-            foreach (var item in _state.Instances)
-            {
-                if (item.Value.ReportMaster == true && item.Value.Status != InstanceStatus.OFFLINE)
-                {
-                    var PID = item.Value.PID.GetValueOrDefault();
-                    if (ProcessExist(PID))
-                    {
-                        if (!string.IsNullOrEmpty(item.Value.ServerName) || !string.IsNullOrEmpty(ProgramConfig.PublicIP))
-                        {
-                            string bindaddr = "";
-                            if (item.Value.BindAddress == "0.0.0.0" || item.Value.BindAddress == "")
-                            {
-                                bindaddr = ProgramConfig.PublicIP;
-                            }
-                            else
-                            {
-                                bindaddr = item.Value.BindAddress;
-                            }
-                            DateTime currentTime = DateTime.Now;
-                            DateTime UpdateTime = ConvertUnixTime(item.Value.MasterUnixNextUpdate);
-                            if (DateTime.Compare(UpdateTime, currentTime) < 0)
-                            {
-                                NameValueCollection serverinfo = new NameValueCollection
-                                {
-                                    { "game", item.Value.GameType.ToString() },
-                                    { "server_name", item.Value.ServerName },
-                                    { "country_code", item.Value.CountryCode },
-                                    { "ip", bindaddr },
-                                    { "port", item.Value.GamePort.ToString() },
-                                    { "dedicated", Convert.ToInt32(item.Value.Dedicated).ToString() },
-                                    { "MOTD", item.Value.MOTD },
-                                    { "timeleft", item.Value.TimeRemaining.ToString() },
-                                    { "current_players", item.Value.NumPlayers.ToString() },
-                                    { "total_players", item.Value.MaxSlots.ToString() },
-                                    { "status", item.Value.Status.ToString() },
-                                    { "map", item.Value.Map },
-                                    { "playerlist", JsonConvert.SerializeObject(item.Value.PlayerList) },
-                                    { "maptype", item.Value.GameTypeName },
-                                    { "isteamsabre", Convert.ToInt32(item.Value.IsTeamSabre).ToString() }
-                                };
-
-                                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-                                ServicePointManager.Expect100Continue = true;
-                                WebClient master = new WebClient()
-                                {
-                                    BaseAddress = "https://master.babstats.net"
-                                };
-                                master.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                                master.Headers.Add("User-Agent", "Babstats Program");
-                                byte[] result = new byte[1024];
-                                try
-                                {
-                                    result = master.UploadValues("update.php", serverinfo);
-                                    master_server list = JsonConvert.DeserializeObject<master_server>(Encoding.ASCII.GetString(result));
-                                    if (list.Status == "Banned")
-                                    {
-                                        _state.Instances[item.Key].ReportMaster = false;
-                                        continue;
-                                    }
-
-                                    item.Value.MasterUnixNextUpdate = list.UnixNextUpdate;
-                                    master.Dispose();
-                                }
-                                catch (WebException ex)
-                                {
-                                    _state.eventLog.WriteEntry("Error updating master server: " + ex.Message, EventLogEntryType.Error);
-                                    item.Value.MasterUnixNextUpdate = (int)DateTimeOffset.Now.AddMinutes(1.0).ToUnixTimeSeconds();
-                                    return;
-                                }
-                                catch (Exception e)
-                                {
-                                    _state.eventLog.WriteEntry(Encoding.Default.GetString(result), EventLogEntryType.Warning);
-                                    _state.eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error);
-                                    //ProgramDebug.SendReport(e, false);
-                                    // ignore if we can't connect to the master server...
-                                    master.Dispose();
-                                    item.Value.MasterUnixNextUpdate = (int)DateTimeOffset.Now.AddMinutes(1.0).ToUnixTimeSeconds();
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         public byte[] imageToByteArray(string imageIn)
         {
             if (_state.imageCache.ContainsKey(imageIn))
@@ -1477,81 +503,6 @@ namespace HawkSync_SM
             else
             {
                 return new byte[1];
-            }
-        }
-
-        private void Main_Profilelist_Load(object sender, EventArgs e)
-        {
-            table.Columns.Add("ID".ToString());
-            table.Columns.Add("Game Name".ToString());
-            table.Columns.Add("Mod".ToString(), typeof(byte[]));
-            table.Columns.Add("Slots".ToString());
-            table.Columns.Add("Map".ToString());
-            table.Columns.Add("Game Type".ToString());
-            table.Columns.Add("Time Remaining".ToString());
-            table.Columns.Add("Web Stats Status".ToString());
-            table.Columns.Add("Server Status".ToString(), typeof(byte[]));
-            ProgramConfig.NovaStatusCheck = DateTime.Now;
-            GetResultsTable();
-            list_serverProfiles.DataSource = table;
-            SetupTable();
-            gametype_db.Open();
-            SQLiteCommand warnlevelquery = new SQLiteCommand("SELECT `warnlevel` FROM `instances_config` WHERE `profile_id` = @profileid;", gametype_db);
-            foreach (var item in _state.Instances)
-            {
-                warnlevelquery.Parameters.AddWithValue("@profileid", item.Value.Id);
-                SQLiteDataReader warnLevelRead = warnlevelquery.ExecuteReader();
-                warnLevelRead.Read();
-                _state.Instances[item.Key].BanList = Load_BanList(item.Value.Id);
-                _state.Instances[item.Key].VPNWhiteList = load_vpnwhitelist(item.Key, item.Value.Id, gametype_db);
-                _state.Instances[item.Key].GodModeList = new List<int>();
-                _state.Instances[item.Key].ChangeTeamList = new List<ChangeTeamClass>();
-                _state.Instances[item.Key].CustomWarnings = load_customwarnings(item.Value.Id, gametype_db);
-                _state.Instances[item.Key].WarningQueue = new List<WarnPlayerClass>();
-                _state.Instances[item.Key].DisarmPlayers = new List<int>();
-                _state.Instances[item.Key].WeaponRestrictions = load_weaponRestrictions(item.Value.Id, gametype_db);
-                _state.Instances[item.Key].AutoMessages = load_autoMessages(item.Value.Id, gametype_db);
-                _state.Instances[item.Key].previousTeams = new List<PreviousTeams>();
-                _state.Instances[item.Key].savedmaprotations = load_savedRotations(item.Value.Id, gametype_db);
-                _state.Instances[item.Key].CurrentMap = new MapList();
-                _state.Instances[item.Key].WelcomeQueue = new List<WelcomePlayer>();
-                _state.Instances[item.Key].VoteMapsTally = new List<VoteMapsTally>();
-                _state.Instances[item.Key].VoteMapTimer = new Timer
-                {
-                    Enabled = false
-                };
-                _state.IPQualityCache.Add(item.Key, new ipqualityscore
-                {
-                    WarnLevel = warnLevelRead.GetInt32(warnLevelRead.GetOrdinal("warnlevel")),
-                    IPInformation = load_ipqualityCache(item.Value.Id, gametype_db)
-                });
-                _state.ChatLogs[item.Key] = new ChatLogs();
-                warnLevelRead.Close();
-                warnLevelRead.Dispose();
-                SetHostnames(item.Value);
-            }
-            warnlevelquery.Dispose();
-            _state.Users = GetUsersFrmDB(gametype_db);
-            _state.yearlystats = GetStatsFrmDB(gametype_db);
-            _state.adminChatMsgs = GetAdminChatMsgs(gametype_db);
-            _state.SystemInfo = GatherSystemInfo();
-            _state.autoRes = SetupAutoResClass(gametype_db);
-            _state.playerHistories = GetPlayerHistories(gametype_db);
-            _state.adminNotes = GetAdminNotes(gametype_db);
-            _state.RCLogs = GetRCLogs(gametype_db);
-
-            GlobalAppState.AppState = _state;
-            gametype_db.Close();
-            Ticker.Enabled = true;
-            Ticker.Start();
-            if (_state.Instances.Count == 0)
-            {
-                btn_start.Enabled = false;
-                UpdateButtonsOffline();
-            }
-            else
-            {
-                btn_start.Enabled = true;
             }
         }
 
@@ -1924,134 +875,13 @@ namespace HawkSync_SM
             return Currentbans;
         }
 
-        private void btnOptions_click(object sender, EventArgs e)
-        {
-            Options op = new Options(_state);
-            op.ShowDialog();
-        }
 
-        private void btnQuit_Click(object sender, EventArgs e)
-        {
-            Environment.ExitCode = 0;
-            this.Close();
-        }
 
-        private void btnCreate_Click(object sender, EventArgs e)
-        {
-            // capture last index.
-            string img;
-            string statusIMG;
-            int lastIndex = _state.Instances.Count;
-            Create_Profile frm = new Create_Profile(_state);
-            frm.ShowDialog();
-            if (Create_Profile.ProfileCreated == true)
-            {
-                DataRow dr = table.NewRow();
-                statusIMG = "notactive.gif";
-                if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == true)
-                {
-                    img = "bhdts.gif";
-                }
-                else if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == false)
-                {
-                    img = "bhd.gif";
-                }
-                else if (_state.Instances[lastIndex].GameType == 1)
-                {
-                    img = "jo.gif";
-                }
-                else
-                {
-                    img = "bhd.gif";
-                }
-                dr["ID"] = _state.Instances[lastIndex].Id;
-                dr["Game Name"] = _state.Instances[lastIndex].GameName;
-                dr["Mod"] = imageToByteArray(img);
-                dr["Server Status"] = imageToByteArray(statusIMG);
-                table.Rows.Add(dr);
-                MessageBox.Show("Profile Added Successfully.", "Success", MessageBoxButtons.OK);
-                if (_state.Instances.Count > 0) { btn_start.Enabled = true; }
-            }
-        }
+        
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
 
-            // Are there any Profiles to start?
-            if ((list_serverProfiles.Rows.Count) == 0)
-            {
-                MessageBox.Show("There are no profiles to delete.");
-                return;
-            }
 
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile", buttons);
-            if (result == DialogResult.Yes)
-            {
-                int id = list_serverProfiles.CurrentRow.Index;
-                DataRow instance = table.Rows[id];
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
-                db.Open();
 
-                SQLiteCommand chatLog_del = new SQLiteCommand("DELETE FROM `chatlog` WHERE `profile_id` = @profileid;", db);
-                chatLog_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                chatLog_del.ExecuteNonQuery();
-                chatLog_del.Dispose();
-
-                SQLiteCommand customWarnings_del = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `instanceid` = @profileid;", db);
-                customWarnings_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                customWarnings_del.ExecuteNonQuery();
-                customWarnings_del.Dispose();
-
-                SQLiteCommand command = new SQLiteCommand("DELETE FROM `instances` WHERE id = @profileid;", db);
-                command.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                command.ExecuteNonQuery();
-                command.Dispose();
-
-                SQLiteCommand config = new SQLiteCommand("DELETE FROM `instances_config` WHERE profile_id = @profileid;", db);
-                config.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                config.ExecuteNonQuery();
-                config.Dispose();
-
-                SQLiteCommand mapRotations_del = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `profile_id` = @profileid;", db);
-                mapRotations_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                mapRotations_del.ExecuteNonQuery();
-                mapRotations_del.Dispose();
-
-                SQLiteCommand pid_del = new SQLiteCommand("DELETE from `instances_pid` WHERE profile_id = @profileid;", db);
-                pid_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                pid_del.ExecuteNonQuery();
-                pid_del.Dispose();
-
-                SQLiteCommand IPCache_del = new SQLiteCommand("DELETE FROM `ipqualitycache` WHERE `profile_id` = @profileid;", db);
-                IPCache_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                IPCache_del.ExecuteNonQuery();
-                IPCache_del.Dispose();
-
-                SQLiteCommand playerBans_del = new SQLiteCommand("DELETE FROM `playerbans` WHERE `profileid` = @profileid;", db);
-                playerBans_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                playerBans_del.ExecuteNonQuery();
-                playerBans_del.Dispose();
-
-                SQLiteCommand whiteList_del = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
-                whiteList_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                whiteList_del.ExecuteNonQuery();
-                whiteList_del.Dispose();
-
-                db.Close();
-                db.Dispose();
-                _state.Instances.Remove(id);
-                _state.ChatLogs.Remove(id);
-                _state.PlayerStats.Remove(id);
-                _state.IPQualityCache.Remove(id);
-                table.Rows.Remove(instance);
-                if (list_serverProfiles.Rows.Count > 0)
-                {
-                    list_serverProfiles.Rows[0].Selected = true;
-                }
-            }
-            else if (result == DialogResult.No) return;
-        }
         public void SetupTable()
         {
             //set autosize mode
@@ -2113,7 +943,7 @@ namespace HawkSync_SM
                 {
                     img = "bhd.gif";
                 }
-                DataRow editRow = table.Rows[id];
+                DataRow editRow = table_profileList.Rows[id];
                 editRow["Game Name"] = _state.Instances[id].GameName;
                 editRow["Mod"] = imageToByteArray(img);
                 editRow["Server Status"] = imageToByteArray(statusIMG);
@@ -2133,7 +963,7 @@ namespace HawkSync_SM
             Instance instance = _state.Instances[list_serverProfiles.SelectedRows[0].Index];
             if (instance.Status != InstanceStatus.OFFLINE)
             {
-                // Run stop server stuff
+                // Run stop ServerRC stuff
                 if (!instance.PID.HasValue)
                 {
                     return;
@@ -2150,18 +980,6 @@ namespace HawkSync_SM
 
             Start_Game start_Game = new Start_Game(InstanceID, _state);
             start_Game.ShowDialog();
-        }
-        public static string getBetween(string strSource, string strStart, string strEnd)
-        {
-            if (strSource.Contains(strStart) && strSource.Contains(strEnd))
-            {
-                int Start, End;
-                Start = strSource.IndexOf(strStart, 0) + strStart.Length;
-                End = strSource.IndexOf(strEnd, Start);
-                return strSource.Substring(Start, End - Start);
-            }
-
-            return "Error";
         }
 
         private void CheckMapRotation()
@@ -2200,14 +1018,14 @@ namespace HawkSync_SM
                 var baseAddr = 0x400000;
                 byte[] Ptr = new byte[4];
                 int ReadPtr = 0;
-                ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)baseAddr + 0x00061098, Ptr, Ptr.Length, ref ReadPtr);
+                ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x00061098, Ptr, Ptr.Length, ref ReadPtr);
                 int MapTimeAddr = BitConverter.ToInt32(Ptr, 0);
                 Stopwatch stopwatchProcessingTime = new Stopwatch();
                 stopwatchProcessingTime.Start();
                 // DO NOT FUCKING TOUCH -- READ CURRENT MAP TIME
                 byte[] MapTimeMs = new byte[4];
                 int MapTimeRead = 0;
-                ReadProcessMemory((int)_state.Instances[InstanceID].Handle, MapTimeAddr, MapTimeMs, MapTimeMs.Length, ref MapTimeRead);
+                ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, MapTimeAddr, MapTimeMs, MapTimeMs.Length, ref MapTimeRead);
                 int MapTime = BitConverter.ToInt32(MapTimeMs, 0); // get amount of seconds or minutes... >.<
                 int MapTimeInSeconds = MapTime / 60;
                 // DO NOT FUCKING TOUCH -- READ CURRENT MAP TIME
@@ -2215,7 +1033,7 @@ namespace HawkSync_SM
                 DateTime MapEndTime = MapStartTime + TimeSpan.FromMinutes(_state.Instances[InstanceID].StartDelay + _state.Instances[InstanceID].TimeLimit);
                 byte[] TimeOffset = new byte[4];
                 int TimeOffsetRead = 0;
-                ReadProcessMemory((int)_state.Instances[InstanceID].Handle, MapTimeAddr, TimeOffset, TimeOffset.Length, ref TimeOffsetRead);
+                ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, MapTimeAddr, TimeOffset, TimeOffset.Length, ref TimeOffsetRead);
                 int intTimeOffset = BitConverter.ToInt32(TimeOffset, 0);
                 TimeSpan TimeRemaining = MapEndTime - (DateTime.Now + TimeSpan.FromMilliseconds(stopwatchProcessingTime.ElapsedMilliseconds) - TimeSpan.FromMilliseconds(intTimeOffset));
                 stopwatchProcessingTime.Stop();
@@ -2245,12 +1063,12 @@ namespace HawkSync_SM
 
             byte[] startaddr = new byte[4];
             int startaddr_read = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)startList, startaddr, startaddr.Length, ref startaddr_read);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startList, startaddr, startaddr.Length, ref startaddr_read);
 
             var firstplayer = BitConverter.ToInt32(startaddr, 0) + 0x28;
 
             byte[] scanbeginaddr = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)firstplayer, scanbeginaddr, scanbeginaddr.Length, ref startaddr_read);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)firstplayer, scanbeginaddr, scanbeginaddr.Length, ref startaddr_read);
             int beginaddr = BitConverter.ToInt32(scanbeginaddr, 0);
 
             if (reqslot != 1)
@@ -2270,7 +1088,7 @@ namespace HawkSync_SM
             int slot = BitConverter.ToInt32(read_slot, 0);*/
 
             // get player name
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
             var PlayerName = Encoding.Default.GetString(read_name).Replace("\0", "");
 
             int fault = 0;
@@ -2288,133 +1106,133 @@ namespace HawkSync_SM
             }
 
             byte[] read_ping = new byte[4];
-            // get player ping to server
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADB40, read_ping, read_ping.Length, ref bytesread);
+            // get player ping to ServerRC
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB40, read_ping, read_ping.Length, ref bytesread);
 
             byte[] read_totalshotsfired = new byte[4];
             // total shots fired
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAB4, read_totalshotsfired, read_totalshotsfired.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAB4, read_totalshotsfired, read_totalshotsfired.Length, ref bytesread);
             int TotalShotsFired = BitConverter.ToInt32(read_totalshotsfired, 0);
 
             byte[] read_totalkills = new byte[4];
             // kills
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADA94, read_totalkills, read_totalkills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADA94, read_totalkills, read_totalkills.Length, ref bytesread);
             int TotalKills = BitConverter.ToInt32(read_totalkills, 0);
 
             byte[] read_totaldeaths = new byte[4];
             // deaths
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADA98, read_totaldeaths, read_totaldeaths.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADA98, read_totaldeaths, read_totaldeaths.Length, ref bytesread);
             int TotalDeaths = BitConverter.ToInt32(read_totaldeaths, 0);
 
             byte[] read_totalsuicdes = new byte[4];
             // suicides // 0x00036A77C
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADA8C, read_totalsuicdes, read_totalsuicdes.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADA8C, read_totalsuicdes, read_totalsuicdes.Length, ref bytesread);
             int TotalSuicides = BitConverter.ToInt32(read_totalsuicdes, 0);
 
             byte[] read_totalheadshots = new byte[4];
             // headshots // 0x000ADAD0
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAD0, read_totalheadshots, read_totalheadshots.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAD0, read_totalheadshots, read_totalheadshots.Length, ref bytesread);
             int TotalHeadShots = BitConverter.ToInt32(read_totalheadshots, 0);
 
             byte[] read_teamkills = new byte[4];
             // teamkills // 0x000ADA90
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADA90, read_teamkills, read_teamkills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADA90, read_teamkills, read_teamkills.Length, ref bytesread);
             int TotalTeamKills = BitConverter.ToInt32(read_teamkills, 0);
 
             byte[] read_knifekills = new byte[4];
             // knifekills // 0x000ADAD4
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAD4, read_knifekills, read_knifekills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAD4, read_knifekills, read_knifekills.Length, ref bytesread);
             int TotalKnifeKills = BitConverter.ToInt32(read_knifekills, 0);
 
             byte[] read_exppoints = new byte[4];
             // exp points // 0x000ADAF4
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAF4, read_exppoints, read_exppoints.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAF4, read_exppoints, read_exppoints.Length, ref bytesread);
             int TotalExpPoints = BitConverter.ToInt32(read_exppoints, 0);
 
             byte[] read_revives = new byte[4];
             // revives // 0x000ADABC
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADABC, read_revives, read_revives.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADABC, read_revives, read_revives.Length, ref bytesread);
             int TotalRevives = BitConverter.ToInt32(read_revives, 0);
 
             byte[] read_pspattempt = new byte[4];
             // pspattempts // 0x000ADAC0
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAC0, read_pspattempt, read_pspattempt.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAC0, read_pspattempt, read_pspattempt.Length, ref bytesread);
             int TotalPSPAttempts = BitConverter.ToInt32(read_pspattempt, 0);
 
             byte[] read_psptakeover = new byte[4];
             // psptakeover // 0x000ADAC4
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAC4, read_psptakeover, read_psptakeover.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAC4, read_psptakeover, read_psptakeover.Length, ref bytesread);
             int TotalPSPTakeover = BitConverter.ToInt32(read_psptakeover, 0);
 
             byte[] read_doublekills = new byte[4];
             // double kills // 0x000ADACC
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADACC, read_doublekills, read_doublekills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADACC, read_doublekills, read_doublekills.Length, ref bytesread);
             int TotalDoubleKills = BitConverter.ToInt32(read_doublekills, 0);
 
             byte[] read_revivedplayer = new byte[4];
             // medsaves / player revives // 0x000ADACC
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADACC, read_revivedplayer, read_revivedplayer.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADACC, read_revivedplayer, read_revivedplayer.Length, ref bytesread);
             int TotalRevivedPlayer = BitConverter.ToInt32(read_revivedplayer, 0);
 
             byte[] read_FBCaptures = new byte[4];
             // FlagBall Captures // 0x000ADAA8
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAA8, read_FBCaptures, read_FBCaptures.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAA8, read_FBCaptures, read_FBCaptures.Length, ref bytesread);
             int TotalFBCaptures = BitConverter.ToInt32(read_FBCaptures, 0);
 
             byte[] read_FBCarrierKills = new byte[4];
             // FlagBall Carrier Kills // 0x000ADAC8
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAC8, read_FBCarrierKills, read_FBCarrierKills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAC8, read_FBCarrierKills, read_FBCarrierKills.Length, ref bytesread);
             int TotalFBCarrierKills = BitConverter.ToInt32(read_FBCarrierKills, 0);
 
             byte[] read_FBCarrierDeaths = new byte[4];
             // FlagBall Carrier Kills // 0x000ADAD4
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAD4, read_FBCarrierDeaths, read_FBCarrierDeaths.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAD4, read_FBCarrierDeaths, read_FBCarrierDeaths.Length, ref bytesread);
             int TotalFBCarrierDeaths = BitConverter.ToInt32(read_FBCarrierDeaths, 0);
 
             byte[] read_ZoneTime = new byte[4];
             // Zone Time // 0x000ADAA4
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAA4, read_ZoneTime, read_ZoneTime.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAA4, read_ZoneTime, read_ZoneTime.Length, ref bytesread);
             int TotalZoneTime = BitConverter.ToInt32(read_ZoneTime, 0);
 
             byte[] read_ZoneKills = new byte[4];
             // Zone Kills // 0x000ADADC
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADADC, read_ZoneKills, read_ZoneKills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADADC, read_ZoneKills, read_ZoneKills.Length, ref bytesread);
             int TotalZoneKills = BitConverter.ToInt32(read_ZoneKills, 0);
 
             byte[] read_ZoneDefendKills = new byte[4];
             // Zone Defend Kills // 0x000ADA94
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADA94, read_ZoneDefendKills, read_ZoneDefendKills.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADA94, read_ZoneDefendKills, read_ZoneDefendKills.Length, ref bytesread);
             int TotalZoneDefendKills = BitConverter.ToInt32(read_ZoneDefendKills, 0);
 
             byte[] read_ADTargetsDestroyed = new byte[4];
             // AD Targets Destroyed // 0x000ADAB0
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAB0, read_ADTargetsDestroyed, read_ADTargetsDestroyed.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAB0, read_ADTargetsDestroyed, read_ADTargetsDestroyed.Length, ref bytesread);
             int TotalTargetsDestroyed = BitConverter.ToInt32(read_ADTargetsDestroyed, 0);
 
             byte[] read_CTFFlagSaves = new byte[4];
             // CTF Flag Saves // 0x000ADAAC
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADAAC, read_CTFFlagSaves, read_CTFFlagSaves.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADAAC, read_CTFFlagSaves, read_CTFFlagSaves.Length, ref bytesread);
             int TotalFlagSaves = BitConverter.ToInt32(read_CTFFlagSaves, 0);
 
             // specific player data
             byte[] read_playerObjectLocation = new byte[4];
             int read_selectedWeaponLocationReadBytes = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref read_selectedWeaponLocationReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref read_selectedWeaponLocationReadBytes);
             int read_playerObject = BitConverter.ToInt32(read_playerObjectLocation, 0);
 
             int read_selectedWeaponReadBytes = 0;
             byte[] read_selectedWeapon = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)read_playerObject + 0x178, read_selectedWeapon, read_selectedWeapon.Length, ref read_selectedWeaponReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x178, read_selectedWeapon, read_selectedWeapon.Length, ref read_selectedWeaponReadBytes);
             int SelectedWeapon = BitConverter.ToInt32(read_selectedWeapon, 0);
 
             int read_selectedCharacterClassReadBytes = 0;
             byte[] read_selectedCharacterClass = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)read_playerObject + 0x244, read_selectedCharacterClass, read_selectedCharacterClass.Length, ref read_selectedCharacterClassReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x244, read_selectedCharacterClass, read_selectedCharacterClass.Length, ref read_selectedCharacterClassReadBytes);
             int SelectedCharacterClass = BitConverter.ToInt32(read_selectedCharacterClass, 0);
 
             // weapons
             byte[] read_weapons = new byte[250];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)beginaddr + 0x000ADB70, read_weapons, read_weapons.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB70, read_weapons, read_weapons.Length, ref bytesread);
             var MemoryWeapons = Encoding.Default.GetString(read_weapons).Replace("\0", "|");
             string[] weapons = MemoryWeapons.Split('|');
             List<string> WeaponList = new List<string>();
@@ -2475,7 +1293,7 @@ namespace HawkSync_SM
             // memory polling
             int bytesRead = 0;
             byte[] buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, 0x0065DCBC, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0065DCBC, buffer, buffer.Length, ref bytesRead);
             int CurrentPlayers = BitConverter.ToInt32(buffer, 0);
             return CurrentPlayers;
         }
@@ -2484,7 +1302,7 @@ namespace HawkSync_SM
             // memory polling
             int bytesRead = 0;
             byte[] buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, 0x009F21A4, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x009F21A4, buffer, buffer.Length, ref bytesRead);
             int GameType = BitConverter.ToInt32(buffer, 0);
 
             return GameType;
@@ -2494,35 +1312,16 @@ namespace HawkSync_SM
             // memory polling
             int bytesRead = 0;
             byte[] buffer = new byte[26];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, 0x0071569C, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0071569C, buffer, buffer.Length, ref bytesRead);
             string MissionName = Encoding.Default.GetString(buffer);
 
             return MissionName.Replace("\0", "");
         }
-        private void Main_Profilelist_Close(object sender, FormClosingEventArgs e)
-        {
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result = MessageBox.Show("Are you sure you want to quit?", "Quit Babstats", buttons);
-            if (result == DialogResult.Yes)
-            {
-                e.Cancel = false;
-                Ticker.Stop(); // since the program is exiting stop updating everything...
-                Ticker.Dispose(); // since the program is exiting stop updating everything...
-                Environment.Exit(0);
-            }
-            else
-            {
-                e.Cancel = true;
-            }
-        }
 
-        public static int rowId;
-
-        // Somewhere else I would call the timer and tell it to call the whatever method every second
 
         public void SetStatusImage(int key)
         {
-            DataRow row = table.Rows[key];
+            DataRow row = table_profileList.Rows[key];
 
             var path = "";
             switch (_state.Instances[key].Status)
@@ -2553,7 +1352,7 @@ namespace HawkSync_SM
             var playerIpAddressPointer = baseAddr + 0x00ACE248; //secondary list contains memory addresses to PlayerIPs
             int playerIpAddressPointerBuffer = 0;
             byte[] PointerAddr_2 = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)playerIpAddressPointer, PointerAddr_2, PointerAddr_2.Length, ref playerIpAddressPointerBuffer);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)playerIpAddressPointer, PointerAddr_2, PointerAddr_2.Length, ref playerIpAddressPointerBuffer);
 
 
             int IPList = BitConverter.ToInt32(PointerAddr_2, 0) + 0xBC; // playername and start of list
@@ -2569,7 +1368,7 @@ namespace HawkSync_SM
                 // Check if the username equals what is passed in
                 byte[] playername_bytes = new byte[15];
                 int playername_buffer = 0;
-                ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)IPList, playername_bytes, playername_bytes.Length, ref playername_buffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)IPList, playername_bytes, playername_bytes.Length, ref playername_buffer);
                 var currentPlayerName = Encoding.Default.GetString(playername_bytes).Replace("\0", "");
 
                 if (currentPlayerName != playername)
@@ -2587,12 +1386,12 @@ namespace HawkSync_SM
             // Read the IP address and return it
             byte[] playerIPBytesPtr = new byte[4];
             int playerIPBufferPtr = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)IPList + 0xA4, playerIPBytesPtr, playerIPBytesPtr.Length, ref playerIPBufferPtr);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)IPList + 0xA4, playerIPBytesPtr, playerIPBytesPtr.Length, ref playerIPBufferPtr);
 
             int PlayerIPLocation = BitConverter.ToInt32(playerIPBytesPtr, 0) + 4;
             byte[] playerIPAddressBytes = new byte[4];
             int playerIPAddressBuffer = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)PlayerIPLocation, playerIPAddressBytes, playerIPAddressBytes.Length, ref playerIPAddressBuffer);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)PlayerIPLocation, playerIPAddressBytes, playerIPAddressBytes.Length, ref playerIPAddressBuffer);
             IPAddress playerIp = new IPAddress(playerIPAddressBytes);
             return playerIp.ToString();
         }
@@ -2612,11 +1411,11 @@ namespace HawkSync_SM
 
                 // read the playerlist memory address from the game...
                 int slot = 1;
-                ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                 var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                 byte[] playerListStartingLocationByteArray = new byte[4];
                 int playerListStartingLocationBuffer = 0;
-                ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                 int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
 
@@ -2633,14 +1432,14 @@ namespace HawkSync_SM
                     byte[] slotNumberValue = new byte[4];
                     int slotNumberBuffer = 0;
                     int slotNumberLocation = (int)playerlistStartingLocation + 0xC;
-                    ReadProcessMemory((int)_state.Instances[instanceid].Handle, slotNumberLocation, slotNumberValue, slotNumberValue.Length, ref slotNumberBuffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, slotNumberLocation, slotNumberValue, slotNumberValue.Length, ref slotNumberBuffer);
                     int playerSlot = BitConverter.ToInt32(slotNumberValue, 0);
 
                     // Fetching player name
                     byte[] playerNameBytes = new byte[15];
                     int playerNameBuffer = 0;
                     int playerNameLocation = (int)playerlistStartingLocation + 0x1C;
-                    ReadProcessMemory((int)_state.Instances[instanceid].Handle, playerNameLocation, playerNameBytes, playerNameBytes.Length, ref playerNameBuffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerNameLocation, playerNameBytes, playerNameBytes.Length, ref playerNameBuffer);
                     string formattedPlayerName = Encoding.Default.GetString(playerNameBytes).Replace("\0", "");
 
                     if (string.IsNullOrEmpty(formattedPlayerName) || string.IsNullOrWhiteSpace(formattedPlayerName))
@@ -2655,10 +1454,11 @@ namespace HawkSync_SM
                     byte[] playerTeamBytes = new byte[4];
                     int playerTeamBuffer = 0;
                     int playerTeamLocation = (int)playerlistStartingLocation + 0x90;
-                    ReadProcessMemory((int)_state.Instances[instanceid].Handle, playerTeamLocation, playerTeamBytes, playerTeamBytes.Length, ref playerTeamBuffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerTeamLocation, playerTeamBytes, playerTeamBytes.Length, ref playerTeamBuffer);
                     int playerTeam = BitConverter.ToInt32(playerTeamBytes, 0);
 
                     string playerIP = GetPlayerIpAddress(formattedPlayerName, instanceid).ToString();
+                    // Get player stats <------- HERE
                     InternalPlayerStats PlayerStats = GetPlayerStats(instanceid, playerSlot);
 
                     playerlist.CharacterClass PlayerCharacterClass = (playerlist.CharacterClass)PlayerStats.CharacterClass;
@@ -2738,38 +1538,6 @@ namespace HawkSync_SM
             return DicList;
         }
 
-        public bool ProcessExist(int id)
-        {
-            Process[] processes = Process.GetProcesses();
-            foreach (Process process in processes)
-            {
-                if (process.Id == id)
-                {
-                    return true;
-                }
-            }
-            return false;
-
-            /*if (!Process.GetProcesses().Any(x => x.Id == id))
-            {
-                return false;
-            }
-            try
-            {
-                Process process = Process.GetProcessById(id);
-                if (process.ProcessName != "dfbhd")
-                {
-                    process.Dispose();
-                    return false;
-                }
-                process.Dispose();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }*/
-        }
         public string IPQualityCheck(string ipaddress)
         {
             string URL = $"https://ipqualityscore.com/api/json/ip/{ProgramConfig.ip_quality_score_apikey}/{ipaddress}?strictness=0&allow_public_access_points=true&fast=true&lighter_penalties=true&mobile=true";
@@ -2782,234 +1550,6 @@ namespace HawkSync_SM
             reply.Dispose();
             replyTxt.Dispose();
             return Response;
-        }
-        public void UpdateTick()
-        {
-            try
-            {
-                foreach (var item in _state.Instances)
-                {
-                    Instance instance = item.Value;
-                    int rowId = item.Key;
-
-                    if (table.Rows.Count == 0)
-                    {
-                        return;
-                    }
-
-                    DataRow row = table.Rows[rowId];
-                    DateTime currentTime = DateTime.Now;
-                    if (DateTime.Compare(instance.NextUpdateTime, currentTime) < 0)
-                    {
-                        if (instance.PID != null)
-                        {
-                            try
-                            {
-                                var PID = instance.PID.GetValueOrDefault();
-                                if (ProcessExist(instance.PID.GetValueOrDefault()))
-                                {
-                                    // set process name incase the PID changes...
-                                    SetAppID(rowId);
-                                    SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
-
-                                    int timeRemainingInGame = GetTimeLeft(rowId);
-                                    var map = GetCurrentMission(rowId);
-                                    var currentPlayers = GetCurrentPlayers(rowId);
-                                    var currentGameType = "";
-                                    foreach (var gameTypeList in bitmapsAndGameTypes)
-                                    {
-                                        var gametype = gameTypeList.Value;
-                                        if (GetCurrentGameType(rowId).Equals(gametype.DatabaseId))
-                                        {
-                                            currentGameType = gametype.ShortName;
-                                            break;
-                                        }
-                                    }
-
-                                    instance.Status = CheckStatus(rowId);
-                                    UpdateGlobalGameType(rowId);
-                                    // prevents loading garbage data while switching maps,
-                                    // should also prevent ghosts from showing on the playerlist.
-                                    if (instance.Status != InstanceStatus.LOADINGMAP)
-                                    {
-                                        try
-                                        {
-                                            instance.PlayerList = CurrentPlayerList(rowId);
-                                        }
-                                        catch
-                                        {
-                                            return;
-                                        }
-                                        CheckBans(rowId, PID);
-                                    }
-
-                                    if (instance.EnableWebStats == true && instance.Status == InstanceStatus.ONLINE && instance.collectPlayerStats == true)
-                                    {
-                                        // collect player stats for submission
-                                        CollectPlayerStats(rowId);
-                                    }
-
-                                    // important for clearing stupid map cycle shit
-                                    instance.mapCounter = UpdateMapCycleCounter(rowId);
-                                    //UpdateMapCycleGarbage(rowId);
-
-                                    // check for VPNs
-                                    if (ProgramConfig.Enable_VPNWhiteList == true)
-                                    {
-                                        Check4VPN(rowId);
-                                    }
-
-                                    // get chatLogs...
-                                    //GetChatLogs(rowId, PID);
-
-
-                                    if (instance.Status != InstanceStatus.LOADINGMAP && instance.Status != InstanceStatus.SCORING)
-                                    {
-                                        ProcessPlayerWarnings(rowId);
-                                    }
-
-                                    if (instance.Status == InstanceStatus.LOADINGMAP)
-                                    {
-                                        if (instance.IsRunningPostGameProcesses == false)
-                                        {
-                                            instance.IsRunningPostGameProcesses = true;
-                                            if (ProgramConfig.ApplicationDebug)
-                                            {
-                                                log.Info("Instance " + rowId + " is running the Loading Process Handler.");
-                                            }
-                                            LoadingProcessHandler handler = new LoadingProcessHandler(_state, instance.DataTableColumnId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
-                                            handler.Run();
-
-                                            _state.ChatLogs[rowId].Messages.Clear();
-                                            _state.ChatLogs[rowId].CurrentIndex = 0;
-                                        }
-                                        instance.collectPlayerStats = true;
-                                        instance.IsRunningScoringGameProcesses = false;
-                                        CheckForCrashedGame(rowId);
-                                    }
-
-                                    if (instance.Status == InstanceStatus.SCORING)
-                                    {
-                                        if (instance.IsRunningScoringGameProcesses == false)
-                                        {
-                                            if (ProgramConfig.ApplicationDebug)
-                                            {
-                                                log.Info("Instance " + rowId + " is running the Scoring Process Handler.");
-                                            }
-                                            ScoringProcessHandler scoringHandler = new ScoringProcessHandler(_state, rowId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
-                                            scoringHandler.Run();
-                                            instance.IsRunningScoringGameProcesses = true;
-                                        }
-                                    }
-
-                                    if (instance.Status == InstanceStatus.LOADINGMAP || instance.Status == InstanceStatus.SCORING)
-                                    {
-                                        ChangePlayersTeam(rowId); // change player slot's team
-                                    }
-
-                                    if (instance.Status == InstanceStatus.STARTDELAY || instance.Status == InstanceStatus.ONLINE)
-                                    {
-                                        instance.gameCrashCounter = 0;
-                                        ResetGodMode(rowId);
-                                        ProcessDisarmedPlayers(rowId);
-                                        ProcessAutoMessage(rowId);
-                                        ChangeGameScore(rowId);
-                                        GetCurrentMapIndex(rowId);
-                                        if (instance.IsRunningPostGameProcesses == true)
-                                        {
-                                            instance.IsRunningPostGameProcesses = false;
-                                        }
-                                        if (instance.IsRunningScoringGameProcesses == true)
-                                        {
-                                            instance.IsRunningScoringGameProcesses = false;
-                                        }
-                                    }
-
-                                    if (instance.Status != InstanceStatus.OFFLINE)
-                                    {
-                                        instance.CurrentMap = GetCurrentMap(rowId, currentGameType); // always get the current map so long as the instance is not offline.
-                                    }
-
-                                    switch (timeRemainingInGame)
-                                    {
-                                        case 0:
-                                            row["Time Remaining"] = "< 1 Minute";
-                                            instance.TimeFlag = true;
-                                            break;
-                                        case 1:
-                                            row["Time Remaining"] = timeRemainingInGame + " Minute";
-                                            instance.TimeFlag = false;
-                                            break;
-                                        default:
-                                            row["Time Remaining"] = timeRemainingInGame + " Minutes";
-                                            instance.TimeFlag = false;
-                                            break;
-                                    }
-                                    row["Map"] = map;
-                                    row["Slots"] = currentPlayers + "/" + instance.MaxSlots;
-                                    row["Game Type"] = currentGameType;
-                                    instance.gameMapType = GetCurrentGameType(rowId);
-                                    instance.NextUpdateTime = currentTime.AddMilliseconds(100);
-                                    instance.LastUpdateTime = currentTime;
-                                    instance.Map = map;
-                                    instance.TimeRemaining = timeRemainingInGame;
-                                    instance.NumPlayers = currentPlayers;
-                                    instance.GameTypeName = currentGameType;
-
-                                    SetStatusImage(rowId);
-
-                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
-                                    {
-                                        UpdateButtonsOnline();
-                                    }
-                                }
-                                else
-                                {
-                                    row["Time Remaining"] = "";
-                                    row["Map"] = "";
-                                    row["Slots"] = "";
-                                    row["Game Type"] = "";
-                                    instance.Status = InstanceStatus.OFFLINE;
-                                    instance.TimeFlag = false;
-                                    SetStatusImage(rowId);
-                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
-                                    {
-                                        UpdateButtonsOffline();
-                                    }
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                if (ProgramConfig.ApplicationDebug)
-                                {
-                                    _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
-                                    log.Error("An error occurred: " + e);
-                                }
-                                if (ProcessExist((int)instance.PID) == false)
-                                {
-                                    row["Time Remaining"] = "";
-                                    row["Map"] = "";
-                                    row["Slots"] = "";
-                                    row["Game Type"] = "";
-                                    instance.Status = InstanceStatus.OFFLINE;
-                                    instance.TimeFlag = false;
-                                    SetStatusImage(rowId);
-                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
-                                    {
-                                        UpdateButtonsOffline();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
-                log.Debug(e);
-                return;
-            }
         }
 
         private MapList GetCurrentMap(int rowId, string currentGameType)
@@ -3049,11 +1589,11 @@ namespace HawkSync_SM
             int appEntry = 0x400000;
             byte[] ServerMapCyclePtr = new byte[4];
             int Pointer2Read = 0;
-            ReadProcessMemory((int)_state.Instances[ArrayID].Handle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
             int MapCycleIndex = BitConverter.ToInt32(ServerMapCyclePtr, 0) + 0xC;
             byte[] mapIndexBytes = new byte[4];
             int mapIndexRead = 0;
-            ReadProcessMemory((int)_state.Instances[ArrayID].Handle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
             _state.Instances[ArrayID].mapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
             return;
         }
@@ -3149,7 +1689,7 @@ namespace HawkSync_SM
                         SetWindowText(_state.ApplicationProcesses[ArrayID].Handle, _state.Instances[ArrayID].GameName);
                         var baseAddr = 0x400000;
                         IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
-                        _state.Instances[ArrayID].Handle = processHandle;
+                        _state.Instances[ArrayID].ProcessHandle = processHandle;
 
                         SQLiteCommand updatePid = new SQLiteCommand("UPDATE `instances_pid` SET `pid` = @pid WHERE `profile_id` = @profileid;", _connection);
                         updatePid.Parameters.AddWithValue("@pid", _state.Instances[ArrayID].PID.GetValueOrDefault());
@@ -3170,7 +1710,7 @@ namespace HawkSync_SM
                             MemoryProcessor.Write(_state.Instances[ArrayID], (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
                         }
 
-                        // wait for server to be online
+                        // wait for ServerRC to be online
                         int counter = 0;
                         while (true)
                         {
@@ -3185,7 +1725,7 @@ namespace HawkSync_SM
                             }
                         }
 
-                        ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+                        ServerManagement serverManagerUpdateMemory = new ServerManagement();
                         serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, ArrayID);
                         serverManagerUpdateMemory.UpdateDestroyBuildings(_state, ArrayID);
                         serverManagerUpdateMemory.UpdateFatBullets(_state, ArrayID);
@@ -3206,7 +1746,7 @@ namespace HawkSync_SM
                         _connection.Close();
                         _connection.Dispose();
 
-                        _state.eventLog.WriteEntry("BMTv4 has detected a server crash!\n\nProfile Name: " + _state.Instances[ArrayID].GameName + "\nMap File: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapFile + "\nMap Title: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapName + "\n\nThe server has been automatically restarted.", EventLogEntryType.Warning);
+                        _state.eventLog.WriteEntry("BMTv4 has detected a ServerRC crash!\n\nProfile Name: " + _state.Instances[ArrayID].GameName + "\nMap File: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapFile + "\nMap Title: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapName + "\n\nThe ServerRC has been automatically restarted.", EventLogEntryType.Warning);
                     }
                 }
             }
@@ -3246,11 +1786,6 @@ namespace HawkSync_SM
             MemoryProcessor.Write(_state.Instances[ArrayID], startingPtr2, nextGameScoreBytes, nextGameScoreBytes.Length, ref nextGameScoreWritten2);
         }
 
-        private void UpdateMapCycleGarbage(int InstanceID)
-        {
-
-        }
-
         private int UpdateMapCycleCounter(int InstanceID)
         {
             byte[] currentMapCycleCountBytes = new byte[4];
@@ -3259,7 +1794,7 @@ namespace HawkSync_SM
             int baseAddr = 0x400000;
             int mapCycleCounterPtr = baseAddr + 0x5ED644;
 
-            ReadProcessMemory((int)_state.Instances[InstanceID].Handle, mapCycleCounterPtr, currentMapCycleCountBytes, currentMapCycleCountBytes.Length, ref currentMapCycleCountRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, mapCycleCounterPtr, currentMapCycleCountBytes, currentMapCycleCountBytes.Length, ref currentMapCycleCountRead);
 
             int currentMapCycleCount = BitConverter.ToInt32(currentMapCycleCountBytes, 0);
 
@@ -3281,12 +1816,12 @@ namespace HawkSync_SM
                     byte[] PointerAddr9 = new byte[4];
                     var baseAddr = 0x400000;
                     var Pointer = baseAddr + 0x005ED600;
-                    ReadProcessMemory((int)_state.Instances[rowId].Handle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                     var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
 
                     byte[] playerListStartingLocationByteArray = new byte[4];
                     int playerListStartingLocationBuffer = 0;
-                    ReadProcessMemory((int)_state.Instances[rowId].Handle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                    ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                     int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                     for (int slot = 1; slot < _state.Instances[rowId].DisarmPlayers[i]; slot++)
@@ -3308,7 +1843,7 @@ namespace HawkSync_SM
             }
             byte[] CurrentAppIDBytes = new byte[4];
             int currentAppIDRead = 0;
-            ReadProcessMemory((int)_state.Instances[rowId].Handle, 0x009DDA44, CurrentAppIDBytes, CurrentAppIDBytes.Length, ref currentAppIDRead);
+            ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, 0x009DDA44, CurrentAppIDBytes, CurrentAppIDBytes.Length, ref currentAppIDRead);
             int CurrentAppID = BitConverter.ToInt32(CurrentAppIDBytes, 0);
 
             if (CurrentAppID != 0)
@@ -3374,11 +1909,11 @@ namespace HawkSync_SM
                 var Pointer = baseAddr + 0x005ED600;
 
                 // read the playerlist memory address from the game...
-                ReadProcessMemory((int)_state.Instances[rowId].Handle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                 var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                 byte[] playerListStartingLocationByteArray = new byte[4];
                 int playerListStartingLocationBuffer = 0;
-                ReadProcessMemory((int)_state.Instances[rowId].Handle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                 int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
 
@@ -3420,11 +1955,11 @@ namespace HawkSync_SM
                     var Pointer = baseAddr + 0x005ED600;
 
                     // read the playerlist memory address from the game...
-                    ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                     var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                     byte[] playerListStartingLocationByteArray = new byte[4];
                     int playerListStartingLocationBuffer = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceID].Handle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                     int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                     for (int i = 1; i < slot; i++)
@@ -3433,7 +1968,7 @@ namespace HawkSync_SM
                     }
                     byte[] playerObjectLocationBytes = new byte[4];
                     int playerObjectLocationRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceID].Handle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
                     int playerObjectLocation = BitConverter.ToInt32(playerObjectLocationBytes, 0);
 
                     byte[] setPlayerHealth = BitConverter.GetBytes(9999); //set god mode health
@@ -3460,19 +1995,19 @@ namespace HawkSync_SM
             var starterPtr = baseAddr + 0x00062D10;
             byte[] ChatLogPtr = new byte[4];
             int ChatLogPtrRead = 0;
-            ReadProcessMemory((int)_state.Instances[profileid].Handle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
+            ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
 
             // get last message sent...
             int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
             byte[] Message = new byte[74];
             int MessageRead = 0;
-            ReadProcessMemory((int)_state.Instances[profileid].Handle, ChatLogAddr, Message, Message.Length, ref MessageRead);
+            ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);
             string LastMessage = Encoding.Default.GetString(Message).Replace("\0", "");
 
             int msgTypeAddr = ChatLogAddr + 0x78;
             byte[] msgType = new byte[4];
             int msgTypeRead = 0;
-            ReadProcessMemory((int)_state.Instances[profileid].Handle, msgTypeAddr, msgType, msgType.Length, ref msgTypeRead);
+            ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, msgTypeAddr, msgType, msgType.Length, ref msgTypeRead);
             string msgTypeBytes = BitConverter.ToString(msgType).Replace("-", "");
 
             // Check for valid next chat message
@@ -3594,7 +2129,7 @@ namespace HawkSync_SM
             var starterPtr = baseAddr + 0x00062D10;
             byte[] ChatLogPtr = new byte[4];
             int ChatLogPtrRead = 0;
-            ReadProcessMemory((int)_state.Instances[profileid].Handle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
+            ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
 
             // get last message sent...
             int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
@@ -3708,7 +2243,7 @@ namespace HawkSync_SM
                         var starterPtr1 = baseAddr + 0x00062D10;
                         byte[] ChatLogPtr1 = new byte[4];
                         int ChatLogPtrRead1 = 0;
-                        ReadProcessMemory((int)_state.Instances[profileid].Handle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead1);
+                        ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead1);
 
                         int ChatLogAddr1 = BitConverter.ToInt32(ChatLogPtr, 0);
                         byte[] countDownKiller = BitConverter.GetBytes(0);
@@ -3942,8 +2477,6 @@ namespace HawkSync_SM
             }
         }
 
-        public static int tid;
-
         public void UpdateGlobalGameType(int instanceid)
         {
             // this function is responsible for adjusting the Pinger Queries to the current game type
@@ -3951,14 +2484,14 @@ namespace HawkSync_SM
             var startingPtr = baseAddr + 0xACE0E8; // pinger query
             byte[] read_pingergametype = new byte[4];
             int read_pingergametypeBytesRead = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)startingPtr, read_pingergametype, read_pingergametype.Length, ref read_pingergametypeBytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startingPtr, read_pingergametype, read_pingergametype.Length, ref read_pingergametypeBytesRead);
             int PingerGameType = BitConverter.ToInt32(read_pingergametype, 0);
 
             // get set gametype
             var CurrentGameTypeAddr = baseAddr + 0x5F21A4;
             byte[] read_currentgametype = new byte[4];
             int read_currentgametypeBytesRead = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)CurrentGameTypeAddr, read_currentgametype, read_currentgametype.Length, ref read_currentgametypeBytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)CurrentGameTypeAddr, read_currentgametype, read_currentgametype.Length, ref read_currentgametypeBytesRead);
             int CurrentGameType = BitConverter.ToInt32(read_currentgametype, 0);
 
             // to prevent locking of this address simply look at each address before writing to the address...
@@ -3981,13 +2514,13 @@ namespace HawkSync_SM
             var startingPointer = baseAddr + 0x00098334;
             byte[] startingPointerBuffer = new byte[4];
             int startingPointerReadBytes = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)startingPointer, startingPointerBuffer, startingPointerBuffer.Length, ref startingPointerReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startingPointer, startingPointerBuffer, startingPointerBuffer.Length, ref startingPointerReadBytes);
 
 
             int statusLocationPointer = BitConverter.ToInt32(startingPointerBuffer, 0);
             byte[] statusLocation = new byte[4];
             int statusLocationReadBytes = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].Handle, (int)statusLocationPointer, statusLocation, statusLocation.Length, ref statusLocationReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)statusLocationPointer, statusLocation, statusLocation.Length, ref statusLocationReadBytes);
             int instanceStatus = BitConverter.ToInt32(statusLocation, 0);
 
             return (InstanceStatus)instanceStatus;
@@ -4428,55 +2961,961 @@ namespace HawkSync_SM
             }
         }
 
-        private void btnSM_click(object sender, EventArgs e)
+        
+
+        // Main_Profilelist Form Onload Events
+        private void Main_Profilelist_Load(object sender, EventArgs e)
+        {
+            table_profileList.Columns.Add("ID".ToString());
+            table_profileList.Columns.Add("Game Name".ToString());
+            table_profileList.Columns.Add("Mod".ToString(), typeof(byte[]));
+            table_profileList.Columns.Add("Slots".ToString());
+            table_profileList.Columns.Add("Map".ToString());
+            table_profileList.Columns.Add("Game Type".ToString());
+            table_profileList.Columns.Add("Time Remaining".ToString());
+            table_profileList.Columns.Add("Web Stats Status".ToString());
+            table_profileList.Columns.Add("Server Status".ToString(), typeof(byte[]));
+            ProgramConfig.NovaStatusCheck = DateTime.Now;
+            GetResultsTable();
+            list_serverProfiles.DataSource = table_profileList;
+            SetupTable();
+            hawkSyncDB.Open();
+            SQLiteCommand warnlevelquery = new SQLiteCommand("SELECT `warnlevel` FROM `instances_config` WHERE `profile_id` = @profileid;", hawkSyncDB);
+            foreach (var item in _state.Instances)
+            {
+                warnlevelquery.Parameters.AddWithValue("@profileid", item.Value.Id);
+                SQLiteDataReader warnLevelRead = warnlevelquery.ExecuteReader();
+                warnLevelRead.Read();
+                _state.Instances[item.Key].BanList = Load_BanList(item.Value.Id);
+                _state.Instances[item.Key].VPNWhiteList = load_vpnwhitelist(item.Key, item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].GodModeList = new List<int>();
+                _state.Instances[item.Key].ChangeTeamList = new List<ChangeTeamClass>();
+                _state.Instances[item.Key].CustomWarnings = load_customwarnings(item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].WarningQueue = new List<WarnPlayerClass>();
+                _state.Instances[item.Key].DisarmPlayers = new List<int>();
+                _state.Instances[item.Key].WeaponRestrictions = load_weaponRestrictions(item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].AutoMessages = load_autoMessages(item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].previousTeams = new List<PreviousTeams>();
+                _state.Instances[item.Key].savedmaprotations = load_savedRotations(item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].CurrentMap = new MapList();
+                _state.Instances[item.Key].WelcomeQueue = new List<WelcomePlayer>();
+                _state.Instances[item.Key].VoteMapsTally = new List<VoteMapsTally>();
+                _state.Instances[item.Key].VoteMapTimer = new Timer
+                {
+                    Enabled = false
+                };
+                _state.IPQualityCache.Add(item.Key, new ipqualityscore
+                {
+                    WarnLevel = warnLevelRead.GetInt32(warnLevelRead.GetOrdinal("warnlevel")),
+                    IPInformation = load_ipqualityCache(item.Value.Id, hawkSyncDB)
+                });
+                _state.ChatLogs[item.Key] = new ChatLogs();
+                warnLevelRead.Close();
+                warnLevelRead.Dispose();
+                serverManagement.SetHostnames(item.Value);
+            }
+            warnlevelquery.Dispose();
+            _state.Users = GetUsersFrmDB(hawkSyncDB);
+            _state.yearlystats = GetStatsFrmDB(hawkSyncDB);
+            _state.adminChatMsgs = GetAdminChatMsgs(hawkSyncDB);
+            _state.SystemInfo = GatherSystemInfo();
+            _state.autoRes = SetupAutoResClass(hawkSyncDB);
+            _state.playerHistories = GetPlayerHistories(hawkSyncDB);
+            _state.adminNotes = GetAdminNotes(hawkSyncDB);
+            _state.RCLogs = GetRCLogs(hawkSyncDB);
+
+            GlobalAppState.AppState = _state;
+            hawkSyncDB.Close();
+            Ticker.Enabled = true;
+            Ticker.Start();
+            if (_state.Instances.Count == 0)
+            {
+                btn_start.Enabled = false;
+                UpdateButtonsOffline();
+            }
+            else
+            {
+                btn_start.Enabled = true;
+            }
+        }
+        // Main_Profilelist Form OnClose Events
+        private void Main_Profilelist_Close(object sender, FormClosingEventArgs e)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show("Are you sure you want to quit?", "Quit Babstats", buttons);
+            if (result == DialogResult.Yes)
+            {
+                e.Cancel = false;
+                Ticker.Stop(); // since the program is exiting stop updating everything...
+                Ticker.Dispose(); // since the program is exiting stop updating everything...
+                Environment.Exit(0);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+        // Main_Profile Events
+        /*
+         * Event: Open Rotation Manager
+         */
+        private void event_OpenRotationManager(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(list_serverProfiles.CurrentCell.RowIndex);
+            SM_RotationManager rotationManager = new SM_RotationManager(_state, id);
+            rotationManager.Show();
+        }
+        /*
+         * Event: Open User Manager
+         */
+        private void event_openUserManager(object sender, EventArgs e)
+        {
+            UserManager userManager = new UserManager(_state);
+            userManager.ShowDialog();
+        }
+        /*
+         * Event: Open Server Manager
+         */
+        private void event_openServerManager(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(list_serverProfiles.CurrentCell.RowIndex);
             SM_ServerManager server_Manager = new SM_ServerManager(_state, id);
             server_Manager.ShowDialog();
         }
+        /*
+         * Event: Open Options Panel
+         */
+        private void event_openOptionsPanel(object sender, EventArgs e)
+        {
+            Options op = new Options(_state);
+            op.ShowDialog();
+        }
+        /*
+         * Event: Opens the Create Profile Form and adds the profile to the list on submission.
+         */
+        private void event_createProfile(object sender, EventArgs e)
+        {
+            // capture last index.
+            string img;
+            string statusIMG;
+            int lastIndex = _state.Instances.Count;
+            Create_Profile frm = new Create_Profile(_state);
+            frm.ShowDialog();
+            if (Create_Profile.ProfileCreated == true)
+            {
+                DataRow dr = table_profileList.NewRow();
+                statusIMG = "notactive.gif";
+                if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == true)
+                {
+                    img = "bhdts.gif";
+                }
+                else if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == false)
+                {
+                    img = "bhd.gif";
+                }
+                else if (_state.Instances[lastIndex].GameType == 1)
+                {
+                    img = "jo.gif";
+                }
+                else
+                {
+                    img = "bhd.gif";
+                }
+                dr["ID"] = _state.Instances[lastIndex].Id;
+                dr["Game Name"] = _state.Instances[lastIndex].GameName;
+                dr["Mod"] = imageToByteArray(img);
+                dr["Server Status"] = imageToByteArray(statusIMG);
+                table_profileList.Rows.Add(dr);
+                MessageBox.Show("Profile Added Successfully.", "Success", MessageBoxButtons.OK);
+                if (_state.Instances.Count > 0) { btn_start.Enabled = true; }
+            }
+        }
+        /*
+         * Event: Deletes the Selected Profile from the Database and the on screen list.
+         */
+        private void event_deleteProfile(object sender, EventArgs e)
+        {
 
+            // Are there any Profiles to start?
+            if ((list_serverProfiles.Rows.Count) == 0)
+            {
+                MessageBox.Show("There are no profiles to delete.");
+                return;
+            }
+
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile", buttons);
+            if (result == DialogResult.Yes)
+            {
+                int id = list_serverProfiles.CurrentRow.Index;
+                DataRow instance = table_profileList.Rows[id];
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                db.Open();
+
+                SQLiteCommand chatLog_del = new SQLiteCommand("DELETE FROM `chatlog` WHERE `profile_id` = @profileid;", db);
+                chatLog_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                chatLog_del.ExecuteNonQuery();
+                chatLog_del.Dispose();
+
+                SQLiteCommand customWarnings_del = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `instanceid` = @profileid;", db);
+                customWarnings_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                customWarnings_del.ExecuteNonQuery();
+                customWarnings_del.Dispose();
+
+                SQLiteCommand command = new SQLiteCommand("DELETE FROM `instances` WHERE id = @profileid;", db);
+                command.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                command.ExecuteNonQuery();
+                command.Dispose();
+
+                SQLiteCommand config = new SQLiteCommand("DELETE FROM `instances_config` WHERE profile_id = @profileid;", db);
+                config.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                config.ExecuteNonQuery();
+                config.Dispose();
+
+                SQLiteCommand mapRotations_del = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `profile_id` = @profileid;", db);
+                mapRotations_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                mapRotations_del.ExecuteNonQuery();
+                mapRotations_del.Dispose();
+
+                SQLiteCommand pid_del = new SQLiteCommand("DELETE from `instances_pid` WHERE profile_id = @profileid;", db);
+                pid_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                pid_del.ExecuteNonQuery();
+                pid_del.Dispose();
+
+                SQLiteCommand IPCache_del = new SQLiteCommand("DELETE FROM `ipqualitycache` WHERE `profile_id` = @profileid;", db);
+                IPCache_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                IPCache_del.ExecuteNonQuery();
+                IPCache_del.Dispose();
+
+                SQLiteCommand playerBans_del = new SQLiteCommand("DELETE FROM `playerbans` WHERE `profileid` = @profileid;", db);
+                playerBans_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                playerBans_del.ExecuteNonQuery();
+                playerBans_del.Dispose();
+
+                SQLiteCommand whiteList_del = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
+                whiteList_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                whiteList_del.ExecuteNonQuery();
+                whiteList_del.Dispose();
+
+                db.Close();
+                db.Dispose();
+                _state.Instances.Remove(id);
+                _state.ChatLogs.Remove(id);
+                _state.PlayerStats.Remove(id);
+                _state.IPQualityCache.Remove(id);
+                table_profileList.Rows.Remove(instance);
+                if (list_serverProfiles.Rows.Count > 0)
+                {
+                    list_serverProfiles.Rows[0].Selected = true;
+                }
+            }
+            else if (result == DialogResult.No) return;
+        }
+        /*
+         * Event: Tiggered by the close button on the main form.
+         */
+        private void event_closeProfileList(object sender, EventArgs e)
+        {
+            Environment.ExitCode = 0;
+            this.Close();
+        }
+
+        // Main_Profile On Change Events
         private void serverProfiles_SelectionChanged(object sender, EventArgs e)
         {
             if (list_serverProfiles.SelectedRows.Count == 0)
             {
                 return;
             }
+
             var row = list_serverProfiles.SelectedRows[0];
             var instance = _state.Instances[row.Index];
 
-            if (instance.Status.Equals(InstanceStatus.ONLINE))
+            if (instance.Status == InstanceStatus.ONLINE ||
+                instance.Status == InstanceStatus.SCORING ||
+                instance.Status == InstanceStatus.LOADINGMAP ||
+                instance.Status == InstanceStatus.STARTDELAY)
             {
                 UpdateButtonsOnline();
             }
-            else if (instance.Status.Equals(InstanceStatus.OFFLINE))
+            else if (instance.Status == InstanceStatus.OFFLINE)
             {
                 UpdateButtonsOffline();
             }
-            else if (instance.Status.Equals(InstanceStatus.SCORING))
+        }
+
+        // Server Manager Functions //
+        /* 
+         * InstanceSeverCheck
+         * - Check Server Instances for Active Servers (Recover from Server Manager Crash)
+         * - The following function checks for the last process ID and attempts to re-attach to the process.
+         */
+        private void InstanceSeverCheck()
+        {
+            foreach (var instance in _state.Instances)
             {
-                UpdateButtonsOnline();
+                if (instance.Value.ProcessHandle == IntPtr.Zero)
+                {
+                    if (serverManagement.ProcessExist(instance.Value.PID.GetValueOrDefault()))
+                    {
+                        instance.Value.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.Value.PID.GetValueOrDefault());
+                        if (instance.Value.ProcessHandle == IntPtr.Zero)
+                        {
+                            log.Error("Failed to attach to process " + instance.Value.PID.GetValueOrDefault());
+                        }
+                        else
+                        {
+                            log.Info("Attached to process " + instance.Value.PID.GetValueOrDefault());
+                        }
+                        if (!_state.ApplicationProcesses.ContainsKey(instance.Key))
+                        {
+                            _state.ApplicationProcesses.Add(instance.Key, Process.GetProcessById(instance.Value.PID.GetValueOrDefault()));
+                        }
+                    }
+                }
             }
-            else if (instance.Status.Equals(InstanceStatus.LOADINGMAP))
+        }
+        /* 
+         * InstanceTicker
+         * - Check each instance and update the instance information from the game.
+         * - Trigger any events that are required for the instance (Bans/Chat Events/ETC).
+         */
+        private void InstanceTicker()
+        {
+            try
             {
-                UpdateButtonsOnline();
+                foreach (var item in _state.Instances)
+                {
+                    Instance instance = item.Value;
+                    int rowId = item.Key;
+
+                    if (table_profileList.Rows.Count == 0)
+                    {
+                        return;
+                    }
+
+                    DataRow row = table_profileList.Rows[rowId];
+                    DateTime currentTime = DateTime.Now;
+                    if (DateTime.Compare(instance.NextUpdateTime, currentTime) < 0)
+                    {
+                        if (instance.PID != null)
+                        {
+                            try
+                            {
+                                var PID = instance.PID.GetValueOrDefault();
+                                if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
+                                {
+                                    // set process name incase the PID changes...
+                                    SetAppID(rowId);
+                                    SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
+
+                                    int timeRemainingInGame = GetTimeLeft(rowId);
+                                    var map = GetCurrentMission(rowId);
+                                    var currentPlayers = GetCurrentPlayers(rowId);
+                                    var currentGameType = "";
+                                    foreach (var gameTypeList in gameTypes)
+                                    {
+                                        var gametype = gameTypeList.Value;
+                                        if (GetCurrentGameType(rowId).Equals(gametype.DatabaseId))
+                                        {
+                                            currentGameType = gametype.ShortName;
+                                            break;
+                                        }
+                                    }
+
+                                    instance.Status = CheckStatus(rowId);
+                                    UpdateGlobalGameType(rowId);
+                                    // prevents loading garbage data while switching maps,
+                                    // should also prevent ghosts from showing on the playerlist.
+                                    if (instance.Status != InstanceStatus.LOADINGMAP)
+                                    {
+                                        try
+                                        {
+                                            instance.PlayerList = CurrentPlayerList(rowId);
+                                        }
+                                        catch
+                                        {
+                                            return;
+                                        }
+                                        CheckBans(rowId, PID);
+                                    }
+
+                                    if (instance.EnableWebStats == true && instance.Status == InstanceStatus.ONLINE && instance.collectPlayerStats == true)
+                                    {
+                                        // collect player stats for submission
+                                        CollectPlayerStats(rowId);
+                                    }
+
+                                    // important for clearing stupid map cycle shit
+                                    instance.mapCounter = UpdateMapCycleCounter(rowId);
+                                    //UpdateMapCycleGarbage(rowId);
+
+                                    // check for VPNs
+                                    if (ProgramConfig.Enable_VPNWhiteList == true)
+                                    {
+                                        Check4VPN(rowId);
+                                    }
+
+                                    // get chatLogs...
+                                    //GetChatLogs(rowId, PID);
+
+
+                                    if (instance.Status != InstanceStatus.LOADINGMAP && instance.Status != InstanceStatus.SCORING)
+                                    {
+                                        ProcessPlayerWarnings(rowId);
+                                    }
+
+                                    if (instance.Status == InstanceStatus.LOADINGMAP)
+                                    {
+                                        if (instance.IsRunningPostGameProcesses == false)
+                                        {
+                                            instance.IsRunningPostGameProcesses = true;
+                                            if (ProgramConfig.ApplicationDebug)
+                                            {
+                                                log.Info("Instance " + rowId + " is running the Loading Process Handler.");
+                                            }
+                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
+                                            postGameProcess.Run();
+
+                                            _state.ChatLogs[rowId].Messages.Clear();
+                                            _state.ChatLogs[rowId].CurrentIndex = 0;
+                                        }
+                                        instance.collectPlayerStats = true;
+                                        instance.IsRunningScoringGameProcesses = false;
+                                        CheckForCrashedGame(rowId);
+                                    }
+
+                                    if (instance.Status == InstanceStatus.SCORING)
+                                    {
+                                        if (instance.IsRunningScoringGameProcesses == false)
+                                        {
+                                            if (ProgramConfig.ApplicationDebug)
+                                            {
+                                                log.Info("Instance " + rowId + " is running the Scoring Process Handler.");
+                                            }
+                                            ScoringGameProcess postGameProcess = new ScoringGameProcess(_state, rowId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
+                                            postGameProcess.Run();
+                                            instance.IsRunningScoringGameProcesses = true;
+                                        }
+                                    }
+
+                                    if (instance.Status == InstanceStatus.LOADINGMAP || instance.Status == InstanceStatus.SCORING)
+                                    {
+                                        ChangePlayersTeam(rowId); // change player slot's team
+                                    }
+
+                                    if (instance.Status == InstanceStatus.STARTDELAY || instance.Status == InstanceStatus.ONLINE)
+                                    {
+                                        instance.gameCrashCounter = 0;
+                                        ResetGodMode(rowId);
+                                        ProcessDisarmedPlayers(rowId);
+                                        ProcessAutoMessage(rowId);
+                                        ChangeGameScore(rowId);
+                                        GetCurrentMapIndex(rowId);
+                                        if (instance.IsRunningPostGameProcesses == true)
+                                        {
+                                            instance.IsRunningPostGameProcesses = false;
+                                        }
+                                        if (instance.IsRunningScoringGameProcesses == true)
+                                        {
+                                            instance.IsRunningScoringGameProcesses = false;
+                                        }
+                                    }
+
+                                    if (instance.Status != InstanceStatus.OFFLINE)
+                                    {
+                                        instance.CurrentMap = GetCurrentMap(rowId, currentGameType); // always get the current map so long as the instance is not offline.
+                                    }
+
+                                    switch (timeRemainingInGame)
+                                    {
+                                        case 0:
+                                            row["Time Remaining"] = "< 1 Minute";
+                                            instance.TimeFlag = true;
+                                            break;
+                                        case 1:
+                                            row["Time Remaining"] = timeRemainingInGame + " Minute";
+                                            instance.TimeFlag = false;
+                                            break;
+                                        default:
+                                            row["Time Remaining"] = timeRemainingInGame + " Minutes";
+                                            instance.TimeFlag = false;
+                                            break;
+                                    }
+                                    row["Map"] = map;
+                                    row["Slots"] = currentPlayers + "/" + instance.MaxSlots;
+                                    row["Game Type"] = currentGameType;
+                                    instance.gameMapType = GetCurrentGameType(rowId);
+                                    instance.NextUpdateTime = currentTime.AddMilliseconds(100);
+                                    instance.LastUpdateTime = currentTime;
+                                    instance.Map = map;
+                                    instance.TimeRemaining = timeRemainingInGame;
+                                    instance.NumPlayers = currentPlayers;
+                                    instance.GameTypeName = currentGameType;
+
+                                    SetStatusImage(rowId);
+
+                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
+                                    {
+                                        UpdateButtonsOnline();
+                                    }
+                                }
+                                else
+                                {
+                                    row["Time Remaining"] = "";
+                                    row["Map"] = "";
+                                    row["Slots"] = "";
+                                    row["Game Type"] = "";
+                                    instance.Status = InstanceStatus.OFFLINE;
+                                    instance.TimeFlag = false;
+                                    SetStatusImage(rowId);
+                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
+                                    {
+                                        UpdateButtonsOffline();
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                if (ProgramConfig.ApplicationDebug)
+                                {
+                                    _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                                    log.Error("An error occurred: " + e);
+                                }
+                                if (serverManagement.ProcessExist((int)instance.PID) == false)
+                                {
+                                    row["Time Remaining"] = "";
+                                    row["Map"] = "";
+                                    row["Slots"] = "";
+                                    row["Game Type"] = "";
+                                    instance.Status = InstanceStatus.OFFLINE;
+                                    instance.TimeFlag = false;
+                                    SetStatusImage(rowId);
+                                    if (list_serverProfiles.SelectedRows[0].Index == rowId)
+                                    {
+                                        UpdateButtonsOffline();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            else if (instance.Status.Equals(InstanceStatus.STARTDELAY))
+            catch (Exception e)
             {
-                UpdateButtonsOnline();
+                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                log.Debug(e);
+                return;
+            }
+        }
+        /*
+         * SetupAppState
+         * - From the SQLite Database, setup the application state.
+         */
+        private void SetupAppState(SQLiteConnection db)
+        {
+            try
+            {
+                string sql = @"SELECT i.*, pi.pid, ic.* FROM instances i 
+                        LEFT JOIN instances_pid pi ON i.id = pi.profile_id 
+                        LEFT JOIN instances_config ic ON i.id = ic.profile_id;";
+                SQLiteCommand command = new SQLiteCommand(sql, db);
+                SQLiteDataReader result = command.ExecuteReader();
+                while (result.Read())
+                {
+                    bool TeamSabre = false;
+                    if (result.GetInt32(result.GetOrdinal("game_type")) == 0)
+                    {
+                        if (File.Exists(result.GetString(result.GetOrdinal("gamepath")) + "\\EXP1.pff"))
+                        {
+                            TeamSabre = true;
+                        }
+                    }
+
+                    string WebstatsURL = "";
+                    bool EnableWebStats;
+                    switch (result.GetInt32(result.GetOrdinal("stats")))
+                    {
+                        case 1:
+                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
+                            EnableWebStats = true;
+                            break;
+                        case 2:
+                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
+                            EnableWebStats = true;
+                            break;
+                        default:
+                            WebstatsURL = "";
+                            EnableWebStats = false;
+                            break;
+                    }
+                    //var jsonWeaponRestrictions = JsonConvert.DeserializeObject<WeaponsClass>(result.GetString(result.GetOrdinal("weaponrestrictions")));
+                    Dictionary<int, MapList> mapList = new Dictionary<int, MapList>();
+                    if (result.GetString(result.GetOrdinal("mapcycle")) != "[]")
+                    {
+                        mapList = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("mapcycle")));
+                    }
+                    Dictionary<int, MapList> availableMaps = new Dictionary<int, MapList>();
+                    if (result.GetString(result.GetOrdinal("availablemaps")) != "[]")
+                    {
+                        availableMaps = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("availablemaps")));
+                    }
+                    int testHQ = result.GetInt32(result.GetOrdinal("novahq_master"));
+                    int testCC = result.GetInt32(result.GetOrdinal("novacc_master"));
+                    PluginsClass plugins;
+                    if (result.GetString(result.GetOrdinal("plugins")) == "[]")
+                    {
+                        plugins = new PluginsClass
+                        {
+                            WelcomeMessage = false,
+                            VoteMaps = false,
+                            WelcomeMessageSettings = new wp_PluginSettings
+                            {
+                                NewPlayerMsg = "Welcome $(PlayerName)!",
+                                ReturningPlayerMsg = "Welcome back $(PlayerName)!"
+                            },
+                            VoteMapSettings = new vm_PluginSettings
+                            {
+                                CoolDown = 1,
+                                CoolDownType = vm_internal.CoolDownTypes.NUM_OF_MINS,
+                                MinPlayers = 3
+                            }
+                        };
+                    }
+                    else
+                    {
+                        plugins = JsonConvert.DeserializeObject<PluginsClass>(result.GetString(result.GetOrdinal("plugins")));
+                    }
+
+                    Instance instance = new Instance()
+                    {
+                        Id = result.GetInt32(result.GetOrdinal("id")),
+                        GamePath = result.GetString(result.GetOrdinal("gamepath")),
+                        GameType = result.GetInt32(result.GetOrdinal("game_type")),
+                        GameName = result.GetString(result.GetOrdinal("name")),
+                        HostName = result.GetString(result.GetOrdinal("host_name")),
+                        CountryCode = result.GetString(result.GetOrdinal("country_code")),
+                        ServerName = result.GetString(result.GetOrdinal("server_name")),
+                        Password = result.GetString(result.GetOrdinal("server_password")),
+                        MOTD = result.GetString(result.GetOrdinal("motd")),
+                        Dedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
+                        SessionType = result.GetInt32(result.GetOrdinal("session_type")),
+                        MaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
+                        GameScore = result.GetInt32(result.GetOrdinal("game_score")),
+                        FBScore = result.GetInt32(result.GetOrdinal("fbscore")),
+                        KOTHScore = result.GetInt32(result.GetOrdinal("kothscore")),
+                        ZoneTimer = result.GetInt32(result.GetOrdinal("zone_timer")),
+                        WindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
+                        LoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
+                        RespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
+                        RequireNovaLogin = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
+                        AllowCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
+                        MaxKills = result.GetInt32(result.GetOrdinal("max_kills")),
+                        BindAddress = result.GetString(result.GetOrdinal("bind_address")),
+                        GamePort = result.GetInt32(result.GetOrdinal("port")),
+                        TimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
+                        StartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
+                        MinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
+                        MinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
+                        MaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
+                        MaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
+                        OneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
+                        FatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
+                        DestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
+                        FriendlyFire = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
+                        FriendlyFireWarning = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
+                        FriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
+                        FriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
+                        PSPTakeOverTime = result.GetInt32(result.GetOrdinal("psptakeover")),
+                        AllowAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
+                        AutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
+                        BluePassword = result.GetString(result.GetOrdinal("blue_team_password")),
+                        RedPassword = result.GetString(result.GetOrdinal("red_team_password")),
+                        FlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
+                        MaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
+                        ShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
+                        ShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
+                        RoleRestrictions = GetRoleRestrictions(result.GetString(result.GetOrdinal("rolerestrictions"))),
+                        WeaponRestrictions = GetWeaponRestrictions(result.GetString(result.GetOrdinal("weaponrestrictions"))),
+                        LastUpdateTime = DateTime.Now,
+                        NextUpdateTime = DateTime.Now.AddSeconds(2.0),
+                        nextWebStatsStatusUpdate = DateTime.Now.AddSeconds(2.0),
+                        EnableWebStats = EnableWebStats,
+                        enableVPNCheck = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNCheck"))),
+                        WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
+                        WebstatsURL = WebstatsURL,
+                        availableMaps = availableMaps,
+                        MapList = mapList,
+                        mapListCount = mapList.Count,
+                        WebstatsIdVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
+                        ReportMaster = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_babstats_master"))),
+                        Status = InstanceStatus.OFFLINE,
+                        anti_stat_padding = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
+                        anti_stat_padding_min_minutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
+                        anti_stat_padding_min_players = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
+                        CrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
+                        misc_show_ranks = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
+                        misc_left_leaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
+                        WebStatsId = result.GetInt32(result.GetOrdinal("stats_server_id")),
+                        PlayerList = new Dictionary<int, playerlist>(),
+                        previousMapList = new Dictionary<int, MapList>(),
+                        IPWhiteList = new Dictionary<string, string>(),
+                        ScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
+                        ReportNovaHQ = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novahq_master"))),
+                        ReportNovaCC = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novacc_master"))),
+                        Plugins = plugins,
+                        VoteMapStandBy = true,
+                        IsTeamSabre = TeamSabre,
+                    };
+                    var collectPlayerStats = new CollectedPlayerStatsPlayers()
+                    {
+                        Player = new Dictionary<string, CollectedPlayerStats>()
+                    };
+
+                    /*ChatLogHandler = new Timer()
+                    {
+                        Enabled = true
+                    };
+                    ChatLogHandler.Tick += (sender, e) => {
+                        for (int i = 0; i < _state.Instances.Count; i++)
+                        {
+                            if (_state.Instances[i].Status != InstanceStatus.OFFLINE && _state.Instances[i].Status != InstanceStatus.LOADINGMAP)
+                            {
+                                GetChatLogs(i);
+                            }
+                        }
+                    };*/
+                    int instanceId = _state.Instances.Count;
+                    _state.ChatHandlerTimer.Add(_state.Instances.Count, new Timer
+                    {
+                        Enabled = true,
+                        Interval = 1
+                    });
+                    _state.ChatHandlerTimer[_state.Instances.Count].Tick += (sender, e) =>
+                    {
+                        if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
+                        {
+                            GetChatLogs(instanceId);
+                        }
+                    };
+
+                    /*QueueHandler = new Thread(() =>
+                    {
+                        while (true)
+                        {
+                            for (int i = 0; i < _state.ConsoleQueue.Count; i++)
+                            {
+                                ProcessConsoleCommands(i);
+                            }
+                        }
+                    });*/
+
+                    if (!result.IsDBNull(result.GetOrdinal("pid")))
+                    {
+                        instance.PID = result.GetInt32(result.GetOrdinal("pid"));
+                        _state.eventLog.WriteEntry("Found PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Information);
+                    }
+
+                    if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
+                    {
+                        _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.Id, EventLogEntryType.Information);
+                        if (!_state.ApplicationProcesses.ContainsKey(_state.Instances.Count))
+                        {
+                            // to do... INCLUDE CUSTOM MODS
+                            if (Process.GetProcessById(instance.PID.GetValueOrDefault()).ProcessName == "dfbhd")
+                            {
+                                _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.PID.GetValueOrDefault()));
+                            }
+                        }
+                        try
+                        {
+                            instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.PID.GetValueOrDefault());
+                        }
+                        catch (Exception e)
+                        {
+                            throw e;
+                        }
+
+                        if (instance.ProcessHandle == null || instance.ProcessHandle == IntPtr.Zero)
+                        {
+                            _state.eventLog.WriteEntry("Unable to attach to process...", EventLogEntryType.Error, 0, 0);
+                            throw new Exception("Unable to attach to process...");
+                        }
+                    }
+                    else
+                    {
+                        _state.eventLog.WriteEntry("Could not find PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Warning);
+                    }
+
+                    _state.eventLog.WriteEntry("Attachment successful: " + instance.Id, EventLogEntryType.Information);
+                    _state.eventLog.WriteEntry("Adding instance: " + instance.Id, EventLogEntryType.Information);
+
+                    // init AppState
+                    _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue
+                    {
+                        queue = new List<Queue>(),
+                        nextCmd = DateTime.Now.AddSeconds(10)
+                    });
+                    _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue
+                    {
+                        text = "BMTv4 is starting...",
+                        Type = ConsoleQueueType.MESSAGE,
+                        color = ChatColor.NORMAL
+                    });
+                    _state.Instances.Add(_state.Instances.Count, instance);
+                    // this should start a timer to automatically check for new messages in a different thread than the main thread.
+                    _state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
+                    // start the chat handler in it's OWN THREAD PER SERVER.
+                    _state.ChatHandlerTimer[instanceId].Start();
+                }
+                command.Dispose();
+                result.Close();
+            }
+            catch (Exception e)
+            {
+                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                log.Debug(e);
+            }
+        }
+        /*
+         * GetGameTypes
+         * - Grabs the game types from the database and stores them in a dictionary.
+         */
+        private void GetGameTypes(SQLiteConnection conn)
+        {
+            var sql = "SELECT * FROM gametypes;";
+
+            SQLiteCommand gameTypes_query = new SQLiteCommand(sql, conn);
+            SQLiteDataReader gameTypes_results = gameTypes_query.ExecuteReader();
+            while (gameTypes_results.Read())
+            {
+                gameTypes.Add(gameTypes_results.GetInt32(gameTypes_results.GetOrdinal("bitmap")),
+                  new GameType
+                  {
+                      DatabaseId = gameTypes_results.GetInt32(gameTypes_results.GetOrdinal("id")),
+                      Name = gameTypes_results.GetString(gameTypes_results.GetOrdinal("name")),
+                      ShortName = gameTypes_results.GetString(gameTypes_results.GetOrdinal("shortname")),
+                      Bitmap = gameTypes_results.GetInt32(gameTypes_results.GetOrdinal("bitmap"))
+                  }
+                );
+            }
+            gameTypes_query.Dispose();
+            gameTypes_results.Close();
+        }
+
+        // IP Quality Cache Functions //
+
+
+
+        // VPN Functions //
+
+
+        
+        // RC Control Functions //
+        /*
+         * RC_BeginListening
+         * - Start Listening for Remote Control Commands
+         */
+        private void RC_BeginListening()
+        {
+            try
+            {
+                WatsonTcpServer ServerRC = _state.server;
+                ServerRC.Events.MessageReceived += RCEvents_MessageReceived;
+                ServerRC.Events.ClientConnected += RCEvents_ClientConnected;
+                ServerRC.Events.ServerStarted += RCEvents_ServerStarted;
+                ServerRC.Events.ServerStopped += RCEvents_ServerStopped;
+                ServerRC.Events.StreamReceived += RCEvents_StreamReceived;
+                ServerRC.Events.ExceptionEncountered += RCEvents_ExceptionEncountered;
+                ServerRC.Callbacks.SyncRequestReceived = RC_RunCommand;
+                if (ProgramConfig.RCEnabled == true)
+                {
+                    ServerRC.Start();
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to bind to port: " + ProgramConfig.RCPort.ToString(), "ERROR");
+                log.Debug(e);
+            }
+        }
+        private SyncResponse RC_RunCommand(SyncRequest request)
+        {
+            RCListener client = new RCListener(_state);
+            Dictionary<object, object> metadata = new Dictionary<object, object>();
+
+            byte[] bytes = Compression.Compress(client.BMTRemoteFunctions(numClientsRC, ref metadata, null, request));
+
+            return new SyncResponse(request, bytes);
+        }
+        private void RCEvents_ExceptionEncountered(object sender, ExceptionEventArgs e)
+        {
+            Console.WriteLine(e);
+        }
+        private void RCEvents_StreamReceived(object sender, StreamReceivedEventArgs e)
+        {
+            Console.WriteLine("Testing");
+        }
+        private void RCEvents_ServerStopped(object sender, EventArgs e)
+        {
+            Console.WriteLine(">> Remote Client Listener Stopped.");
+        }
+        private void RCEvents_ServerStarted(object sender, EventArgs e)
+        {
+            Console.WriteLine(">> Remote Client Listener Started.");
+        }
+        private void RCEvents_ClientConnected(object sender, WatsonTcp.ConnectionEventArgs e)
+        {
+            numClientsRC++;
+        }
+        private void RCEvents_MessageReceived(object sender, MessageReceivedEventArgs msg)
+        {
+            Dictionary<object, object> metadata = new Dictionary<object, object>();
+            RCListener client = new RCListener(_state);
+            client.BMTRemoteFunctions(numClientsRC, ref metadata, msg, null);
+        }
+        private void RC_CleanClientConnections()
+        {
+            List<string> deleteClients = new List<string>();
+            // clean the dead clients and reopen ports after 30 minutes of inactivity, or if the client never authenicated.
+            foreach (var clientObj in _state.rcClients)
+            {
+                int dateCompare = DateTime.Compare(DateTime.Parse(clientObj.Value.expires), clientObj.Value.lastCMDTime);
+                if (dateCompare < 0)
+                {
+                    deleteClients.Add(clientObj.Key);
+                }
+            }
+            foreach (var client in deleteClients)
+            {
+                _state.rcClients[client].active = false;
+                _state.rcClients.Remove(client);
             }
         }
 
-        private void btnUM_click(object sender, EventArgs e)
+        // Potentially Deprecated or Junk Functions //
+        private SystemInfoClass GatherSystemInfo()
         {
-            UserManager userManager = new UserManager(_state);
-            userManager.ShowDialog();
-        }
+            SystemInfoClass systemInfo = new SystemInfoClass();
+            ManagementObjectSearcher MOS = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_OperatingSystem");
+            foreach (ManagementObject MOS_info in MOS.Get())
+            {
+                systemInfo.OSName = (string)MOS_info["Caption"];
+                systemInfo.OSVersion = (string)MOS_info["Version"];
+                systemInfo.OSBuild = Environment.OSVersion.Version.Build.ToString();
+                systemInfo.VirtualMemory = Convert.ToString((Convert.ToInt32(MOS_info["TotalVirtualMemorySize"])) / 1024 / 1024) + "GB";
+            }
+            ManagementObjectSearcher CPU = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+            systemInfo.CPUs = new Dictionary<int, string>();
+            foreach (ManagementObject CPU_info in CPU.Get())
+            {
+                systemInfo.CPUs.Add(systemInfo.CPUs.Count, (string)CPU_info["Name"]);
+            }
+            long memkb;
+            GetPhysicallyInstalledSystemMemory(out memkb);
+            systemInfo.Memory = Convert.ToString((memkb / 1024 / 1024) + "GB");
 
-        private void btnRM_click(object sender, EventArgs e)
-        {
-            int id = Convert.ToInt32(list_serverProfiles.CurrentCell.RowIndex);
-            SM_RotationManager rotationManager = new SM_RotationManager(_state, id);
-            rotationManager.Show();
+            return systemInfo;
         }
     }
 }

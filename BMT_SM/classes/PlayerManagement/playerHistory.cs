@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SQLite;
 
 namespace HawkSync_SM
 {
@@ -8,5 +9,9 @@ namespace HawkSync_SM
         public string playerName { get; set; }
         public string playerIP { get; set; }
         public DateTime firstSeen { get; set; }
+
     }
+
+
+
 }

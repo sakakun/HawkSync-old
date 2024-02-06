@@ -48,15 +48,15 @@ namespace HawkSync_SM
             {
                 radio_apibtn1.Checked = true;
                 radio_apibtn2.Checked = false;
-                textBox3.Enabled = true;
+                ipQualityScore_APIKEY.Enabled = true;
             }
             else if (ProgramConfig.EnableVPNCheck == false)
             {
                 radio_apibtn1.Checked = false;
                 radio_apibtn2.Checked = true;
-                textBox3.Enabled = false;
+                ipQualityScore_APIKEY.Enabled = false;
             }
-            textBox3.Text = ProgramConfig.ip_quality_score_apikey;
+            ipQualityScore_APIKEY.Text = ProgramConfig.ip_quality_score_apikey;
 
         }
 
@@ -92,9 +92,9 @@ namespace HawkSync_SM
                     _state.server.Start();
                 }
             }
-            if (textBox3.Text != ProgramConfig.ip_quality_score_apikey)
+            if (ipQualityScore_APIKEY.Text != ProgramConfig.ip_quality_score_apikey)
             {
-                ProgramConfig.ip_quality_score_apikey = textBox3.Text;
+                ProgramConfig.ip_quality_score_apikey = ipQualityScore_APIKEY.Text;
                 cmd.Parameters.AddWithValue("@newValue", ProgramConfig.ip_quality_score_apikey);
                 cmd.Parameters.AddWithValue("@key", "ip_quality_score_apikey");
                 cmd.ExecuteNonQuery();
@@ -142,14 +142,14 @@ namespace HawkSync_SM
         private void radioButton1_Click(object sender, EventArgs e)
         {
             radio_apibtn2.Checked = false;
-            textBox3.Enabled = true;
+            ipQualityScore_APIKEY.Enabled = true;
         }
 
         private void radioButton2_Click(object sender, EventArgs e)
         {
             radio_apibtn1.Checked = false;
-            textBox3.Text = string.Empty;
-            textBox3.Enabled = false;
+            ipQualityScore_APIKEY.Text = string.Empty;
+            ipQualityScore_APIKEY.Enabled = false;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -197,7 +197,7 @@ namespace HawkSync_SM
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text == string.Empty || textBox3.Text == string.Empty || textBox5.Text == string.Empty)
+            if (textBox1.Text == string.Empty || ipQualityScore_APIKEY.Text == string.Empty || textBox5.Text == string.Empty)
             {
                 return;
             }
@@ -213,7 +213,7 @@ namespace HawkSync_SM
                 };
                 cmd.Parameters.AddWithValue("@name", textBox1.Text);
                 cmd.Parameters.AddWithValue("@game", comboBox1.SelectedIndex);
-                cmd.Parameters.AddWithValue("@args", textBox3.Text);
+                cmd.Parameters.AddWithValue("@args", ipQualityScore_APIKEY.Text);
                 cmd.Parameters.AddWithValue("@pff", textBox4.Text);
 
                 // upload image to database...
@@ -240,7 +240,7 @@ namespace HawkSync_SM
                         break;
                 }
 
-                newRow["Args"] = textBox3.Text;
+                newRow["Args"] = ipQualityScore_APIKEY.Text;
                 newRow["PFF File"] = textBox4.Text;
                 newRow["Mod Icon"] = test;
                 modTable.Rows.Add(newRow);
@@ -248,7 +248,7 @@ namespace HawkSync_SM
                 _state.Mods.Add(_state.Mods.Count, new ModsClass
                 {
                     Game = comboBox1.SelectedIndex,
-                    ExeArgs = textBox3.Text,
+                    ExeArgs = ipQualityScore_APIKEY.Text,
                     Id = (int)db.LastInsertRowId,
                     ModIcon = test,
                     ModName = textBox1.Text,
@@ -258,7 +258,7 @@ namespace HawkSync_SM
                 db.Dispose();
                 textBox1.Text = string.Empty;
                 comboBox1.SelectedIndex = 0;
-                textBox3.Text = string.Empty;
+                ipQualityScore_APIKEY.Text = string.Empty;
                 textBox4.Text = string.Empty;
                 pictureBox1 = new PictureBox();
                 editEntry = false;

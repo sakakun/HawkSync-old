@@ -61,21 +61,21 @@ namespace HawkSync_SM
             resources.ApplyResources(this.button_options, "button_options");
             this.button_options.Name = "button_options";
             this.button_options.UseVisualStyleBackColor = true;
-            this.button_options.Click += new System.EventHandler(this.btnOptions_click);
+            this.button_options.Click += new System.EventHandler(this.event_openOptionsPanel);
             // 
             // btn_userManager
             // 
             resources.ApplyResources(this.btn_userManager, "btn_userManager");
             this.btn_userManager.Name = "btn_userManager";
             this.btn_userManager.UseVisualStyleBackColor = true;
-            this.btn_userManager.Click += new System.EventHandler(this.btnUM_click);
+            this.btn_userManager.Click += new System.EventHandler(this.event_openUserManager);
             // 
             // btn_serverManager
             // 
             resources.ApplyResources(this.btn_serverManager, "btn_serverManager");
             this.btn_serverManager.Name = "btn_serverManager";
             this.btn_serverManager.UseVisualStyleBackColor = true;
-            this.btn_serverManager.Click += new System.EventHandler(this.btnSM_click);
+            this.btn_serverManager.Click += new System.EventHandler(this.event_openServerManager);
             // 
             // btn_start
             // 
@@ -89,7 +89,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_create, "btn_create");
             this.btn_create.Name = "btn_create";
             this.btn_create.UseVisualStyleBackColor = true;
-            this.btn_create.Click += new System.EventHandler(this.btnCreate_Click);
+            this.btn_create.Click += new System.EventHandler(this.event_createProfile);
             // 
             // btn_edit
             // 
@@ -103,14 +103,14 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_delete, "btn_delete");
             this.btn_delete.Name = "btn_delete";
             this.btn_delete.UseVisualStyleBackColor = true;
-            this.btn_delete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btn_delete.Click += new System.EventHandler(this.event_deleteProfile);
             // 
             // btn_quit
             // 
             resources.ApplyResources(this.btn_quit, "btn_quit");
             this.btn_quit.Name = "btn_quit";
             this.btn_quit.UseVisualStyleBackColor = true;
-            this.btn_quit.Click += new System.EventHandler(this.btnQuit_Click);
+            this.btn_quit.Click += new System.EventHandler(this.event_closeProfileList);
             // 
             // label_notActive
             // 
@@ -166,7 +166,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_rotationManager, "btn_rotationManager");
             this.btn_rotationManager.Name = "btn_rotationManager";
             this.btn_rotationManager.UseVisualStyleBackColor = true;
-            this.btn_rotationManager.Click += new System.EventHandler(this.btnRM_click);
+            this.btn_rotationManager.Click += new System.EventHandler(this.event_OpenRotationManager);
             // 
             // picture_scoringMap
             // 

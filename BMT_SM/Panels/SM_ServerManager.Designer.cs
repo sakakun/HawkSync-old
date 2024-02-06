@@ -29,7 +29,6 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_ServerManager));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -203,7 +202,7 @@ namespace HawkSync_SM
             this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.btn_addAutoMsg = new System.Windows.Forms.Button();
             this.text_newAutoMessage = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem134 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem135 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem136 = new System.Windows.Forms.ToolStripMenuItem();
@@ -219,7 +218,7 @@ namespace HawkSync_SM
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.label_interval = new System.Windows.Forms.Label();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -373,10 +372,10 @@ namespace HawkSync_SM
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem132 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
             this.tabControl3.SuspendLayout();
@@ -1367,6 +1366,7 @@ namespace HawkSync_SM
             // 
             resources.ApplyResources(this.smT_serverPassword, "smT_serverPassword");
             this.smT_serverPassword.Name = "smT_serverPassword";
+            this.smT_serverPassword.ReadOnly = true;
             // 
             // label_ServerPassword
             // 

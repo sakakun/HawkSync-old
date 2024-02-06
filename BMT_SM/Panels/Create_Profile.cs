@@ -385,7 +385,7 @@ namespace HawkSync_SM
             _state.PlayerStats.Add(_state.PlayerStats.Count, new CollectedPlayerStatsPlayers());
             _state.IPQualityCache.Add(_state.IPQualityCache.Count, new ipqualityscore());
             this.Close();
-            // replace close() with database action as well as refresh the main BMT table
+            // replace close() with database action as well as refresh the main BMT table_profileList
         }
     }
 }

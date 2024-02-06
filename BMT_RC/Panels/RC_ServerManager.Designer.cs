@@ -190,22 +190,27 @@ namespace HawkSync_RC
             this.btn_moveMapUp = new System.Windows.Forms.Button();
             this.btn_ShuffleMaps = new System.Windows.Forms.Button();
             this.page_chat = new System.Windows.Forms.TabPage();
+            this.panel_chatMessage = new System.Windows.Forms.Panel();
             this.chat_channelSelection = new System.Windows.Forms.ComboBox();
-            this.data_chatViewer = new System.Windows.Forms.DataGridView();
-            this.cb_chatPlayerSelect = new System.Windows.Forms.ComboBox();
-            this.rb_chatPlayerHist = new System.Windows.Forms.RadioButton();
-            this.rb_chatAll = new System.Windows.Forms.RadioButton();
-            this.rb_chatBlueTeam = new System.Windows.Forms.RadioButton();
-            this.rb_chatRedTeam = new System.Windows.Forms.RadioButton();
-            this.rb_chatGlobal = new System.Windows.Forms.RadioButton();
             this.chat_textBoxMsg = new System.Windows.Forms.TextBox();
             this.btn_sendChat = new System.Windows.Forms.Button();
+            this.panel_chatControls = new System.Windows.Forms.Panel();
+            this.rb_chatAll = new System.Windows.Forms.RadioButton();
+            this.cb_chatPlayerSelect = new System.Windows.Forms.ComboBox();
+            this.rb_chatGlobal = new System.Windows.Forms.RadioButton();
+            this.rb_chatBlueTeam = new System.Windows.Forms.RadioButton();
+            this.rb_chatRedTeam = new System.Windows.Forms.RadioButton();
+            this.rb_chatPlayerHist = new System.Windows.Forms.RadioButton();
+            this.data_chatViewer = new System.Windows.Forms.DataGridView();
             this.page_autoMessages = new System.Windows.Forms.TabPage();
-            this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
+            this.gb_autoMessages = new System.Windows.Forms.GroupBox();
+            this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.text_newAutoMessage = new System.Windows.Forms.TextBox();
             this.btn_addAutoMsg = new System.Windows.Forms.Button();
+            this.label_interval = new System.Windows.Forms.Label();
             this.listBox_AutoMessages = new System.Windows.Forms.ListBox();
+            this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
+            this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
@@ -362,11 +367,6 @@ namespace HawkSync_RC
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel_chatControls = new System.Windows.Forms.Panel();
-            this.panel_chatMessage = new System.Windows.Forms.Panel();
-            this.gb_autoMessages = new System.Windows.Forms.GroupBox();
-            this.label_interval = new System.Windows.Forms.Label();
-            this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.serverManager_container.SuspendLayout();
             this.page_players.SuspendLayout();
             this.group_currentPlayers.SuspendLayout();
@@ -415,14 +415,14 @@ namespace HawkSync_RC
             ((System.ComponentModel.ISupportInitialize)(this.endOfMapTimer_TrackBar)).BeginInit();
             this.panel_mapControls.SuspendLayout();
             this.page_chat.SuspendLayout();
+            this.panel_chatMessage.SuspendLayout();
+            this.panel_chatControls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_chatViewer)).BeginInit();
             this.page_autoMessages.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).BeginInit();
-            this.playerList_contextMenu.SuspendLayout();
-            this.panel_chatControls.SuspendLayout();
-            this.panel_chatMessage.SuspendLayout();
             this.gb_autoMessages.SuspendLayout();
             this.gb_addMessages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).BeginInit();
+            this.playerList_contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // serverManager_container
@@ -1226,8 +1226,10 @@ namespace HawkSync_RC
             // 
             // rcT_serverPassword
             // 
+            this.rcT_serverPassword.Enabled = false;
             this.rcT_serverPassword.Location = new System.Drawing.Point(85, 73);
             this.rcT_serverPassword.Name = "rcT_serverPassword";
+            this.rcT_serverPassword.ReadOnly = true;
             this.rcT_serverPassword.Size = new System.Drawing.Size(130, 20);
             this.rcT_serverPassword.TabIndex = 3;
             // 
@@ -2168,6 +2170,16 @@ namespace HawkSync_RC
             this.page_chat.Text = "Chat";
             this.page_chat.UseVisualStyleBackColor = true;
             // 
+            // panel_chatMessage
+            // 
+            this.panel_chatMessage.Controls.Add(this.chat_channelSelection);
+            this.panel_chatMessage.Controls.Add(this.chat_textBoxMsg);
+            this.panel_chatMessage.Controls.Add(this.btn_sendChat);
+            this.panel_chatMessage.Location = new System.Drawing.Point(65, 366);
+            this.panel_chatMessage.Name = "panel_chatMessage";
+            this.panel_chatMessage.Size = new System.Drawing.Size(674, 29);
+            this.panel_chatMessage.TabIndex = 22;
+            // 
             // chat_channelSelection
             // 
             this.chat_channelSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -2181,48 +2193,36 @@ namespace HawkSync_RC
             this.chat_channelSelection.Size = new System.Drawing.Size(74, 21);
             this.chat_channelSelection.TabIndex = 8;
             // 
-            // data_chatViewer
+            // chat_textBoxMsg
             // 
-            this.data_chatViewer.AllowUserToAddRows = false;
-            this.data_chatViewer.AllowUserToDeleteRows = false;
-            this.data_chatViewer.AllowUserToResizeColumns = false;
-            this.data_chatViewer.AllowUserToResizeRows = false;
-            this.data_chatViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data_chatViewer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.data_chatViewer.Location = new System.Drawing.Point(3, 3);
-            this.data_chatViewer.Name = "data_chatViewer";
-            this.data_chatViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.data_chatViewer.ShowCellErrors = false;
-            this.data_chatViewer.ShowCellToolTips = false;
-            this.data_chatViewer.ShowEditingIcon = false;
-            this.data_chatViewer.ShowRowErrors = false;
-            this.data_chatViewer.Size = new System.Drawing.Size(794, 323);
-            this.data_chatViewer.TabIndex = 20;
+            this.chat_textBoxMsg.Location = new System.Drawing.Point(5, 4);
+            this.chat_textBoxMsg.MaxLength = 30;
+            this.chat_textBoxMsg.Name = "chat_textBoxMsg";
+            this.chat_textBoxMsg.Size = new System.Drawing.Size(514, 20);
+            this.chat_textBoxMsg.TabIndex = 7;
             // 
-            // cb_chatPlayerSelect
+            // btn_sendChat
             // 
-            this.cb_chatPlayerSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_chatPlayerSelect.Enabled = false;
-            this.cb_chatPlayerSelect.FormattingEnabled = true;
-            this.cb_chatPlayerSelect.Items.AddRange(new object[] {
-            "Select Player"});
-            this.cb_chatPlayerSelect.Location = new System.Drawing.Point(616, 4);
-            this.cb_chatPlayerSelect.Name = "cb_chatPlayerSelect";
-            this.cb_chatPlayerSelect.Size = new System.Drawing.Size(133, 21);
-            this.cb_chatPlayerSelect.TabIndex = 6;
+            this.btn_sendChat.Location = new System.Drawing.Point(595, 3);
+            this.btn_sendChat.Name = "btn_sendChat";
+            this.btn_sendChat.Size = new System.Drawing.Size(75, 23);
+            this.btn_sendChat.TabIndex = 9;
+            this.btn_sendChat.Text = "Send Chat";
+            this.btn_sendChat.UseVisualStyleBackColor = true;
+            this.btn_sendChat.Click += new System.EventHandler(this.chat_SendMsg);
             // 
-            // rb_chatPlayerHist
+            // panel_chatControls
             // 
-            this.rb_chatPlayerHist.AutoSize = true;
-            this.rb_chatPlayerHist.Location = new System.Drawing.Point(479, 6);
-            this.rb_chatPlayerHist.Name = "rb_chatPlayerHist";
-            this.rb_chatPlayerHist.Size = new System.Drawing.Size(122, 17);
-            this.rb_chatPlayerHist.TabIndex = 5;
-            this.rb_chatPlayerHist.TabStop = true;
-            this.rb_chatPlayerHist.Text = "Select Player History";
-            this.rb_chatPlayerHist.UseVisualStyleBackColor = true;
-            this.rb_chatPlayerHist.CheckedChanged += new System.EventHandler(this.chat_dropDownPlayerNameChanged);
-            this.rb_chatPlayerHist.Click += new System.EventHandler(this.chat_btnClickChannelPlayer);
+            this.panel_chatControls.Controls.Add(this.rb_chatAll);
+            this.panel_chatControls.Controls.Add(this.cb_chatPlayerSelect);
+            this.panel_chatControls.Controls.Add(this.rb_chatGlobal);
+            this.panel_chatControls.Controls.Add(this.rb_chatBlueTeam);
+            this.panel_chatControls.Controls.Add(this.rb_chatRedTeam);
+            this.panel_chatControls.Controls.Add(this.rb_chatPlayerHist);
+            this.panel_chatControls.Location = new System.Drawing.Point(3, 332);
+            this.panel_chatControls.Name = "panel_chatControls";
+            this.panel_chatControls.Size = new System.Drawing.Size(794, 29);
+            this.panel_chatControls.TabIndex = 21;
             // 
             // rb_chatAll
             // 
@@ -2236,6 +2236,30 @@ namespace HawkSync_RC
             this.rb_chatAll.Text = "All Chat";
             this.rb_chatAll.UseVisualStyleBackColor = true;
             this.rb_chatAll.Click += new System.EventHandler(this.chat_btnClickChannelAll);
+            // 
+            // cb_chatPlayerSelect
+            // 
+            this.cb_chatPlayerSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_chatPlayerSelect.Enabled = false;
+            this.cb_chatPlayerSelect.FormattingEnabled = true;
+            this.cb_chatPlayerSelect.Items.AddRange(new object[] {
+            "Select Player"});
+            this.cb_chatPlayerSelect.Location = new System.Drawing.Point(616, 4);
+            this.cb_chatPlayerSelect.Name = "cb_chatPlayerSelect";
+            this.cb_chatPlayerSelect.Size = new System.Drawing.Size(133, 21);
+            this.cb_chatPlayerSelect.TabIndex = 6;
+            // 
+            // rb_chatGlobal
+            // 
+            this.rb_chatGlobal.AutoSize = true;
+            this.rb_chatGlobal.Location = new System.Drawing.Point(185, 6);
+            this.rb_chatGlobal.Name = "rb_chatGlobal";
+            this.rb_chatGlobal.Size = new System.Drawing.Size(80, 17);
+            this.rb_chatGlobal.TabIndex = 2;
+            this.rb_chatGlobal.TabStop = true;
+            this.rb_chatGlobal.Text = "Global Chat";
+            this.rb_chatGlobal.UseVisualStyleBackColor = true;
+            this.rb_chatGlobal.Click += new System.EventHandler(this.chat_btnClickChannelGlobal);
             // 
             // rb_chatBlueTeam
             // 
@@ -2261,35 +2285,36 @@ namespace HawkSync_RC
             this.rb_chatRedTeam.UseVisualStyleBackColor = true;
             this.rb_chatRedTeam.Click += new System.EventHandler(this.chat_btnClickChannelRed);
             // 
-            // rb_chatGlobal
+            // rb_chatPlayerHist
             // 
-            this.rb_chatGlobal.AutoSize = true;
-            this.rb_chatGlobal.Location = new System.Drawing.Point(185, 6);
-            this.rb_chatGlobal.Name = "rb_chatGlobal";
-            this.rb_chatGlobal.Size = new System.Drawing.Size(80, 17);
-            this.rb_chatGlobal.TabIndex = 2;
-            this.rb_chatGlobal.TabStop = true;
-            this.rb_chatGlobal.Text = "Global Chat";
-            this.rb_chatGlobal.UseVisualStyleBackColor = true;
-            this.rb_chatGlobal.Click += new System.EventHandler(this.chat_btnClickChannelGlobal);
+            this.rb_chatPlayerHist.AutoSize = true;
+            this.rb_chatPlayerHist.Location = new System.Drawing.Point(479, 6);
+            this.rb_chatPlayerHist.Name = "rb_chatPlayerHist";
+            this.rb_chatPlayerHist.Size = new System.Drawing.Size(122, 17);
+            this.rb_chatPlayerHist.TabIndex = 5;
+            this.rb_chatPlayerHist.TabStop = true;
+            this.rb_chatPlayerHist.Text = "Select Player History";
+            this.rb_chatPlayerHist.UseVisualStyleBackColor = true;
+            this.rb_chatPlayerHist.CheckedChanged += new System.EventHandler(this.chat_dropDownPlayerNameChanged);
+            this.rb_chatPlayerHist.Click += new System.EventHandler(this.chat_btnClickChannelPlayer);
             // 
-            // chat_textBoxMsg
+            // data_chatViewer
             // 
-            this.chat_textBoxMsg.Location = new System.Drawing.Point(5, 4);
-            this.chat_textBoxMsg.MaxLength = 30;
-            this.chat_textBoxMsg.Name = "chat_textBoxMsg";
-            this.chat_textBoxMsg.Size = new System.Drawing.Size(514, 20);
-            this.chat_textBoxMsg.TabIndex = 7;
-            // 
-            // btn_sendChat
-            // 
-            this.btn_sendChat.Location = new System.Drawing.Point(595, 3);
-            this.btn_sendChat.Name = "btn_sendChat";
-            this.btn_sendChat.Size = new System.Drawing.Size(75, 23);
-            this.btn_sendChat.TabIndex = 9;
-            this.btn_sendChat.Text = "Send Chat";
-            this.btn_sendChat.UseVisualStyleBackColor = true;
-            this.btn_sendChat.Click += new System.EventHandler(this.chat_SendMsg);
+            this.data_chatViewer.AllowUserToAddRows = false;
+            this.data_chatViewer.AllowUserToDeleteRows = false;
+            this.data_chatViewer.AllowUserToResizeColumns = false;
+            this.data_chatViewer.AllowUserToResizeRows = false;
+            this.data_chatViewer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.data_chatViewer.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.data_chatViewer.Location = new System.Drawing.Point(3, 3);
+            this.data_chatViewer.Name = "data_chatViewer";
+            this.data_chatViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.data_chatViewer.ShowCellErrors = false;
+            this.data_chatViewer.ShowCellToolTips = false;
+            this.data_chatViewer.ShowEditingIcon = false;
+            this.data_chatViewer.ShowRowErrors = false;
+            this.data_chatViewer.Size = new System.Drawing.Size(794, 323);
+            this.data_chatViewer.TabIndex = 20;
             // 
             // page_autoMessages
             // 
@@ -2301,6 +2326,69 @@ namespace HawkSync_RC
             this.page_autoMessages.TabIndex = 5;
             this.page_autoMessages.Text = "Auto Messages";
             this.page_autoMessages.UseVisualStyleBackColor = true;
+            // 
+            // gb_autoMessages
+            // 
+            this.gb_autoMessages.Controls.Add(this.gb_addMessages);
+            this.gb_autoMessages.Controls.Add(this.label_interval);
+            this.gb_autoMessages.Controls.Add(this.listBox_AutoMessages);
+            this.gb_autoMessages.Controls.Add(this.num_autoMsgInterval);
+            this.gb_autoMessages.Controls.Add(this.cb_enableAutoMsg);
+            this.gb_autoMessages.Location = new System.Drawing.Point(5, 5);
+            this.gb_autoMessages.Name = "gb_autoMessages";
+            this.gb_autoMessages.Size = new System.Drawing.Size(790, 390);
+            this.gb_autoMessages.TabIndex = 1;
+            this.gb_autoMessages.TabStop = false;
+            this.gb_autoMessages.Text = "Messages";
+            // 
+            // gb_addMessages
+            // 
+            this.gb_addMessages.Controls.Add(this.text_newAutoMessage);
+            this.gb_addMessages.Controls.Add(this.btn_addAutoMsg);
+            this.gb_addMessages.Location = new System.Drawing.Point(6, 342);
+            this.gb_addMessages.Name = "gb_addMessages";
+            this.gb_addMessages.Size = new System.Drawing.Size(778, 44);
+            this.gb_addMessages.TabIndex = 8;
+            this.gb_addMessages.TabStop = false;
+            this.gb_addMessages.Text = "Add Message";
+            // 
+            // text_newAutoMessage
+            // 
+            this.text_newAutoMessage.Location = new System.Drawing.Point(6, 16);
+            this.text_newAutoMessage.Name = "text_newAutoMessage";
+            this.text_newAutoMessage.Size = new System.Drawing.Size(685, 20);
+            this.text_newAutoMessage.TabIndex = 4;
+            // 
+            // btn_addAutoMsg
+            // 
+            this.btn_addAutoMsg.Location = new System.Drawing.Point(697, 14);
+            this.btn_addAutoMsg.Name = "btn_addAutoMsg";
+            this.btn_addAutoMsg.Size = new System.Drawing.Size(75, 23);
+            this.btn_addAutoMsg.TabIndex = 3;
+            this.btn_addAutoMsg.Text = "Add";
+            this.btn_addAutoMsg.UseVisualStyleBackColor = true;
+            this.btn_addAutoMsg.Click += new System.EventHandler(this.autoMessages_clickAdd);
+            // 
+            // label_interval
+            // 
+            this.label_interval.AutoSize = true;
+            this.label_interval.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label_interval.Location = new System.Drawing.Point(648, 326);
+            this.label_interval.Name = "label_interval";
+            this.label_interval.Size = new System.Drawing.Size(88, 13);
+            this.label_interval.TabIndex = 7;
+            this.label_interval.Text = "Interval (Minutes)";
+            // 
+            // listBox_AutoMessages
+            // 
+            this.listBox_AutoMessages.FormattingEnabled = true;
+            this.listBox_AutoMessages.Location = new System.Drawing.Point(5, 15);
+            this.listBox_AutoMessages.Name = "listBox_AutoMessages";
+            this.listBox_AutoMessages.Size = new System.Drawing.Size(780, 303);
+            this.listBox_AutoMessages.TabIndex = 0;
+            this.listBox_AutoMessages.DoubleClick += new System.EventHandler(this.autoMessages_doubleClickDelete);
+            this.listBox_AutoMessages.KeyDown += new System.Windows.Forms.KeyEventHandler(this.autoMessage_clickMoveDown);
+            this.listBox_AutoMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.autoMessage_clickMoveUp);
             // 
             // num_autoMsgInterval
             // 
@@ -2331,34 +2419,6 @@ namespace HawkSync_RC
             this.cb_enableAutoMsg.Text = "Enable Auto Messages";
             this.cb_enableAutoMsg.UseVisualStyleBackColor = true;
             this.cb_enableAutoMsg.Click += new System.EventHandler(this.autoMessages_stateCheckbox);
-            // 
-            // text_newAutoMessage
-            // 
-            this.text_newAutoMessage.Location = new System.Drawing.Point(6, 16);
-            this.text_newAutoMessage.Name = "text_newAutoMessage";
-            this.text_newAutoMessage.Size = new System.Drawing.Size(685, 20);
-            this.text_newAutoMessage.TabIndex = 4;
-            // 
-            // btn_addAutoMsg
-            // 
-            this.btn_addAutoMsg.Location = new System.Drawing.Point(697, 14);
-            this.btn_addAutoMsg.Name = "btn_addAutoMsg";
-            this.btn_addAutoMsg.Size = new System.Drawing.Size(75, 23);
-            this.btn_addAutoMsg.TabIndex = 3;
-            this.btn_addAutoMsg.Text = "Add";
-            this.btn_addAutoMsg.UseVisualStyleBackColor = true;
-            this.btn_addAutoMsg.Click += new System.EventHandler(this.autoMessages_clickAdd);
-            // 
-            // listBox_AutoMessages
-            // 
-            this.listBox_AutoMessages.FormattingEnabled = true;
-            this.listBox_AutoMessages.Location = new System.Drawing.Point(5, 15);
-            this.listBox_AutoMessages.Name = "listBox_AutoMessages";
-            this.listBox_AutoMessages.Size = new System.Drawing.Size(780, 303);
-            this.listBox_AutoMessages.TabIndex = 0;
-            this.listBox_AutoMessages.DoubleClick += new System.EventHandler(this.autoMessages_doubleClickDelete);
-            this.listBox_AutoMessages.KeyDown += new System.Windows.Forms.KeyEventHandler(this.autoMessage_clickMoveDown);
-            this.listBox_AutoMessages.KeyUp += new System.Windows.Forms.KeyEventHandler(this.autoMessage_clickMoveUp);
             // 
             // playerList_contextMenu
             // 
@@ -2525,6 +2585,7 @@ namespace HawkSync_RC
             // 
             // actionReason_Custom
             // 
+            this.actionReason_Custom.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.actionReason_Custom.Name = "actionReason_Custom";
             this.actionReason_Custom.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2590,6 +2651,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox3
             // 
+            this.toolStripTextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2655,6 +2717,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox4
             // 
+            this.toolStripTextBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2720,6 +2783,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox5
             // 
+            this.toolStripTextBox5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2785,6 +2849,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox6
             // 
+            this.toolStripTextBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2850,6 +2915,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox7
             // 
+            this.toolStripTextBox7.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox7.Name = "toolStripTextBox7";
             this.toolStripTextBox7.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2915,6 +2981,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox8
             // 
+            this.toolStripTextBox8.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox8.Name = "toolStripTextBox8";
             this.toolStripTextBox8.Size = new System.Drawing.Size(100, 23);
             // 
@@ -2980,6 +3047,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox9
             // 
+            this.toolStripTextBox9.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox9.Name = "toolStripTextBox9";
             this.toolStripTextBox9.Size = new System.Drawing.Size(100, 23);
             // 
@@ -3045,6 +3113,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox10
             // 
+            this.toolStripTextBox10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox10.Name = "toolStripTextBox10";
             this.toolStripTextBox10.Size = new System.Drawing.Size(100, 23);
             // 
@@ -3110,6 +3179,7 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox11
             // 
+            this.toolStripTextBox11.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox11.Name = "toolStripTextBox11";
             this.toolStripTextBox11.Size = new System.Drawing.Size(100, 23);
             // 
@@ -3170,70 +3240,13 @@ namespace HawkSync_RC
             // 
             // toolStripTextBox1
             // 
+            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
             // 
             // toolTip1
             // 
             this.toolTip1.UseAnimation = false;
-            // 
-            // panel_chatControls
-            // 
-            this.panel_chatControls.Controls.Add(this.rb_chatAll);
-            this.panel_chatControls.Controls.Add(this.cb_chatPlayerSelect);
-            this.panel_chatControls.Controls.Add(this.rb_chatGlobal);
-            this.panel_chatControls.Controls.Add(this.rb_chatBlueTeam);
-            this.panel_chatControls.Controls.Add(this.rb_chatRedTeam);
-            this.panel_chatControls.Controls.Add(this.rb_chatPlayerHist);
-            this.panel_chatControls.Location = new System.Drawing.Point(3, 332);
-            this.panel_chatControls.Name = "panel_chatControls";
-            this.panel_chatControls.Size = new System.Drawing.Size(794, 29);
-            this.panel_chatControls.TabIndex = 21;
-            // 
-            // panel_chatMessage
-            // 
-            this.panel_chatMessage.Controls.Add(this.chat_channelSelection);
-            this.panel_chatMessage.Controls.Add(this.chat_textBoxMsg);
-            this.panel_chatMessage.Controls.Add(this.btn_sendChat);
-            this.panel_chatMessage.Location = new System.Drawing.Point(65, 366);
-            this.panel_chatMessage.Name = "panel_chatMessage";
-            this.panel_chatMessage.Size = new System.Drawing.Size(674, 29);
-            this.panel_chatMessage.TabIndex = 22;
-            // 
-            // gb_autoMessages
-            // 
-            this.gb_autoMessages.Controls.Add(this.gb_addMessages);
-            this.gb_autoMessages.Controls.Add(this.label_interval);
-            this.gb_autoMessages.Controls.Add(this.listBox_AutoMessages);
-            this.gb_autoMessages.Controls.Add(this.num_autoMsgInterval);
-            this.gb_autoMessages.Controls.Add(this.cb_enableAutoMsg);
-            this.gb_autoMessages.Location = new System.Drawing.Point(5, 5);
-            this.gb_autoMessages.Name = "gb_autoMessages";
-            this.gb_autoMessages.Size = new System.Drawing.Size(790, 390);
-            this.gb_autoMessages.TabIndex = 1;
-            this.gb_autoMessages.TabStop = false;
-            this.gb_autoMessages.Text = "Messages";
-            // 
-            // label_interval
-            // 
-            this.label_interval.AutoSize = true;
-            this.label_interval.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_interval.Location = new System.Drawing.Point(648, 326);
-            this.label_interval.Name = "label_interval";
-            this.label_interval.Size = new System.Drawing.Size(88, 13);
-            this.label_interval.TabIndex = 7;
-            this.label_interval.Text = "Interval (Minutes)";
-            // 
-            // gb_addMessages
-            // 
-            this.gb_addMessages.Controls.Add(this.text_newAutoMessage);
-            this.gb_addMessages.Controls.Add(this.btn_addAutoMsg);
-            this.gb_addMessages.Location = new System.Drawing.Point(6, 342);
-            this.gb_addMessages.Name = "gb_addMessages";
-            this.gb_addMessages.Size = new System.Drawing.Size(778, 44);
-            this.gb_addMessages.TabIndex = 8;
-            this.gb_addMessages.TabStop = false;
-            this.gb_addMessages.Text = "Add Message";
             // 
             // RC_ServerManager
             // 
@@ -3320,18 +3333,18 @@ namespace HawkSync_RC
             this.panel_mapControls.ResumeLayout(false);
             this.panel_mapControls.PerformLayout();
             this.page_chat.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.data_chatViewer)).EndInit();
-            this.page_autoMessages.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).EndInit();
-            this.playerList_contextMenu.ResumeLayout(false);
-            this.panel_chatControls.ResumeLayout(false);
-            this.panel_chatControls.PerformLayout();
             this.panel_chatMessage.ResumeLayout(false);
             this.panel_chatMessage.PerformLayout();
+            this.panel_chatControls.ResumeLayout(false);
+            this.panel_chatControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_chatViewer)).EndInit();
+            this.page_autoMessages.ResumeLayout(false);
             this.gb_autoMessages.ResumeLayout(false);
             this.gb_autoMessages.PerformLayout();
             this.gb_addMessages.ResumeLayout(false);
             this.gb_addMessages.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).EndInit();
+            this.playerList_contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -30,7 +30,7 @@ namespace HawkSync_SM
         {
             InitializeComponent();
             _state = state;
-            // admin table setup
+            // admin table_profileList setup
             adminTable.Columns.Add("ID");
             adminTable.Columns.Add("Username");
             adminTable.Columns.Add("Role");
@@ -57,7 +57,7 @@ namespace HawkSync_SM
 
         private void UserManager_Load(object sender, EventArgs e)
         {
-            // admin table
+            // admin table_profileList
             dataGridView1.DataSource = adminTable;
             dataGridView1.Columns["ID"].Width = 20;
             dataGridView1.Columns["ID"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;

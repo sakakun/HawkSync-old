@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace HawkSync_SM
 {
-    class ScoringProcessHandler : ProcessHandler
+    class ScoringGameProcess : ProcessHandler
     {
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
@@ -47,7 +47,7 @@ namespace HawkSync_SM
         ChatLogs _chatLogs;
         CollectedPlayerStatsPlayers _collectedPlayerStats;
 
-        public ScoringProcessHandler(AppState state, int InstanceID, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public ScoringGameProcess(AppState state, int InstanceID, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
         {
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
@@ -90,8 +90,8 @@ namespace HawkSync_SM
                 byte[] gameScoreBytes = BitConverter.GetBytes(gameScore);
                 int gameScore1Written = 0;
                 int gameScore2Written = 0;
-                WriteProcessMemory((int)_state.Instances[ArrayID].Handle, gameScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
-                WriteProcessMemory((int)_state.Instances[ArrayID].Handle, gameScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, gameScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, gameScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
             }
             else if (_state.Instances[ArrayID].nextMapGameType == 3 || _state.Instances[ArrayID].nextMapGameType == 4)
             {
@@ -101,8 +101,8 @@ namespace HawkSync_SM
                 var kothScore2 = baseAddr + 0x6344B4;
                 int gameScore1Written = 0;
                 int gameScore2Written = 0;
-                WriteProcessMemory((int)_state.Instances[ArrayID].Handle, kothScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
-                WriteProcessMemory((int)_state.Instances[ArrayID].Handle, kothScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, kothScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, kothScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
             }
         }
 
@@ -121,7 +121,7 @@ namespace HawkSync_SM
             var instanceTimer = baseAddr + 0x5DAE00;
             byte[] endTimerBytes = BitConverter.GetBytes(1);
             int bytesWritten = 0;
-            WriteProcessMemory((int)_state.Instances[ArrayID].Handle, instanceTimer, endTimerBytes, endTimerBytes.Length, ref bytesWritten);
+            WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, instanceTimer, endTimerBytes, endTimerBytes.Length, ref bytesWritten);
             _state.Instances[ArrayID].ScoreboardTimer.Stop();
         }
 

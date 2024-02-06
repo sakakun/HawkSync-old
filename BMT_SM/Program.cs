@@ -1,5 +1,4 @@
 ﻿using HawkSync_SM.classes;
-using HawkSync_SM.classes.IPManagement;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;

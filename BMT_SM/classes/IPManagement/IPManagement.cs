@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HawkSync_SM.classes.IPManagement
+namespace HawkSync_SM
 {
     internal class IPManagement
     {
@@ -21,5 +21,8 @@ namespace HawkSync_SM.classes.IPManagement
             string a4 = a3[0];
             ProgramConfig.PublicIP = a4;
         }
+
+
+
     }
 }

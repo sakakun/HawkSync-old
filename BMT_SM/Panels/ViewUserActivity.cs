@@ -19,7 +19,7 @@ namespace HawkSync_SM
             adminsTable = new DataTable();
             logTable = new DataTable();
 
-            // setup the admins table
+            // setup the admins table_profileList
             adminsTable.Columns.Add("Username");
             dataGridView2.DataSource = adminsTable;
             dataGridView2.Sort(dataGridView2.Columns["Username"], ListSortDirection.Ascending);
@@ -41,7 +41,7 @@ namespace HawkSync_SM
 
         private void ViewUserActivity_Load(object sender, EventArgs e)
         {
-            // loop through _state.admins and add them to the admins table
+            // loop through _state.admins and add them to the admins table_profileList
             for (int i = 0; i < _state.RCLogs.Count; i++)
             {
                 bool found = false;

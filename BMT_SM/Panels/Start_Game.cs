@@ -39,7 +39,7 @@ namespace HawkSync_SM
         public List<CustomMap> customMaps = new List<CustomMap>();
         List<MapList> selectedMapList = new List<MapList>();
         List<MapList> selectedGameTypeMapList = new List<MapList>();
-        ServerManagerUpdateMemory serverManagerUpdateMemory = new ServerManagerUpdateMemory();
+        ServerManagement serverManagerUpdateMemory = new ServerManagement();
 
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
@@ -897,7 +897,7 @@ namespace HawkSync_SM
 
 
             IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
-            _state.Instances[ArrayID].Handle = processHandle;
+            _state.Instances[ArrayID].ProcessHandle = processHandle;
             var baseAddr = 0x400000;
 
             Thread.Sleep(1500);

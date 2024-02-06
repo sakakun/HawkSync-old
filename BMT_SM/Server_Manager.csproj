@@ -281,9 +281,11 @@
     <Compile Include="classes\MapManagement\autoRes.cs" />
     <Compile Include="classes\ChatManagement\auto_messages.cs" />
     <Compile Include="classes\MapManagement\AvailMaps.cs" />
+    <Compile Include="classes\NovaHeartBeat\HeartBeatMonitor.cs" />
     <Compile Include="classes\PlayerManagement\BanPlayerFunction.cs" />
     <Compile Include="classes\PlayerManagement\blacklist.cs" />
     <Compile Include="classes\PlayerManagement\ChangeTeamClass.cs" />
+    <Compile Include="classes\PlayerManagement\PlayerManagement.cs" />
     <Compile Include="Panels\ChatHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -295,7 +297,7 @@
     <Compile Include="classes\FirewallRule.cs" />
     <Compile Include="classes\LogManagement\RCLogs.cs" />
     <Compile Include="classes\ModsClass.cs" />
-    <Compile Include="classes\LobbyReporting\NovaHQPlayerListClass.cs" />
+    <Compile Include="classes\NovaHeartBeat\NovaHQPlayerListClass.cs" />
     <Compile Include="classes\Plugins\PluginsClass.cs" />
     <Compile Include="classes\Plugins\pl_Magic8Ball\m8_PluginSettings.cs" />
     <Compile Include="classes\Plugins\pl_VoteMaps\vm_internal.cs" />
@@ -321,9 +323,8 @@
     <Compile Include="Panels\Edit_Profile.Designer.cs">
       <DependentUpon>Edit_Profile.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\ServerManagement\master_server.cs" />
     <Compile Include="classes\KernelClasses\MemoryProcessor.cs" />
-    <Compile Include="classes\RCClasses\Compression.cs" />
+    <Compile Include="classes\RCManagement\Compression.cs" />
     <Compile Include="classes\SupportClasses\GameType.cs" />
     <Compile Include="classes\SupportClasses\HexConverter.cs" />
     <Compile Include="GlobalAppState.cs" />
@@ -342,7 +343,7 @@
     <Compile Include="Panels\PlayerInfo.Designer.cs">
       <DependentUpon>PlayerInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\playerlist.cs" />
+    <Compile Include="classes\PlayerManagement\playerlist.cs" />
     <Compile Include="classes\SupportClasses\PlayerRoles.cs" />
     <Compile Include="Panels\SM_PopupLoadRotation.cs">
       <SubType>Form</SubType>
@@ -357,16 +358,15 @@
       <DependentUpon>SM_PopupSaveRotation.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\PlayerManagement\PreviousTeams.cs" />
-    <Compile Include="classes\KernelClasses\ProcessExtended.cs" />
     <Compile Include="ProcessHandler.cs" />
     <Compile Include="ProgramConfig.cs" />
-    <Compile Include="classes\RCClasses\RCFunctions.cs" />
-    <Compile Include="classes\RCClasses\RCLoginFunctions.cs" />
-    <Compile Include="classes\RCClasses\RCRotationManager.cs" />
-    <Compile Include="classes\RCClasses\SocketClient.cs" />
-    <Compile Include="classes\RCClasses\RCListener.cs" />
-    <Compile Include="LoadingProcessHandler.cs" />
-    <Compile Include="classes\RCClasses\RCListenerClass.cs" />
+    <Compile Include="classes\RCManagement\RCFunctions.cs" />
+    <Compile Include="classes\RCManagement\RCLoginFunctions.cs" />
+    <Compile Include="classes\RCManagement\RCRotationManager.cs" />
+    <Compile Include="classes\RCManagement\SocketClient.cs" />
+    <Compile Include="classes\RCManagement\RCListener.cs" />
+    <Compile Include="classes\ServerManagement\PostGameProcess.cs" />
+    <Compile Include="classes\RCManagement\RCListenerClass.cs" />
     <Compile Include="Panels\SM_RotationManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -374,8 +374,8 @@
       <DependentUpon>SM_RotationManager.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\MapManagement\savedmaprotations.cs" />
-    <Compile Include="classes\StatManagement\ScoringProcessHandler.cs" />
-    <Compile Include="classes\ServerManagement\ServerManagerUpdateMemory.cs" />
+    <Compile Include="classes\ServerManagement\ScoringGameProcess.cs" />
+    <Compile Include="classes\ServerManagement\ServerManagement.cs" />
     <Compile Include="Panels\SM_ServerManager.cs">
       <SubType>Form</SubType>
     </Compile>

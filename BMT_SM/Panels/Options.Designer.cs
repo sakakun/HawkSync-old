@@ -33,22 +33,19 @@ namespace HawkSync_SM
             this.btn_save = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_general = new System.Windows.Forms.TabPage();
+            this.remoteSettingsBox = new System.Windows.Forms.GroupBox();
+            this.num_remotePort = new System.Windows.Forms.NumericUpDown();
+            this.label_remotePort = new System.Windows.Forms.Label();
+            this.chbox_enableRemote = new System.Windows.Forms.CheckBox();
             this.vpnBox = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.ipQualityScore_APIKEY = new System.Windows.Forms.TextBox();
             this.label_apikey = new System.Windows.Forms.Label();
             this.label_apiNo = new System.Windows.Forms.Label();
             this.radio_apibtn2 = new System.Windows.Forms.RadioButton();
             this.label_apiYes = new System.Windows.Forms.Label();
             this.radio_apibtn1 = new System.Windows.Forms.RadioButton();
-            this.remoteSettingsBox = new System.Windows.Forms.GroupBox();
-            this.chbox_enableRemote = new System.Windows.Forms.CheckBox();
-            this.label_remotePort = new System.Windows.Forms.Label();
-            this.num_remotePort = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -62,16 +59,19 @@ namespace HawkSync_SM
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage_general.SuspendLayout();
-            this.vpnBox.SuspendLayout();
             this.remoteSettingsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_remotePort)).BeginInit();
+            this.vpnBox.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_save
@@ -102,15 +102,69 @@ namespace HawkSync_SM
             this.tabPage_general.Location = new System.Drawing.Point(4, 22);
             this.tabPage_general.Name = "tabPage_general";
             this.tabPage_general.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_general.Size = new System.Drawing.Size(780, 372);
+            this.tabPage_general.Size = new System.Drawing.Size(780, 291);
             this.tabPage_general.TabIndex = 0;
             this.tabPage_general.Text = "General";
             this.tabPage_general.UseVisualStyleBackColor = true;
             // 
+            // remoteSettingsBox
+            // 
+            this.remoteSettingsBox.Controls.Add(this.num_remotePort);
+            this.remoteSettingsBox.Controls.Add(this.label_remotePort);
+            this.remoteSettingsBox.Controls.Add(this.chbox_enableRemote);
+            this.remoteSettingsBox.Location = new System.Drawing.Point(519, 6);
+            this.remoteSettingsBox.Name = "remoteSettingsBox";
+            this.remoteSettingsBox.Size = new System.Drawing.Size(255, 97);
+            this.remoteSettingsBox.TabIndex = 13;
+            this.remoteSettingsBox.TabStop = false;
+            this.remoteSettingsBox.Text = "Remote Management Settings";
+            // 
+            // num_remotePort
+            // 
+            this.num_remotePort.Location = new System.Drawing.Point(26, 54);
+            this.num_remotePort.Maximum = new decimal(new int[] {
+            65565,
+            0,
+            0,
+            0});
+            this.num_remotePort.Minimum = new decimal(new int[] {
+            1024,
+            0,
+            0,
+            0});
+            this.num_remotePort.Name = "num_remotePort";
+            this.num_remotePort.Size = new System.Drawing.Size(63, 20);
+            this.num_remotePort.TabIndex = 18;
+            this.num_remotePort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_remotePort.Value = new decimal(new int[] {
+            4173,
+            0,
+            0,
+            0});
+            // 
+            // label_remotePort
+            // 
+            this.label_remotePort.AutoSize = true;
+            this.label_remotePort.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label_remotePort.Location = new System.Drawing.Point(95, 57);
+            this.label_remotePort.Name = "label_remotePort";
+            this.label_remotePort.Size = new System.Drawing.Size(102, 13);
+            this.label_remotePort.TabIndex = 17;
+            this.label_remotePort.Text = "Remote Control Port";
+            // 
+            // chbox_enableRemote
+            // 
+            this.chbox_enableRemote.Location = new System.Drawing.Point(75, 20);
+            this.chbox_enableRemote.Name = "chbox_enableRemote";
+            this.chbox_enableRemote.Size = new System.Drawing.Size(147, 34);
+            this.chbox_enableRemote.TabIndex = 16;
+            this.chbox_enableRemote.Text = "Enable Remote Access";
+            this.chbox_enableRemote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // vpnBox
             // 
             this.vpnBox.Controls.Add(this.linkLabel1);
-            this.vpnBox.Controls.Add(this.textBox3);
+            this.vpnBox.Controls.Add(this.ipQualityScore_APIKEY);
             this.vpnBox.Controls.Add(this.label_apikey);
             this.vpnBox.Controls.Add(this.label_apiNo);
             this.vpnBox.Controls.Add(this.radio_apibtn2);
@@ -134,12 +188,12 @@ namespace HawkSync_SM
             this.linkLabel1.Text = "IPQualityScore.com";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // textBox3
+            // ipQualityScore_APIKEY
             // 
-            this.textBox3.Location = new System.Drawing.Point(58, 43);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(174, 20);
-            this.textBox3.TabIndex = 5;
+            this.ipQualityScore_APIKEY.Location = new System.Drawing.Point(58, 43);
+            this.ipQualityScore_APIKEY.Name = "ipQualityScore_APIKEY";
+            this.ipQualityScore_APIKEY.Size = new System.Drawing.Size(174, 20);
+            this.ipQualityScore_APIKEY.TabIndex = 5;
             // 
             // label_apikey
             // 
@@ -190,60 +244,6 @@ namespace HawkSync_SM
             this.radio_apibtn1.UseVisualStyleBackColor = true;
             this.radio_apibtn1.Click += new System.EventHandler(this.radioButton1_Click);
             // 
-            // remoteSettingsBox
-            // 
-            this.remoteSettingsBox.Controls.Add(this.num_remotePort);
-            this.remoteSettingsBox.Controls.Add(this.label_remotePort);
-            this.remoteSettingsBox.Controls.Add(this.chbox_enableRemote);
-            this.remoteSettingsBox.Location = new System.Drawing.Point(519, 6);
-            this.remoteSettingsBox.Name = "remoteSettingsBox";
-            this.remoteSettingsBox.Size = new System.Drawing.Size(255, 97);
-            this.remoteSettingsBox.TabIndex = 13;
-            this.remoteSettingsBox.TabStop = false;
-            this.remoteSettingsBox.Text = "Remote Management Settings";
-            // 
-            // chbox_enableRemote
-            // 
-            this.chbox_enableRemote.Location = new System.Drawing.Point(75, 20);
-            this.chbox_enableRemote.Name = "chbox_enableRemote";
-            this.chbox_enableRemote.Size = new System.Drawing.Size(147, 34);
-            this.chbox_enableRemote.TabIndex = 16;
-            this.chbox_enableRemote.Text = "Enable Remote Access";
-            this.chbox_enableRemote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label_remotePort
-            // 
-            this.label_remotePort.AutoSize = true;
-            this.label_remotePort.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_remotePort.Location = new System.Drawing.Point(95, 57);
-            this.label_remotePort.Name = "label_remotePort";
-            this.label_remotePort.Size = new System.Drawing.Size(102, 13);
-            this.label_remotePort.TabIndex = 17;
-            this.label_remotePort.Text = "Remote Control Port";
-            // 
-            // num_remotePort
-            // 
-            this.num_remotePort.Location = new System.Drawing.Point(26, 54);
-            this.num_remotePort.Maximum = new decimal(new int[] {
-            65565,
-            0,
-            0,
-            0});
-            this.num_remotePort.Minimum = new decimal(new int[] {
-            1024,
-            0,
-            0,
-            0});
-            this.num_remotePort.Name = "num_remotePort";
-            this.num_remotePort.Size = new System.Drawing.Size(63, 20);
-            this.num_remotePort.TabIndex = 18;
-            this.num_remotePort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_remotePort.Value = new decimal(new int[] {
-            4173,
-            0,
-            0,
-            0});
-            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox3);
@@ -255,45 +255,6 @@ namespace HawkSync_SM
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Mods";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(780, 372);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "About";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(6, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(763, 169);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Saved Mods";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 20);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.ShowCellErrors = false;
-            this.dataGridView1.ShowCellToolTips = false;
-            this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(750, 143);
-            this.dataGridView1.TabIndex = 0;
             // 
             // groupBox3
             // 
@@ -426,6 +387,45 @@ namespace HawkSync_SM
             this.textBox2.Size = new System.Drawing.Size(132, 20);
             this.textBox2.TabIndex = 1;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(763, 169);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Saved Mods";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridView1.Location = new System.Drawing.Point(7, 20);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowCellErrors = false;
+            this.dataGridView1.ShowCellToolTips = false;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.ShowRowErrors = false;
+            this.dataGridView1.Size = new System.Drawing.Size(750, 143);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(780, 291);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "About";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,17 +439,17 @@ namespace HawkSync_SM
             this.Load += new System.EventHandler(this.Options_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_general.ResumeLayout(false);
-            this.vpnBox.ResumeLayout(false);
-            this.vpnBox.PerformLayout();
             this.remoteSettingsBox.ResumeLayout(false);
             this.remoteSettingsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_remotePort)).EndInit();
+            this.vpnBox.ResumeLayout(false);
+            this.vpnBox.PerformLayout();
             this.tabPage1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -464,7 +464,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.RadioButton radio_apibtn2;
         private System.Windows.Forms.Label label_apiYes;
         private System.Windows.Forms.RadioButton radio_apibtn1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ipQualityScore_APIKEY;
         private System.Windows.Forms.Label label_apikey;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.GroupBox remoteSettingsBox;
