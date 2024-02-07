@@ -332,7 +332,7 @@ namespace HawkSync_SM.RCClasses
                         SessionID = sessionid,
                         Username = _state.rcClients[sessionid]._username
                     });
-                    _state.Instances[InstanceIndex].WarningQueue.Add(new WarnPlayerClass
+                    _state.Instances[InstanceIndex].WarningQueue.Add(new ob_WarnPlayerClass
                     {
                         slot = slotNum,
                         warningMsg = warning
@@ -530,7 +530,7 @@ namespace HawkSync_SM.RCClasses
                     query.Parameters.AddWithValue("@bannedby", _state.rcClients[sessionID]._username);
                     query.ExecuteNonQuery();
                     query.Dispose();
-                    _state.Instances[InstanceIndex].BanList.Add(new playerbans
+                    _state.Instances[InstanceIndex].BanList.Add(new ob_playerBanList
                     {
                         expires = expiresDate,
                         id = (int)db.LastInsertRowId,
@@ -2291,7 +2291,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     notes = new List<adminnotes>();
-                    foreach (playerHistory player in _state.playerHistories)
+                    foreach (ob_playerHistory player in _state.playerHistories)
                     {
                         if ((player.playerName == _state.Instances[InstanceIndex].PlayerList[slot].name) || (player.playerIP == _state.Instances[InstanceIndex].PlayerList[slot].address))
                         {
@@ -2424,7 +2424,7 @@ namespace HawkSync_SM.RCClasses
             }
         }
 
-        public RCListenerClass.StatusCodes GetPlayerHistory(int InstanceID, int slot, out List<playerHistory> history)
+        public RCListenerClass.StatusCodes GetPlayerHistory(int InstanceID, int slot, out List<ob_playerHistory> history)
         {
             try
             {
@@ -2443,8 +2443,8 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    history = new List<playerHistory>();
-                    foreach (playerHistory player in _state.playerHistories)
+                    history = new List<ob_playerHistory>();
+                    foreach (ob_playerHistory player in _state.playerHistories)
                     {
                         if ((player.playerName == _state.Instances[InstanceIndex].PlayerList[slot].name) || (player.playerIP == _state.Instances[InstanceIndex].PlayerList[slot].address))
                         {
@@ -3649,7 +3649,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     if (IPAddress.TryParse(address, out IPAddress PlayerIP))
                     {
-                        _state.Instances[InstanceIndex].VPNWhiteList.Add(_state.Instances[InstanceIndex].VPNWhiteList.Count, new VPNWhiteListClass
+                        _state.Instances[InstanceIndex].VPNWhiteList.Add(_state.Instances[InstanceIndex].VPNWhiteList.Count, new ob_ipWhitelist
                         {
                             Description = description,
                             IPAddress = PlayerIP.ToString()
@@ -4105,7 +4105,7 @@ namespace HawkSync_SM.RCClasses
                         IntPtr h = process.MainWindowHandle;
                         IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
-                        // open console
+                        // open cmdConsole
                         PostMessage(h, (ushort)WM_KEYDOWN, (ushort)console, 0);
                         PostMessage(h, (ushort)WM_KEYUP, (ushort)console, 0);
                         System.Threading.Thread.Sleep(50);
@@ -4177,16 +4177,16 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceID != -1)
                 {
-                    playerlist.Teams currentTeam = (playerlist.Teams)_state.Instances[InstanceIndex].PlayerList[slotNum].team;
-                    playerlist.Teams switchTeam = (playerlist.Teams)playerlist.Teams.TEAM_SPEC;
+                    ob_playerList.Teams currentTeam = (ob_playerList.Teams)_state.Instances[InstanceIndex].PlayerList[slotNum].team;
+                    ob_playerList.Teams switchTeam = (ob_playerList.Teams)ob_playerList.Teams.TEAM_SPEC;
 
-                    if (currentTeam == playerlist.Teams.TEAM_BLUE)
+                    if (currentTeam == ob_playerList.Teams.TEAM_BLUE)
                     {
-                        switchTeam = playerlist.Teams.TEAM_RED;
+                        switchTeam = ob_playerList.Teams.TEAM_RED;
                     }
-                    else if (currentTeam == playerlist.Teams.TEAM_RED)
+                    else if (currentTeam == ob_playerList.Teams.TEAM_RED)
                     {
-                        switchTeam = playerlist.Teams.TEAM_BLUE;
+                        switchTeam = ob_playerList.Teams.TEAM_BLUE;
                     }
 
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -4211,7 +4211,7 @@ namespace HawkSync_SM.RCClasses
                         Username = _state.rcClients[sessionid]._username
                     });
 
-                    _state.Instances[InstanceIndex].ChangeTeamList.Add(new ChangeTeamClass
+                    _state.Instances[InstanceIndex].ChangeTeamList.Add(new ob_playerChangeTeamList
                     {
                         slotNum = slotNum,
                         Team = (int)switchTeam

@@ -2,7 +2,7 @@
 
 namespace HawkSync_SM
 {
-    public class AdminChatMsgs
+    public class ob_AdminChatMsgs
     {
         public int MsgID { get; set; }
         public int UserID { get; set; }

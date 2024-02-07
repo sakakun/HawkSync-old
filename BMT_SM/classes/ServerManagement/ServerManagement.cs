@@ -1,14 +1,32 @@
-﻿using System;
+﻿using HawkSync_SM.classes.ChatManagement;
+using Microsoft.VisualBasic.Logging;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Threading;
+using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM
 {
     public class ServerManagement
     {
+        // Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        // Import of Dynamic Link Libraries
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
         [DllImport("kernel32.dll")]
         public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+        [DllImport("user32.dll")]
+        static extern int SetWindowText(IntPtr hWnd, string text);
+        [DllImport("user32.dll")]
+        static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
 
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
@@ -18,8 +36,8 @@ namespace HawkSync_SM
         const uint WM_KEYDOWN = 0x0100;
         const uint WM_KEYUP = 0x0101;
         const int VK_ENTER = 0x0D;
-        const uint console = 0x60;
-        const uint GlobalChat = 0x54;
+        const int cmdConsole = 0xC0;
+        const int chatConsole = 0x54;
 
         public bool ProcessExist(int id)
         {
@@ -1132,6 +1150,693 @@ namespace HawkSync_SM
                 MemoryProcessor.Write(_instance, (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
             }
         }
+        public void SendChatMessage(ref AppState _state, int InstanceID, string ChatChannel, string Msg)
+        {           
+            // Set Chat Color
+            int colorbuffer_written = 0;
+            byte[] colorcode = HexConverter.ToByteArray(ChatChannel);
+            MemoryProcessor.Write(_state.Instances[InstanceID], 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+            Thread.Sleep(100);
 
+            // Open Console
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYDOWN, chatConsole, 0);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYUP, chatConsole, 0);
+            Thread.Sleep(100);
+            int bytesWritten = 0;
+
+            // Write Message
+            byte[] buffer = Encoding.Default.GetBytes($"{Msg}\0"); // '\0' marks the end of string
+            MemoryProcessor.Write(_state.Instances[InstanceID], 0x00879A14, buffer, buffer.Length, ref bytesWritten);
+            Thread.Sleep(100);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYUP, VK_ENTER, 0);
+
+            // Revert Chat Color
+            Thread.Sleep(100);
+            int revert_colorbuffer = 0;
+            byte[] revert_colorcode = HexConverter.ToByteArray(ChatManagement.ChatChannels[0]);
+            MemoryProcessor.Write(_state.Instances[InstanceID], 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
+
+        }
+        public void SendConsoleCommand(ref AppState _state, int InstanceID, string Command)
+        {
+            // open cmdConsole
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYDOWN, cmdConsole, 0);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYUP, cmdConsole, 0);
+            Thread.Sleep(100);
+
+            // Write to cmdConsole
+            int bytesWritten_kick = 0;
+            byte[] buffer_kick = Encoding.Default.GetBytes($"{Command}\0"); // '\0' marks the end of string
+            MemoryProcessor.Write(_state.Instances[InstanceID], 0x00879A14, buffer_kick, buffer_kick.Length, ref bytesWritten_kick);
+            Thread.Sleep(100);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);
+            PostMessage(_state.ApplicationProcesses[InstanceID].MainWindowHandle, WM_KEYUP, VK_ENTER, 0);
+        }
+        public int GetTimeLeft(ref AppState _state, int InstaceID)
+        {
+            Instance instance = _state.Instances[InstaceID];
+
+            if (instance.Status == InstanceStatus.LOADINGMAP)
+            {
+                return (instance.StartDelay + instance.TimeLimit);
+            }
+
+            var baseAddr = 0x400000;
+            byte[] Ptr = new byte[4];
+            int ReadPtr = 0;
+
+            ReadProcessMemory((int)instance.ProcessHandle, (int)baseAddr + 0x00061098, Ptr, Ptr.Length, ref ReadPtr);
+            int MapTimeAddr = BitConverter.ToInt32(Ptr, 0);
+
+            Stopwatch stopwatchProcessingTime = new Stopwatch();
+            stopwatchProcessingTime.Start();
+
+            byte[] MapTimeMs = new byte[4];
+            int MapTimeRead = 0;
+            ReadProcessMemory((int)instance.ProcessHandle, MapTimeAddr, MapTimeMs, MapTimeMs.Length, ref MapTimeRead);
+            int MapTime = BitConverter.ToInt32(MapTimeMs, 0);
+            int MapTimeInSeconds = MapTime / 60;
+
+            DateTime MapStartTime = DateTime.Now - TimeSpan.FromSeconds(MapTimeInSeconds);
+            DateTime MapEndTime = MapStartTime + TimeSpan.FromMinutes(instance.StartDelay + instance.TimeLimit);
+
+            byte[] TimeOffset = new byte[4];
+            int TimeOffsetRead = 0;
+            ReadProcessMemory((int)instance.ProcessHandle, MapTimeAddr, TimeOffset, TimeOffset.Length, ref TimeOffsetRead);
+            int intTimeOffset = BitConverter.ToInt32(TimeOffset, 0);
+
+            TimeSpan TimeRemaining = MapEndTime - (DateTime.Now + TimeSpan.FromMilliseconds(stopwatchProcessingTime.ElapsedMilliseconds) - TimeSpan.FromMilliseconds(intTimeOffset));
+            stopwatchProcessingTime.Stop();
+
+            return Math.Max(TimeRemaining.Minutes, 0);
+
+        }
+        public InternalPlayerStats GetPlayerStats(ref AppState _state, int instanceid, int reqslot)
+        {
+            
+            var baseaddr = 0x400000;
+            var startList = baseaddr + 0x005ED600;
+
+            byte[] startaddr = new byte[4];
+            int startaddr_read = 0;
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startList, startaddr, startaddr.Length, ref startaddr_read);
+            var firstplayer = BitConverter.ToInt32(startaddr, 0) + 0x28;
+
+            byte[] scanbeginaddr = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)firstplayer, scanbeginaddr, scanbeginaddr.Length, ref startaddr_read);
+            int beginaddr = BitConverter.ToInt32(scanbeginaddr, 0);
+
+            if (reqslot != 1)
+            {
+                for (int i = 1; i < reqslot; i++)
+                {
+                    beginaddr += 0xAF33C;
+                }
+            }
+            byte[] read_name = new byte[15];
+            int bytesread = 0;
+
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
+            var PlayerName = Encoding.Default.GetString(read_name).Replace("\0", "");
+
+            if (string.IsNullOrEmpty(PlayerName))
+            {
+                beginaddr += 0xAF33C;
+                // Retry read if player name is empty
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
+                PlayerName = Encoding.Default.GetString(read_name).Replace("\0", "");
+            }
+
+            // Handle failure if still no player name found
+            if (string.IsNullOrEmpty(PlayerName))
+            {
+                log.Debug("Something went wrong here. We can't find any player names.");
+                return new InternalPlayerStats();
+            }
+
+            byte[] read_ping = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB40, read_ping, read_ping.Length, ref bytesread);
+
+            int[] offsets = {
+                0x000ADAB4, 0x000ADA94, 0x000ADA98, 0x000ADA8C, 0x000ADAD0,
+                0x000ADA90, 0x000ADAD4, 0x000ADAF4, 0x000ADABC, 0x000ADAC0,
+                0x000ADAC4, 0x000ADACC, 0x000ADACC, 0x000ADAA8, 0x000ADAC8,
+                0x000ADAD4, 0x000ADAA4, 0x000ADADC, 0x000ADA94, 0x000ADAB0,
+                0x000ADAAC
+            };
+
+            var stats = new int[offsets.Length];
+
+            for (int i = 0; i < offsets.Length; i++)
+            {
+                byte[] read_data = new byte[4];
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets[i], read_data, read_data.Length, ref bytesread);
+                stats[i] = BitConverter.ToInt32(read_data, 0);
+            }
+
+            byte[] read_playerObjectLocation = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref bytesread);
+            int read_playerObject = BitConverter.ToInt32(read_playerObjectLocation, 0);
+
+            byte[] read_selectedWeapon = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x178, read_selectedWeapon, read_selectedWeapon.Length, ref bytesread);
+            int SelectedWeapon = BitConverter.ToInt32(read_selectedWeapon, 0);
+
+            byte[] read_selectedCharacterClass = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x244, read_selectedCharacterClass, read_selectedCharacterClass.Length, ref bytesread);
+            int SelectedCharacterClass = BitConverter.ToInt32(read_selectedCharacterClass, 0);
+
+            byte[] read_weapons = new byte[250];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB70, read_weapons, read_weapons.Length, ref bytesread);
+            var MemoryWeapons = Encoding.Default.GetString(read_weapons).Replace("\0", "|");
+            string[] weapons = MemoryWeapons.Split('|');
+            List<string> WeaponList = new List<string>();
+
+            int failureCount = 0;
+            foreach (var item in weapons)
+            {
+                if (!string.IsNullOrEmpty(item) && failureCount != 3)
+                {
+                    WeaponList.Add(item);
+                }
+                else
+                {
+                    if (failureCount == 3)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        failureCount++;
+                    }
+                }
+            }
+
+            return new InternalPlayerStats
+            {
+                PlayerName = PlayerName,
+                ping = BitConverter.ToInt32(read_ping, 0),
+                CharacterClass = SelectedCharacterClass,
+                SelectedWeapon = SelectedWeapon,
+                PlayerWeapons = WeaponList,
+                TotalShotsFired = stats[0],
+                kills = stats[1],
+                deaths = stats[2],
+                suicides = stats[3],
+                headshots = stats[4],
+                teamkills = stats[5],
+                knifekills = stats[6],
+                exp = stats[7],
+                revives = stats[8],
+                pspattempts = stats[9],
+                psptakeover = stats[10],
+                doublekills = stats[11],
+                playerrevives = stats[12],
+                FBCaptures = stats[13],
+                FBCarrierKills = stats[14],
+                FBCarrierDeaths = stats[15],
+                ZoneTime = stats[16],
+                ZoneKills = stats[17],
+                ZoneDefendKills = stats[18],
+                ADTargetsDestroyed = stats[19],
+                FlagSaves = stats[20],
+            };
+        }
+        public int GetCurrentPlayers(ref AppState _state, int instanceid)
+        {
+            int bytesRead = 0;
+            byte[] buffer = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0065DCBC, buffer, buffer.Length, ref bytesRead);
+            int CurrentPlayers = BitConverter.ToInt32(buffer, 0);
+            return CurrentPlayers;
+        }
+        public int GetCurrentGameType(ref AppState _state, int instanceid)
+        {
+            // memory polling
+            int bytesRead = 0;
+            byte[] buffer = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x009F21A4, buffer, buffer.Length, ref bytesRead);
+            int GameType = BitConverter.ToInt32(buffer, 0);
+
+            return GameType;
+        }
+        public string GetCurrentMission(ref AppState _state, int instanceid)
+        {
+            // memory polling
+            int bytesRead = 0;
+            byte[] buffer = new byte[26];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0071569C, buffer, buffer.Length, ref bytesRead);
+            string MissionName = Encoding.Default.GetString(buffer);
+
+            return MissionName.Replace("\0", "");
+        }
+        public string GetPlayerIpAddress(ref AppState _state, int instanceid, string playername)
+        {
+            const int baseAddr = 0x400000;
+            const int playerIpAddressPointerOffset = 0x00ACE248;
+            const int playernameOffset = 0xBC;
+
+            int playerIpAddressPointerBuffer = 0;
+            byte[] PointerAddr_2 = new byte[4];
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, baseAddr + playerIpAddressPointerOffset, PointerAddr_2, PointerAddr_2.Length, ref playerIpAddressPointerBuffer);
+
+            int IPList = BitConverter.ToInt32(PointerAddr_2, 0) + playernameOffset;
+
+            int failureCounter = 0;
+            while (failureCounter <= _state.Instances[instanceid].MaxSlots)
+            {
+                byte[] playername_bytes = new byte[15];
+                int playername_buffer = 0;
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, IPList, playername_bytes, playername_bytes.Length, ref playername_buffer);
+                var currentPlayerName = Encoding.Default.GetString(playername_bytes).Replace("\0", "");
+
+                if (currentPlayerName == playername)
+                {
+                    failureCounter = 0;
+                    break;
+                }
+
+                IPList += playernameOffset;
+                failureCounter++;
+            }
+
+            if (failureCounter > _state.Instances[instanceid].MaxSlots)
+            {
+                return null;
+            }
+
+            byte[] playerIPBytesPtr = new byte[4];
+            int playerIPBufferPtr = 0;
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, IPList + 0xA4, playerIPBytesPtr, playerIPBytesPtr.Length, ref playerIPBufferPtr);
+
+            int PlayerIPLocation = BitConverter.ToInt32(playerIPBytesPtr, 0) + 4;
+            byte[] playerIPAddressBytes = new byte[4];
+            int playerIPAddressBuffer = 0;
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, PlayerIPLocation, playerIPAddressBytes, playerIPAddressBytes.Length, ref playerIPAddressBuffer);
+
+            IPAddress playerIp = new IPAddress(playerIPAddressBytes);
+            return playerIp.ToString();
+        }
+        public Dictionary<int, ob_playerList> CurrentPlayerList(ref AppState _state, int instanceid)
+        {
+            Dictionary<int, ob_playerList> currentPlayerList = new Dictionary<int, ob_playerList>();
+            int NumPlayers = GetCurrentPlayers(ref _state, instanceid);
+
+            if (NumPlayers > 0)
+            {
+                int buffer = 0;
+                var baseAddr = 0x400000;
+                var Pointer = baseAddr + 0x005ED600;
+
+                byte[] PointerAddr9 = new byte[4];
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
+
+                byte[] playerListStartingLocationByteArray = new byte[4];
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref buffer);
+
+                int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
+                int failureCount = 0;
+
+                for (int i = 0; i < NumPlayers; i++)
+                {
+                    if (failureCount == _state.Instances[instanceid].MaxSlots)
+                    {
+                        break;
+                    }
+
+                    byte[] slotNumberValue = new byte[4];
+                    int slotNumberLocation = playerlistStartingLocation + 0xC;
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, slotNumberLocation, slotNumberValue, slotNumberValue.Length, ref buffer);
+                    int playerSlot = BitConverter.ToInt32(slotNumberValue, 0);
+
+                    byte[] playerNameBytes = new byte[15];
+                    int playerNameLocation = playerlistStartingLocation + 0x1C;
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerNameLocation, playerNameBytes, playerNameBytes.Length, ref buffer);
+                    string formattedPlayerName = Encoding.Default.GetString(playerNameBytes).Replace("\0", "");
+
+                    if (string.IsNullOrEmpty(formattedPlayerName) || string.IsNullOrWhiteSpace(formattedPlayerName))
+                    {
+                        playerlistStartingLocation += 0xAF33C;
+                        i--;
+                        failureCount++;
+                        continue;
+                    }
+
+                    byte[] playerTeamBytes = new byte[4];
+                    int playerTeamLocation = playerlistStartingLocation + 0x90;
+                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerTeamLocation, playerTeamBytes, playerTeamBytes.Length, ref buffer);
+                    int playerTeam = BitConverter.ToInt32(playerTeamBytes, 0);
+
+                    string playerIP = GetPlayerIpAddress(ref _state, instanceid, formattedPlayerName).ToString();
+                    InternalPlayerStats PlayerStats = GetPlayerStats(ref _state, instanceid, playerSlot);
+                    ob_playerList.CharacterClass PlayerCharacterClass = (ob_playerList.CharacterClass)PlayerStats.CharacterClass;
+                    ob_playerList.WeaponStack PlayerSelectedWeapon = (ob_playerList.WeaponStack)PlayerStats.SelectedWeapon;
+
+                    Dictionary<int, List<ob_playerList.WeaponStack>> PlayerWeapons = new Dictionary<int, List<ob_playerList.WeaponStack>>();
+
+                    if (string.IsNullOrEmpty(formattedPlayerName) || string.IsNullOrWhiteSpace(formattedPlayerName))
+                    {
+                        if (currentPlayerList.Count >= NumPlayers)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            playerlistStartingLocation += 0xAF33C;
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            currentPlayerList.Add(playerSlot, new ob_playerList
+                            {
+                                slot = playerSlot,
+                                name = formattedPlayerName,
+                                nameBase64 = Crypt.Base64Encode(formattedPlayerName),
+                                team = playerTeam,
+                                address = playerIP,
+                                ping = PlayerStats.ping,
+                                PlayerClass = PlayerCharacterClass.ToString(),
+                                selectedWeapon = PlayerSelectedWeapon.ToString(),
+                                weapons = PlayerStats.PlayerWeapons,
+                                totalshots = PlayerStats.TotalShotsFired,
+                                kills = PlayerStats.kills,
+                                deaths = PlayerStats.deaths,
+                                suicides = PlayerStats.suicides,
+                                headshots = PlayerStats.headshots,
+                                teamkills = PlayerStats.teamkills,
+                                knifekills = PlayerStats.knifekills,
+                                exp = PlayerStats.exp,
+                                revives = PlayerStats.revives,
+                                playerrevives = PlayerStats.playerrevives,
+                                pspattempts = PlayerStats.pspattempts,
+                                psptakeover = PlayerStats.psptakeover,
+                                doublekills = PlayerStats.doublekills,
+                                flagcaptures = PlayerStats.FBCaptures,
+                                flagcarrierkills = PlayerStats.FBCarrierKills,
+                                flagcarrierdeaths = PlayerStats.FBCarrierDeaths,
+                                zonetime = PlayerStats.ZoneTime,
+                                zonekills = PlayerStats.ZoneKills,
+                                zonedefendkills = PlayerStats.ZoneDefendKills,
+                                ADTargetsDestroyed = PlayerStats.ADTargetsDestroyed,
+                                FlagSaves = PlayerStats.FlagSaves
+                            });
+
+                            playerlistStartingLocation += 0xAF33C;
+
+                            if (currentPlayerList.Count >= NumPlayers)
+                            {
+                                break;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            _state.eventLog.WriteEntry("Detected an error!\n\n" + "Player Name: " + playerSlot + "\n\n" + formattedPlayerName + "\n\n" + e.ToString(), EventLogEntryType.Error);
+                        }
+
+                    }
+                }
+            }
+            return currentPlayerList;
+        }
+        public void GetCurrentMapIndex(ref AppState _state, int ArrayID)
+        {
+            int appEntry = 0x400000;
+            byte[] ServerMapCyclePtr = new byte[4];
+            int Pointer2Read = 0;
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
+            int MapCycleIndex = BitConverter.ToInt32(ServerMapCyclePtr, 0) + 0xC;
+            byte[] mapIndexBytes = new byte[4];
+            int mapIndexRead = 0;
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
+            
+            _state.Instances[ArrayID].mapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
+        }
+        public void ChangeGameScore(ref AppState _state, int ArrayID)
+        {
+            int nextGameScore = 0;
+            var baseAddr = 0x400000;
+            var startingPtr1 = 0;
+            var startingPtr2 = 0;
+            switch (_state.Instances[ArrayID].nextMapGameType)
+            {
+                // KOTH/TKOTH
+                case 3:
+                case 4:
+                    startingPtr1 = baseAddr + 0x5F21B8;
+                    startingPtr2 = baseAddr + 0x6344B4;
+                    nextGameScore = _state.Instances[ArrayID].KOTHScore;
+                    break;
+                // flag ball
+                case 8:
+                    startingPtr1 = baseAddr + 0x5F21AC;
+                    startingPtr2 = baseAddr + 0x6034B8;
+                    nextGameScore = _state.Instances[ArrayID].FBScore;
+                    break;
+                // all other game types...
+                default:
+                    startingPtr1 = baseAddr + 0x5F21AC;
+                    startingPtr2 = baseAddr + 0x6034B8;
+                    nextGameScore = _state.Instances[ArrayID].GameScore;
+                    break;
+            }
+            byte[] nextGameScoreBytes = BitConverter.GetBytes(nextGameScore);
+            int nextGameScoreWritten1 = 0;
+            int nextGameScoreWritten2 = 0;
+            MemoryProcessor.Write(_state.Instances[ArrayID], startingPtr1, nextGameScoreBytes, nextGameScoreBytes.Length, ref nextGameScoreWritten1);
+            MemoryProcessor.Write(_state.Instances[ArrayID], startingPtr2, nextGameScoreBytes, nextGameScoreBytes.Length, ref nextGameScoreWritten2);
+        }
+        public int UpdateMapCycleCounter(ref AppState _state, int InstanceID)
+        {
+            byte[] currentMapCycleCountBytes = new byte[4];
+            int currentMapCycleCountRead = 0;
+
+            int baseAddr = 0x400000;
+            int mapCycleCounterPtr = baseAddr + 0x5ED644;
+
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, mapCycleCounterPtr, currentMapCycleCountBytes, currentMapCycleCountBytes.Length, ref currentMapCycleCountRead);
+
+            int currentMapCycleCount = BitConverter.ToInt32(currentMapCycleCountBytes, 0);
+
+            return currentMapCycleCount;
+        }
+        public void ProcessDisarmedPlayers(ref AppState _state, int rowId)
+        {
+            for (int i = 0; i < _state.Instances[rowId].DisarmPlayers.Count; i++)
+            {
+                int playerId = _state.Instances[rowId].DisarmPlayers[i];
+                if (!_state.Instances[rowId].PlayerList.ContainsKey(playerId))
+                {
+                    _state.Instances[rowId].DisarmPlayers.Remove(playerId);
+                    continue;
+                }
+
+                int baseAddress = 0x400000;
+                int pointerAddress = baseAddress + 0x005ED600;
+                byte[] pointerBuffer = new byte[4];
+                int bytesRead = 0;
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, pointerAddress, pointerBuffer, pointerBuffer.Length, ref bytesRead);
+                int playerlistStartingLocationPointer = BitConverter.ToInt32(pointerBuffer, 0) + 0x28;
+
+                byte[] playerListStartingLocationByteArray = new byte[4];
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref bytesRead);
+
+                int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
+                for (int slot = 1; slot < playerId; slot++)
+                {
+                    playerlistStartingLocation += 0xAF33C;
+                }
+
+                int weaponOffset = 0xADE08;
+                byte[] disablePlayerWeapon = BitConverter.GetBytes(0);
+                int disablePlayerWeaponWrite = 0;
+                MemoryProcessor.Write(_state.Instances[rowId], playerlistStartingLocation + weaponOffset, disablePlayerWeapon, disablePlayerWeapon.Length, ref disablePlayerWeaponWrite);
+            }
+        }
+        public void SetNovaID(ref AppState _state, int rowId)
+        {
+            if (_state.Instances[rowId].RequireNovaLogin == true)
+            {
+                return; // since we are requiring nova login, just return.
+            }
+            byte[] CurrentAppIDBytes = new byte[4];
+            int currentAppIDRead = 0;
+            ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, 0x009DDA44, CurrentAppIDBytes, CurrentAppIDBytes.Length, ref currentAppIDRead);
+            int CurrentAppID = BitConverter.ToInt32(CurrentAppIDBytes, 0);
+
+            if (CurrentAppID != 0)
+            {
+                byte[] WriteAppIDBytes = BitConverter.GetBytes((int)0);
+                int WriteAppIDWritten = 0;
+                MemoryProcessor.Write(_state.Instances[rowId], 0x009DDA44, WriteAppIDBytes, WriteAppIDBytes.Length, ref WriteAppIDWritten);
+            }
+        }
+        public void ChangePlayerTeam(ref AppState _state, int rowId)
+        {
+            if (_state.Instances[rowId].ChangeTeamList.Count == 0)
+            {
+                return;
+            }
+            else
+            {
+                int buffer = 0;
+                byte[] PointerAddr9 = new byte[4];
+                var baseAddr = 0x400000;
+                var Pointer = baseAddr + 0x005ED600;
+
+                // read the playerlist memory address from the game...
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
+                byte[] playerListStartingLocationByteArray = new byte[4];
+                int playerListStartingLocationBuffer = 0;
+                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+
+                int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
+
+                for (int ii = 0; ii < _state.Instances[rowId].ChangeTeamList.Count; ii++)
+                {
+                    int playerLocationOffset = 0;
+                    for (int i = 1; i < _state.Instances[rowId].ChangeTeamList[ii].slotNum; i++)
+                    {
+                        playerLocationOffset += 0xAF33C;
+                    }
+                    int playerLocation = playerlistStartingLocation + playerLocationOffset;
+                    int playerTeamLocation = playerLocation + 0x90;
+                    byte[] teamBytes = BitConverter.GetBytes((int)_state.Instances[rowId].ChangeTeamList[ii].Team);
+                    int bytesWritten = 0;
+                    MemoryProcessor.Write(_state.Instances[rowId], playerTeamLocation, teamBytes, teamBytes.Length, ref bytesWritten);
+                    _state.Instances[rowId].ChangeTeamList.RemoveAt(ii);
+                }
+            }
+        }
+        public void ResetGodMode(ref AppState _state, int InstanceID)
+        {
+            if (_state.Instances[InstanceID].GodModeList.Count == 0)
+            {
+                return;
+            }
+            for (int iSlot = 0; iSlot < _state.Instances[InstanceID].GodModeList.Count; iSlot++)
+            {
+                int slot = _state.Instances[InstanceID].GodModeList[iSlot];
+                if (!_state.Instances[InstanceID].PlayerList.ContainsKey(slot))
+                {
+                    _state.Instances[InstanceID].GodModeList.Remove(slot);
+                }
+                else
+                {
+                    int buffer = 0;
+                    byte[] PointerAddr9 = new byte[4];
+                    var baseAddr = 0x400000;
+                    var Pointer = baseAddr + 0x005ED600;
+
+                    // read the playerlist memory address from the game...
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                    var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
+                    byte[] playerListStartingLocationByteArray = new byte[4];
+                    int playerListStartingLocationBuffer = 0;
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+
+                    int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
+                    for (int i = 1; i < slot; i++)
+                    {
+                        playerlistStartingLocation += 0xAF33C;
+                    }
+                    byte[] playerObjectLocationBytes = new byte[4];
+                    int playerObjectLocationRead = 0;
+                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
+                    int playerObjectLocation = BitConverter.ToInt32(playerObjectLocationBytes, 0);
+
+                    byte[] setPlayerHealth = BitConverter.GetBytes(9999); //set god mode health
+                    int setPlayerHealthWrite = 0;
+
+                    byte[] setDamageBy = BitConverter.GetBytes(0);
+                    int setDamageByWrite = 0;
+
+                    MemoryProcessor.Write(_state.Instances[InstanceID], playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
+                    MemoryProcessor.Write(_state.Instances[InstanceID], playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
+                }
+            }
+        }
+        public string[] GetLastChatMessage(ref AppState _state, int InstanceID)
+        {
+            var baseAddr = 0x400000;
+
+            var starterPtr = baseAddr + 0x00062D10;
+            byte[] ChatLogPtr = new byte[4];
+            int ChatLogPtrRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
+
+            // get last message sent...
+            int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
+            byte[] Message = new byte[74];
+            int MessageRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);
+            string LastMessage = Encoding.Default.GetString(Message).Replace("\0", "");
+
+            int msgTypeAddr = ChatLogAddr + 0x78;
+            byte[] msgType = new byte[4];
+            int msgTypeRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, msgTypeAddr, msgType, msgType.Length, ref msgTypeRead);
+            string msgTypeBytes = BitConverter.ToString(msgType).Replace("-", "");
+
+            return new string[] { ChatLogAddr.ToString(), LastMessage, msgTypeBytes };
+        }
+        public void CountDownKiller(ref AppState _state, int InstanceID, int ChatLogAddr)
+        {
+            byte[] countDownKiller = BitConverter.GetBytes(0);
+            int countDownKillerWrite = 0;
+            MemoryProcessor.Write(_state.Instances[InstanceID], ChatLogAddr + 0x7C, countDownKiller, countDownKiller.Length, ref countDownKillerWrite);
+        }
+        public void UpdateGlobalGameType(ref AppState _state, int InstanceID)
+        {
+            // this function is responsible for adjusting the Pinger Queries to the current game type
+            var baseAddr = 0x400000;
+            var startingPtr = baseAddr + 0xACE0E8; // pinger query
+            byte[] read_pingergametype = new byte[4];
+            int read_pingergametypeBytesRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)startingPtr, read_pingergametype, read_pingergametype.Length, ref read_pingergametypeBytesRead);
+            int PingerGameType = BitConverter.ToInt32(read_pingergametype, 0);
+
+            // get set gametype
+            var CurrentGameTypeAddr = baseAddr + 0x5F21A4;
+            byte[] read_currentgametype = new byte[4];
+            int read_currentgametypeBytesRead = 0;
+            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)CurrentGameTypeAddr, read_currentgametype, read_currentgametype.Length, ref read_currentgametypeBytesRead);
+            int CurrentGameType = BitConverter.ToInt32(read_currentgametype, 0);
+
+            // to prevent locking of this address simply look at each address before writing to the address...
+            if (PingerGameType != CurrentGameType)
+            {
+                int UpdatePingerQuery = 0;
+                MemoryProcessor.Write(_state.Instances[InstanceID], (int)startingPtr, read_currentgametype, read_currentgametype.Length, ref UpdatePingerQuery);
+                return;
+            }
+            else
+            {
+                // no update required... Exit the function.
+                return;
+            }
+        }
+        public InstanceStatus CheckStatus(ref AppState _state, int instanceid)
+        {
+            var baseAddr = 0x400000;
+            var startingPointer = baseAddr + 0x00098334;
+            byte[] startingPointerBuffer = new byte[4];
+            int startingPointerReadBytes = 0;
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startingPointer, startingPointerBuffer, startingPointerBuffer.Length, ref startingPointerReadBytes);
+
+
+            int statusLocationPointer = BitConverter.ToInt32(startingPointerBuffer, 0);
+            byte[] statusLocation = new byte[4];
+            int statusLocationReadBytes = 0;
+            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)statusLocationPointer, statusLocation, statusLocation.Length, ref statusLocationReadBytes);
+            int instanceStatus = BitConverter.ToInt32(statusLocation, 0);
+
+            return (InstanceStatus)instanceStatus;
+        }
     }
 }

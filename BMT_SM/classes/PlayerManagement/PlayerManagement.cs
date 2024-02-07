@@ -45,7 +45,7 @@ namespace HawkSync_SM
                         cmd.Parameters.AddWithValue("@firstseen", DateTime.Now);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
-                        _state.playerHistories.Add(new playerHistory
+                        _state.playerHistories.Add(new ob_playerHistory
                         {
                             DatabaseId = (int)db.LastInsertRowId,
                             firstSeen = DateTime.Now,

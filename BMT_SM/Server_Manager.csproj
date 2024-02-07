@@ -265,7 +265,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="classes\ChatManagement\AdminChatMsgs.cs" />
+    <Compile Include="classes\ChatManagement\ChatManagement.cs" />
+    <Compile Include="classes\ChatManagement\ob_AdminChatMsgs.cs" />
     <Compile Include="classes\adminnotes.cs" />
     <Compile Include="Api\classes\ApiClass.cs" />
     <Compile Include="Api\classes\ApiFunctions.cs" />
@@ -279,20 +280,21 @@
     <Compile Include="AppState.cs" />
     <Compile Include="classes\IPManagement\IPManagement.cs" />
     <Compile Include="classes\MapManagement\autoRes.cs" />
-    <Compile Include="classes\ChatManagement\auto_messages.cs" />
+    <Compile Include="classes\ChatManagement\ob_AutoMessages.cs" />
     <Compile Include="classes\MapManagement\AvailMaps.cs" />
     <Compile Include="classes\NovaHeartBeat\HeartBeatMonitor.cs" />
     <Compile Include="classes\PlayerManagement\BanPlayerFunction.cs" />
-    <Compile Include="classes\PlayerManagement\blacklist.cs" />
-    <Compile Include="classes\PlayerManagement\ChangeTeamClass.cs" />
+    <Compile Include="classes\IPManagement\ob_ipBlacklist.cs" />
+    <Compile Include="classes\PlayerManagement\ob_playerChangeTeamList.cs" />
     <Compile Include="classes\PlayerManagement\PlayerManagement.cs" />
+    <Compile Include="classes\Plugins\pl_VoteMaps\pluginVoteMaps.cs" />
     <Compile Include="Panels\ChatHistory.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Panels\ChatHistory.Designer.cs">
       <DependentUpon>ChatHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\ChatManagement\ChatLogs.cs" />
+    <Compile Include="classes\ChatManagement\ob_ChatLogs.cs" />
     <Compile Include="classes\ConsoleQueue.cs" />
     <Compile Include="classes\FirewallRule.cs" />
     <Compile Include="classes\LogManagement\RCLogs.cs" />
@@ -334,16 +336,16 @@
     <Compile Include="classes\IPManagement\ipqualityscore.cs" />
     <Compile Include="classes\MapManagement\MapList.cs" />
     <Compile Include="classes\StatManagement\monthlystats.cs" />
-    <Compile Include="classes\PlayerManagement\playerbans.cs" />
-    <Compile Include="classes\ChatManagement\PlayerChatLog.cs" />
-    <Compile Include="classes\PlayerManagement\playerHistory.cs" />
+    <Compile Include="classes\PlayerManagement\ob_playerBanList.cs" />
+    <Compile Include="classes\ChatManagement\ob_PlayerChatLog.cs" />
+    <Compile Include="classes\PlayerManagement\ob_playerHistory.cs" />
     <Compile Include="Panels\PlayerInfo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Panels\PlayerInfo.Designer.cs">
       <DependentUpon>PlayerInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\PlayerManagement\playerlist.cs" />
+    <Compile Include="classes\PlayerManagement\ob_playerList.cs" />
     <Compile Include="classes\SupportClasses\PlayerRoles.cs" />
     <Compile Include="Panels\SM_PopupLoadRotation.cs">
       <SubType>Form</SubType>
@@ -357,7 +359,7 @@
     <Compile Include="Panels\SM_PopupSaveRotation.Designer.cs">
       <DependentUpon>SM_PopupSaveRotation.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\PlayerManagement\PreviousTeams.cs" />
+    <Compile Include="classes\PlayerManagement\ob_playerPreviousTeam.cs" />
     <Compile Include="ProcessHandler.cs" />
     <Compile Include="ProgramConfig.cs" />
     <Compile Include="classes\RCManagement\RCFunctions.cs" />
@@ -421,8 +423,8 @@
     <Compile Include="Panels\ViewUserActivity.Designer.cs">
       <DependentUpon>ViewUserActivity.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\PlayerManagement\VPNWhiteListClass.cs" />
-    <Compile Include="classes\ChatManagement\WarnPlayerClass.cs" />
+    <Compile Include="classes\IPManagement\ob_ipWhitelist.cs" />
+    <Compile Include="classes\ChatManagement\ob_WarnPlayerClass.cs" />
     <Compile Include="classes\SupportClasses\WeaponsClass.cs" />
     <EmbeddedResource Include="Panels\ChatHistory.resx">
       <DependentUpon>ChatHistory.cs</DependentUpon>

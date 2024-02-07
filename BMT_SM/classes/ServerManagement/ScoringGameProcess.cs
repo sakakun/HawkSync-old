@@ -44,10 +44,10 @@ namespace HawkSync_SM
 
         AppState _state;
         int ArrayID = -1;
-        ChatLogs _chatLogs;
+        ob_ChatLogs _chatLogs;
         CollectedPlayerStatsPlayers _collectedPlayerStats;
 
-        public ScoringGameProcess(AppState state, int InstanceID, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public ScoringGameProcess(AppState state, int InstanceID, ob_ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
         {
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
@@ -199,13 +199,13 @@ namespace HawkSync_SM
                 {
                     foreach (var playerObj in _state.Instances[ArrayID].PlayerList)
                     {
-                        _state.Instances[ArrayID].previousTeams.Add(new PreviousTeams
+                        _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
                         {
                             slotNum = playerObj.Value.slot,
-                            Team = (playerlist.Teams)playerObj.Value.team
+                            Team = (ob_playerList.Teams)playerObj.Value.team
                         });
 
-                        _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                        _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                         {
                             slotNum = playerObj.Value.slot,
                             Team = playerObj.Value.slot + 5
@@ -219,7 +219,7 @@ namespace HawkSync_SM
                     {
                         if (_state.Instances[ArrayID].PlayerList.ContainsKey(playerObj.slotNum))
                         {
-                            _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                            _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                             {
                                 slotNum = playerObj.slotNum,
                                 Team = (int)playerObj.Team
@@ -243,39 +243,39 @@ namespace HawkSync_SM
                             int redteam = 0;
                             foreach (var playerTeam in _state.Instances[ArrayID].previousTeams)
                             {
-                                if (playerTeam.Team == playerlist.Teams.TEAM_BLUE)
+                                if (playerTeam.Team == ob_playerList.Teams.TEAM_BLUE)
                                 {
                                     blueteam++;
                                 }
-                                else if (playerTeam.Team == playerlist.Teams.TEAM_RED)
+                                else if (playerTeam.Team == ob_playerList.Teams.TEAM_RED)
                                 {
                                     redteam++;
                                 }
                             }
                             if (blueteam > redteam)
                             {
-                                _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                                _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                                 {
                                     slotNum = player.Value.slot,
-                                    Team = (int)playerlist.Teams.TEAM_RED
+                                    Team = (int)ob_playerList.Teams.TEAM_RED
                                 });
-                                _state.Instances[ArrayID].previousTeams.Add(new PreviousTeams
+                                _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
                                 {
                                     slotNum = player.Value.slot,
-                                    Team = playerlist.Teams.TEAM_RED
+                                    Team = ob_playerList.Teams.TEAM_RED
                                 });
                             }
                             else if (blueteam < redteam)
                             {
-                                _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                                _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                                 {
                                     slotNum = player.Value.slot,
-                                    Team = (int)playerlist.Teams.TEAM_BLUE
+                                    Team = (int)ob_playerList.Teams.TEAM_BLUE
                                 });
-                                _state.Instances[ArrayID].previousTeams.Add(new PreviousTeams
+                                _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
                                 {
                                     slotNum = player.Value.slot,
-                                    Team = playerlist.Teams.TEAM_BLUE
+                                    Team = ob_playerList.Teams.TEAM_BLUE
                                 });
                             }
                             else if (blueteam == redteam)
@@ -284,28 +284,28 @@ namespace HawkSync_SM
                                 int rnd = rand.Next(1, 2);
                                 if (rnd == 1)
                                 {
-                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                                     {
                                         slotNum = player.Value.slot,
-                                        Team = (int)playerlist.Teams.TEAM_BLUE
+                                        Team = (int)ob_playerList.Teams.TEAM_BLUE
                                     });
-                                    _state.Instances[ArrayID].previousTeams.Add(new PreviousTeams
+                                    _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
                                     {
                                         slotNum = player.Value.slot,
-                                        Team = playerlist.Teams.TEAM_BLUE
+                                        Team = ob_playerList.Teams.TEAM_BLUE
                                     });
                                 }
                                 else if (rnd == 2)
                                 {
-                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
                                     {
                                         slotNum = player.Value.slot,
-                                        Team = (int)playerlist.Teams.TEAM_RED
+                                        Team = (int)ob_playerList.Teams.TEAM_RED
                                     });
-                                    _state.Instances[ArrayID].previousTeams.Add(new PreviousTeams
+                                    _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
                                     {
                                         slotNum = player.Value.slot,
-                                        Team = playerlist.Teams.TEAM_RED
+                                        Team = ob_playerList.Teams.TEAM_RED
                                     });
                                 }
                             }

@@ -2,7 +2,7 @@
 
 namespace HawkSync_SM
 {
-    public class playerlist
+    public class ob_playerList
     {
         public int slot { get; set; }
         public string name { get; set; }
@@ -114,7 +114,7 @@ namespace HawkSync_SM
             SAS_SNIPER = 11,
             SAS_GUNNER = 12,
         }
-        public virtual bool Equals(playerlist obj)
+        public virtual bool Equals(ob_playerList obj)
         {
             return obj.name == name;
         }

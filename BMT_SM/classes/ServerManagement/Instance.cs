@@ -84,7 +84,7 @@ namespace HawkSync_SM
         public bool WebstatsIdVerified { get; set; }
         public DateTime nextWebStatsStatusUpdate { get; set; }
         // this is used for the "Server Status" on BabWebStats
-        public auto_messages AutoMessages { get; set; }
+        public ob_AutoMessages AutoMessages { get; set; }
         public DateTime NextUpdateWebStats { get; set; }
         public InstanceStatus Status { get; set; }
         public DateTime LastUpdateTime { get; set; }
@@ -100,20 +100,20 @@ namespace HawkSync_SM
         public bool CrashRecovery { get; set; }
         public Dictionary<int, MapList> previousMapList { get; set; }
         public Dictionary<int, MapList> MapList { get; set; }
-        public List<playerbans> BanList { get; set; }
-        public Dictionary<int, playerlist> PlayerList { get; set; }
-        public Dictionary<int, VPNWhiteListClass> VPNWhiteList { get; set; }
+        public List<ob_playerBanList> BanList { get; set; }
+        public Dictionary<int, ob_playerList> PlayerList { get; set; }
+        public Dictionary<int, ob_ipWhitelist> VPNWhiteList { get; set; }
         public Dictionary<string, string> IPWhiteList { get; set; }
-        public List<ChangeTeamClass> ChangeTeamList { get; set; }
+        public List<ob_playerChangeTeamList> ChangeTeamList { get; set; }
         public PlayerRoles RoleRestrictions { get; set; }
         public WeaponsClass WeaponRestrictions { get; set; }
         public List<int> GodModeList { get; set; }
         public bool IsRunningPostGameProcesses { get; set; }
         public bool IsRunningScoringGameProcesses { get; set; }
         public List<string> CustomWarnings { get; set; }
-        public List<WarnPlayerClass> WarningQueue { get; set; }
+        public List<ob_WarnPlayerClass> WarningQueue { get; set; }
         public List<int> DisarmPlayers { get; set; }
-        public List<PreviousTeams> previousTeams { get; set; }
+        public List<ob_playerPreviousTeam> previousTeams { get; set; }
         public Dictionary<int, MapList> availableMaps { get; set; }
         public List<savedmaprotations> savedmaprotations { get; set; }
         public IntPtr ProcessHandle { get; set; }

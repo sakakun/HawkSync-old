@@ -82,7 +82,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_start, "btn_start");
             this.btn_start.Name = "btn_start";
             this.btn_start.UseVisualStyleBackColor = true;
-            this.btn_start.Click += new System.EventHandler(this.btnStart_Click);
+            this.btn_start.Click += new System.EventHandler(this.event_startGameServer);
             // 
             // btn_create
             // 
@@ -96,7 +96,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_edit, "btn_edit");
             this.btn_edit.Name = "btn_edit";
             this.btn_edit.UseVisualStyleBackColor = true;
-            this.btn_edit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btn_edit.Click += new System.EventHandler(this.event_editProfile);
             // 
             // btn_delete
             // 

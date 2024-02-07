@@ -40,11 +40,11 @@ namespace HawkSync_SM
         SQLiteConnection _connection;
 
         AppState _state;
-        ChatLogs _chatLogs;
+        ob_ChatLogs _chatLogs;
         CollectedPlayerStatsPlayers _collectedPlayerStats;
         int ArrayID = 0;
 
-        public PostGameProcess(AppState state, int instanceid, ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public PostGameProcess(AppState state, int instanceid, ob_ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
         {
             ArrayID = instanceid;
 

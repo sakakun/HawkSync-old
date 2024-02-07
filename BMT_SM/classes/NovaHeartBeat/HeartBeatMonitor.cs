@@ -76,7 +76,7 @@ namespace HawkSync_SM.classes
                                 PlayerName = player.Value.name,
                                 TeamId = player.Value.team,
                                 TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(playerlist.WeaponStack), player.Value.selectedWeapon)),
+                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(ob_playerList.WeaponStack), player.Value.selectedWeapon)),
                                 WeaponText = player.Value.selectedWeapon
                             });
                         }
@@ -167,7 +167,7 @@ namespace HawkSync_SM.classes
                                 PlayerName = player.Value.name,
                                 TeamId = player.Value.team,
                                 TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(playerlist.WeaponStack), player.Value.selectedWeapon)),
+                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(ob_playerList.WeaponStack), player.Value.selectedWeapon)),
                                 WeaponText = player.Value.selectedWeapon
                             });
                         }

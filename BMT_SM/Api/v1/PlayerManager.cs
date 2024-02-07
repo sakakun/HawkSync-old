@@ -49,7 +49,7 @@ namespace HawkSync_SM.Api.v1
         {
             var Response = Request.CreateResponse(HttpStatusCode.OK);
 
-            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new playerbans
+            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new ob_playerBanList
             {
                 id = GlobalAppState.AppState.Instances[instanceid].BanList.Count,
                 ipaddress = GlobalAppState.AppState.Instances[instanceid].PlayerList[slotNum].address,
@@ -75,7 +75,7 @@ namespace HawkSync_SM.Api.v1
         public HttpResponseMessage TempBanPlayer(int instanceid, int slotNum, string expiryDate, string banReason = "")
         {
             var Response = Request.CreateResponse(HttpStatusCode.OK);
-            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new playerbans
+            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new ob_playerBanList
             {
                 id = GlobalAppState.AppState.Instances[instanceid].BanList.Count,
                 ipaddress = GlobalAppState.AppState.Instances[instanceid].PlayerList[slotNum].address,
@@ -93,7 +93,7 @@ namespace HawkSync_SM.Api.v1
         public HttpResponseMessage KickPlayer(int instanceid, int slotNum, string kickReason = "")
         {
             var Response = Request.CreateResponse(HttpStatusCode.OK);
-            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new playerbans
+            GlobalAppState.AppState.Instances[instanceid].BanList.Add(new ob_playerBanList
             {
                 id = GlobalAppState.AppState.Instances[instanceid].BanList.Count,
                 ipaddress = GlobalAppState.AppState.Instances[instanceid].PlayerList[slotNum].address,
@@ -226,7 +226,7 @@ namespace HawkSync_SM.Api.v1
         public HttpResponseMessage WarnPlayer(int instanceid, int slotNum, string WarnMsg = "")
         {
             var Response = Request.CreateResponse(HttpStatusCode.OK);
-            GlobalAppState.AppState.Instances[instanceid].WarningQueue.Add(new WarnPlayerClass
+            GlobalAppState.AppState.Instances[instanceid].WarningQueue.Add(new ob_WarnPlayerClass
             {
                 slot = slotNum,
                 warningMsg = WarnMsg

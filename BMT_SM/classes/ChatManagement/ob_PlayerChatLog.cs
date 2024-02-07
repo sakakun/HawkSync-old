@@ -2,7 +2,7 @@
 
 namespace HawkSync_SM
 {
-    public class PlayerChatLog
+    public class ob_PlayerChatLog
     {
         public DateTime dateSent { get; set; }
         public string PlayerName { get; set; }

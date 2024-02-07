@@ -12,14 +12,14 @@ namespace HawkSync_SM
         public Dictionary<int, Instance> Instances { get; set; }
         public Dictionary<int, ipqualityscore> IPQualityCache { get; set; }
         public Dictionary<int, CollectedPlayerStatsPlayers> PlayerStats { get; set; }
-        public Dictionary<int, ChatLogs> ChatLogs { get; set; }
+        public Dictionary<int, ob_ChatLogs> ChatLogs { get; set; }
         public Dictionary<string, UserCodes> Users { get; set; }
         public Dictionary<int, monthlystats> yearlystats { get; set; }
-        public List<AdminChatMsgs> adminChatMsgs { get; set; }
+        public List<ob_AdminChatMsgs> adminChatMsgs { get; set; }
         public SystemInfoClass SystemInfo { get; set; }
         public autoRes autoRes { get; set; }
         public Dictionary<string, RCListenerClass> rcClients { get; set; }
-        public List<playerHistory> playerHistories { get; set; }
+        public List<ob_playerHistory> playerHistories { get; set; }
         public List<adminnotes> adminNotes { get; set; }
         public List<RCLogs> RCLogs { get; set; }
         public Dictionary<string, byte[]> imageCache { get; set; }
@@ -39,13 +39,13 @@ namespace HawkSync_SM
 
             PlayerStats = new Dictionary<int, CollectedPlayerStatsPlayers>();
 
-            ChatLogs = new Dictionary<int, ChatLogs>();
+            ChatLogs = new Dictionary<int, ob_ChatLogs>();
 
             Users = new Dictionary<string, UserCodes>();
 
             yearlystats = new Dictionary<int, monthlystats>();
 
-            adminChatMsgs = new List<AdminChatMsgs>();
+            adminChatMsgs = new List<ob_AdminChatMsgs>();
 
             SystemInfo = new SystemInfoClass();
 
@@ -53,7 +53,7 @@ namespace HawkSync_SM
 
             rcClients = new Dictionary<string, RCListenerClass>();
 
-            playerHistories = new List<playerHistory>();
+            playerHistories = new List<ob_playerHistory>();
 
             adminNotes = new List<adminnotes>();
 

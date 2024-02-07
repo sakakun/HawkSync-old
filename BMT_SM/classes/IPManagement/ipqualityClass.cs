@@ -4,6 +4,7 @@ namespace HawkSync_SM
 {
     public class ipqualityClass
     {
+        public int id { get; set; }
         public string address { get; set; }
         public int fraud_score { get; set; }
         public string country_code { get; set; }

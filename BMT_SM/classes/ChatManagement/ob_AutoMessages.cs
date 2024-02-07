@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HawkSync_SM
 {
-    public class auto_messages
+    public class ob_AutoMessages
     {
         public int profile_id { get; set; }
         public bool enable_msg { get; set; }

@@ -810,7 +810,7 @@ namespace HawkSync_SM
                     case "BMTRC.GetPlayerHistory":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
-                            reply.Add("Status", RCFunctions.GetPlayerHistory(json.serverID, json.slot, out List<playerHistory> history));
+                            reply.Add("Status", RCFunctions.GetPlayerHistory(json.serverID, json.slot, out List<ob_playerHistory> history));
                             reply.Add("history", JsonConvert.SerializeObject(history));
                             _state.rcClients[json.SessionID].expires = DateTime.Now.AddHours(1).ToString();
                         }
@@ -820,7 +820,7 @@ namespace HawkSync_SM
                         }
                         var jsonGetPlayerHistory = JsonConvert.SerializeObject(reply);
                         return ProgramConfig.Encoder.GetBytes(jsonGetPlayerHistory);
-                    case "BMTRC.GetAdminNotes":
+                    case "BMTRC.onload_getPlayerAdminNotes":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
                             reply.Add("Status", RCFunctions.GetAdminNotes(json.serverID, json.slot, out List<adminnotes> adminNotes));

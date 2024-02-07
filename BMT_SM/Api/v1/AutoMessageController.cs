@@ -151,7 +151,7 @@ namespace HawkSync_SM.Api.v1
             }
             else
             {
-                auto_messages messages = GlobalAppState.AppState.Instances[id].AutoMessages;
+                ob_AutoMessages messages = GlobalAppState.AppState.Instances[id].AutoMessages;
                 Response.Content = new StringContent(JsonConvert.SerializeObject(messages), Encoding.Default, "application/json");
             }
             return Response;

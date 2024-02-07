@@ -21,7 +21,7 @@ namespace HawkSync_SM
         public DataTable adminTable = new DataTable();
         public DataTable playersTable = new DataTable();
         public DataTable specificPlayerTable = new DataTable();
-        BindingList<PlayerChatLog> playerMessages = new BindingList<PlayerChatLog>();
+        BindingList<ob_PlayerChatLog> playerMessages = new BindingList<ob_PlayerChatLog>();
 
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
@@ -90,7 +90,7 @@ namespace HawkSync_SM
         private void CustomWarningMenu(object sender, EventArgs e)
         {
             int selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            _state.Instances[ArrayID].WarningQueue.Add(new WarnPlayerClass
+            _state.Instances[ArrayID].WarningQueue.Add(new ob_WarnPlayerClass
             {
                 slot = selectedPlayerSlot,
                 warningMsg = sender.ToString()
@@ -159,7 +159,7 @@ namespace HawkSync_SM
                 DataRow dr = chatLog.Rows[i];
                 string dateTime = dr["Date & Time"].ToString();
                 string playerName = dr["Player Name"].ToString();
-                playerlist.Teams team = playerlist.Teams.TEAM_SPEC;
+                ob_playerList.Teams team = ob_playerList.Teams.TEAM_SPEC;
 
                 foreach (var item in _state.ChatLogs[ArrayID].Messages)
                 {
@@ -175,13 +175,13 @@ namespace HawkSync_SM
                                 {
                                     if (player.Value.name == playerName)
                                     {
-                                        team = (playerlist.Teams)Enum.Parse(typeof(playerlist.Teams), player.Value.team.ToString());
+                                        team = (ob_playerList.Teams)Enum.Parse(typeof(ob_playerList.Teams), player.Value.team.ToString());
                                     }
                                 }
                             }
                             else
                             {
-                                team = (playerlist.Teams)Enum.Parse(typeof(playerlist.Teams), item.team);
+                                team = (ob_playerList.Teams)Enum.Parse(typeof(ob_playerList.Teams), item.team);
                             }
                             break;
                         }
@@ -190,32 +190,32 @@ namespace HawkSync_SM
 
                 switch (team)
                 {
-                    case playerlist.Teams.TEAM_GREEN:
+                    case ob_playerList.Teams.TEAM_GREEN:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Green;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Green;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Green;
                         break;
-                    case playerlist.Teams.TEAM_BLUE:
+                    case ob_playerList.Teams.TEAM_BLUE:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Blue;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Blue;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Blue;
                         break;
-                    case playerlist.Teams.TEAM_RED:
+                    case ob_playerList.Teams.TEAM_RED:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Red;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Red;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Red;
                         break;
-                    case playerlist.Teams.TEAM_YELLOW:
+                    case ob_playerList.Teams.TEAM_YELLOW:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Yellow;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Yellow;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Yellow;
                         break;
-                    case playerlist.Teams.TEAM_PURPLE:
+                    case ob_playerList.Teams.TEAM_PURPLE:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Purple;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Purple;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Purple;
                         break;
-                    case playerlist.Teams.TEAM_SPEC:
+                    case ob_playerList.Teams.TEAM_SPEC:
                         data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.White;
                         data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.White;
                         data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.White;
@@ -242,7 +242,7 @@ namespace HawkSync_SM
                 {
                     try
                     {
-                        playerlist serverData = _state.Instances[ArrayID].PlayerList[Convert.ToInt32(playerData["Slot #"])];
+                        ob_playerList serverData = _state.Instances[ArrayID].PlayerList[Convert.ToInt32(playerData["Slot #"])];
 
                         if (serverData == null)
                         {
@@ -263,22 +263,22 @@ namespace HawkSync_SM
                         }
                         switch (serverData.team)
                         {
-                            case (int)playerlist.Teams.TEAM_GREEN:
+                            case (int)ob_playerList.Teams.TEAM_GREEN:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Green;
                                 break;
-                            case (int)playerlist.Teams.TEAM_BLUE:
+                            case (int)ob_playerList.Teams.TEAM_BLUE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Blue;
                                 break;
-                            case (int)playerlist.Teams.TEAM_RED:
+                            case (int)ob_playerList.Teams.TEAM_RED:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Red;
                                 break;
-                            case (int)playerlist.Teams.TEAM_YELLOW:
+                            case (int)ob_playerList.Teams.TEAM_YELLOW:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Yellow;
                                 break;
-                            case (int)playerlist.Teams.TEAM_PURPLE:
+                            case (int)ob_playerList.Teams.TEAM_PURPLE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Purple;
                                 break;
-                            case (int)playerlist.Teams.TEAM_SPEC:
+                            case (int)ob_playerList.Teams.TEAM_SPEC:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.White;
                                 break;
                         }
@@ -322,22 +322,22 @@ namespace HawkSync_SM
                         //int index = playersTable.Rows.Count;
                         switch (player.Value.team)
                         {
-                            case (int)playerlist.Teams.TEAM_GREEN:
+                            case (int)ob_playerList.Teams.TEAM_GREEN:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Green;
                                 break;
-                            case (int)playerlist.Teams.TEAM_BLUE:
+                            case (int)ob_playerList.Teams.TEAM_BLUE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Blue;
                                 break;
-                            case (int)playerlist.Teams.TEAM_RED:
+                            case (int)ob_playerList.Teams.TEAM_RED:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Red;
                                 break;
-                            case (int)playerlist.Teams.TEAM_YELLOW:
+                            case (int)ob_playerList.Teams.TEAM_YELLOW:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Yellow;
                                 break;
-                            case (int)playerlist.Teams.TEAM_PURPLE:
+                            case (int)ob_playerList.Teams.TEAM_PURPLE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Purple;
                                 break;
-                            case (int)playerlist.Teams.TEAM_SPEC:
+                            case (int)ob_playerList.Teams.TEAM_SPEC:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.White;
                                 break;
                         }
@@ -470,7 +470,7 @@ namespace HawkSync_SM
                     IntPtr h = process.MainWindowHandle;
                     IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
-                    // open console
+                    // open cmdConsole
                     PostMessage(h, (ushort)WM_KEYDOWN, (ushort)console, 0);
                     PostMessage(h, (ushort)WM_KEYUP, (ushort)console, 0);
                     System.Threading.Thread.Sleep(50);
@@ -621,6 +621,7 @@ namespace HawkSync_SM
         // display ban entry
         private void dataGridView3_SelectionChanged(object sender, EventArgs e)
         {
+            /*
             if (grid_bannedPlayerList.CurrentCell == null)
             {
                 value_bdPlayerName.Text = "";
@@ -643,6 +644,7 @@ namespace HawkSync_SM
             value_banReason.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].reason;
             value_banDateAdded.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].addedDate.ToString("MMM dd, yyyy h:mm tt");
             value_banAdmin.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].bannedBy;
+            */
         }
 
         private void dataGridView2_MouseDown(object sender, MouseEventArgs e)
@@ -2483,19 +2485,19 @@ namespace HawkSync_SM
         {
             int slotNum = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
             // pull player info
-            playerlist.Teams currentTeam = (playerlist.Teams)_state.Instances[ArrayID].PlayerList[slotNum].team;
-            playerlist.Teams switchTeam = (playerlist.Teams)playerlist.Teams.TEAM_SPEC;
+            ob_playerList.Teams currentTeam = (ob_playerList.Teams)_state.Instances[ArrayID].PlayerList[slotNum].team;
+            ob_playerList.Teams switchTeam = (ob_playerList.Teams)ob_playerList.Teams.TEAM_SPEC;
 
-            if (currentTeam == playerlist.Teams.TEAM_BLUE)
+            if (currentTeam == ob_playerList.Teams.TEAM_BLUE)
             {
-                switchTeam = playerlist.Teams.TEAM_RED;
+                switchTeam = ob_playerList.Teams.TEAM_RED;
             }
-            else if (currentTeam == playerlist.Teams.TEAM_RED)
+            else if (currentTeam == ob_playerList.Teams.TEAM_RED)
             {
-                switchTeam = playerlist.Teams.TEAM_BLUE;
+                switchTeam = ob_playerList.Teams.TEAM_BLUE;
             }
 
-            _state.Instances[ArrayID].ChangeTeamList.Add(new ChangeTeamClass
+            _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
             {
                 slotNum = slotNum,
                 Team = (int)switchTeam
@@ -2513,7 +2515,7 @@ namespace HawkSync_SM
                 return;
             }
             int index = _state.Instances[ArrayID].VPNWhiteList.Count;
-            _state.Instances[ArrayID].VPNWhiteList.Add(index, new VPNWhiteListClass
+            _state.Instances[ArrayID].VPNWhiteList.Add(index, new ob_ipWhitelist
             {
                 Description = description,
                 IPAddress = ipaddress.ToString()
@@ -2757,7 +2759,7 @@ namespace HawkSync_SM
             chatLog.Columns.Add("Type", typeof(string));
             chatLog.Columns.Add("Player Name", typeof(string));
             chatLog.Columns.Add("Message", typeof(string));
-            BindingListView<PlayerChatLog> blv = new BindingListView<PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
+            BindingListView<ob_PlayerChatLog> blv = new BindingListView<ob_PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
             data_chatViewer.DataSource = blv;
             //dataGridView5.Sort(dataGridView5.Columns[0], ListSortDirection.Descending);
             data_chatViewer.Columns["dateSent"].Width = 100;
@@ -2881,7 +2883,7 @@ namespace HawkSync_SM
         {
             /*  
                 0. Global Blue
-                1. Global White
+                1. Global Yellow (3,6), Notification Orange (2,8)
                 2. Team Red
                 3. Team Blue
             */
@@ -2893,7 +2895,7 @@ namespace HawkSync_SM
             switch (MsgLocation)
             {
                 case 1:
-                    colorcode = HexConverter.ToByteArray("6A 09".Replace(" ", ""));
+                    colorcode = HexConverter.ToByteArray("6A 08".Replace(" ", ""));
                     WriteProcessMemory((int)processHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                     break;
                 case 2:
@@ -2974,7 +2976,7 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
 
-            SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `PublicIP`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
+            SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
             query.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
             query.Parameters.AddWithValue("@playername", playerName);
             query.Parameters.AddWithValue("@playerip", ipaddress);
@@ -2985,7 +2987,7 @@ namespace HawkSync_SM
             query.Parameters.AddWithValue("@bannedby", drop_adminList.SelectedItem.ToString());
             query.ExecuteNonQuery();
             query.Dispose();
-            _state.Instances[ArrayID].BanList.Add(new playerbans
+            _state.Instances[ArrayID].BanList.Add(new ob_playerBanList
             {
                 expires = "-1",
                 id = (int)db.LastInsertRowId,
@@ -3406,13 +3408,13 @@ namespace HawkSync_SM
                     {
                         if (player.Value.name == playerName)
                         {
-                            playerlist.Teams teams = (playerlist.Teams)Enum.Parse(typeof(playerlist.Teams), player.Value.team.ToString());
+                            ob_playerList.Teams teams = (ob_playerList.Teams)Enum.Parse(typeof(ob_playerList.Teams), player.Value.team.ToString());
                             switch (teams)
                             {
-                                case playerlist.Teams.TEAM_RED:
+                                case ob_playerList.Teams.TEAM_RED:
                                     e.CellStyle.BackColor = Color.Red;
                                     break;
-                                case playerlist.Teams.TEAM_BLUE:
+                                case ob_playerList.Teams.TEAM_BLUE:
                                     e.CellStyle.BackColor = Color.Blue;
                                     break;
                             }

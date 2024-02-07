@@ -3,7 +3,7 @@ using System.Data.SQLite;
 
 namespace HawkSync_SM
 {
-    public class playerHistory
+    public class ob_playerHistory
     {
         public int DatabaseId { get; set; }
         public string playerName { get; set; }

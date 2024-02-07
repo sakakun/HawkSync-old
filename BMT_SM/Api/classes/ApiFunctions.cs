@@ -88,14 +88,14 @@ namespace HawkSync_SM.Api.classes
         {
             ImportantData IPInfo;
             List<CurrentPlayers> players = new List<CurrentPlayers>();
-            Dictionary<int, playerlist> currentPlayers;
+            Dictionary<int, ob_playerList> currentPlayers;
             foreach (var instance in GlobalAppState.AppState.Instances)
             {
                 var key = instance.Key;
                 var val = instance.Value;
                 if (val.PlayerList == null)
                 {
-                    currentPlayers = new Dictionary<int, playerlist>();
+                    currentPlayers = new Dictionary<int, ob_playerList>();
                 }
                 else
                 {

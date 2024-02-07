@@ -16,7 +16,7 @@ namespace HawkSync_SM.Api.v1
         {
             // since we don't have a TimeStamp, only show the last 5 messages...
             var Response = Request.CreateResponse();
-            List<AdminChatMsgs> logs = new List<AdminChatMsgs>();
+            List<ob_AdminChatMsgs> logs = new List<ob_AdminChatMsgs>();
             var MsgList = GlobalAppState.AppState.adminChatMsgs.Skip(Math.Max(0, GlobalAppState.AppState.adminChatMsgs.Count - 5)).Take(5);
             foreach (var item in MsgList)
             {
@@ -70,7 +70,7 @@ namespace HawkSync_SM.Api.v1
             // just for testing purposes...
             try
             {
-                GlobalAppState.AppState.adminChatMsgs.Add(new AdminChatMsgs
+                GlobalAppState.AppState.adminChatMsgs.Add(new ob_AdminChatMsgs
                 {
                     MsgID = counter,
                     UserID = Convert.ToInt32(userid),

@@ -350,7 +350,7 @@ namespace HawkSync_SM
                 WebstatsIdVerified = false,
                 ReportMaster = false,
                 Status = InstanceStatus.OFFLINE,
-                AutoMessages = new auto_messages
+                AutoMessages = new ob_AutoMessages
                 {
                     enable_msg = false,
                     interval = 3,
@@ -358,16 +358,16 @@ namespace HawkSync_SM
                     MsgNumber = 0,
                     NextMessage = DateTime.Now
                 },
-                BanList = new List<playerbans>(),
-                ChangeTeamList = new List<ChangeTeamClass>(),
+                BanList = new List<ob_playerBanList>(),
+                ChangeTeamList = new List<ob_playerChangeTeamList>(),
                 CustomWarnings = new List<string>(),
                 DisarmPlayers = new List<int>(),
                 GodModeList = new List<int>(),
                 IPWhiteList = new Dictionary<string, string>(),
-                PlayerList = new Dictionary<int, playerlist>(),
-                VPNWhiteList = new Dictionary<int, VPNWhiteListClass>(),
-                WarningQueue = new List<WarnPlayerClass>(),
-                previousTeams = new List<PreviousTeams>(),
+                PlayerList = new Dictionary<int, ob_playerList>(),
+                VPNWhiteList = new Dictionary<int, ob_ipWhitelist>(),
+                WarningQueue = new List<ob_WarnPlayerClass>(),
+                previousTeams = new List<ob_playerPreviousTeam>(),
                 gameCrashCounter = 0,
                 CrashRecovery = checkBox2.Checked,
                 ReportNovaCC = checkBox2.Checked,
@@ -377,10 +377,10 @@ namespace HawkSync_SM
                 availableMaps = new Dictionary<int, MapList>()
             };
             _state.Instances.Add(_state.Instances.Count, newInstance);
-            _state.ChatLogs.Add(_state.ChatLogs.Count, new ChatLogs
+            _state.ChatLogs.Add(_state.ChatLogs.Count, new ob_ChatLogs
             {
                 CurrentIndex = 0,
-                Messages = new BindingList<PlayerChatLog>()
+                Messages = new BindingList<ob_PlayerChatLog>()
             });
             _state.PlayerStats.Add(_state.PlayerStats.Count, new CollectedPlayerStatsPlayers());
             _state.IPQualityCache.Add(_state.IPQualityCache.Count, new ipqualityscore());
