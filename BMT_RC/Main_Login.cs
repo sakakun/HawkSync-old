@@ -124,7 +124,7 @@ namespace HawkSync_RC
                                 _state.ChatLogs = RCInstancesReply.ChatLogs;
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             continue;
                         }
@@ -132,7 +132,7 @@ namespace HawkSync_RC
                     }
                 }
             }
-            catch (ThreadAbortException e)
+            catch (ThreadAbortException)
             {
                 // ignore
             }

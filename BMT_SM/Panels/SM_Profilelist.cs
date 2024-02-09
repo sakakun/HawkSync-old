@@ -4,11 +4,13 @@ using HawkSync_SM.classes.logs;
 using HawkSync_SM.classes.Plugins.pl_VoteMaps;
 using HawkSync_SM.classes.Plugins.pl_WelcomePlayer;
 using HawkSync_SM.RCClasses;
+using log4net.Util.TypeConverters;
 using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -23,6 +25,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using WatsonTcp;
+using static System.Windows.Forms.AxHost;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_SM
@@ -101,7 +104,7 @@ namespace HawkSync_SM
 
             // Server Manager Specific Events
             hawkSyncDB.Open();
-            SetupAppState(hawkSyncDB);
+            processAppState(hawkSyncDB);
             get_gameTypes(hawkSyncDB);
             RC_BeginListening();
             hawkSyncDB.Close();
@@ -109,7 +112,6 @@ namespace HawkSync_SM
 
 
         // Server Manager - Process Existing Functions
-
         private void CheckForCrashedGame(int ArrayID)
         {
             if (_state.Instances[ArrayID].CrashRecovery == true)
@@ -302,6 +304,13 @@ namespace HawkSync_SM
          */
         private void InstanceTicker()
         {
+            if (_state.Instances.Count == 0)
+            {
+                // No Servers to Check
+                event_NoServerProfiles();
+                return;
+            }
+
             try
             {
                 foreach (var item in _state.Instances)
@@ -530,261 +539,218 @@ namespace HawkSync_SM
                 return;
             }
         }
-        /*
-         * SetupAppState
-         * - From the SQLite Database, setup the application state.
+
+        /* 
+         * ProcessAppState
          */
-        private void SetupAppState(SQLiteConnection db)
-        {
+        private void processAppState(SQLiteConnection db) {
             try
             {
+                // SQL query to fetch data from the database
                 string sql = @"SELECT i.*, pi.pid, ic.* FROM instances i 
-                        LEFT JOIN instances_pid pi ON i.id = pi.profile_id 
-                        LEFT JOIN instances_config ic ON i.id = ic.profile_id;";
-                SQLiteCommand command = new SQLiteCommand(sql, db);
-                SQLiteDataReader result = command.ExecuteReader();
-                while (result.Read())
+                            LEFT JOIN instances_pid pi ON i.id = pi.profile_id 
+                            LEFT JOIN instances_config ic ON i.id = ic.profile_id;";
+
+                // Execute the SQL command using SQLiteCommand
+                using (SQLiteCommand command = new SQLiteCommand(sql, db))
                 {
-                    bool TeamSabre = false;
-                    if (result.GetInt32(result.GetOrdinal("game_type")) == 0)
+                    // Execute the query and retrieve data using SQLiteDataReader
+                    using (SQLiteDataReader result = command.ExecuteReader())
                     {
-                        if (File.Exists(result.GetString(result.GetOrdinal("gamepath")) + "\\EXP1.pff"))
+                        // Loop through each row in the result set
+                        while (result.Read())
                         {
-                            TeamSabre = true;
-                        }
-                    }
+                            // Check for TeamSabre
+                            bool TeamSabre = result.GetInt32(result.GetOrdinal("game_type")) == 0 && File.Exists(result.GetString(result.GetOrdinal("gamepath")) + "\\EXP1.pff");
 
-                    string WebstatsURL = "";
-                    bool EnableWebStats;
-                    switch (result.GetInt32(result.GetOrdinal("stats")))
-                    {
-                        case 1:
-                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
-                            EnableWebStats = true;
-                            break;
-                        case 2:
-                            WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
-                            EnableWebStats = true;
-                            break;
-                        default:
-                            WebstatsURL = "";
-                            EnableWebStats = false;
-                            break;
-                    }
-                    Dictionary<int, MapList> mapList = new Dictionary<int, MapList>();
-                    if (result.GetString(result.GetOrdinal("mapcycle")) != "[]")
-                    {
-                        mapList = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("mapcycle")));
-                    }
-                    Dictionary<int, MapList> availableMaps = new Dictionary<int, MapList>();
-                    if (result.GetString(result.GetOrdinal("availablemaps")) != "[]")
-                    {
-                        availableMaps = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("availablemaps")));
-                    }
-                    int testHQ = result.GetInt32(result.GetOrdinal("novahq_master"));
-                    int testCC = result.GetInt32(result.GetOrdinal("novacc_master"));
-                    PluginsClass plugins;
-                    if (result.GetString(result.GetOrdinal("plugins")) == "[]")
-                    {
-                        plugins = new PluginsClass
-                        {
-                            WelcomeMessage = false,
-                            VoteMaps = false,
-                            WelcomeMessageSettings = new wp_PluginSettings
+                            // Initialize WebstatsURL and EnableWebStats
+                            string WebstatsURL = "";
+                            bool EnableWebStats;
+
+                            // Switch case for setting WebstatsURL and EnableWebStats
+                            switch (result.GetInt32(result.GetOrdinal("stats")))
                             {
-                                NewPlayerMsg = "Welcome $(PlayerName)!",
-                                ReturningPlayerMsg = "Welcome back $(PlayerName)!"
-                            },
-                            VoteMapSettings = new vm_PluginSettings
-                            {
-                                CoolDown = 1,
-                                CoolDownType = vm_internal.CoolDownTypes.NUM_OF_MINS,
-                                MinPlayers = 3
+                                case 1:
+                                case 2:
+                                    WebstatsURL = result.GetString(result.GetOrdinal("stats_url"));
+                                    EnableWebStats = true;
+                                    break;
+                                default:
+                                    EnableWebStats = false;
+                                    break;
                             }
-                        };
-                    }
-                    else
-                    {
-                        plugins = JsonConvert.DeserializeObject<PluginsClass>(result.GetString(result.GetOrdinal("plugins")));
-                    }
 
-                    Instance instance = new Instance()
-                    {
-                        Id = result.GetInt32(result.GetOrdinal("id")),
-                        GamePath = result.GetString(result.GetOrdinal("gamepath")),
-                        GameType = result.GetInt32(result.GetOrdinal("game_type")),
-                        GameName = result.GetString(result.GetOrdinal("name")),
-                        HostName = result.GetString(result.GetOrdinal("host_name")),
-                        CountryCode = result.GetString(result.GetOrdinal("country_code")),
-                        ServerName = result.GetString(result.GetOrdinal("server_name")),
-                        Password = result.GetString(result.GetOrdinal("server_password")),
-                        MOTD = result.GetString(result.GetOrdinal("motd")),
-                        Dedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
-                        SessionType = result.GetInt32(result.GetOrdinal("session_type")),
-                        MaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
-                        GameScore = result.GetInt32(result.GetOrdinal("game_score")),
-                        FBScore = result.GetInt32(result.GetOrdinal("fbscore")),
-                        KOTHScore = result.GetInt32(result.GetOrdinal("kothscore")),
-                        ZoneTimer = result.GetInt32(result.GetOrdinal("zone_timer")),
-                        WindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
-                        LoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
-                        RespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
-                        RequireNovaLogin = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
-                        AllowCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
-                        MaxKills = result.GetInt32(result.GetOrdinal("max_kills")),
-                        BindAddress = result.GetString(result.GetOrdinal("bind_address")),
-                        GamePort = result.GetInt32(result.GetOrdinal("port")),
-                        TimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
-                        StartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
-                        MinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
-                        MinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
-                        MaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
-                        MaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
-                        OneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
-                        FatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
-                        DestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
-                        FriendlyFire = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
-                        FriendlyFireWarning = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
-                        FriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
-                        FriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
-                        PSPTakeOverTime = result.GetInt32(result.GetOrdinal("psptakeover")),
-                        AllowAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
-                        AutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
-                        BluePassword = result.GetString(result.GetOrdinal("blue_team_password")),
-                        RedPassword = result.GetString(result.GetOrdinal("red_team_password")),
-                        FlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
-                        MaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
-                        ShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
-                        ShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
-                        RoleRestrictions = onload_convertRoleRestrictions(result.GetString(result.GetOrdinal("rolerestrictions"))),
-                        WeaponRestrictions = onload_convertWeaponRestrictions(result.GetString(result.GetOrdinal("weaponrestrictions"))),
-                        LastUpdateTime = DateTime.Now,
-                        NextUpdateTime = DateTime.Now.AddSeconds(2.0),
-                        nextWebStatsStatusUpdate = DateTime.Now.AddSeconds(2.0),
-                        EnableWebStats = EnableWebStats,
-                        enableVPNCheck = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNCheck"))),
-                        WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
-                        WebstatsURL = WebstatsURL,
-                        availableMaps = availableMaps,
-                        MapList = mapList,
-                        mapListCount = mapList.Count,
-                        WebstatsIdVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
-                        ReportMaster = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_babstats_master"))),
-                        Status = InstanceStatus.OFFLINE,
-                        anti_stat_padding = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
-                        anti_stat_padding_min_minutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
-                        anti_stat_padding_min_players = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
-                        CrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
-                        misc_show_ranks = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
-                        misc_left_leaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
-                        WebStatsId = result.GetInt32(result.GetOrdinal("stats_server_id")),
-                        PlayerList = new Dictionary<int, ob_playerList>(),
-                        previousMapList = new Dictionary<int, MapList>(),
-                        IPWhiteList = new Dictionary<string, string>(),
-                        ScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
-                        ReportNovaHQ = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novahq_master"))),
-                        ReportNovaCC = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novacc_master"))),
-                        Plugins = plugins,
-                        VoteMapStandBy = true,
-                        IsTeamSabre = TeamSabre,
-                    };
-                    var collectPlayerStats = new CollectedPlayerStatsPlayers()
-                    {
-                        Player = new Dictionary<string, CollectedPlayerStats>()
-                    };
+                            // Deserialize mapList and availableMaps
+                            Dictionary<int, MapList> mapList = result.GetString(result.GetOrdinal("mapcycle")) != "[]" ? JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("mapcycle"))) : new Dictionary<int, MapList>();
+                            Dictionary<int, MapList> availableMaps = result.GetString(result.GetOrdinal("availablemaps")) != "[]" ? JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("availablemaps"))) : new Dictionary<int, MapList>();
 
-                    int instanceId = _state.Instances.Count;
-                    _state.ChatHandlerTimer.Add(_state.Instances.Count, new Timer
-                    {
-                        Enabled = true,
-                        Interval = 1
-                    });
-                    _state.ChatHandlerTimer[_state.Instances.Count].Tick += (sender, e) =>
-                    {
-                        if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
-                        {
-                            event_getChatLogs(instanceId);
-                        }
-                    };
+                            // Deserialize plugins or create default PluginsClass
+                            PluginsClass plugins = result.GetString(result.GetOrdinal("plugins")) == "[]" ? new PluginsClass { /* default values */ } : JsonConvert.DeserializeObject<PluginsClass>(result.GetString(result.GetOrdinal("plugins")));
 
-                    /*QueueHandler = new Thread(() =>
-                    {
-                        while (true)
-                        {
-                            for (int i = 0; i < _state.ConsoleQueue.Count; i++)
+                            // Create Instance object and assign properties
+                            Instance instance = new Instance
                             {
-                                ProcessConsoleCommands(i);
-                            }
-                        }
-                    });*/
+                                // Assigning properties...
+                                Id = result.GetInt32(result.GetOrdinal("id")),
+                                GamePath = result.GetString(result.GetOrdinal("gamepath")),
+                                GameType = result.GetInt32(result.GetOrdinal("game_type")),
+                                GameName = result.GetString(result.GetOrdinal("name")),
+                                HostName = result.GetString(result.GetOrdinal("host_name")),
+                                CountryCode = result.GetString(result.GetOrdinal("country_code")),
+                                ServerName = result.GetString(result.GetOrdinal("server_name")),
+                                Password = result.GetString(result.GetOrdinal("server_password")),
+                                MOTD = result.GetString(result.GetOrdinal("motd")),
+                                Dedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
+                                SessionType = result.GetInt32(result.GetOrdinal("session_type")),
+                                MaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
+                                GameScore = result.GetInt32(result.GetOrdinal("game_score")),
+                                FBScore = result.GetInt32(result.GetOrdinal("fbscore")),
+                                KOTHScore = result.GetInt32(result.GetOrdinal("kothscore")),
+                                ZoneTimer = result.GetInt32(result.GetOrdinal("zone_timer")),
+                                WindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
+                                LoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
+                                RespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
+                                RequireNovaLogin = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
+                                AllowCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
+                                MaxKills = result.GetInt32(result.GetOrdinal("max_kills")),
+                                BindAddress = result.GetString(result.GetOrdinal("bind_address")),
+                                GamePort = result.GetInt32(result.GetOrdinal("port")),
+                                TimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
+                                StartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
+                                MinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
+                                MinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
+                                MaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
+                                MaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
+                                OneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
+                                FatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
+                                DestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
+                                FriendlyFire = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
+                                FriendlyFireWarning = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
+                                FriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
+                                FriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
+                                PSPTakeOverTime = result.GetInt32(result.GetOrdinal("psptakeover")),
+                                AllowAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
+                                AutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
+                                BluePassword = result.GetString(result.GetOrdinal("blue_team_password")),
+                                RedPassword = result.GetString(result.GetOrdinal("red_team_password")),
+                                FlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
+                                MaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
+                                ShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
+                                ShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
+                                RoleRestrictions = onload_convertRoleRestrictions(result.GetString(result.GetOrdinal("rolerestrictions"))),
+                                WeaponRestrictions = onload_convertWeaponRestrictions(result.GetString(result.GetOrdinal("weaponrestrictions"))),
+                                LastUpdateTime = DateTime.Now,
+                                NextUpdateTime = DateTime.Now.AddSeconds(2.0),
+                                nextWebStatsStatusUpdate = DateTime.Now.AddSeconds(2.0),
+                                EnableWebStats = EnableWebStats,
+                                enableVPNCheck = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNCheck"))),
+                                WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
+                                WebstatsURL = WebstatsURL,
+                                availableMaps = availableMaps,
+                                MapList = mapList,
+                                mapListCount = mapList.Count,
+                                WebstatsIdVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
+                                Status = InstanceStatus.OFFLINE,
+                                anti_stat_padding = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
+                                anti_stat_padding_min_minutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
+                                anti_stat_padding_min_players = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
+                                CrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
+                                misc_show_ranks = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
+                                misc_left_leaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
+                                WebStatsId = result.GetOrdinal("stats_server_id").ToString(),
+                                PlayerList = new Dictionary<int, ob_playerList>(),
+                                previousMapList = new Dictionary<int, MapList>(),
+                                IPWhiteList = new Dictionary<string, string>(),
+                                ScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
+                                ReportNovaHQ = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novahq_master"))),
+                                ReportNovaCC = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novacc_master"))),
+                                Plugins = plugins,
+                                VoteMapStandBy = true,
+                                IsTeamSabre = TeamSabre
+                            };
 
-                    if (!result.IsDBNull(result.GetOrdinal("pid")))
-                    {
-                        instance.PID = result.GetInt32(result.GetOrdinal("pid"));
-                        _state.eventLog.WriteEntry("Found PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Information);
-                    }
+                            // Initialize collectPlayerStats
+                            var collectPlayerStats = new CollectedPlayerStatsPlayers { Player = new Dictionary<string, CollectedPlayerStats>() };
 
-                    if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
-                    {
-                        _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.Id, EventLogEntryType.Information);
-                        if (!_state.ApplicationProcesses.ContainsKey(_state.Instances.Count))
-                        {
-                            // to do... INCLUDE CUSTOM MODS
-                            if (Process.GetProcessById(instance.PID.GetValueOrDefault()).ProcessName == "dfbhd")
+                            // Get instanceId
+                            int instanceId = _state.Instances.Count;
+
+                            // Add Timer for chat handling
+                            _state.ChatHandlerTimer.Add(instanceId, new Timer { Enabled = true, Interval = 1 });
+                            _state.ChatHandlerTimer[instanceId].Tick += (sender, e) =>
                             {
-                                _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.PID.GetValueOrDefault()));
+                                if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
+                                {
+                                    event_getChatLogs(instanceId);
+                                }
+                            };
+
+                            // Set PID if not null
+                            if (!result.IsDBNull(result.GetOrdinal("pid")))
+                            {
+                                instance.PID = result.GetInt32(result.GetOrdinal("pid"));
+                                _state.eventLog.WriteEntry("Found PID: " + instance.PID.GetValueOrDefault(), EventLogEntryType.Information);
                             }
-                        }
-                        try
-                        {
-                            instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.PID.GetValueOrDefault());
-                        }
-                        catch (Exception e)
-                        {
-                            throw e;
-                        }
 
-                        if (instance.ProcessHandle == null || instance.ProcessHandle == IntPtr.Zero)
-                        {
-                            _state.eventLog.WriteEntry("Unable to attach to process...", EventLogEntryType.Error, 0, 0);
-                            throw new Exception("Unable to attach to process...");
+                            // Check if process exists and attach if so
+                            if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
+                            {
+                                // Attempt to attach to process
+                                _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.Id, EventLogEntryType.Information);
+                                if (!_state.ApplicationProcesses.ContainsKey(_state.Instances.Count))
+                                {
+                                    if (Process.GetProcessById(instance.PID.GetValueOrDefault()).ProcessName == "dfbhd")
+                                    {
+                                        _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.PID.GetValueOrDefault()));
+                                    }
+                                }
+                                try
+                                {
+                                    instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.PID.GetValueOrDefault());
+                                }
+                                catch (Exception e)
+                                {
+                                    throw e;
+                                }
+                                // Check if process handle is valid
+                                if (instance.ProcessHandle == null || instance.ProcessHandle == IntPtr.Zero)
+                                {
+                                    _state.eventLog.WriteEntry("Unable to attach to process...", EventLogEntryType.Error, 0, 0);
+                                    throw new Exception("Unable to attach to process...");
+                                }
+                            }
+                            else
+                            {
+                                _state.eventLog.WriteEntry("Could not find PID: " + instance.PID.GetValueOrDefault(), EventLogEntryType.Warning);
+                            }
+
+                            _state.eventLog.WriteEntry("Attachment successful: " + instance.Id, EventLogEntryType.Information);
+                            _state.eventLog.WriteEntry("Adding instance: " + instance.Id, EventLogEntryType.Information);
+
+                            // Initialize ConsoleQueue and add starting message
+                            _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue { queue = new List<Queue>(), nextCmd = DateTime.Now.AddSeconds(10) });
+                            _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue { text = "BMTv4 is starting...", Type = ConsoleQueueType.MESSAGE, color = ChatColor.NORMAL });
+
+                            // Add instance to AppState
+                            _state.Instances.Add(_state.Instances.Count, instance);
+                            _state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
+
+                            // Start chat handler timer
+                            _state.ChatHandlerTimer[instanceId].Start();
                         }
                     }
-                    else
-                    {
-                        _state.eventLog.WriteEntry("Could not find PID: " + instance.PID.GetValueOrDefault().ToString(), EventLogEntryType.Warning);
-                    }
-
-                    _state.eventLog.WriteEntry("Attachment successful: " + instance.Id, EventLogEntryType.Information);
-                    _state.eventLog.WriteEntry("Adding instance: " + instance.Id, EventLogEntryType.Information);
-
-                    // init AppState
-                    _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue
-                    {
-                        queue = new List<Queue>(),
-                        nextCmd = DateTime.Now.AddSeconds(10)
-                    });
-                    _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue
-                    {
-                        text = "BMTv4 is starting...",
-                        Type = ConsoleQueueType.MESSAGE,
-                        color = ChatColor.NORMAL
-                    });
-                    _state.Instances.Add(_state.Instances.Count, instance);
-                    // this should start a timer to automatically check for new messages in a different thread than the main thread.
-                    _state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
-                    // start the chat handler in it's OWN THREAD PER SERVER.
-                    _state.ChatHandlerTimer[instanceId].Start();
                 }
-                command.Dispose();
-                result.Close();
             }
             catch (Exception e)
             {
-                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                // Log error
+                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e, EventLogEntryType.Error);
                 log.Debug(e);
+                Console.WriteLine(e);
             }
+
         }
+
         private autoRes SetupAutoRestart(SQLiteConnection db)
         {
             Dictionary<string, GameType> gameTypes = new Dictionary<string, GameType>();
@@ -1003,37 +969,36 @@ namespace HawkSync_SM
         {
             // capture last index.
             string img;
-            string statusIMG;
             int lastIndex = _state.Instances.Count;
-            Create_Profile frm = new Create_Profile(_state);
-            frm.ShowDialog();
-            if (Create_Profile.ProfileCreated == true)
+            SM_ServerProfile createProfile = new SM_ServerProfile(_state, lastIndex);
+            createProfile.ShowDialog();
+            if (createProfile.profileUpdated == true)
             {
+                // Create Instance
+                createProfile.event_addProfile(ref _state, lastIndex);
+
+                // Add Instance to the Profile Table
                 DataRow dr = table_profileList.NewRow();
-                statusIMG = "notactive.gif";
-                if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == true)
-                {
-                    img = "bhdts.gif";
-                }
-                else if (_state.Instances[lastIndex].GameType == 0 && _state.Instances[lastIndex].IsTeamSabre == false)
-                {
-                    img = "bhd.gif";
-                }
-                else if (_state.Instances[lastIndex].GameType == 1)
-                {
+                if (_state.Instances[lastIndex].GameType == 1) {
                     img = "jo.gif";
-                }
-                else
-                {
+                } else if (_state.Instances[lastIndex].GameType == 0) {
+                    img = _state.Instances[lastIndex].IsTeamSabre ? "bhdts.gif" : "bhd.gif";
+                } else {
                     img = "bhd.gif";
                 }
                 dr["ID"] = _state.Instances[lastIndex].Id;
                 dr["Game Name"] = _state.Instances[lastIndex].GameName;
                 dr["Mod"] = get_imageResource(img);
-                dr["Server Status"] = get_imageResource(statusIMG);
+                dr["Server Status"] = get_imageResource("notactive.gif");
                 table_profileList.Rows.Add(dr);
+                event_setStatusImage(lastIndex);
+                
+                createProfile.Close();
                 MessageBox.Show("Profile Added Successfully.", "Success", MessageBoxButtons.OK);
-                if (_state.Instances.Count > 0) { btn_start.Enabled = true; }
+                if (_state.Instances.Count > 0) {
+                    list_serverProfiles.Rows[lastIndex].Selected = true;
+                    btn_start.Enabled = true;
+                }
             }
         }
         /*
@@ -1049,14 +1014,18 @@ namespace HawkSync_SM
                 return;
             }
 
+            
+
             int id = list_serverProfiles.CurrentRow.Index;
             string img;
             string statusIMG;
-            Edit_Profile frm1 = new Edit_Profile(_state, id);
-            frm1.ShowDialog();
-            bool updated = Edit_Profile.profileUpdated;
-            if (updated == true)
+            SM_ServerProfile editProfile = new SM_ServerProfile(_state, id);
+            editProfile.ShowDialog();
+            if (editProfile.profileUpdated == true)
             {
+
+                editProfile.event_editProfile(ref _state, id);
+
                 statusIMG = "notactive.gif";
                 if (_state.Instances[id].GameType == 0 && _state.Instances[id].IsTeamSabre == true)
                 {
@@ -1078,6 +1047,8 @@ namespace HawkSync_SM
                 editRow["Game Name"] = _state.Instances[id].GameName;
                 editRow["Mod"] = get_imageResource(img);
                 editRow["Server Status"] = get_imageResource(statusIMG);
+
+                editProfile.Close();
                 MessageBox.Show("Profile edited successfully!", "Success");
             }
         }
@@ -1093,81 +1064,63 @@ namespace HawkSync_SM
                 MessageBox.Show("There are no profiles to delete.");
                 return;
             }
-
+            
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile", buttons);
             if (result == DialogResult.Yes)
             {
                 int id = list_serverProfiles.CurrentRow.Index;
                 DataRow instance = table_profileList.Rows[id];
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
-                db.Open();
-
-                SQLiteCommand chatLog_del = new SQLiteCommand("DELETE FROM `chatlog` WHERE `profile_id` = @profileid;", db);
-                chatLog_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                chatLog_del.ExecuteNonQuery();
-                chatLog_del.Dispose();
-
-                SQLiteCommand customWarnings_del = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `instanceid` = @profileid;", db);
-                customWarnings_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                customWarnings_del.ExecuteNonQuery();
-                customWarnings_del.Dispose();
-
-                SQLiteCommand command = new SQLiteCommand("DELETE FROM `instances` WHERE id = @profileid;", db);
-                command.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                command.ExecuteNonQuery();
-                command.Dispose();
-
-                SQLiteCommand config = new SQLiteCommand("DELETE FROM `instances_config` WHERE profile_id = @profileid;", db);
-                config.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                config.ExecuteNonQuery();
-                config.Dispose();
-
-                SQLiteCommand mapRotations_del = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `profile_id` = @profileid;", db);
-                mapRotations_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                mapRotations_del.ExecuteNonQuery();
-                mapRotations_del.Dispose();
-
-                SQLiteCommand pid_del = new SQLiteCommand("DELETE from `instances_pid` WHERE profile_id = @profileid;", db);
-                pid_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                pid_del.ExecuteNonQuery();
-                pid_del.Dispose();
-
-                SQLiteCommand IPCache_del = new SQLiteCommand("DELETE FROM `ipqualitycache` WHERE `profile_id` = @profileid;", db);
-                IPCache_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                IPCache_del.ExecuteNonQuery();
-                IPCache_del.Dispose();
-
-                SQLiteCommand playerBans_del = new SQLiteCommand("DELETE FROM `playerbans` WHERE `profileid` = @profileid;", db);
-                playerBans_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                playerBans_del.ExecuteNonQuery();
-                playerBans_del.Dispose();
-
-                SQLiteCommand whiteList_del = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
-                whiteList_del.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
-                whiteList_del.ExecuteNonQuery();
-                whiteList_del.Dispose();
-
-                db.Close();
-                db.Dispose();
-                _state.Instances.Remove(id);
-                _state.ChatLogs.Remove(id);
-                _state.PlayerStats.Remove(id);
-                _state.IPQualityCache.Remove(id);
-                table_profileList.Rows.Remove(instance);
-                if (list_serverProfiles.Rows.Count > 0)
+                try
                 {
-                    list_serverProfiles.Rows[0].Selected = true;
+                    _state.ChatHandlerTimer[id].Stop();
+                    Ticker.Stop();
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    db.Open();
+                    using (SQLiteCommand command = db.CreateCommand())
+                    {
+                        command.CommandText = @"DELETE FROM `chatlog` WHERE `profile_id` = @profileid;
+                                DELETE FROM `customwarnings` WHERE `instanceid` = @profileid;
+                                DELETE FROM `instances` WHERE id = @profileid;
+                                DELETE FROM `instances_config` WHERE profile_id = @profileid;
+                                DELETE FROM `instances_map_rotations` WHERE `profile_id` = @profileid;
+                                DELETE FROM `instances_pid` WHERE profile_id = @profileid;
+                                DELETE FROM `ipqualitycache` WHERE `profile_id` = @profileid;
+                                DELETE FROM `playerbans` WHERE `profileid` = @profileid;
+                                DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid;";
+                        command.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                        Console.WriteLine(command.Parameters);
+                        command.ExecuteNonQuery();
+
+                        _state.Instances.Remove(id);
+                        _state.ChatLogs.Remove(id);
+                        _state.PlayerStats.Remove(id);
+                        _state.IPQualityCache.Remove(id);
+                        table_profileList.Rows.Remove(instance);
+
+                        if (list_serverProfiles.Rows.Count > 0)
+                        {
+                            list_serverProfiles.Rows[0].Selected = true;
+                        }
+                    }
+                    db.Close();
+                    Ticker.Start();
                 }
+                catch (Exception ex)
+                {
+                    // Handle the exception
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error");
+                }
+
             }
             else if (result == DialogResult.No) return;
+
         }
         /*
          * Event: Tiggered by the close button on the main form.
          */
         private void event_closeProfileList(object sender, EventArgs e)
         {
-            Environment.ExitCode = 0;
             this.Close();
         }
         /*
@@ -1226,6 +1179,15 @@ namespace HawkSync_SM
             btn_delete.Enabled = true;
             btn_serverManager.Enabled = false;
             btn_rotationManager.Enabled = list_serverProfiles.Rows.Count > 0;
+        }
+        private void event_NoServerProfiles()
+        {
+            btn_start.Text = "Start Game";
+            btn_start.Enabled = false;
+            btn_edit.Enabled = false;
+            btn_delete.Enabled = false;
+            btn_serverManager.Enabled = false;
+            btn_rotationManager.Enabled = false;
         }
         /*
          * Event: Process Player Warning
@@ -1323,56 +1285,31 @@ namespace HawkSync_SM
                     break;
             }
 
+            int teamNum = 3;
 
-            if (msgTypeString == "Team")
+            foreach (var item in _state.Instances[profileid].PlayerList)
             {
-                string team = "";
-                foreach (var item in _state.Instances[profileid].PlayerList)
+                if (item.Value.name == PlayerName)
                 {
-                    if (item.Value.name == PlayerName)
-                    {
-                        team = _state.Instances[profileid].PlayerList[item.Key].team.ToString();
-                        break;
-                    }
+                    teamNum = _state.Instances[profileid].PlayerList[item.Key].slot;
+                    break;
                 }
-                _state.ChatLogs[profileid].Messages.Add(new ob_PlayerChatLog
-                {
-                    PlayerName = PlayerName,
-                    msg = PlayerMessage,
-                    msgType = msgTypeString,
-                    team = team,
-                    dateSent = DateTime.Now
-                });
-                //pl_VoteSkipMap(profileid, PlayerMessage, msgTypeString, PlayerName);
-                chatLog.CurrentIndex = nextIndex;
-            }
-            else if (msgTypeString == "Server")
-            {
-                _state.ChatLogs[profileid].Messages.Add(new ob_PlayerChatLog
-                {
-                    PlayerName = _state.Instances[profileid].HostName,
-                    msg = PlayerMessage,
-                    msgType = msgTypeString,
-                    team = "Global",
-                    dateSent = DateTime.Now
-                });
-                chatLog.CurrentIndex = nextIndex;
 
             }
-            else
+
+            string[] teamNames = new string[] { "Self", "Blue", "Red", "Host" };
+
+            _state.ChatLogs[profileid].Messages.Add(new ob_PlayerChatLog
             {
-                _state.ChatLogs[profileid].Messages.Add(new ob_PlayerChatLog
-                {
-                    PlayerName = PlayerName,
-                    msg = PlayerMessage,
-                    msgType = msgTypeString,
-                    team = "Global",
-                    dateSent = DateTime.Now
-                });
-                // HOOK: Skip Map
-                //pl_VoteSkipMap(profileid, PlayerMessage, msgTypeString, PlayerName);
-                chatLog.CurrentIndex = nextIndex;
-            }
+                PlayerName = PlayerName,
+                msg = PlayerMessage,
+                msgType = msgTypeString,
+                team = teamNames[teamNum],
+                dateSent = DateTime.Now
+            });
+
+            chatLog.CurrentIndex = nextIndex;
+            
         }
         /*
          * Event: Server Status Change
@@ -1403,6 +1340,8 @@ namespace HawkSync_SM
             }
             row["Server Status"] = new byte[0];
             row["Server Status"] = get_imageResource(resourceName);
+
+            table_profileList.Rows.CopyTo(row.ItemArray, key);
         }
         public void event_collectPlayerStats(int InstanceID)
         {
@@ -1514,28 +1453,24 @@ namespace HawkSync_SM
 
         // Main_Profile On Change Events
         private void serverProfiles_SelectionChanged(object sender, EventArgs e)
-        {
-            if (list_serverProfiles.SelectedRows.Count == 0)
+        {           
+            int intCount = 0;
+            while(intCount < _state.Instances.Count)
             {
-                return;
-            }
-
-            var row = list_serverProfiles.SelectedRows[0];
-            var instance = _state.Instances[row.Index];
-
-            if (instance.Status == InstanceStatus.ONLINE ||
-                instance.Status == InstanceStatus.SCORING ||
-                instance.Status == InstanceStatus.LOADINGMAP ||
-                instance.Status == InstanceStatus.STARTDELAY)
-            {
-                event_ServerOnline();
-            }
-            else if (instance.Status == InstanceStatus.OFFLINE)
-            {
-                event_serverOffline();
+                if (_state.Instances[intCount].Status == InstanceStatus.ONLINE ||
+                    _state.Instances[intCount].Status == InstanceStatus.SCORING ||
+                    _state.Instances[intCount].Status == InstanceStatus.LOADINGMAP ||
+                    _state.Instances[intCount].Status == InstanceStatus.STARTDELAY)
+                {
+                    event_ServerOnline();
+                }
+                else if (_state.Instances[intCount].Status == InstanceStatus.OFFLINE)
+                {
+                    event_serverOffline();
+                }
+                intCount++;
             }
         }
-
 
         // Onload Functions
         /*
@@ -1553,7 +1488,7 @@ namespace HawkSync_SM
                 string statusIMG;
                 int findInstanceIndex = bindingSource.Find("ID", _state.Instances[i].Id);
                 if (findInstanceIndex == -1)
-                {
+                {  
                     DataRow dr = table_profileList.NewRow();
                     statusIMG = "notactive.gif";
                     if (_state.Instances[i].GameType == 0 && _state.Instances[i].IsTeamSabre == true)
@@ -1568,6 +1503,7 @@ namespace HawkSync_SM
                     {
                         img = "bhd.gif";
                     }
+                    Console.WriteLine($"{dr["Game Name"]}");
                     dr["ID"] = _state.Instances[i].Id;
                     dr["Game Name"] = _state.Instances[i].GameName;
                     dr["Mod"] = get_imageResource(img);

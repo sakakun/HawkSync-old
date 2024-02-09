@@ -29,6 +29,7 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_ServerManager));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -189,20 +190,21 @@ namespace HawkSync_SM
             this.chat_channelSelection = new System.Windows.Forms.ComboBox();
             this.btn_sendChat = new System.Windows.Forms.Button();
             this.panel_chatControls = new System.Windows.Forms.Panel();
+            this.groupBox_chatChannel = new System.Windows.Forms.GroupBox();
+            this.rb_chatAll = new System.Windows.Forms.RadioButton();
+            this.rb_chatGlobal = new System.Windows.Forms.RadioButton();
+            this.rb_chatPlayerHist = new System.Windows.Forms.RadioButton();
+            this.rb_chatRedTeam = new System.Windows.Forms.RadioButton();
+            this.rb_chatBlueTeam = new System.Windows.Forms.RadioButton();
             this.cb_chatPlayerSelect = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.rb_chatPlayerHist = new System.Windows.Forms.RadioButton();
-            this.rb_chatAll = new System.Windows.Forms.RadioButton();
-            this.rb_chatBlueTeam = new System.Windows.Forms.RadioButton();
-            this.rb_chatGlobal = new System.Windows.Forms.RadioButton();
-            this.rb_chatRedTeam = new System.Windows.Forms.RadioButton();
             this.data_chatViewer = new System.Windows.Forms.DataGridView();
             this.page_autoMessages = new System.Windows.Forms.TabPage();
             this.gb_autoMessages = new System.Windows.Forms.GroupBox();
             this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.btn_addAutoMsg = new System.Windows.Forms.Button();
             this.text_newAutoMessage = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem134 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem135 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem136 = new System.Windows.Forms.ToolStripMenuItem();
@@ -218,7 +220,7 @@ namespace HawkSync_SM
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.label_interval = new System.Windows.Forms.Label();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -372,10 +374,10 @@ namespace HawkSync_SM
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripMenuItem132 = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
             this.tabControl3.SuspendLayout();
@@ -426,6 +428,7 @@ namespace HawkSync_SM
             this.page_chat.SuspendLayout();
             this.panel_chatMessage.SuspendLayout();
             this.panel_chatControls.SuspendLayout();
+            this.groupBox_chatChannel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_chatViewer)).BeginInit();
             this.page_autoMessages.SuspendLayout();
             this.gb_autoMessages.SuspendLayout();
@@ -1621,7 +1624,7 @@ namespace HawkSync_SM
             // 
             resources.ApplyResources(this.chat_textBoxMsg, "chat_textBoxMsg");
             this.chat_textBoxMsg.Name = "chat_textBoxMsg";
-            this.chat_textBoxMsg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox16_KeyUp);
+            this.chat_textBoxMsg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyup_textBoxMsg);
             // 
             // chat_channelSelection
             // 
@@ -1631,7 +1634,8 @@ namespace HawkSync_SM
             resources.GetString("chat_channelSelection.Items"),
             resources.GetString("chat_channelSelection.Items1"),
             resources.GetString("chat_channelSelection.Items2"),
-            resources.GetString("chat_channelSelection.Items3")});
+            resources.GetString("chat_channelSelection.Items3"),
+            resources.GetString("chat_channelSelection.Items4")});
             resources.ApplyResources(this.chat_channelSelection, "chat_channelSelection");
             this.chat_channelSelection.Name = "chat_channelSelection";
             // 
@@ -1640,19 +1644,64 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_sendChat, "btn_sendChat");
             this.btn_sendChat.Name = "btn_sendChat";
             this.btn_sendChat.UseVisualStyleBackColor = true;
-            this.btn_sendChat.Click += new System.EventHandler(this.button19_Click);
+            this.btn_sendChat.Click += new System.EventHandler(this.submit_chatMessage);
             // 
             // panel_chatControls
             // 
+            this.panel_chatControls.Controls.Add(this.groupBox_chatChannel);
             this.panel_chatControls.Controls.Add(this.cb_chatPlayerSelect);
             this.panel_chatControls.Controls.Add(this.button1);
-            this.panel_chatControls.Controls.Add(this.rb_chatPlayerHist);
-            this.panel_chatControls.Controls.Add(this.rb_chatAll);
-            this.panel_chatControls.Controls.Add(this.rb_chatBlueTeam);
-            this.panel_chatControls.Controls.Add(this.rb_chatGlobal);
-            this.panel_chatControls.Controls.Add(this.rb_chatRedTeam);
             resources.ApplyResources(this.panel_chatControls, "panel_chatControls");
             this.panel_chatControls.Name = "panel_chatControls";
+            // 
+            // groupBox_chatChannel
+            // 
+            this.groupBox_chatChannel.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.groupBox_chatChannel, "groupBox_chatChannel");
+            this.groupBox_chatChannel.Controls.Add(this.rb_chatAll);
+            this.groupBox_chatChannel.Controls.Add(this.rb_chatGlobal);
+            this.groupBox_chatChannel.Controls.Add(this.rb_chatPlayerHist);
+            this.groupBox_chatChannel.Controls.Add(this.rb_chatRedTeam);
+            this.groupBox_chatChannel.Controls.Add(this.rb_chatBlueTeam);
+            this.groupBox_chatChannel.Name = "groupBox_chatChannel";
+            this.groupBox_chatChannel.TabStop = false;
+            // 
+            // rb_chatAll
+            // 
+            resources.ApplyResources(this.rb_chatAll, "rb_chatAll");
+            this.rb_chatAll.Checked = true;
+            this.rb_chatAll.Name = "rb_chatAll";
+            this.rb_chatAll.TabStop = true;
+            this.rb_chatAll.UseVisualStyleBackColor = true;
+            this.rb_chatAll.Click += new System.EventHandler(this.event_clickRadioChatAll);
+            // 
+            // rb_chatGlobal
+            // 
+            resources.ApplyResources(this.rb_chatGlobal, "rb_chatGlobal");
+            this.rb_chatGlobal.Name = "rb_chatGlobal";
+            this.rb_chatGlobal.UseVisualStyleBackColor = true;
+            this.rb_chatGlobal.Click += new System.EventHandler(this.event_clickRadioChatGlobal);
+            // 
+            // rb_chatPlayerHist
+            // 
+            resources.ApplyResources(this.rb_chatPlayerHist, "rb_chatPlayerHist");
+            this.rb_chatPlayerHist.Name = "rb_chatPlayerHist";
+            this.rb_chatPlayerHist.UseVisualStyleBackColor = true;
+            this.rb_chatPlayerHist.Click += new System.EventHandler(this.event_clickRadioChatPlayer);
+            // 
+            // rb_chatRedTeam
+            // 
+            resources.ApplyResources(this.rb_chatRedTeam, "rb_chatRedTeam");
+            this.rb_chatRedTeam.Name = "rb_chatRedTeam";
+            this.rb_chatRedTeam.UseVisualStyleBackColor = true;
+            this.rb_chatRedTeam.Click += new System.EventHandler(this.event_clickRadioChatRed);
+            // 
+            // rb_chatBlueTeam
+            // 
+            resources.ApplyResources(this.rb_chatBlueTeam, "rb_chatBlueTeam");
+            this.rb_chatBlueTeam.Name = "rb_chatBlueTeam";
+            this.rb_chatBlueTeam.UseVisualStyleBackColor = true;
+            this.rb_chatBlueTeam.Click += new System.EventHandler(this.event_clickRadioChatBlue);
             // 
             // cb_chatPlayerSelect
             // 
@@ -1662,51 +1711,14 @@ namespace HawkSync_SM
             this.cb_chatPlayerSelect.Items.AddRange(new object[] {
             resources.GetString("cb_chatPlayerSelect.Items")});
             this.cb_chatPlayerSelect.Name = "cb_chatPlayerSelect";
-            this.cb_chatPlayerSelect.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
+            this.cb_chatPlayerSelect.SelectedIndexChanged += new System.EventHandler(this.event_dropDownChatPlayerSelect);
             // 
             // button1
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // rb_chatPlayerHist
-            // 
-            resources.ApplyResources(this.rb_chatPlayerHist, "rb_chatPlayerHist");
-            this.rb_chatPlayerHist.Name = "rb_chatPlayerHist";
-            this.rb_chatPlayerHist.UseVisualStyleBackColor = true;
-            this.rb_chatPlayerHist.Click += new System.EventHandler(this.radioButton11_Click);
-            // 
-            // rb_chatAll
-            // 
-            resources.ApplyResources(this.rb_chatAll, "rb_chatAll");
-            this.rb_chatAll.Checked = true;
-            this.rb_chatAll.Name = "rb_chatAll";
-            this.rb_chatAll.TabStop = true;
-            this.rb_chatAll.UseVisualStyleBackColor = true;
-            this.rb_chatAll.Click += new System.EventHandler(this.radioButton7_Click);
-            // 
-            // rb_chatBlueTeam
-            // 
-            resources.ApplyResources(this.rb_chatBlueTeam, "rb_chatBlueTeam");
-            this.rb_chatBlueTeam.Name = "rb_chatBlueTeam";
-            this.rb_chatBlueTeam.UseVisualStyleBackColor = true;
-            this.rb_chatBlueTeam.Click += new System.EventHandler(this.radioButton10_Click);
-            // 
-            // rb_chatGlobal
-            // 
-            resources.ApplyResources(this.rb_chatGlobal, "rb_chatGlobal");
-            this.rb_chatGlobal.Name = "rb_chatGlobal";
-            this.rb_chatGlobal.UseVisualStyleBackColor = true;
-            this.rb_chatGlobal.Click += new System.EventHandler(this.radioButton8_Click);
-            // 
-            // rb_chatRedTeam
-            // 
-            resources.ApplyResources(this.rb_chatRedTeam, "rb_chatRedTeam");
-            this.rb_chatRedTeam.Name = "rb_chatRedTeam";
-            this.rb_chatRedTeam.UseVisualStyleBackColor = true;
-            this.rb_chatRedTeam.Click += new System.EventHandler(this.radioButton9_Click);
+            this.button1.Click += new System.EventHandler(this.event_clickShowChatHistory);
             // 
             // data_chatViewer
             // 
@@ -3055,7 +3067,8 @@ namespace HawkSync_SM
             this.panel_chatMessage.ResumeLayout(false);
             this.panel_chatMessage.PerformLayout();
             this.panel_chatControls.ResumeLayout(false);
-            this.panel_chatControls.PerformLayout();
+            this.groupBox_chatChannel.ResumeLayout(false);
+            this.groupBox_chatChannel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_chatViewer)).EndInit();
             this.page_autoMessages.ResumeLayout(false);
             this.gb_autoMessages.ResumeLayout(false);
@@ -3418,5 +3431,6 @@ namespace HawkSync_SM
         private System.Windows.Forms.NumericUpDown num_minPing;
         private System.Windows.Forms.NumericUpDown num_maxPing;
         private System.Windows.Forms.Panel panel_chatMessage;
+        private System.Windows.Forms.GroupBox groupBox_chatChannel;
     }
 }

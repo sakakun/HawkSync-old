@@ -20,7 +20,6 @@ namespace HawkSync_RC
         RCSetup RCSetup;
         int playerSlot = -1;
         int ArrayID = -1;
-        ipqualityscore ipquality;
         IPQualityClass PlayerInfoRC;
         List<playerHistory> playerHistory;
         List<adminNotes> adminNotes;

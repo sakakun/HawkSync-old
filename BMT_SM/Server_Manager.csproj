@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>HawkSync_SM</RootNamespace>
     <AssemblyName>Server Manager</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -311,19 +311,13 @@
     <Compile Include="classes\Plugins\WelcomePlayer.cs" />
     <Compile Include="classes\StatManagement\CollectedPlayerStats.cs" />
     <Compile Include="classes\StatManagement\CollectedPlayerStatsPlayers.cs" />
-    <Compile Include="Panels\Create_Profile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Panels\Create_Profile.Designer.cs">
-      <DependentUpon>Create_Profile.cs</DependentUpon>
-    </Compile>
     <Compile Include="classes\SupportClasses\Crypt.cs" />
     <Compile Include="classes\MapManagement\CustomMap.cs" />
-    <Compile Include="Panels\Edit_Profile.cs">
+    <Compile Include="Panels\SM_ServerProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Edit_Profile.Designer.cs">
-      <DependentUpon>Edit_Profile.cs</DependentUpon>
+    <Compile Include="Panels\SM_ServerProfile.Designer.cs">
+      <DependentUpon>SM_ServerProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\KernelClasses\MemoryProcessor.cs" />
     <Compile Include="classes\RCManagement\Compression.cs" />
@@ -429,11 +423,8 @@
     <EmbeddedResource Include="Panels\ChatHistory.resx">
       <DependentUpon>ChatHistory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Create_Profile.resx">
-      <DependentUpon>Create_Profile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Edit_Profile.resx">
-      <DependentUpon>Edit_Profile.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\SM_ServerProfile.resx">
+      <DependentUpon>SM_ServerProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\Options.en.resx">
       <DependentUpon>Options.cs</DependentUpon>

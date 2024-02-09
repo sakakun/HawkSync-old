@@ -113,7 +113,7 @@ namespace HawkSync_RC.classes
 
                 return Encoding.ASCII.GetString(Compression.Decompress(reply.Data));
             }
-            catch (TimeoutException e)
+            catch (TimeoutException)
             {
                 return String.Empty;
             }
@@ -135,7 +135,7 @@ namespace HawkSync_RC.classes
 
                 return Encoding.ASCII.GetString(Compression.Decompress(reply.Data));
             }
-            catch (TimeoutException e)
+            catch (TimeoutException)
             {
                 return String.Empty;
             }

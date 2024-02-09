@@ -1,4 +1,5 @@
 ﻿using Equin.ApplicationFramework;
+using HawkSync_SM.classes.ChatManagement;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,7 +22,7 @@ namespace HawkSync_SM
     {
         public DataTable adminTable = new DataTable();
         public DataTable playersTable = new DataTable();
-        public DataTable specificPlayerTable = new DataTable();
+        
         BindingList<ob_PlayerChatLog> playerMessages = new BindingList<ob_PlayerChatLog>();
 
         const int PROCESS_WM_READ = 0x0010;
@@ -56,7 +58,9 @@ namespace HawkSync_SM
         public int Profile_ID;
         public int ArrayID;
         private AppState _state;
-        DataTable chatLog = new DataTable();
+
+        DataTable ChatLogTable = new DataTable();
+        private BindingListView<ob_PlayerChatLog> ChatLogMessages;
         BanPlayerFunction cmdPlayer;
         public static List<MapList> selectedMaps;
         Dictionary<int, MapList> availableMaps;
@@ -64,7 +68,6 @@ namespace HawkSync_SM
         Timer ServerManagerTimer;
         Timer playerTimer;
         DataTable bannedPlayersTable;
-        bool IgnoreBMTMsgs = false;
 
         public SM_ServerManager(AppState state, int id)
         {
@@ -154,9 +157,9 @@ namespace HawkSync_SM
 
         private void UpdateChatlogColors()
         {
-            for (int i = 0; i < chatLog.Rows.Count; i++)
+            for (int i = 0; i < ChatLogTable.Rows.Count; i++)
             {
-                DataRow dr = chatLog.Rows[i];
+                DataRow dr = ChatLogTable.Rows[i];
                 string dateTime = dr["Date & Time"].ToString();
                 string playerName = dr["Player Name"].ToString();
                 ob_playerList.Teams team = ob_playerList.Teams.TEAM_SPEC;
@@ -811,173 +814,60 @@ namespace HawkSync_SM
             Interval = 1000
         };
 
+        string specificPlayer;       
 
-        string specificPlayer;
-        private void radioButton11_Click(object sender, EventArgs e)
+        private void event_clickRadioChatPlayer(object sender, EventArgs e)
         {
-            rb_chatAll.Checked = false;
-            rb_chatGlobal.Checked = false;
-            rb_chatRedTeam.Checked = false;
-            rb_chatBlueTeam.Checked = false;
-            rb_chatPlayerHist.Checked = true;
+            ChatLogMessages.RemoveFilter();
             cb_chatPlayerSelect.Enabled = true;
             cb_chatPlayerSelect.Items.Clear();
             cb_chatPlayerSelect.Items.Add("Select Player");
             cb_chatPlayerSelect.SelectedIndex = 0;
-            specificPlayer = "";
-
-            // populate comboBox9 with current player names
-            foreach (var player in _state.Instances[ArrayID].PlayerList)
+            
+            _state.Instances[ArrayID].PlayerList.Keys.ToList().ForEach(delegate (int slot)
             {
-                cb_chatPlayerSelect.Items.Add(player.Value.name);
-            }
-            data_chatViewer.DataSource = "";
-            if (specificPlayerTmr_IsRunning == true)
-            {
-                specificPlayerTmr_IsRunning = false;
-                specificPlayerTmr.Stop();
-            }
+                cb_chatPlayerSelect.Items.Add(_state.Instances[ArrayID].PlayerList[slot].name);
+            });
         }
 
-        private void radioButton7_Click(object sender, EventArgs e)
+        private void event_clickRadioChatAll(object sender, EventArgs e)
         {
-            rb_chatAll.Checked = true;
-            rb_chatGlobal.Checked = false;
-            rb_chatRedTeam.Checked = false;
-            rb_chatBlueTeam.Checked = false;
-            rb_chatPlayerHist.Checked = false;
-            specificPlayer = "";
-            if (cb_chatPlayerSelect.Items.Count > 0)
-            {
-                cb_chatPlayerSelect.Items.Clear();
-            }
-            cb_chatPlayerSelect.Enabled = false;
-            //dataGridView5.DataSource = chatLog;
-            data_chatViewer.Sort(data_chatViewer.Columns[0], ListSortDirection.Descending);
-            data_chatViewer.Columns["Date & Time"].Width = 100;
-            data_chatViewer.Columns["Type"].Width = 40;
-            data_chatViewer.Columns["Player Name"].Width = 104;
-            data_chatViewer.Columns["Message"].Width = 290;
-            if (specificPlayerTmr_IsRunning == true)
-            {
-                specificPlayerTmr.Stop();
-                specificPlayerTmr_IsRunning = false;
-            }
+            ChatLogMessages.RemoveFilter();
         }
 
-        private void radioButton8_Click(object sender, EventArgs e)
+        private void event_clickRadioChatGlobal(object sender, EventArgs e)
         {
-            rb_chatAll.Checked = false;
-            rb_chatGlobal.Checked = true;
-            rb_chatRedTeam.Checked = false;
-            rb_chatBlueTeam.Checked = false;
-            rb_chatPlayerHist.Checked = false;
-            specificPlayer = "";
-            if (cb_chatPlayerSelect.Items.Count > 0)
+            ChatLogMessages.RemoveFilter();
+            ChatLogMessages.ApplyFilter(delegate (ob_PlayerChatLog chatLog)
             {
-                cb_chatPlayerSelect.Items.Clear();
-            }
-            cb_chatPlayerSelect.Enabled = false;
-            if (specificPlayerTmr_IsRunning == true)
-            {
-                specificPlayerTmr_IsRunning = false;
-                specificPlayerTmr.Stop();
-            }
+                return chatLog.msgType == "Global" || chatLog.team == "Host";
+            });
         }
 
-        private void radioButton9_Click(object sender, EventArgs e)
+        private void event_clickRadioChatRed(object sender, EventArgs e)
         {
-            rb_chatAll.Checked = false;
-            rb_chatGlobal.Checked = false;
-            rb_chatRedTeam.Checked = true;
-            rb_chatBlueTeam.Checked = false;
-            rb_chatPlayerHist.Checked = false;
-            specificPlayer = "";
-            if (cb_chatPlayerSelect.Items.Count > 0)
+            ChatLogMessages.RemoveFilter();
+            ChatLogMessages.ApplyFilter(delegate (ob_PlayerChatLog chatLog)
             {
-                cb_chatPlayerSelect.Items.Clear();
-            }
-            cb_chatPlayerSelect.Enabled = false;
-            if (specificPlayerTmr_IsRunning == true)
-            {
-                specificPlayerTmr_IsRunning = false;
-                specificPlayerTmr.Stop();
-            }
+                return chatLog.msgType == "Team" && (chatLog.team == "Red" || chatLog.team == "Host");
+            });
         }
 
-        private void radioButton10_Click(object sender, EventArgs e)
+        private void event_clickRadioChatBlue(object sender, EventArgs e)
         {
-            rb_chatAll.Checked = false;
-            rb_chatGlobal.Checked = false;
-            rb_chatRedTeam.Checked = false;
-            rb_chatBlueTeam.Checked = true;
-            rb_chatPlayerHist.Checked = false;
-            specificPlayer = "";
-            if (cb_chatPlayerSelect.Items.Count > 0)
+            ChatLogMessages.RemoveFilter();
+            ChatLogMessages.ApplyFilter(delegate (ob_PlayerChatLog chatLog)
             {
-                cb_chatPlayerSelect.Items.Clear();
-            }
-            cb_chatPlayerSelect.Enabled = false;
-            if (specificPlayerTmr_IsRunning == true)
-            {
-                specificPlayerTmr_IsRunning = false;
-                specificPlayerTmr.Stop();
-            }
+                return chatLog.msgType == "Team" && (chatLog.team == "Blue" || chatLog.team == "Host");
+            });
         }
-        private void comboBox9_SelectedIndexChanged(object sender, EventArgs e)
+        private void event_dropDownChatPlayerSelect(object sender, EventArgs e)
         {
-            specificPlayerTable.Rows.Clear();
-            if (cb_chatPlayerSelect.SelectedIndex == 0)
+            ChatLogMessages.RemoveFilter();
+            ChatLogMessages.ApplyFilter(delegate (ob_PlayerChatLog chatLog)
             {
-                if (specificPlayerTmr_IsRunning == true)
-                {
-                    specificPlayerTmr_IsRunning = false;
-                    specificPlayerTmr.Stop();
-                }
-                return;
-            }
-            //dataGridView5.CurrentCell = dataGridView5[0, 0];
-            DataRow[] checkEntries = chatLog.Select("`Player Name` = '" + cb_chatPlayerSelect.SelectedItem + "'");
-            specificPlayer = cb_chatPlayerSelect.SelectedItem.ToString();
-            foreach (DataRow dataRow in checkEntries)
-            {
-                specificPlayerTable.ImportRow(dataRow);
-            }
-            //dataGridView5.DataSource = specificPlayerTable;
-            data_chatViewer.Sort(data_chatViewer.Columns[0], ListSortDirection.Descending);
-            data_chatViewer.Columns["Date & Time"].Width = 100;
-            data_chatViewer.Columns["Type"].Width = 40;
-            data_chatViewer.Columns["Player Name"].Width = 104;
-            data_chatViewer.Columns["Message"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            specificPlayerTmr.Tick += specificPlayerTmr_Tick;
-            specificPlayerTmr.Start();
-            specificPlayerTmr_IsRunning = true;
-        }
-
-        private void specificPlayerTmr_Tick(object sender, EventArgs e)
-        {
-            if (_state.ChatLogs[ArrayID].Messages.Count > 0)
-            {
-                DataRow[] checkEntries = chatLog.Select("`Player Name` = '" + specificPlayer + "'");
-
-                foreach (DataRow playerEntry in checkEntries)
-                {
-                    string dateSent = playerEntry["Date & Time"].ToString();
-                    string playerName = playerEntry["Player Name"].ToString();
-                    string message = playerEntry["Message"].ToString();
-
-                    DataRow[] checkSpecificPlayerEntries = specificPlayerTable.Select("`Date & Time` = '" + dateSent + "' AND `Player Name` = '" + playerName + "' AND `Message` = '" + message + "'");
-
-                    if (checkSpecificPlayerEntries.Length == 0)
-                    {
-                        specificPlayerTable.ImportRow(playerEntry);
-                    }
-                }
-            }
-            else if (_state.ChatLogs[ArrayID].Messages.Count == 0)
-            {
-                chatLog.Rows.Clear();
-            }
+                return chatLog.PlayerName == cb_chatPlayerSelect.SelectedItem.ToString();
+            });
         }
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
@@ -2744,24 +2634,19 @@ namespace HawkSync_SM
             };
             playerTimer.Tick += PlayerTimer_Tick;
 
-            // Chatlog
+            // Chatlog Loads Here
             rb_chatAll.Checked = true;
-            rb_chatGlobal.Checked = false;
-            rb_chatRedTeam.Checked = false;
-            rb_chatBlueTeam.Checked = false;
-            rb_chatPlayerHist.Checked = false;
             if (cb_chatPlayerSelect.Items.Count > 0)
             {
                 cb_chatPlayerSelect.Items.Clear();
             }
             cb_chatPlayerSelect.Enabled = false;
-            chatLog.Columns.Add("Date & Time", typeof(DateTime));
-            chatLog.Columns.Add("Type", typeof(string));
-            chatLog.Columns.Add("Player Name", typeof(string));
-            chatLog.Columns.Add("Message", typeof(string));
-            BindingListView<ob_PlayerChatLog> blv = new BindingListView<ob_PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
-            data_chatViewer.DataSource = blv;
-            //dataGridView5.Sort(dataGridView5.Columns[0], ListSortDirection.Descending);
+            ChatLogTable.Columns.Add("Date & Time", typeof(DateTime));
+            ChatLogTable.Columns.Add("Type", typeof(string));
+            ChatLogTable.Columns.Add("Player Name", typeof(string));
+            ChatLogTable.Columns.Add("Message", typeof(string));
+            ChatLogMessages = new BindingListView<ob_PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
+            data_chatViewer.DataSource = ChatLogMessages;
             data_chatViewer.Columns["dateSent"].Width = 100;
             data_chatViewer.Columns["msgType"].Width = 40;
             data_chatViewer.Columns["PlayerName"].Width = 104;
@@ -2770,16 +2655,8 @@ namespace HawkSync_SM
             data_chatViewer.Columns["msgType"].HeaderText = "Type";
             data_chatViewer.Columns["PlayerName"].HeaderText = "Player Name";
             data_chatViewer.Columns["msg"].HeaderText = "Message";
-            data_chatViewer.Columns["team"].Visible = false;
+            data_chatViewer.Columns["team"].Visible = true;
             data_chatViewer.Sort(data_chatViewer.Columns[0], ListSortDirection.Descending);
-
-
-            // setup chatLog options
-            specificPlayerTable.Columns.Add("Date & Time", typeof(DateTime));
-            specificPlayerTable.Columns.Add("Type", typeof(string));
-            specificPlayerTable.Columns.Add("Player Name", typeof(string));
-            specificPlayerTable.Columns.Add("Message", typeof(string));
-
 
             // setup warnings
             foreach (var item in _state.Instances[ArrayID].CustomWarnings)
@@ -2867,16 +2744,16 @@ namespace HawkSync_SM
             return VPNTable;
         }
 
-        private void textBox16_KeyUp(object sender, KeyEventArgs e)
+        private void keyup_textBoxMsg(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendServerMessage(chat_channelSelection.SelectedIndex, chat_textBoxMsg.Text);
+                (new ServerManagement()).SendChatMessage(ref _state, ArrayID, ChatManagement.ChatChannels[chat_channelSelection.SelectedIndex], chat_textBoxMsg.Text);
+                chat_textBoxMsg.Text = string.Empty;
             }
-            else
-            {
-                return;
-            }
+
+            return;
+
         }
 
         private void SendServerMessage(int MsgLocation, string Msg)
@@ -2933,9 +2810,10 @@ namespace HawkSync_SM
             chat_textBoxMsg.Text = string.Empty;
         }
 
-        private void button19_Click(object sender, EventArgs e)
+        private void submit_chatMessage(object sender, EventArgs e)
         {
-            SendServerMessage(chat_channelSelection.SelectedIndex, chat_textBoxMsg.Text);
+            (new ServerManagement()).SendChatMessage(ref _state, ArrayID, ChatManagement.ChatChannels[chat_channelSelection.SelectedIndex], chat_textBoxMsg.Text);
+            chat_textBoxMsg.Text = string.Empty;
         }
 
         private void dataGridView5_SelectionChanged(object sender, EventArgs e)
@@ -3190,7 +3068,7 @@ namespace HawkSync_SM
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void event_clickShowChatHistory(object sender, EventArgs e)
         {
             ChatHistory chatHistory = new ChatHistory(_state);
             chatHistory.ShowDialog();
@@ -3402,7 +3280,7 @@ namespace HawkSync_SM
                 // Set the background color based on the priority value
                 if (teamColumn == "Team")
                 {
-                    DataRow currentRow = chatLog.Rows[currentRowIndex];
+                    DataRow currentRow = ChatLogTable.Rows[currentRowIndex];
                     string playerName = currentRow["Player Name"].ToString();
                     foreach (var player in _state.Instances[ArrayID].PlayerList)
                     {

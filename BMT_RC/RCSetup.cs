@@ -52,7 +52,7 @@ namespace HawkSync_RC
                 clientCMD.Dispose();
                 return compressResponse;
             }
-            catch (TimeoutException e)
+            catch (TimeoutException)
             {
                 TimedOut = true;
                 return null;
@@ -71,7 +71,7 @@ namespace HawkSync_RC
                 clientCMD.Dispose();
                 return compressResponse;
             }
-            catch (TimeoutException e)
+            catch (TimeoutException)
             {
                 FormCollection forms = Application.OpenForms;
                 foreach (Form ff in forms)

@@ -4,9 +4,9 @@ namespace HawkSync_SM.classes
 {
     public class PluginsClass
     {
-        public bool WelcomeMessage { get; set; }
-        public bool VoteMaps { get; set; }
-        public wp_PluginSettings WelcomeMessageSettings { get; set; }
-        public vm_PluginSettings VoteMapSettings { get; set; }
+        public bool WelcomeMessage { get; set; } = false;
+        public bool VoteMaps { get; set; } = false;
+        public wp_PluginSettings WelcomeMessageSettings { get; set; } = new wp_PluginSettings();
+        public vm_PluginSettings VoteMapSettings { get; set; } = new vm_PluginSettings();   
     }
 }

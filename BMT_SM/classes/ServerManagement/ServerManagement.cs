@@ -1772,6 +1772,7 @@ namespace HawkSync_SM
 
             // get last message sent...
             int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
+            
             byte[] Message = new byte[74];
             int MessageRead = 0;
             ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);

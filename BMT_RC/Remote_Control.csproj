@@ -88,6 +88,9 @@
     <Reference Include="ConfigParser, Version=0.3.8.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Salaros.ConfigParser.0.3.8\lib\net45\ConfigParser.dll</HintPath>
     </Reference>
+    <Reference Include="Equin.ApplicationFramework.BindingListView">
+      <HintPath>..\BMT_SM\bin\Debug\Equin.ApplicationFramework.BindingListView.dll</HintPath>
+    </Reference>
     <Reference Include="FluentFTP, Version=46.0.2.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
       <HintPath>packages\FluentFTP.46.0.2\lib\net472\FluentFTP.dll</HintPath>
     </Reference>

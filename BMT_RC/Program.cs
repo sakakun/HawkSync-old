@@ -48,7 +48,7 @@ namespace HawkSync_RC
 
                 Application.Run(new Main_Login());
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
 				return;

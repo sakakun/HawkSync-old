@@ -2,9 +2,9 @@
 {
     public class PlayerRoles
     {
-        public bool CQB { get; set; }
-        public bool Gunner { get; set; }
-        public bool Medic { get; set; }
-        public bool Sniper { get; set; }
+        public bool CQB { get; set; } = true;
+        public bool Gunner { get; set; } = true;
+        public bool Medic { get; set; } = true;
+        public bool Sniper { get; set; } = true;
     }
 }
