@@ -783,18 +783,19 @@ namespace HawkSync_SM
             }
         }
 
-        private void checkBox17_CheckedChanged(object sender, EventArgs e)
+        private void disallowVPNS_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox_vpn_disallow.Checked)
+            if (cb_enableVPNChecks.Checked)
             {
-                value_vpn_abuselevel.Enabled = true;
+                num_vpnAbuseLevel.Enabled = true;
                 _state.Instances[ArrayID].enableVPNCheck = true;
-                _state.IPQualityCache[ArrayID].WarnLevel = (int)value_vpn_abuselevel.Value;
+                num_vpnAbuseLevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
             }
             else
             {
-                value_vpn_abuselevel.Enabled = false;
-                _state.Instances[ArrayID].enableVPNCheck = true;
+                num_vpnAbuseLevel.Enabled = false;
+                _state.Instances[ArrayID].enableVPNCheck = false;
+                num_vpnAbuseLevel.Value = 0;
             }
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -813,8 +814,6 @@ namespace HawkSync_SM
             Enabled = true,
             Interval = 1000
         };
-
-        string specificPlayer;       
 
         private void event_clickRadioChatPlayer(object sender, EventArgs e)
         {
@@ -2431,9 +2430,10 @@ namespace HawkSync_SM
             textBox15.Text = string.Empty;
         }
 
-        private void numericUpDown7_ValueChanged(object sender, EventArgs e)
+        private void event_vpnAbuselevelChanged(object sender, EventArgs e)
         {
-            _state.IPQualityCache[ArrayID].WarnLevel = (int)value_vpn_abuselevel.Value;
+            _state.IPQualityCache[ArrayID].WarnLevel = (int)num_vpnAbuseLevel.Value;
+
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `warnlevel` = @warnlevel WHERE `profile_id` = @profileid;", db);
@@ -2669,9 +2669,6 @@ namespace HawkSync_SM
                 toolStripMenuItem133.DropDownItems.Add(toolStripItem);
             }
 
-            // enable/Disable VPNCheck for Instance
-            checkBox_vpn_disallow.Checked = _state.Instances[ArrayID].enableVPNCheck;
-
             // weapon restrictions
             WeaponsClass weapons = _state.Instances[ArrayID].WeaponRestrictions;
             cbl_weaponSelection.SetItemChecked(0, weapons.WPN_COLT45);
@@ -2718,7 +2715,11 @@ namespace HawkSync_SM
                 listBox_playerWarnMessages.Items.Add(warnMsg);
             }
             label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
-            value_vpn_abuselevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
+
+
+            // enable/Disable VPNCheck for Instance
+            cb_enableVPNChecks.Checked = _state.Instances[ArrayID].enableVPNCheck;
+            num_vpnAbuseLevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
 
             num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
             num_scoreKOTH.Value = _state.Instances[ArrayID].KOTHScore;

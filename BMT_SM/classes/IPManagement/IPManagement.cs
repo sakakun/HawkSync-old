@@ -150,7 +150,7 @@ namespace HawkSync_SM
                 {
                     var ipInfo = _state.IPQualityCache[ArrayID].IPInformation.FirstOrDefault(info => info.address == playerData.Value.address);
                     bool isNewAddress = ipInfo == null;
-
+                    
                     if (isNewAddress)
                     {
                         var jsonData = IPQualityCheck(playerData.Value.address);

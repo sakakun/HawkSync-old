@@ -304,9 +304,9 @@ namespace HawkSync_SM
          */
         private void InstanceTicker()
         {
-            if (_state.Instances.Count == 0)
+            if (_state.Instances.Count == 0 || table_profileList.Rows.Count == 0)
             {
-                // No Servers to Check
+                // No Servers to Check or the table didn't get built. Something very wrong.
                 event_NoServerProfiles();
                 return;
             }
@@ -317,11 +317,6 @@ namespace HawkSync_SM
                 {
                     Instance instance = item.Value;
                     int rowId = item.Key;
-
-                    if (table_profileList.Rows.Count == 0)
-                    {
-                        return;
-                    }
 
                     DataRow row = table_profileList.Rows[rowId];
                     DateTime currentTime = DateTime.Now;
@@ -341,7 +336,6 @@ namespace HawkSync_SM
                                     int timeRemainingInGame = serverManagement.GetTimeLeft(ref _state, rowId);
                                     var map = serverManagement.GetCurrentMission(ref _state, rowId);
                                     var currentPlayers = serverManagement.GetCurrentPlayers(ref _state,rowId);
-                                    //var currentPlayers = GetCurrentPlayers(rowId);
                                     var currentGameType = "";
                                     foreach (var gameTypeList in gameTypes)
                                     {
@@ -378,17 +372,12 @@ namespace HawkSync_SM
 
                                     // important for clearing stupid map cycle shit
                                     instance.mapCounter = serverManagement.UpdateMapCycleCounter(ref _state, rowId);
-                                    //UpdateMapCycleGarbage(rowId);
 
                                     // check for VPNs
-                                    if (ProgramConfig.Enable_VPNWhiteList == true)
+                                    if (ProgramConfig.EnableVPNCheck == true)
                                     {
                                         ipManagement.Check4VPN(ref _state, rowId);
                                     }
-
-                                    // get chatLogs...
-                                    //event_getChatLogs(rowId, PID);
-
 
                                     if (instance.Status != InstanceStatus.LOADINGMAP && instance.Status != InstanceStatus.SCORING)
                                     {
@@ -534,7 +523,7 @@ namespace HawkSync_SM
             }
             catch (Exception e)
             {
-                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                _state.eventLog.WriteEntry("HawkSync has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
                 log.Debug(e);
                 return;
             }

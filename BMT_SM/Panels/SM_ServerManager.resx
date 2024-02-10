@@ -999,34 +999,34 @@
   <data name="&gt;&gt;groupBox23.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="checkBox_vpn_disallow.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cb_enableVPNChecks.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="checkBox_vpn_disallow.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="cb_enableVPNChecks.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="checkBox_vpn_disallow.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cb_enableVPNChecks.Location" type="System.Drawing.Point, System.Drawing">
     <value>325, 24</value>
   </data>
-  <data name="checkBox_vpn_disallow.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cb_enableVPNChecks.Size" type="System.Drawing.Size, System.Drawing">
     <value>95, 17</value>
   </data>
-  <data name="checkBox_vpn_disallow.TabIndex" type="System.Int32, mscorlib">
+  <data name="cb_enableVPNChecks.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="checkBox_vpn_disallow.Text" xml:space="preserve">
+  <data name="cb_enableVPNChecks.Text" xml:space="preserve">
     <value>Disallow VPNs</value>
   </data>
-  <data name="&gt;&gt;checkBox_vpn_disallow.Name" xml:space="preserve">
-    <value>checkBox_vpn_disallow</value>
+  <data name="&gt;&gt;cb_enableVPNChecks.Name" xml:space="preserve">
+    <value>cb_enableVPNChecks</value>
   </data>
-  <data name="&gt;&gt;checkBox_vpn_disallow.Type" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableVPNChecks.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBox_vpn_disallow.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableVPNChecks.Parent" xml:space="preserve">
     <value>group_vpnSettings</value>
   </data>
-  <data name="&gt;&gt;checkBox_vpn_disallow.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableVPNChecks.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label_vpn_abuse.AutoSize" type="System.Boolean, mscorlib">
@@ -1056,34 +1056,34 @@
   <data name="&gt;&gt;label_vpn_abuse.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="value_vpn_abuselevel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="num_vpnAbuseLevel.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 22</value>
   </data>
-  <data name="value_vpn_abuselevel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="num_vpnAbuseLevel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="value_vpn_abuselevel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="num_vpnAbuseLevel.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 20</value>
   </data>
-  <data name="value_vpn_abuselevel.TabIndex" type="System.Int32, mscorlib">
+  <data name="num_vpnAbuseLevel.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="value_vpn_abuselevel.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+  <data name="num_vpnAbuseLevel.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
   </data>
-  <data name="value_vpn_abuselevel.UpDownAlign" type="System.Windows.Forms.LeftRightAlignment, System.Windows.Forms">
+  <data name="num_vpnAbuseLevel.UpDownAlign" type="System.Windows.Forms.LeftRightAlignment, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="&gt;&gt;value_vpn_abuselevel.Name" xml:space="preserve">
-    <value>value_vpn_abuselevel</value>
+  <data name="&gt;&gt;num_vpnAbuseLevel.Name" xml:space="preserve">
+    <value>num_vpnAbuseLevel</value>
   </data>
-  <data name="&gt;&gt;value_vpn_abuselevel.Type" xml:space="preserve">
+  <data name="&gt;&gt;num_vpnAbuseLevel.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;value_vpn_abuselevel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;num_vpnAbuseLevel.Parent" xml:space="preserve">
     <value>group_vpnSettings</value>
   </data>
-  <data name="&gt;&gt;value_vpn_abuselevel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;num_vpnAbuseLevel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="group_vpnSettings.Location" type="System.Drawing.Point, System.Drawing">

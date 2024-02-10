@@ -69,9 +69,9 @@ namespace HawkSync_SM
             this.label47 = new System.Windows.Forms.Label();
             this.grid_vpn_allowlist = new System.Windows.Forms.DataGridView();
             this.group_vpnSettings = new System.Windows.Forms.GroupBox();
-            this.checkBox_vpn_disallow = new System.Windows.Forms.CheckBox();
+            this.cb_enableVPNChecks = new System.Windows.Forms.CheckBox();
             this.label_vpn_abuse = new System.Windows.Forms.Label();
-            this.value_vpn_abuselevel = new System.Windows.Forms.NumericUpDown();
+            this.num_vpnAbuseLevel = new System.Windows.Forms.NumericUpDown();
             this.tab_warnMsgs = new System.Windows.Forms.TabPage();
             this.groupBox_playerWarnMsg = new System.Windows.Forms.GroupBox();
             this.listBox_playerWarnMessages = new System.Windows.Forms.ListBox();
@@ -389,7 +389,7 @@ namespace HawkSync_SM
             this.groupBox23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).BeginInit();
             this.group_vpnSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_vpnAbuseLevel)).BeginInit();
             this.tab_warnMsgs.SuspendLayout();
             this.groupBox_playerWarnMsg.SuspendLayout();
             this.group_currentPlayers.SuspendLayout();
@@ -734,30 +734,30 @@ namespace HawkSync_SM
             // 
             // group_vpnSettings
             // 
-            this.group_vpnSettings.Controls.Add(this.checkBox_vpn_disallow);
+            this.group_vpnSettings.Controls.Add(this.cb_enableVPNChecks);
             this.group_vpnSettings.Controls.Add(this.label_vpn_abuse);
-            this.group_vpnSettings.Controls.Add(this.value_vpn_abuselevel);
+            this.group_vpnSettings.Controls.Add(this.num_vpnAbuseLevel);
             resources.ApplyResources(this.group_vpnSettings, "group_vpnSettings");
             this.group_vpnSettings.Name = "group_vpnSettings";
             this.group_vpnSettings.TabStop = false;
             // 
-            // checkBox_vpn_disallow
+            // cb_enableVPNChecks
             // 
-            resources.ApplyResources(this.checkBox_vpn_disallow, "checkBox_vpn_disallow");
-            this.checkBox_vpn_disallow.Name = "checkBox_vpn_disallow";
-            this.checkBox_vpn_disallow.UseVisualStyleBackColor = true;
-            this.checkBox_vpn_disallow.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
+            resources.ApplyResources(this.cb_enableVPNChecks, "cb_enableVPNChecks");
+            this.cb_enableVPNChecks.Name = "cb_enableVPNChecks";
+            this.cb_enableVPNChecks.UseVisualStyleBackColor = true;
+            this.cb_enableVPNChecks.CheckedChanged += new System.EventHandler(this.disallowVPNS_CheckedChanged);
             // 
             // label_vpn_abuse
             // 
             resources.ApplyResources(this.label_vpn_abuse, "label_vpn_abuse");
             this.label_vpn_abuse.Name = "label_vpn_abuse";
             // 
-            // value_vpn_abuselevel
+            // num_vpnAbuseLevel
             // 
-            resources.ApplyResources(this.value_vpn_abuselevel, "value_vpn_abuselevel");
-            this.value_vpn_abuselevel.Name = "value_vpn_abuselevel";
-            this.value_vpn_abuselevel.ValueChanged += new System.EventHandler(this.numericUpDown7_ValueChanged);
+            resources.ApplyResources(this.num_vpnAbuseLevel, "num_vpnAbuseLevel");
+            this.num_vpnAbuseLevel.Name = "num_vpnAbuseLevel";
+            this.num_vpnAbuseLevel.ValueChanged += new System.EventHandler(this.event_vpnAbuselevelChanged);
             // 
             // tab_warnMsgs
             // 
@@ -3013,7 +3013,7 @@ namespace HawkSync_SM
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).EndInit();
             this.group_vpnSettings.ResumeLayout(false);
             this.group_vpnSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_vpnAbuseLevel)).EndInit();
             this.tab_warnMsgs.ResumeLayout(false);
             this.groupBox_playerWarnMsg.ResumeLayout(false);
             this.groupBox_playerWarnMsg.PerformLayout();
@@ -3234,9 +3234,9 @@ namespace HawkSync_SM
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem35;
-        private System.Windows.Forms.CheckBox checkBox_vpn_disallow;
+        private System.Windows.Forms.CheckBox cb_enableVPNChecks;
         private System.Windows.Forms.Label label_vpn_abuse;
-        private System.Windows.Forms.NumericUpDown value_vpn_abuselevel;
+        private System.Windows.Forms.NumericUpDown num_vpnAbuseLevel;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem36;
         private System.Windows.Forms.ComboBox cb_chatPlayerSelect;
         private System.Windows.Forms.RadioButton rb_chatAll;
