@@ -808,13 +808,6 @@ namespace HawkSync_SM
             db.Dispose();
         }
 
-        bool specificPlayerTmr_IsRunning;
-        Timer specificPlayerTmr = new Timer()
-        {
-            Enabled = true,
-            Interval = 1000
-        };
-
         private void event_clickRadioChatPlayer(object sender, EventArgs e)
         {
             ChatLogMessages.RemoveFilter();
