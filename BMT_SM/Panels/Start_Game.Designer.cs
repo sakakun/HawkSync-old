@@ -408,8 +408,7 @@ namespace HawkSync_SM
             this.comboBox_sessionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_sessionType.FormattingEnabled = true;
             this.comboBox_sessionType.Items.AddRange(new object[] {
-            resources.GetString("comboBox_sessionType.Items"),
-            resources.GetString("comboBox_sessionType.Items1")});
+            resources.GetString("comboBox_sessionType.Items")});
             resources.ApplyResources(this.comboBox_sessionType, "comboBox_sessionType");
             this.comboBox_sessionType.Name = "comboBox_sessionType";
             // 

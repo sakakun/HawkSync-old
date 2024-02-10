@@ -951,28 +951,28 @@
   <data name="&gt;&gt;label47.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="dataGridView4.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="grid_vpn_allowlist.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
-  <data name="dataGridView4.RowHeadersWidth" type="System.Int32, mscorlib">
+  <data name="grid_vpn_allowlist.RowHeadersWidth" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
-  <data name="dataGridView4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="grid_vpn_allowlist.Size" type="System.Drawing.Size, System.Drawing">
     <value>427, 212</value>
   </data>
-  <data name="dataGridView4.TabIndex" type="System.Int32, mscorlib">
+  <data name="grid_vpn_allowlist.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;dataGridView4.Name" xml:space="preserve">
-    <value>dataGridView4</value>
+  <data name="&gt;&gt;grid_vpn_allowlist.Name" xml:space="preserve">
+    <value>grid_vpn_allowlist</value>
   </data>
-  <data name="&gt;&gt;dataGridView4.Type" xml:space="preserve">
+  <data name="&gt;&gt;grid_vpn_allowlist.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dataGridView4.Parent" xml:space="preserve">
+  <data name="&gt;&gt;grid_vpn_allowlist.Parent" xml:space="preserve">
     <value>groupBox23</value>
   </data>
-  <data name="&gt;&gt;dataGridView4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;grid_vpn_allowlist.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="groupBox23.Location" type="System.Drawing.Point, System.Drawing">

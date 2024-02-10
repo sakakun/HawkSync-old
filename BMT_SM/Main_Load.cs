@@ -26,7 +26,7 @@ namespace HawkSync_SM
                 Mods = LoadMods(),
             };
 
-            Application.Run(new SM_Profilelist(state));
+            Application.Run(new SM_ProfileList(state));
 
         }
 

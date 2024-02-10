@@ -2421,7 +2421,7 @@ namespace HawkSync_SM
             db.Close();
             textBox14.Text = string.Empty;
             textBox15.Text = string.Empty;
-            dataGridView4.DataSource = GenerateVPNTable();
+            grid_vpn_allowlist.DataSource = GenerateVPNTable();
             MessageBox.Show("IP Address Added Successfully!", "Success");
         }
 
@@ -2446,7 +2446,7 @@ namespace HawkSync_SM
 
         private void button14_Click(object sender, EventArgs e)
         {
-            int index = dataGridView4.SelectedCells[0].RowIndex;
+            int index = grid_vpn_allowlist.SelectedCells[0].RowIndex;
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid AND `description` = @description AND `address` = @PublicIP;", db);
@@ -2457,7 +2457,7 @@ namespace HawkSync_SM
             cmd.Dispose();
             db.Close();
             _state.Instances[ArrayID].VPNWhiteList.Remove(index);
-            dataGridView4.DataSource = GenerateVPNTable();
+            grid_vpn_allowlist.DataSource = GenerateVPNTable();
             MessageBox.Show("IP Address Removed Successfully.", "Success");
         }
 
@@ -2527,7 +2527,7 @@ namespace HawkSync_SM
             grid_bannedPlayerList.Columns["Time Remaining"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // setup VPN White List Table
-            dataGridView4.DataSource = GenerateVPNTable();
+            grid_vpn_allowlist.DataSource = GenerateVPNTable();
 
 
             SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);

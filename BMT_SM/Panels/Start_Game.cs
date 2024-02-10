@@ -195,15 +195,7 @@ namespace HawkSync_SM
                 string motd = textBox_MOTD.Text;
                 string country_code = textBox_countryCode.Text;
                 string server_password = textBox_passServer.Text;
-                int session_type;
-                if (comboBox_sessionType.SelectedIndex == 0)
-                {
-                    session_type = 0;
-                }
-                else
-                {
-                    session_type = 1;
-                }
+                int session_type = 0;
                 int max_slots = Convert.ToInt32(comboBox_maxPlayers.SelectedItem);
                 int start_delay = comboBox_startDelay.SelectedIndex;
                 int loop_maps;
@@ -1103,7 +1095,8 @@ namespace HawkSync_SM
             textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
             textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
             textBox_passServer.Text = _state.Instances[ArrayID].Password;
-            // comboBox_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            comboBox_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            comboBox_sessionType.Enabled = false;
             comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
             comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);

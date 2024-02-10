@@ -2204,6 +2204,7 @@ namespace HawkSync_RC
             this.chat_textBoxMsg.Name = "chat_textBoxMsg";
             this.chat_textBoxMsg.Size = new System.Drawing.Size(514, 20);
             this.chat_textBoxMsg.TabIndex = 7;
+            this.chat_textBoxMsg.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyup_textBoxMsg);
             // 
             // btn_sendChat
             // 

@@ -95,7 +95,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_sessionType = new System.Windows.Forms.ComboBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -144,20 +144,20 @@
             this.button5.Text = "Load Rotation";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // btn_cancelChanges
+            // button4
             // 
             this.button4.Location = new System.Drawing.Point(407, 329);
-            this.button4.Name = "btn_cancelChanges";
+            this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(85, 23);
             this.button4.TabIndex = 9;
             this.button4.Text = "Reset Maps";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // btn_addAddress
+            // button3
             // 
             this.button3.Location = new System.Drawing.Point(508, 329);
-            this.button3.Name = "btn_addAddress";
+            this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(85, 23);
             this.button3.TabIndex = 8;
             this.button3.Text = "Shuffle Maps";
@@ -283,7 +283,7 @@
             this.label29.TabIndex = 19;
             this.label29.Text = "Minimum Ping Check:";
             // 
-            // groupBox_vpnSettings
+            // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox8);
             this.groupBox3.Controls.Add(this.label30);
@@ -310,7 +310,7 @@
             this.groupBox3.Controls.Add(this.label21);
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Location = new System.Drawing.Point(8, 8);
-            this.groupBox3.Name = "groupBox_vpnSettings";
+            this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(776, 365);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
@@ -380,11 +380,11 @@
             this.checkBox10.TabIndex = 12;
             this.checkBox10.UseVisualStyleBackColor = true;
             // 
-            // label_MOTD
+            // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(3, 129);
-            this.label25.Name = "label_MOTD";
+            this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(74, 13);
             this.label25.TabIndex = 11;
             this.label25.Text = "Auto Balance:";
@@ -416,11 +416,11 @@
             this.checkBox8.TabIndex = 8;
             this.checkBox8.UseVisualStyleBackColor = true;
             // 
-            // label_respawnTime
+            // label23
             // 
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(3, 107);
-            this.label23.Name = "label_respawnTime";
+            this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(73, 13);
             this.label23.TabIndex = 7;
             this.label23.Text = "Friendly Tags:";
@@ -434,11 +434,11 @@
             this.checkBox7.TabIndex = 6;
             this.checkBox7.UseVisualStyleBackColor = true;
             // 
-            // label_replayMaps
+            // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(3, 62);
-            this.label22.Name = "label_replayMaps";
+            this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(66, 13);
             this.label22.TabIndex = 5;
             this.label22.Text = "Friendly Fire:";
@@ -536,7 +536,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.comboBox_sessionType);
             this.groupBox1.Controls.Add(this.textBox4);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBox3);
@@ -582,11 +582,11 @@
             this.label17.TabIndex = 33;
             this.label17.Text = "Run Dedicated:";
             // 
-            // cb_autoBalance
+            // checkBox5
             // 
             this.checkBox5.AutoSize = true;
             this.checkBox5.Location = new System.Drawing.Point(561, 220);
-            this.checkBox5.Name = "cb_autoBalance";
+            this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(15, 14);
             this.checkBox5.TabIndex = 32;
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -600,11 +600,11 @@
             this.label16.TabIndex = 31;
             this.label16.Text = "Allow Custom Skins:";
             // 
-            // cb_customSkin
+            // checkBox4
             // 
             this.checkBox4.AutoSize = true;
             this.checkBox4.Location = new System.Drawing.Point(561, 197);
-            this.checkBox4.Name = "cb_customSkin";
+            this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(15, 14);
             this.checkBox4.TabIndex = 30;
             this.checkBox4.UseVisualStyleBackColor = true;
@@ -618,11 +618,11 @@
             this.label15.TabIndex = 29;
             this.label15.Text = "Run Windowed Mode:";
             // 
-            // cb_requireNova
+            // checkBox3
             // 
             this.checkBox3.AutoSize = true;
             this.checkBox3.Location = new System.Drawing.Point(561, 171);
-            this.checkBox3.Name = "cb_requireNova";
+            this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(15, 14);
             this.checkBox3.TabIndex = 28;
             this.checkBox3.UseVisualStyleBackColor = true;
@@ -636,11 +636,11 @@
             this.label14.TabIndex = 27;
             this.label14.Text = "Require NovaLogic:";
             // 
-            // cb_gameDedicated
+            // checkBox2
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Location = new System.Drawing.Point(561, 151);
-            this.checkBox2.Name = "cb_gameDedicated";
+            this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 14);
             this.checkBox2.TabIndex = 26;
             this.checkBox2.UseVisualStyleBackColor = true;
@@ -708,12 +708,12 @@
             this.label10.TabIndex = 19;
             this.label10.Text = "Game Score:";
             // 
-            // dropDown_mapSettingsGameType
+            // comboBox5
             // 
             this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox5.FormattingEnabled = true;
             this.comboBox5.Location = new System.Drawing.Point(529, 42);
-            this.comboBox5.Name = "dropDown_mapSettingsGameType";
+            this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(121, 21);
             this.comboBox5.TabIndex = 18;
             // 
@@ -726,12 +726,12 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Max Kills:";
             // 
-            // cb_replayMaps
+            // comboBox4
             // 
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(529, 12);
-            this.comboBox4.Name = "cb_replayMaps";
+            this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 21);
             this.comboBox4.TabIndex = 16;
             // 
@@ -805,17 +805,16 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "Session Type:";
             // 
-            // chat_channelSelection
+            // comboBox_sessionType
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Internet",
-            "LAN"});
-            this.comboBox1.Location = new System.Drawing.Point(118, 117);
-            this.comboBox1.Name = "chat_channelSelection";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 8;
+            this.comboBox_sessionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_sessionType.FormattingEnabled = true;
+            this.comboBox_sessionType.Items.AddRange(new object[] {
+            "Internet"});
+            this.comboBox_sessionType.Location = new System.Drawing.Point(118, 117);
+            this.comboBox_sessionType.Name = "comboBox_sessionType";
+            this.comboBox_sessionType.Size = new System.Drawing.Size(121, 21);
+            this.comboBox_sessionType.TabIndex = 8;
             // 
             // textBox4
             // 
@@ -885,10 +884,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Server Name:";
             // 
-            // btn_deleteAddress
+            // button2
             // 
             this.button2.Location = new System.Drawing.Point(597, 421);
-            this.button2.Name = "btn_deleteAddress";
+            this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
             this.button2.Text = "Cancel";
@@ -906,13 +905,13 @@
             this.tabPage2.Text = "Map Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // serverManager_container
+            // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(0, 6);
-            this.tabControl1.Name = "serverManager_container";
+            this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(801, 402);
             this.tabControl1.TabIndex = 3;
@@ -1022,7 +1021,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_sessionType;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox3;

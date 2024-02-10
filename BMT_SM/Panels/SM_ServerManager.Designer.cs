@@ -67,7 +67,7 @@ namespace HawkSync_SM
             this.button17 = new System.Windows.Forms.Button();
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
+            this.grid_vpn_allowlist = new System.Windows.Forms.DataGridView();
             this.group_vpnSettings = new System.Windows.Forms.GroupBox();
             this.checkBox_vpn_disallow = new System.Windows.Forms.CheckBox();
             this.label_vpn_abuse = new System.Windows.Forms.Label();
@@ -387,7 +387,7 @@ namespace HawkSync_SM
             ((System.ComponentModel.ISupportInitialize)(this.grid_bannedPlayerList)).BeginInit();
             this.tab_vpnSettings.SuspendLayout();
             this.groupBox23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).BeginInit();
             this.group_vpnSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).BeginInit();
             this.tab_warnMsgs.SuspendLayout();
@@ -664,7 +664,7 @@ namespace HawkSync_SM
             this.groupBox23.Controls.Add(this.button17);
             this.groupBox23.Controls.Add(this.textBox14);
             this.groupBox23.Controls.Add(this.label47);
-            this.groupBox23.Controls.Add(this.dataGridView4);
+            this.groupBox23.Controls.Add(this.grid_vpn_allowlist);
             resources.ApplyResources(this.groupBox23, "groupBox23");
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.TabStop = false;
@@ -710,27 +710,27 @@ namespace HawkSync_SM
             resources.ApplyResources(this.label47, "label47");
             this.label47.Name = "label47";
             // 
-            // dataGridView4
+            // grid_vpn_allowlist
             // 
-            this.dataGridView4.AllowUserToAddRows = false;
-            this.dataGridView4.AllowUserToDeleteRows = false;
-            this.dataGridView4.AllowUserToResizeColumns = false;
-            this.dataGridView4.AllowUserToResizeRows = false;
-            this.dataGridView4.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView4.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
-            this.dataGridView4.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            resources.ApplyResources(this.dataGridView4, "dataGridView4");
-            this.dataGridView4.MultiSelect = false;
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.ReadOnly = true;
-            this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView4.ShowCellErrors = false;
-            this.dataGridView4.ShowCellToolTips = false;
-            this.dataGridView4.ShowEditingIcon = false;
-            this.dataGridView4.ShowRowErrors = false;
-            this.dataGridView4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView4_MouseClick);
+            this.grid_vpn_allowlist.AllowUserToAddRows = false;
+            this.grid_vpn_allowlist.AllowUserToDeleteRows = false;
+            this.grid_vpn_allowlist.AllowUserToResizeColumns = false;
+            this.grid_vpn_allowlist.AllowUserToResizeRows = false;
+            this.grid_vpn_allowlist.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.grid_vpn_allowlist.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.grid_vpn_allowlist.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.grid_vpn_allowlist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grid_vpn_allowlist.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            resources.ApplyResources(this.grid_vpn_allowlist, "grid_vpn_allowlist");
+            this.grid_vpn_allowlist.MultiSelect = false;
+            this.grid_vpn_allowlist.Name = "grid_vpn_allowlist";
+            this.grid_vpn_allowlist.ReadOnly = true;
+            this.grid_vpn_allowlist.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grid_vpn_allowlist.ShowCellErrors = false;
+            this.grid_vpn_allowlist.ShowCellToolTips = false;
+            this.grid_vpn_allowlist.ShowEditingIcon = false;
+            this.grid_vpn_allowlist.ShowRowErrors = false;
+            this.grid_vpn_allowlist.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView4_MouseClick);
             // 
             // group_vpnSettings
             // 
@@ -3010,7 +3010,7 @@ namespace HawkSync_SM
             this.tab_vpnSettings.ResumeLayout(false);
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).EndInit();
             this.group_vpnSettings.ResumeLayout(false);
             this.group_vpnSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).EndInit();
@@ -3230,7 +3230,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.DataGridView dataGridView4;
+        private System.Windows.Forms.DataGridView grid_vpn_allowlist;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem35;

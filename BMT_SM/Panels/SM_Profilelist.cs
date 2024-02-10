@@ -30,7 +30,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_SM
 {
-    public partial class SM_Profilelist : Form
+    public partial class SM_ProfileList : Form
     {
         // Nothing controling the game should be in this window.  Should be in the ServerProcessHandler.cs
         // Goal to move all game control to ServerProcessHandler.cs and write the RC API to point to those methods.
@@ -85,7 +85,7 @@ namespace HawkSync_SM
         };
 
         // Server Manager - Game Profile List (Main Process)
-        public SM_Profilelist(AppState state)
+        public SM_ProfileList(AppState state)
         {
             // Launch GUI
             _state = state;

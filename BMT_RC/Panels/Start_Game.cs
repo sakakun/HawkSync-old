@@ -76,7 +76,8 @@ namespace HawkSync_RC
             textBox2.Text = _state.Instances[ArrayID].MOTD;
             textBox3.Text = _state.Instances[ArrayID].CountryCode;
             textBox4.Text = _state.Instances[ArrayID].Password;
-            comboBox1.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            comboBox_sessionType.SelectedIndex = 0;
+            comboBox_sessionType.Enabled = false;
             comboBox2.SelectedItem = _state.Instances[ArrayID].MaxSlots;
             comboBox3.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             checkBox1.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
@@ -211,7 +212,7 @@ namespace HawkSync_RC
                 { "MOTD", textBox2.Text },
                 { "CountryCode", textBox3.Text },
                 { "password", textBox4.Text },
-                { "SessionType", comboBox1.SelectedIndex },
+                { "SessionType", comboBox_sessionType.SelectedIndex },
                 { "MaxSlots", Convert.ToInt32(comboBox2.SelectedItem) },
                 { "StartDelay", comboBox3.SelectedIndex },
                 { "MaxKills", comboBox4.SelectedIndex },

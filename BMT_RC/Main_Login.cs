@@ -684,8 +684,6 @@ namespace HawkSync_RC
                     label8.ForeColor = Color.FromArgb(192, 0, 0); // red
                     button3.Text = "Connect";
                     Ticker.Stop();
-                    /*updateInternal.Stop();
-                    updateInternal.Enabled = false;*/
                     Ticker.Enabled = false;
                     clientClass = new clientClass();
                     Options(true);

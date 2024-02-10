@@ -2650,5 +2650,15 @@ namespace HawkSync_RC
                 chat_channelSelection.Enabled = false;
             }
         }
+
+        private void keyup_textBoxMsg(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                chat_SendMsg(sender, e);
+            }
+
+            return;
+        }
     }
 }
