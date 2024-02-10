@@ -92,9 +92,6 @@
     <ManifestKeyFile>BMT_TV_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Equin.ApplicationFramework.BindingListView">
-      <HintPath>..\BindingListView\Equin.ApplicationFramework.BindingListView.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNetCore, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.dll</HintPath>
     </Reference>
@@ -513,6 +510,9 @@
     </PackageReference>
     <PackageReference Include="EntityFramework">
       <Version>6.4.4</Version>
+    </PackageReference>
+    <PackageReference Include="Equin.ApplicationFramework.BindingListView">
+      <Version>1.4.5222.35545</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.15</Version>
