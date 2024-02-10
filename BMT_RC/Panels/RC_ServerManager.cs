@@ -45,7 +45,6 @@ namespace HawkSync_RC
         Dictionary<int, MapList> availableMapList;
         List<MapList> selectedMaps;
         bool MapListEdited = false;
-        bool selectedPlayer;
 
         [DllImport("kernel32.dll")]
         public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
@@ -80,7 +79,6 @@ namespace HawkSync_RC
             
 			RCSetup = setup;
             ArrayID = profileid;
-            selectedPlayer = false;
             playersTable = new DataTable();
             bannedTable = new DataTable();
             ChatLogTable = new DataTable();
