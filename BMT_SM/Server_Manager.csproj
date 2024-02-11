@@ -275,6 +275,7 @@
     <Compile Include="Api\v1\PlayerManager.cs" />
     <Compile Include="Api\v1\UserController.cs" />
     <Compile Include="AppState.cs" />
+    <Compile Include="classes\IPManagement\FirewallManagement.cs" />
     <Compile Include="classes\IPManagement\IPManagement.cs" />
     <Compile Include="classes\MapManagement\autoRes.cs" />
     <Compile Include="classes\ChatManagement\ob_AutoMessages.cs" />
@@ -293,7 +294,6 @@
     </Compile>
     <Compile Include="classes\ChatManagement\ob_ChatLogs.cs" />
     <Compile Include="classes\ConsoleQueue.cs" />
-    <Compile Include="classes\FirewallRule.cs" />
     <Compile Include="classes\LogManagement\RCLogs.cs" />
     <Compile Include="classes\ModsClass.cs" />
     <Compile Include="classes\NovaHeartBeat\NovaHQPlayerListClass.cs" />
@@ -571,12 +571,19 @@
     <PackageReference Include="Owin">
       <Version>1.0.0</Version>
     </PackageReference>
+    <PackageReference Include="PacketDotNet">
+      <Version>1.4.7</Version>
+    </PackageReference>
+    <PackageReference Include="Pcap.Net.x86">
+      <Version>1.0.4.1</Version>
+    </PackageReference>
     <PackageReference Include="Salaros.ConfigParser">
       <Version>0.3.8</Version>
     </PackageReference>
     <PackageReference Include="Scrutor">
       <Version>4.2.2</Version>
     </PackageReference>
+    <PackageReference Include="SharpPcap" Version="6.2.5" />
     <PackageReference Include="SQLitePCLRaw.core">
       <Version>2.1.8</Version>
     </PackageReference>
@@ -668,6 +675,9 @@
       <Version>5.1.7</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -678,4 +688,8 @@
   </Target>
   <Import Project="..\packages\Microsoft.AspNetCore.Server.IIS.2.2.6\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets" Condition="Exists('..\packages\Microsoft.AspNetCore.Server.IIS.2.2.6\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" />
   <Import Project="..\packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.1\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('..\packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.1\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

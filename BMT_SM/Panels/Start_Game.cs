@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -536,6 +537,7 @@ namespace HawkSync_SM
                 update_query.ExecuteNonQuery();
                 update_query.Dispose();
 
+                
                 MemoryStream ms = new MemoryStream();
                 int dedicatedSlots = _state.Instances[ArrayID].MaxSlots + Convert.ToInt32(_state.Instances[ArrayID].Dedicated);
                 bool loopMaps = true;
@@ -555,7 +557,7 @@ namespace HawkSync_SM
                 byte[] windowedModeBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[ArrayID].WindowedMode));
                 byte[] ServerNameBytes = Encoding.Default.GetBytes(_state.Instances[ArrayID].ServerName);
                 byte[] countryCodeBytes = Encoding.Default.GetBytes(_state.Instances[ArrayID].CountryCode);
-                byte[] BindAddress = Encoding.Default.GetBytes("0.0.0.0");
+                byte[] BindAddress = Encoding.Default.GetBytes(_state.Instances[ArrayID].BindAddress);
                 byte[] firstMapFile = Encoding.Default.GetBytes(_state.Instances[ArrayID].MapList[0].MapFile);
                 byte[] maxSlotsBytes = BitConverter.GetBytes(_state.Instances[ArrayID].MaxSlots);
                 byte[] dedicatedBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[ArrayID].Dedicated));
@@ -835,33 +837,15 @@ namespace HawkSync_SM
                 Thread.Sleep(1000); // sleep 100ms to allow flushing the file to complete
 
                 Process process;
-                if (_state.Instances[ArrayID].BindAddress == "0.0.0.0")
+                ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    ProcessStartInfo startInfo = new ProcessStartInfo
-                    {
-                        FileName = Path.Combine(_state.Instances[ArrayID].GamePath, file_name),
-                        WorkingDirectory = _state.Instances[ArrayID].GamePath,
-                        Arguments = "/w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
-                        WindowStyle = ProcessWindowStyle.Minimized
-                    };
-                    process = Process.Start(startInfo);
-                }
-                else
-                {
-                    ProcessStartInfo startInfo = new ProcessStartInfo
-                    {
-                        FileName = Path.Combine(Environment.CurrentDirectory, "bind.exe"),
-                        WorkingDirectory = _state.Instances[ArrayID].GamePath,
-                        Arguments = $"{_state.Instances[ArrayID].BindAddress} \"{Path.Combine(_state.Instances[ArrayID].GamePath, file_name)}\" /w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
-                        WindowStyle = ProcessWindowStyle.Minimized
-                    };
-                    process = Process.Start(startInfo);
-                    process.WaitForExit();
-                }
+                    FileName = Path.Combine(_state.Instances[ArrayID].GamePath, file_name),
+                    WorkingDirectory = _state.Instances[ArrayID].GamePath,
+                    Arguments = "/w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
+                    WindowStyle = ProcessWindowStyle.Minimized
+                };
+                process = Process.Start(startInfo);
 
-
-
-                //
                 //- /w /LOADBAR /NOSYSDUMP /serveonly /autorestart
                 List<int> currentPIDs = new List<int>();
                 foreach (var instance in _state.Instances)
@@ -886,7 +870,6 @@ namespace HawkSync_SM
                 SQLiteCommand pid_update = new SQLiteCommand(pid_update_db, conn);
                 pid_update.ExecuteNonQuery();
                 pid_update.Dispose();
-
 
 
                 _state.Instances[ArrayID].gameCrashCounter = 0;
@@ -990,6 +973,11 @@ namespace HawkSync_SM
                 serverManagerUpdateMemory.UpdateRespawnTime(_state, ArrayID);
                 serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, ArrayID);
                 _state.Instances[ArrayID].AutoMessages.NextMessage = DateTime.Now.AddMinutes(1.0);
+
+                // Add Firewall Rules
+                _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
+                _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
+
                 this.Close();
             } catch (Exception ex)
             {

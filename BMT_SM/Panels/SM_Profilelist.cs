@@ -331,7 +331,7 @@ namespace HawkSync_SM
                                 {
                                     // set process name incase the PID changes...
                                     serverManagement.SetNovaID(ref _state, rowId);
-                                    SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
+                                    //SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
 
                                     int timeRemainingInGame = serverManagement.GetTimeLeft(ref _state, rowId);
                                     var map = serverManagement.GetCurrentMission(ref _state, rowId);
@@ -372,6 +372,9 @@ namespace HawkSync_SM
 
                                     // important for clearing stupid map cycle shit
                                     instance.mapCounter = serverManagement.UpdateMapCycleCounter(ref _state, rowId);
+
+                                    // Update Firewall IP Records Here
+                                    instance.Firewall.DenyTraffic(instance.GameName, instance.GamePath, instance.BanList);
 
                                     // check for VPNs
                                     if (ProgramConfig.EnableVPNCheck == true)
@@ -495,6 +498,14 @@ namespace HawkSync_SM
                                     }
                                 }
                             }
+                            catch (KeyNotFoundException ex)
+                            {
+                                // Handle the exception
+                                Console.WriteLine("ArgumentNullException occurred:");
+                                Console.WriteLine($"Parameter name: {ex.Message}");
+                                Console.WriteLine($"Message: {ex.StackTrace}");
+                                // You can also access other properties of the exception object if needed
+                            }
                             catch (Exception e)
                             {
                                 if (ProgramConfig.ApplicationDebug)
@@ -528,7 +539,6 @@ namespace HawkSync_SM
                 return;
             }
         }
-
         /* 
          * ProcessAppState
          */
@@ -821,7 +831,7 @@ namespace HawkSync_SM
             return map;
         }
 
-        // Main_Profilelist Form Onload Events
+        // Main_Profilelist Form Onload Events ( Runs Once on Window Load )
         private void Main_Profilelist_Load(object sender, EventArgs e)
         {
             table_profileList.Columns.Add("ID".ToString());
@@ -874,15 +884,18 @@ namespace HawkSync_SM
                 serverManagement.SetHostnames(item.Value);
             }
             warnlevelquery.Dispose();
+            
+            _state.adminNotes = onload_getPlayerAdminNotes(hawkSyncDB);
+            _state.playerHistories = onload_getPlayerHistories(hawkSyncDB);
+            _state.RCLogs = get_RCActionLogs(hawkSyncDB);
             _state.Users = onload_getUsersFromDB(hawkSyncDB);
+
+            // Plan to remove or change.
             _state.yearlystats = onload_getStatsFromDB(hawkSyncDB);
             _state.adminChatMsgs = onload_getAdminChatMsgs(hawkSyncDB);
             _state.SystemInfo = GatherSystemInfo();
             _state.autoRes = SetupAutoRestart(hawkSyncDB);
-            _state.playerHistories = onload_getPlayerHistories(hawkSyncDB);
-            _state.adminNotes = onload_getPlayerAdminNotes(hawkSyncDB);
-            _state.RCLogs = get_RCActionLogs(hawkSyncDB);
-
+         
             GlobalAppState.AppState = _state;
             hawkSyncDB.Close();
             Ticker.Enabled = true;
@@ -1137,6 +1150,8 @@ namespace HawkSync_SM
                 p.Kill();
                 p.Dispose();
                 event_serverOffline();
+                instance.Firewall.DeleteFirewallRules(instance.GameName, "Allow");
+                instance.Firewall.DeleteFirewallRules(instance.GameName, "Deny");
                 return;
             }
 
