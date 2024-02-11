@@ -22,29 +22,34 @@ namespace HawkSync_SM
 
         public void DenyTraffic(string gameName, string serverFilePath, List<ob_playerBanList> bannedIPs)
         {
-
-            // Check if the contents of the bannedIPs list are the same
             if (!bannedIPs.SequenceEqual(this.bannedIPs))
             {
-                // Update the List of banned IPs
                 this.bannedIPs.Clear();
                 this.bannedIPs.AddRange(bannedIPs);
 
                 DeleteFirewallRules(gameName, "Deny");
                 string ruleName = RulePrefix + gameName + "-Deny Traffic";
 
-                List<string> badAddresses = new List<string>();
-                badAddresses.Add("8.8.8.8");
-                badAddresses.AddRange(this.bannedIPs.Select(ban => ban.ipaddress));
+                Dictionary<string, string> suffixToMask = new Dictionary<string, string>
+                {
+                    { ".0.0.0", "/8" },
+                    { ".0.0", "/16" },
+                    { ".0", "/24" }
+                };
+
+                var badAddresses = new List<string> { "8.8.8.8" }
+                    .Concat(this.bannedIPs.Select(ban =>
+                    {
+                        string ipAddress = ban.ipaddress;
+                        var suffixMatch = suffixToMask.Keys.FirstOrDefault(suffix => ipAddress.EndsWith(suffix));
+                        return suffixMatch != null ? ipAddress + suffixToMask[suffixMatch] : ipAddress;
+                    }));
 
                 string ips = string.Join(",", badAddresses);
                 string script = $"New-NetFirewallRule -DisplayName \"'{ruleName}'\" -Direction Inbound -Action Block -Program \"{serverFilePath}\" -RemoteAddress \"{ips}\"";
 
                 RunPowerShellScript(script);
             }
-  
-            
-
         }
 
         public void DeleteFirewallRules(string gameName, string trafficControlType)

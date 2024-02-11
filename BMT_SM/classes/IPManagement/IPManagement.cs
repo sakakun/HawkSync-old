@@ -17,6 +17,8 @@ namespace HawkSync_SM
 {
     public class IPManagement
     {
+        public static string IPpattern = @"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+
         public static void public_ip()
         {
             try {
@@ -93,7 +95,6 @@ namespace HawkSync_SM
             {
                 checkVPNQuery.Parameters.AddWithValue("@key", "ip_quality_score_apikey");
                 string apikey = checkVPNQuery.ExecuteScalar().ToString();
-                ProgramConfig.Enable_VPNWhiteList = true;
                 ProgramConfig.ip_quality_score_apikey = apikey;
                 SQLiteCommand query = new SQLiteCommand("SELECT `description`, `address` FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
                 query.Parameters.AddWithValue("@profileid", InstanceID);
@@ -277,38 +278,46 @@ namespace HawkSync_SM
 
             if (numPlayers <= 0) return;
 
-            for (int itemIndex = 0; itemIndex < currentBans.Count; itemIndex++)
+            foreach (var ban in currentBans)
             {
+                var bannedIP = IPAddress.Parse(ban.ipaddress);
+                var subnetMaskString = ban.ipaddress.Contains('/') ? ban.ipaddress.Split('/')[1] : "32"; // default to /32 if no subnet mask provided
+                var subnetMask = LeftShift(IPAddress.Parse("255.255.255.255"), 32 - int.Parse(subnetMaskString)); // call LeftShift here
+                var bannedSubnet = ban.ipaddress.Contains('/') ? IPAddress.Parse(ban.ipaddress.Split('/')[0]) : bannedIP;
+
                 foreach (var player in currentPlayers)
                 {
                     try
                     {
                         var playerName = player.Value.name;
-                        var playerIP = player.Value.address;
-                        var bannedName = currentBans[itemIndex].player;
-                        var bannedIP = currentBans[itemIndex].ipaddress;
-                        var reason = currentBans[itemIndex].reason;
-                        var VPNBan = currentBans[itemIndex].VPNBan;
-                        var newBan = currentBans[itemIndex].newBan;
-                        var nextTry = currentBans[itemIndex].retry;
-                        var onlyKick = currentBans[itemIndex].onlykick;
-                        var slot = player.Value.slot;
+                        var playerIP = IPAddress.Parse(player.Value.address);
 
-                        if ((onlyKick && (playerName == bannedName || playerIP == bannedIP) && DateTime.Compare(nextTry, DateTime.Now) < 0) ||
-                            (!onlyKick && (playerName == bannedName || playerIP == bannedIP) && DateTime.Compare(nextTry, DateTime.Now) < 0))
+                        // Check if the player's IP matches the banned IP or falls within the banned subnet
+                        if (IPAddress.Equals(playerIP, bannedIP) ||
+                            (GetNetworkAddress(playerIP, subnetMask).Equals(bannedSubnet) &&
+                            IsInSubnet(playerIP, bannedSubnet, subnetMask)))
                         {
-                            (new ServerManagement()).SendChatMessage(ref _state, profileid, ChatManagement.ChatChannels[2], $"{(onlyKick ? "KICKING" : (newBan ? "BANNING" : "KICKING"))}!!! {playerName} - {reason}");
-                            (new ServerManagement()).SendConsoleCommand(ref _state, profileid, $"punt {slot}");
+                            var reason = ban.reason;
+                            var onlyKick = ban.onlykick;
+                            var slot = player.Value.slot;
 
-                            currentBans[itemIndex].retry = DateTime.Now.AddMinutes(1.0);
-                            currentBans[itemIndex].lastseen = DateTime.Now;
-                            Thread.Sleep(100);
+                            if ((onlyKick && DateTime.Compare(ban.retry, DateTime.Now) < 0) ||
+                                (!onlyKick && DateTime.Compare(ban.retry, DateTime.Now) < 0))
+                            {
+                                var action = onlyKick ? "KICKING" : (ban.newBan ? "BANNING" : "KICKING");
+                                (new ServerManagement()).SendChatMessage(ref _state, profileid, ChatManagement.ChatChannels[2], $"{action}!!! {playerName} - {reason}");
+                                (new ServerManagement()).SendConsoleCommand(ref _state, profileid, $"punt {slot}");
 
-                            if (onlyKick)
-                                currentBans.RemoveAt(itemIndex);
+                                ban.retry = DateTime.Now.AddMinutes(1.0);
+                                ban.lastseen = DateTime.Now;
+                                Thread.Sleep(100);
 
-                            if (!onlyKick && newBan)
-                                currentBans[itemIndex].newBan = false;
+                                if (onlyKick)
+                                    _state.Instances[profileid].BanList.Remove(ban);
+
+                                if (!onlyKick && ban.newBan)
+                                    ban.newBan = false;
+                            }
                         }
                     }
                     catch
@@ -317,6 +326,58 @@ namespace HawkSync_SM
                     }
                 }
             }
+        }
+
+        // Perform left shift operation on an IPAddress
+        public static IPAddress LeftShift(IPAddress ipAddress, int bits)
+        {
+            byte[] addressBytes = ipAddress.GetAddressBytes();
+            int byteShift = bits / 8;
+            int bitShift = bits % 8;
+            byte carry = 0;
+
+            for (int i = 0; i < addressBytes.Length; i++)
+            {
+                byte newByte = (byte)(addressBytes[i] << bitShift | carry);
+                carry = (byte)(addressBytes[i] >> (8 - bitShift));
+                addressBytes[i] = newByte;
+            }
+
+            return new IPAddress(addressBytes);
+        }
+
+        // Get the network address of an IP address using a subnet mask
+        public static IPAddress GetNetworkAddress(IPAddress ipAddress, IPAddress subnetMask)
+        {
+            byte[] ipAddressBytes = ipAddress.GetAddressBytes();
+            byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+            byte[] networkAddressBytes = new byte[ipAddressBytes.Length];
+
+            for (int i = 0; i < ipAddressBytes.Length; i++)
+            {
+                networkAddressBytes[i] = (byte)(ipAddressBytes[i] & subnetMaskBytes[i]);
+            }
+
+            return new IPAddress(networkAddressBytes);
+        }
+
+        // Check if an IP address is in a subnet
+        public static bool IsInSubnet(IPAddress ipAddress, IPAddress subnetAddress, IPAddress subnetMask)
+        {
+            byte[] ipAddressBytes = ipAddress.GetAddressBytes();
+            byte[] subnetAddressBytes = subnetAddress.GetAddressBytes();
+            byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+
+            for (int i = 0; i < ipAddressBytes.Length; i++)
+            {
+                byte invertedSubnetMaskByte = (byte)~subnetMaskBytes[i];
+                if ((ipAddressBytes[i] & subnetMaskBytes[i]) != subnetAddressBytes[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
     }

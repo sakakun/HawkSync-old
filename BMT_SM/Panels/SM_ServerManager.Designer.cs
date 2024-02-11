@@ -514,7 +514,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.button_addBan, "button_addBan");
             this.button_addBan.Name = "button_addBan";
             this.button_addBan.UseVisualStyleBackColor = true;
-            this.button_addBan.Click += new System.EventHandler(this.button12_Click);
+            this.button_addBan.Click += new System.EventHandler(this.event_manualAddBan);
             // 
             // label_abPlayerName
             // 

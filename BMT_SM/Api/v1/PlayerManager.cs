@@ -47,6 +47,7 @@ namespace HawkSync_SM.Api.v1
         [HttpPost]
         public HttpResponseMessage PermBanPlayer(int instanceid, int slotNum, string banReason = "")
         {
+           
             var Response = Request.CreateResponse(HttpStatusCode.OK);
 
             GlobalAppState.AppState.Instances[instanceid].BanList.Add(new ob_playerBanList
