@@ -4,13 +4,12 @@ using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using System.Web.Http.Results;
 using System.Windows.Forms;
 using WatsonTcp;
 
 namespace HawkSync_SM
 {
-    public partial class SM_Options : Form
+    public partial class Options : Form
     {
         AppState _state;
 
@@ -18,7 +17,7 @@ namespace HawkSync_SM
         bool editEntry = false;
 
         public static bool EnableWebServer;
-        public SM_Options(AppState state)
+        public Options(AppState state)
         {
             InitializeComponent();
             _state = state;
@@ -45,14 +44,23 @@ namespace HawkSync_SM
             num_remotePort.Value = ProgramConfig.RCPort;
             num_remotePort.Enabled = ProgramConfig.RCEnabled;
 
-            cb_enableWFB.Checked = ProgramConfig.EnableWFB;
-
-            cb_enableVPNChecks.Checked = ProgramConfig.EnableVPNCheck;
+            if (ProgramConfig.EnableVPNCheck == true)
+            {
+                radio_apibtn1.Checked = true;
+                radio_apibtn2.Checked = false;
+                ipQualityScore_APIKEY.Enabled = true;
+            }
+            else if (ProgramConfig.EnableVPNCheck == false)
+            {
+                radio_apibtn1.Checked = false;
+                radio_apibtn2.Checked = true;
+                ipQualityScore_APIKEY.Enabled = false;
+            }
             ipQualityScore_APIKEY.Text = ProgramConfig.ip_quality_score_apikey;
 
         }
 
-        private void event_saveClose(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -92,14 +100,6 @@ namespace HawkSync_SM
                 cmd.ExecuteNonQuery();
                 cmd.Parameters.Clear();
             }
-            if (cb_enableVPNChecks.Checked != ProgramConfig.EnableVPNCheck)
-            {
-                ProgramConfig.EnableVPNCheck = cb_enableVPNChecks.Checked;
-                cmd.Parameters.AddWithValue("@newValue", Convert.ToInt32(cb_enableVPNChecks.Checked));
-                cmd.Parameters.AddWithValue("@key", "enable_vpnChecking");
-                cmd.ExecuteNonQuery();
-                cmd.Parameters.Clear();
-            }
             if (ProgramConfig.RCEnabled != chbox_enableRemote.Checked)
             {
                 cmd.Parameters.AddWithValue("@newValue", Convert.ToInt32(chbox_enableRemote.Checked));
@@ -116,26 +116,20 @@ namespace HawkSync_SM
                     _state.server.Start();
                 }
             }
-            if (cb_enableWFB.Checked != ProgramConfig.EnableWFB)
+            if (radio_apibtn1.Checked != ProgramConfig.EnableVPNCheck)
             {
-                DialogResult result = DialogResult.OK;
-                if (ProgramConfig.EnableWFB == true)
+                if (radio_apibtn1.Checked)
                 {
-                    result = MessageBox.Show("Active servers will no longer get updated firewall records.\nRemaining Firewall records for active servers will be deleted, once server stopped. Continue?", "Warning!", MessageBoxButtons.OKCancel);
+                    ProgramConfig.EnableVPNCheck = true;
                 }
-                if (result == DialogResult.Cancel && ProgramConfig.EnableWFB == true)
-                {
-                    MessageBox.Show("Changes to WFB skipped!", "Success");
-                } 
                 else
                 {
-                    ProgramConfig.EnableWFB = cb_enableWFB.Checked;
-                    cmd.Parameters.AddWithValue("@newValue", Convert.ToInt32(cb_enableWFB.Checked));
-                    cmd.Parameters.AddWithValue("@key", "enable_wfb");
-                    cmd.ExecuteNonQuery();
-                    cmd.Parameters.Clear();
+                    ProgramConfig.EnableVPNCheck = false;
                 }
-                
+                cmd.Parameters.AddWithValue("@newValue", Convert.ToInt32(ProgramConfig.EnableVPNCheck));
+                cmd.Parameters.AddWithValue("@key", "check_for_vpn");
+                cmd.ExecuteNonQuery();
+                cmd.Parameters.Clear();
             }
 
             cmd.Dispose();
@@ -143,6 +137,24 @@ namespace HawkSync_SM
             db.Dispose();
             MessageBox.Show("Settings updated successfully!", "Success");
             this.Close();
+        }
+
+        private void radioButton1_Click(object sender, EventArgs e)
+        {
+            radio_apibtn2.Checked = false;
+            ipQualityScore_APIKEY.Enabled = true;
+        }
+
+        private void radioButton2_Click(object sender, EventArgs e)
+        {
+            radio_apibtn1.Checked = false;
+            ipQualityScore_APIKEY.Text = string.Empty;
+            ipQualityScore_APIKEY.Enabled = false;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://ipqualityscore.com");
         }
 
         private void Options_Load(object sender, EventArgs e)
@@ -167,14 +179,92 @@ namespace HawkSync_SM
             }
         }
 
-        private void link_Browse2IPQS(object sender, EventArgs e)
+        public byte[] imageToByteArray(string imageIn)
         {
-            Process.Start("https://ipqualityscore.com");
+            if (_state.imageCache.ContainsKey(imageIn))
+            {
+                return _state.imageCache[imageIn];
+            }
+            else
+            {
+                return new byte[1];
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
-        private void event_vpnCheckingChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            ipQualityScore_APIKEY.Enabled = cb_enableVPNChecks.Checked;
+            if (textBox1.Text == string.Empty || ipQualityScore_APIKEY.Text == string.Empty || textBox5.Text == string.Empty)
+            {
+                return;
+            }
+            // save
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            db.Open();
+            if (editEntry == false)
+            {
+                SQLiteCommand cmd = new SQLiteCommand(db)
+                {
+                    CommandType = CommandType.Text,
+                    CommandText = "INSERT INTO `mods` (`id`, `name`, `game`, `args`, `pff`, `icon`) VALUES (NULL, @name, @game, @args, @pff, @icon);"
+                };
+                cmd.Parameters.AddWithValue("@name", textBox1.Text);
+                cmd.Parameters.AddWithValue("@game", comboBox1.SelectedIndex);
+                cmd.Parameters.AddWithValue("@args", ipQualityScore_APIKEY.Text);
+                cmd.Parameters.AddWithValue("@pff", textBox4.Text);
+
+                // upload image to database...
+                // setup parameter and declare type.
+                SQLiteParameter imgBlob = new SQLiteParameter("@icon", DbType.Binary);
+
+                // load binary data...
+                byte[] test = File.ReadAllBytes(textBox5.Text);
+                imgBlob.Value = test;
+                cmd.Parameters.Add(imgBlob);
+
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+
+                DataRow newRow = modTable.NewRow();
+                newRow["Expansion / Mod Name"] = textBox1.Text;
+                switch (comboBox1.SelectedIndex)
+                {
+                    case 1:
+                        newRow["Game"] = "Joint Operations";
+                        break;
+                    default:
+                        newRow["Game"] = "Black Hawk Down";
+                        break;
+                }
+
+                newRow["Args"] = ipQualityScore_APIKEY.Text;
+                newRow["PFF File"] = textBox4.Text;
+                newRow["Mod Icon"] = test;
+                modTable.Rows.Add(newRow);
+
+                _state.Mods.Add(_state.Mods.Count, new ModsClass
+                {
+                    Game = comboBox1.SelectedIndex,
+                    ExeArgs = ipQualityScore_APIKEY.Text,
+                    Id = (int)db.LastInsertRowId,
+                    ModIcon = test,
+                    ModName = textBox1.Text,
+                    Pff = textBox4.Text,
+                });
+                db.Close();
+                db.Dispose();
+                textBox1.Text = string.Empty;
+                comboBox1.SelectedIndex = 0;
+                ipQualityScore_APIKEY.Text = string.Empty;
+                textBox4.Text = string.Empty;
+                pictureBox1 = new PictureBox();
+                editEntry = false;
+                MessageBox.Show("Mod saved!");
+            }
         }
+
     }
 }

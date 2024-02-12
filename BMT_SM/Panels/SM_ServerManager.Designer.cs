@@ -33,7 +33,7 @@ namespace HawkSync_SM
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_ServerManager));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
-            this.tabControl_playerSelection = new System.Windows.Forms.TabControl();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
             this.tab_bannedPlayers = new System.Windows.Forms.TabPage();
             this.label_banSearch = new System.Windows.Forms.Label();
             this.text_banSearch = new System.Windows.Forms.TextBox();
@@ -59,7 +59,7 @@ namespace HawkSync_SM
             this.button_removeBan = new System.Windows.Forms.Button();
             this.grid_bannedPlayerList = new System.Windows.Forms.DataGridView();
             this.tab_vpnSettings = new System.Windows.Forms.TabPage();
-            this.group_vpnWhitelist = new System.Windows.Forms.GroupBox();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.button14 = new System.Windows.Forms.Button();
             this.textBox15 = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
@@ -380,13 +380,13 @@ namespace HawkSync_SM
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
-            this.tabControl_playerSelection.SuspendLayout();
+            this.tabControl3.SuspendLayout();
             this.tab_bannedPlayers.SuspendLayout();
             this.group_addBan.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_bannedPlayerList)).BeginInit();
             this.tab_vpnSettings.SuspendLayout();
-            this.group_vpnWhitelist.SuspendLayout();
+            this.groupBox23.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).BeginInit();
             this.group_vpnSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_vpnAbuseLevel)).BeginInit();
@@ -452,20 +452,20 @@ namespace HawkSync_SM
             // 
             // page_players
             // 
-            this.page_players.Controls.Add(this.tabControl_playerSelection);
+            this.page_players.Controls.Add(this.tabControl3);
             this.page_players.Controls.Add(this.group_currentPlayers);
             resources.ApplyResources(this.page_players, "page_players");
             this.page_players.Name = "page_players";
             this.page_players.UseVisualStyleBackColor = true;
             // 
-            // tabControl_playerSelection
+            // tabControl3
             // 
-            this.tabControl_playerSelection.Controls.Add(this.tab_bannedPlayers);
-            this.tabControl_playerSelection.Controls.Add(this.tab_vpnSettings);
-            this.tabControl_playerSelection.Controls.Add(this.tab_warnMsgs);
-            resources.ApplyResources(this.tabControl_playerSelection, "tabControl_playerSelection");
-            this.tabControl_playerSelection.Name = "tabControl_playerSelection";
-            this.tabControl_playerSelection.SelectedIndex = 0;
+            this.tabControl3.Controls.Add(this.tab_bannedPlayers);
+            this.tabControl3.Controls.Add(this.tab_vpnSettings);
+            this.tabControl3.Controls.Add(this.tab_warnMsgs);
+            resources.ApplyResources(this.tabControl3, "tabControl3");
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
             // 
             // tab_bannedPlayers
             // 
@@ -649,26 +649,25 @@ namespace HawkSync_SM
             // 
             // tab_vpnSettings
             // 
-            this.tab_vpnSettings.Controls.Add(this.group_vpnWhitelist);
+            this.tab_vpnSettings.Controls.Add(this.groupBox23);
             this.tab_vpnSettings.Controls.Add(this.group_vpnSettings);
             resources.ApplyResources(this.tab_vpnSettings, "tab_vpnSettings");
             this.tab_vpnSettings.Name = "tab_vpnSettings";
             this.tab_vpnSettings.UseVisualStyleBackColor = true;
-            this.tab_vpnSettings.Enter += new System.EventHandler(this.event_enterVPNsettings);
             // 
-            // group_vpnWhitelist
+            // groupBox23
             // 
-            this.group_vpnWhitelist.Controls.Add(this.button14);
-            this.group_vpnWhitelist.Controls.Add(this.textBox15);
-            this.group_vpnWhitelist.Controls.Add(this.label48);
-            this.group_vpnWhitelist.Controls.Add(this.button18);
-            this.group_vpnWhitelist.Controls.Add(this.button17);
-            this.group_vpnWhitelist.Controls.Add(this.textBox14);
-            this.group_vpnWhitelist.Controls.Add(this.label47);
-            this.group_vpnWhitelist.Controls.Add(this.grid_vpn_allowlist);
-            resources.ApplyResources(this.group_vpnWhitelist, "group_vpnWhitelist");
-            this.group_vpnWhitelist.Name = "group_vpnWhitelist";
-            this.group_vpnWhitelist.TabStop = false;
+            this.groupBox23.Controls.Add(this.button14);
+            this.groupBox23.Controls.Add(this.textBox15);
+            this.groupBox23.Controls.Add(this.label48);
+            this.groupBox23.Controls.Add(this.button18);
+            this.groupBox23.Controls.Add(this.button17);
+            this.groupBox23.Controls.Add(this.textBox14);
+            this.groupBox23.Controls.Add(this.label47);
+            this.groupBox23.Controls.Add(this.grid_vpn_allowlist);
+            resources.ApplyResources(this.groupBox23, "groupBox23");
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.TabStop = false;
             // 
             // button14
             // 
@@ -2049,8 +2048,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox2
             // 
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
             resources.ApplyResources(this.toolStripTextBox2, "toolStripTextBox2");
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox2_KeyPress);
             // 
             // toolStripMenuItem1
@@ -2153,8 +2152,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox3
             // 
-            this.toolStripTextBox3.Name = "toolStripTextBox3";
             resources.ApplyResources(this.toolStripTextBox3, "toolStripTextBox3");
+            this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox3_KeyPress);
             // 
             // toolStripMenuItem3
@@ -2242,8 +2241,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox4
             // 
-            this.toolStripTextBox4.Name = "toolStripTextBox4";
             resources.ApplyResources(this.toolStripTextBox4, "toolStripTextBox4");
+            this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox4_KeyPress);
             // 
             // toolStripMenuItem4
@@ -2331,8 +2330,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox5
             // 
-            this.toolStripTextBox5.Name = "toolStripTextBox5";
             resources.ApplyResources(this.toolStripTextBox5, "toolStripTextBox5");
+            this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox5_KeyPress);
             // 
             // toolStripMenuItem5
@@ -2420,8 +2419,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox6
             // 
-            this.toolStripTextBox6.Name = "toolStripTextBox6";
             resources.ApplyResources(this.toolStripTextBox6, "toolStripTextBox6");
+            this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox6_KeyPress);
             // 
             // toolStripMenuItem6
@@ -2509,8 +2508,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox7
             // 
-            this.toolStripTextBox7.Name = "toolStripTextBox7";
             resources.ApplyResources(this.toolStripTextBox7, "toolStripTextBox7");
+            this.toolStripTextBox7.Name = "toolStripTextBox7";
             this.toolStripTextBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox7_KeyPress);
             // 
             // toolStripMenuItem7
@@ -2598,8 +2597,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox8
             // 
-            this.toolStripTextBox8.Name = "toolStripTextBox8";
             resources.ApplyResources(this.toolStripTextBox8, "toolStripTextBox8");
+            this.toolStripTextBox8.Name = "toolStripTextBox8";
             this.toolStripTextBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox8_KeyPress);
             // 
             // toolStripMenuItem8
@@ -2687,8 +2686,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox9
             // 
-            this.toolStripTextBox9.Name = "toolStripTextBox9";
             resources.ApplyResources(this.toolStripTextBox9, "toolStripTextBox9");
+            this.toolStripTextBox9.Name = "toolStripTextBox9";
             this.toolStripTextBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox9_KeyPress);
             // 
             // toolStripMenuItem9
@@ -2776,8 +2775,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox10
             // 
-            this.toolStripTextBox10.Name = "toolStripTextBox10";
             resources.ApplyResources(this.toolStripTextBox10, "toolStripTextBox10");
+            this.toolStripTextBox10.Name = "toolStripTextBox10";
             this.toolStripTextBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox10_KeyPress);
             // 
             // toolStripMenuItem10
@@ -2865,8 +2864,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox11
             // 
-            this.toolStripTextBox11.Name = "toolStripTextBox11";
             resources.ApplyResources(this.toolStripTextBox11, "toolStripTextBox11");
+            this.toolStripTextBox11.Name = "toolStripTextBox11";
             this.toolStripTextBox11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox11_KeyPress);
             // 
             // toolStripMenuItem11
@@ -2954,8 +2953,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
             resources.ApplyResources(this.toolStripTextBox1, "toolStripTextBox1");
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
             // 
             // toolStripMenuItem132
@@ -3000,7 +2999,7 @@ namespace HawkSync_SM
             this.Load += new System.EventHandler(this.Server_Manager_Load);
             this.tabControl1.ResumeLayout(false);
             this.page_players.ResumeLayout(false);
-            this.tabControl_playerSelection.ResumeLayout(false);
+            this.tabControl3.ResumeLayout(false);
             this.tab_bannedPlayers.ResumeLayout(false);
             this.tab_bannedPlayers.PerformLayout();
             this.group_addBan.ResumeLayout(false);
@@ -3009,8 +3008,8 @@ namespace HawkSync_SM
             this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_bannedPlayerList)).EndInit();
             this.tab_vpnSettings.ResumeLayout(false);
-            this.group_vpnWhitelist.ResumeLayout(false);
-            this.group_vpnWhitelist.PerformLayout();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).EndInit();
             this.group_vpnSettings.ResumeLayout(false);
             this.group_vpnSettings.PerformLayout();
@@ -3101,7 +3100,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.CheckBox cb_enableAutoMsg;
         private System.Windows.Forms.GroupBox group_currentPlayers;
         private System.Windows.Forms.DataGridView grid_playerList;
-        private System.Windows.Forms.TabControl tabControl_playerSelection;
+        private System.Windows.Forms.TabControl tabControl3;
         private System.Windows.Forms.TabPage tab_bannedPlayers;
         private System.Windows.Forms.DataGridView grid_bannedPlayerList;
         private System.Windows.Forms.TabPage tab_vpnSettings;
@@ -3224,7 +3223,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private System.Windows.Forms.GroupBox group_vpnWhitelist;
+        private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.TextBox textBox15;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Button button18;

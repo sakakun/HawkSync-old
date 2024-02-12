@@ -37,7 +37,7 @@ namespace HawkSync_RC
             this.label_currentSpec = new System.Windows.Forms.Label();
             this.group_currentPlayers = new System.Windows.Forms.GroupBox();
             this.grid_playerList = new System.Windows.Forms.DataGridView();
-            this.tabControl_playerSelection = new System.Windows.Forms.TabControl();
+            this.tabGroup_PlayersSection = new System.Windows.Forms.TabControl();
             this.tab_bannedPlayers = new System.Windows.Forms.TabPage();
             this.label_banSearch = new System.Windows.Forms.Label();
             this.group_addBan = new System.Windows.Forms.GroupBox();
@@ -62,7 +62,7 @@ namespace HawkSync_RC
             this.label_bdPlayerName = new System.Windows.Forms.Label();
             this.grid_bannedPlayerList = new System.Windows.Forms.DataGridView();
             this.tab_vpnSettings = new System.Windows.Forms.TabPage();
-            this.group_vpnWhitelist = new System.Windows.Forms.GroupBox();
+            this.groupBox_vpnWhiteList = new System.Windows.Forms.GroupBox();
             this.btn_cancelChanges = new System.Windows.Forms.Button();
             this.btn_deleteAddress = new System.Windows.Forms.Button();
             this.btn_addAddress = new System.Windows.Forms.Button();
@@ -71,7 +71,7 @@ namespace HawkSync_RC
             this.label_vpnAddress = new System.Windows.Forms.Label();
             this.label_vpnDescription = new System.Windows.Forms.Label();
             this.grid_vpn_allowlist = new System.Windows.Forms.DataGridView();
-            this.group_vpnSettings = new System.Windows.Forms.GroupBox();
+            this.groupBox_vpnSettings = new System.Windows.Forms.GroupBox();
             this.label_vpn_abuse = new System.Windows.Forms.Label();
             this.value_vpn_abuselevel = new System.Windows.Forms.NumericUpDown();
             this.checkBox_vpn_disallow = new System.Windows.Forms.CheckBox();
@@ -372,15 +372,15 @@ namespace HawkSync_RC
             this.page_players.SuspendLayout();
             this.group_currentPlayers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_playerList)).BeginInit();
-            this.tabControl_playerSelection.SuspendLayout();
+            this.tabGroup_PlayersSection.SuspendLayout();
             this.tab_bannedPlayers.SuspendLayout();
             this.group_addBan.SuspendLayout();
             this.group_banDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_bannedPlayerList)).BeginInit();
             this.tab_vpnSettings.SuspendLayout();
-            this.group_vpnWhitelist.SuspendLayout();
+            this.groupBox_vpnWhiteList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).BeginInit();
-            this.group_vpnSettings.SuspendLayout();
+            this.groupBox_vpnSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).BeginInit();
             this.tab_warnMsgs.SuspendLayout();
             this.groupBox_playerWarnMsg.SuspendLayout();
@@ -444,7 +444,7 @@ namespace HawkSync_RC
             // 
             this.page_players.Controls.Add(this.label_currentSpec);
             this.page_players.Controls.Add(this.group_currentPlayers);
-            this.page_players.Controls.Add(this.tabControl_playerSelection);
+            this.page_players.Controls.Add(this.tabGroup_PlayersSection);
             this.page_players.Controls.Add(this.label69);
             this.page_players.Controls.Add(this.label2);
             this.page_players.Location = new System.Drawing.Point(4, 22);
@@ -498,16 +498,16 @@ namespace HawkSync_RC
             this.grid_playerList.DoubleClick += new System.EventHandler(this.playerList_doubleClickPlayerInfo);
             this.grid_playerList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.playerList_menuToggle);
             // 
-            // tabControl_playerSelection
+            // tabGroup_PlayersSection
             // 
-            this.tabControl_playerSelection.Controls.Add(this.tab_bannedPlayers);
-            this.tabControl_playerSelection.Controls.Add(this.tab_vpnSettings);
-            this.tabControl_playerSelection.Controls.Add(this.tab_warnMsgs);
-            this.tabControl_playerSelection.Location = new System.Drawing.Point(342, 12);
-            this.tabControl_playerSelection.Name = "tabControl_playerSelection";
-            this.tabControl_playerSelection.SelectedIndex = 0;
-            this.tabControl_playerSelection.Size = new System.Drawing.Size(454, 389);
-            this.tabControl_playerSelection.TabIndex = 8;
+            this.tabGroup_PlayersSection.Controls.Add(this.tab_bannedPlayers);
+            this.tabGroup_PlayersSection.Controls.Add(this.tab_vpnSettings);
+            this.tabGroup_PlayersSection.Controls.Add(this.tab_warnMsgs);
+            this.tabGroup_PlayersSection.Location = new System.Drawing.Point(342, 12);
+            this.tabGroup_PlayersSection.Name = "tabGroup_PlayersSection";
+            this.tabGroup_PlayersSection.SelectedIndex = 0;
+            this.tabGroup_PlayersSection.Size = new System.Drawing.Size(454, 389);
+            this.tabGroup_PlayersSection.TabIndex = 8;
             // 
             // tab_bannedPlayers
             // 
@@ -764,8 +764,8 @@ namespace HawkSync_RC
             // 
             // tab_vpnSettings
             // 
-            this.tab_vpnSettings.Controls.Add(this.group_vpnWhitelist);
-            this.tab_vpnSettings.Controls.Add(this.group_vpnSettings);
+            this.tab_vpnSettings.Controls.Add(this.groupBox_vpnWhiteList);
+            this.tab_vpnSettings.Controls.Add(this.groupBox_vpnSettings);
             this.tab_vpnSettings.Location = new System.Drawing.Point(4, 22);
             this.tab_vpnSettings.Name = "tab_vpnSettings";
             this.tab_vpnSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -773,24 +773,23 @@ namespace HawkSync_RC
             this.tab_vpnSettings.TabIndex = 1;
             this.tab_vpnSettings.Text = "VPN Settings";
             this.tab_vpnSettings.UseVisualStyleBackColor = true;
-            this.tab_vpnSettings.Enter += new System.EventHandler(this.event_enterVPNsettings);
             // 
-            // group_vpnWhitelist
+            // groupBox_vpnWhiteList
             // 
-            this.group_vpnWhitelist.Controls.Add(this.btn_cancelChanges);
-            this.group_vpnWhitelist.Controls.Add(this.btn_deleteAddress);
-            this.group_vpnWhitelist.Controls.Add(this.btn_addAddress);
-            this.group_vpnWhitelist.Controls.Add(this.textBox_vpnAddress);
-            this.group_vpnWhitelist.Controls.Add(this.textBox_vpnDescription);
-            this.group_vpnWhitelist.Controls.Add(this.label_vpnAddress);
-            this.group_vpnWhitelist.Controls.Add(this.label_vpnDescription);
-            this.group_vpnWhitelist.Controls.Add(this.grid_vpn_allowlist);
-            this.group_vpnWhitelist.Location = new System.Drawing.Point(5, 65);
-            this.group_vpnWhitelist.Name = "group_vpnWhitelist";
-            this.group_vpnWhitelist.Size = new System.Drawing.Size(437, 291);
-            this.group_vpnWhitelist.TabIndex = 1;
-            this.group_vpnWhitelist.TabStop = false;
-            this.group_vpnWhitelist.Text = "VPN Whitelist:";
+            this.groupBox_vpnWhiteList.Controls.Add(this.btn_cancelChanges);
+            this.groupBox_vpnWhiteList.Controls.Add(this.btn_deleteAddress);
+            this.groupBox_vpnWhiteList.Controls.Add(this.btn_addAddress);
+            this.groupBox_vpnWhiteList.Controls.Add(this.textBox_vpnAddress);
+            this.groupBox_vpnWhiteList.Controls.Add(this.textBox_vpnDescription);
+            this.groupBox_vpnWhiteList.Controls.Add(this.label_vpnAddress);
+            this.groupBox_vpnWhiteList.Controls.Add(this.label_vpnDescription);
+            this.groupBox_vpnWhiteList.Controls.Add(this.grid_vpn_allowlist);
+            this.groupBox_vpnWhiteList.Location = new System.Drawing.Point(5, 65);
+            this.groupBox_vpnWhiteList.Name = "groupBox_vpnWhiteList";
+            this.groupBox_vpnWhiteList.Size = new System.Drawing.Size(437, 291);
+            this.groupBox_vpnWhiteList.TabIndex = 1;
+            this.groupBox_vpnWhiteList.TabStop = false;
+            this.groupBox_vpnWhiteList.Text = "VPN Whitelist:";
             // 
             // btn_cancelChanges
             // 
@@ -876,17 +875,17 @@ namespace HawkSync_RC
             this.grid_vpn_allowlist.Size = new System.Drawing.Size(427, 212);
             this.grid_vpn_allowlist.TabIndex = 0;
             // 
-            // group_vpnSettings
+            // groupBox_vpnSettings
             // 
-            this.group_vpnSettings.Controls.Add(this.label_vpn_abuse);
-            this.group_vpnSettings.Controls.Add(this.value_vpn_abuselevel);
-            this.group_vpnSettings.Controls.Add(this.checkBox_vpn_disallow);
-            this.group_vpnSettings.Location = new System.Drawing.Point(5, 6);
-            this.group_vpnSettings.Name = "group_vpnSettings";
-            this.group_vpnSettings.Size = new System.Drawing.Size(437, 58);
-            this.group_vpnSettings.TabIndex = 0;
-            this.group_vpnSettings.TabStop = false;
-            this.group_vpnSettings.Text = "VPN Settings:";
+            this.groupBox_vpnSettings.Controls.Add(this.label_vpn_abuse);
+            this.groupBox_vpnSettings.Controls.Add(this.value_vpn_abuselevel);
+            this.groupBox_vpnSettings.Controls.Add(this.checkBox_vpn_disallow);
+            this.groupBox_vpnSettings.Location = new System.Drawing.Point(5, 6);
+            this.groupBox_vpnSettings.Name = "groupBox_vpnSettings";
+            this.groupBox_vpnSettings.Size = new System.Drawing.Size(437, 58);
+            this.groupBox_vpnSettings.TabIndex = 0;
+            this.groupBox_vpnSettings.TabStop = false;
+            this.groupBox_vpnSettings.Text = "VPN Settings:";
             // 
             // label_vpn_abuse
             // 
@@ -3289,7 +3288,7 @@ namespace HawkSync_RC
             this.page_players.PerformLayout();
             this.group_currentPlayers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grid_playerList)).EndInit();
-            this.tabControl_playerSelection.ResumeLayout(false);
+            this.tabGroup_PlayersSection.ResumeLayout(false);
             this.tab_bannedPlayers.ResumeLayout(false);
             this.tab_bannedPlayers.PerformLayout();
             this.group_addBan.ResumeLayout(false);
@@ -3298,11 +3297,11 @@ namespace HawkSync_RC
             this.group_banDetails.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_bannedPlayerList)).EndInit();
             this.tab_vpnSettings.ResumeLayout(false);
-            this.group_vpnWhitelist.ResumeLayout(false);
-            this.group_vpnWhitelist.PerformLayout();
+            this.groupBox_vpnWhiteList.ResumeLayout(false);
+            this.groupBox_vpnWhiteList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grid_vpn_allowlist)).EndInit();
-            this.group_vpnSettings.ResumeLayout(false);
-            this.group_vpnSettings.PerformLayout();
+            this.groupBox_vpnSettings.ResumeLayout(false);
+            this.groupBox_vpnSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.value_vpn_abuselevel)).EndInit();
             this.tab_warnMsgs.ResumeLayout(false);
             this.groupBox_playerWarnMsg.ResumeLayout(false);
@@ -3395,7 +3394,7 @@ namespace HawkSync_RC
 
         private System.Windows.Forms.TabControl serverManager_container;
         private System.Windows.Forms.TabPage page_players;
-        private System.Windows.Forms.TabControl tabControl_playerSelection;
+        private System.Windows.Forms.TabControl tabGroup_PlayersSection;
         private System.Windows.Forms.TabPage tab_bannedPlayers;
         private System.Windows.Forms.GroupBox group_addBan;
         private System.Windows.Forms.TextBox text_abIPAddress;
@@ -3418,13 +3417,13 @@ namespace HawkSync_RC
         private System.Windows.Forms.Label label_banSearch;
         private System.Windows.Forms.DataGridView grid_bannedPlayerList;
         private System.Windows.Forms.TabPage tab_vpnSettings;
-        private System.Windows.Forms.GroupBox group_vpnWhitelist;
+        private System.Windows.Forms.GroupBox groupBox_vpnWhiteList;
         private System.Windows.Forms.TextBox textBox_vpnAddress;
         private System.Windows.Forms.TextBox textBox_vpnDescription;
         private System.Windows.Forms.Label label_vpnAddress;
         private System.Windows.Forms.Label label_vpnDescription;
         private System.Windows.Forms.DataGridView grid_vpn_allowlist;
-        private System.Windows.Forms.GroupBox group_vpnSettings;
+        private System.Windows.Forms.GroupBox groupBox_vpnSettings;
         private System.Windows.Forms.Label label_vpn_abuse;
         private System.Windows.Forms.NumericUpDown value_vpn_abuselevel;
         private System.Windows.Forms.CheckBox checkBox_vpn_disallow;

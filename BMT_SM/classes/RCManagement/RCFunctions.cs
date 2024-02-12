@@ -11,7 +11,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM.RCClasses
 {
@@ -1851,14 +1850,6 @@ namespace HawkSync_SM.RCClasses
                     newEntryCmd.Dispose();
                     db.Close();
                     db.Dispose();
-
-                    if (ProgramConfig.EnableWFB)
-                    {
-                        // Add Firewall Rules
-                        _state.Instances[InstanceIndex].Firewall.AllowTraffic(_state.Instances[InstanceIndex].GameName, _state.Instances[InstanceIndex].GamePath);
-                        _state.Instances[InstanceIndex].Firewall.DenyTraffic(_state.Instances[InstanceIndex].GameName, _state.Instances[InstanceIndex].GamePath, _state.Instances[InstanceIndex].BanList);
-                    }
-
                     _state.RCLogs.Add(new RCLogs
                     {
                         Action = "UpdateFriendlyFireKills",
@@ -1898,11 +1889,6 @@ namespace HawkSync_SM.RCClasses
                     }
                 }
                 _state.ApplicationProcesses[InstanceIndex].Kill();
-
-                // Call Regardless
-                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].GameName, "Allow");
-                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].GameName, "Deny");
-
                 SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                 db.Open();
 
@@ -3640,15 +3626,6 @@ namespace HawkSync_SM.RCClasses
             {
                 return RCListenerClass.StatusCodes.FAILURE;
             }
-        }
-
-        public RCListenerClass.StatusCodes EnableVPNCheck(int InstanceID, string sessionid)
-        {
-            if (ProgramConfig.EnableVPNCheck)
-            {
-                return RCListenerClass.StatusCodes.SUCCESS;
-            }
-            return RCListenerClass.StatusCodes.FAILURE;
         }
 
         public RCListenerClass.StatusCodes AddVPN(int InstanceID, string description, string address, string sessionid)

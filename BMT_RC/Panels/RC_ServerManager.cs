@@ -2658,29 +2658,5 @@ namespace HawkSync_RC
 
             return;
         }
-
-        private void event_enterVPNsettings(object sender, EventArgs e)
-        {
-            Dictionary<string, dynamic> request = new Dictionary<string, dynamic>()
-            {
-                { "action", "BMTRC.EnableVPNCheck" },
-                { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id }
-            };
-            Dictionary<string, dynamic> response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
-
-            if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
-            {
-                group_vpnSettings.Enabled = true;
-                group_vpnWhitelist.Enabled = true;
-            }
-            else
-            {
-                group_vpnSettings.Enabled = false;
-                group_vpnWhitelist.Enabled = false;
-                MessageBox.Show("VPN Checking is not enabled on this server.\n", "Error");
-                return;
-            }
-        }
     }
 }

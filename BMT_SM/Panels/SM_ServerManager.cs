@@ -3365,16 +3365,5 @@ namespace HawkSync_SM
                 _state.Instances[ArrayID].AutoMessages.MsgNumber = 0;
             }
         }
-
-        private void event_enterVPNsettings(object sender, EventArgs e)
-        {
-            if (ProgramConfig.EnableVPNCheck == false)
-            {
-                group_vpnSettings.Enabled = false;
-                group_vpnWhitelist.Enabled = false;
-                MessageBox.Show("VPN Checking is not enabled on this server.\n", "Error");
-                return;
-            }
-        }
     }
 }

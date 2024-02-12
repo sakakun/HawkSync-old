@@ -20,7 +20,7 @@ namespace HawkSync_SM
         // IP/Firewall Management
         public static string PublicIP { get; set; }
         public static bool EnableVPNCheck { get; set; }
-        public static bool EnableWFB { get; set; }
+        public static bool EnableWFM { get; set; } = false;
         public static string ip_quality_score_apikey { get; set; }
         
 

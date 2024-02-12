@@ -974,13 +974,10 @@ namespace HawkSync_SM
                 serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, ArrayID);
                 _state.Instances[ArrayID].AutoMessages.NextMessage = DateTime.Now.AddMinutes(1.0);
 
-                if(ProgramConfig.EnableWFB)
-                {
-                    // Add Firewall Rules
-                    _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
-                    _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
-                }
-                
+                // Add Firewall Rules
+                _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
+                _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
+
                 this.Close();
             } catch (Exception ex)
             {

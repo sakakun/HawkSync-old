@@ -1,20 +1,31 @@
 ﻿using HawkSync_SM.classes;
 using HawkSync_SM.classes.ChatManagement;
 using HawkSync_SM.classes.logs;
+using HawkSync_SM.classes.Plugins.pl_VoteMaps;
+using HawkSync_SM.classes.Plugins.pl_WelcomePlayer;
 using HawkSync_SM.RCClasses;
+using log4net.Util.TypeConverters;
+using Microsoft.VisualBasic.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Management;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using WatsonTcp;
+using static System.Windows.Forms.AxHost;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_SM
@@ -838,10 +849,6 @@ namespace HawkSync_SM
             onLoad_configProfileList();
 
             hawkSyncDB.Open();
-
-            // Load Core IP Configurations
-            ipManagement.initIPManagement_ProgramConfig(hawkSyncDB);
-
             SQLiteCommand warnlevelquery = new SQLiteCommand("SELECT `warnlevel` FROM `instances_config` WHERE `profile_id` = @profileid;", hawkSyncDB);
             foreach (var item in _state.Instances)
             {
@@ -954,7 +961,7 @@ namespace HawkSync_SM
          */
         private void event_openOptionsPanel(object sender, EventArgs e)
         {
-            SM_Options op = new SM_Options(_state);
+            Options op = new Options(_state);
             op.ShowDialog();
         }
         /*
@@ -1143,11 +1150,8 @@ namespace HawkSync_SM
                 p.Kill();
                 p.Dispose();
                 event_serverOffline();
-
-                // Call regardless.
                 instance.Firewall.DeleteFirewallRules(instance.GameName, "Allow");
                 instance.Firewall.DeleteFirewallRules(instance.GameName, "Deny");
-                
                 return;
             }
 
@@ -1798,6 +1802,7 @@ namespace HawkSync_SM
 
             return playerBanList;
         }
+
 
         // Functions to Remove
         private Dictionary<int, monthlystats> onload_getStatsFromDB(SQLiteConnection gametype_db)
