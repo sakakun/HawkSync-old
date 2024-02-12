@@ -40,6 +40,25 @@ namespace HawkSync_SM
 
         }
 
+        public void initIPManagement_ProgramConfig(SQLiteConnection hawkSyncDB)
+        {
+            SQLiteCommand checkVPNQuery = new SQLiteCommand("SELECT `value` FROM `config` WHERE `key` = @key;", hawkSyncDB);
+            checkVPNQuery.Parameters.AddWithValue("@key", "enable_vpnChecking");
+            int checkVPN = Convert.ToInt32(checkVPNQuery.ExecuteScalar());
+            ProgramConfig.EnableVPNCheck = Convert.ToBoolean(checkVPN);
+
+            checkVPNQuery = new SQLiteCommand("SELECT `value` FROM `config` WHERE `key` = @key;", hawkSyncDB);
+            checkVPNQuery.Parameters.AddWithValue("@key", "enable_wfb");
+            int EnableWFB = Convert.ToInt32(checkVPNQuery.ExecuteScalar());
+            ProgramConfig.EnableWFB = Convert.ToBoolean(EnableWFB);
+
+            checkVPNQuery.Parameters.AddWithValue("@key", "ip_quality_score_apikey");
+            string apikey = checkVPNQuery.ExecuteScalar().ToString();
+            ProgramConfig.ip_quality_score_apikey = apikey;
+
+            checkVPNQuery.Dispose();
+        }
+
         public List<ipqualityClass> cache_loadIPQuality(int profileid, SQLiteConnection db)
         {
             List<ipqualityClass> loadCache = new List<ipqualityClass>();
@@ -87,43 +106,30 @@ namespace HawkSync_SM
         public Dictionary<int, ob_ipWhitelist> cache_loadWhitelist(int ArrayID, int InstanceID, SQLiteConnection db)
         {
             Dictionary<int, ob_ipWhitelist> WhiteList = new Dictionary<int, ob_ipWhitelist>();
-            SQLiteCommand checkVPNQuery = new SQLiteCommand("SELECT `value` FROM `config` WHERE `key` = @key;", db);
-            checkVPNQuery.Parameters.AddWithValue("@key", "check_for_vpn");
-            int checkVPN = Convert.ToInt32(checkVPNQuery.ExecuteScalar());
-            ProgramConfig.EnableVPNCheck = Convert.ToBoolean(checkVPN);
-            if (checkVPN == 1)
+            
+            // Build this regardless, incase it has to be turned off but don't want to loose the settings.
+            SQLiteCommand query = new SQLiteCommand("SELECT `description`, `address` FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
+            query.Parameters.AddWithValue("@profileid", InstanceID);
+            SQLiteDataReader list = query.ExecuteReader();
+            bool hasRows = list.HasRows;
+            if (hasRows == true)
             {
-                checkVPNQuery.Parameters.AddWithValue("@key", "ip_quality_score_apikey");
-                string apikey = checkVPNQuery.ExecuteScalar().ToString();
-                ProgramConfig.ip_quality_score_apikey = apikey;
-                SQLiteCommand query = new SQLiteCommand("SELECT `description`, `address` FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
-                query.Parameters.AddWithValue("@profileid", InstanceID);
-                SQLiteDataReader list = query.ExecuteReader();
-                bool hasRows = list.HasRows;
-                if (hasRows == true)
+                int Index = 0;
+                while (list.Read())
                 {
-                    int Index = 0;
-                    while (list.Read())
+                    string description = list.GetString(list.GetOrdinal("description"));
+                    IPAddress address = IPAddress.Parse(list.GetString(list.GetOrdinal("address")));
+                    WhiteList.Add(Index, new ob_ipWhitelist
                     {
-                        string description = list.GetString(list.GetOrdinal("description"));
-                        IPAddress address = IPAddress.Parse(list.GetString(list.GetOrdinal("address")));
-                        WhiteList.Add(Index, new ob_ipWhitelist
-                        {
-                            Description = description,
-                            IPAddress = address.ToString()
-                        });
-                        Index++;
-                    }
+                        Description = description,
+                        IPAddress = address.ToString()
+                    });
+                    Index++;
                 }
-                list.Close();
-                query.Dispose();
-                checkVPNQuery.Dispose();
-                return WhiteList;
             }
-            else
-            {
-                return new Dictionary<int, ob_ipWhitelist>();
-            }
+            list.Close();
+            query.Dispose();
+            return WhiteList;
         }
 
         public string IPQualityCheck(string ipaddress)
@@ -142,7 +148,8 @@ namespace HawkSync_SM
 
         public void Check4VPN(ref AppState _state, int ArrayID)
         {
-            if (!_state.Instances[ArrayID].enableVPNCheck)
+            // This will confirm if the Global VPN checking is allowed and if the instance has it enabled.
+            if (!_state.Instances[ArrayID].enableVPNCheck || !ProgramConfig.EnableVPNCheck)
                 return;
 
             foreach (var playerData in _state.Instances[ArrayID].PlayerList)

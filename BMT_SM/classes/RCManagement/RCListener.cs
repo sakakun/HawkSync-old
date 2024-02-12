@@ -422,6 +422,17 @@ namespace HawkSync_SM
 
                         var jsonUpdateMapCycle = JsonConvert.SerializeObject(reply);
                         return Encoding.ASCII.GetBytes(jsonUpdateMapCycle);
+                    case "BMTRC.EnableVPNCheck":
+                        if (_state.rcClients[json.SessionID].authenticated == true)
+                        {
+                            reply.Add("Status", RCFunctions.EnableVPNCheck(json.serverID, json.SessionID));
+                        }
+                        else
+                        {
+                            reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
+                        }
+                        var jsonEnableVPNCheck = JsonConvert.SerializeObject(reply);
+                        return Encoding.ASCII.GetBytes(jsonEnableVPNCheck);
                     case "BMTRC.DisableGodMode":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
