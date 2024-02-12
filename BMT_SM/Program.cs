@@ -50,7 +50,6 @@ namespace HawkSync_SM
 
             // Trigger Non-Static Application
             Main_Load loader = new Main_Load();
-
         }
 
         static private bool IsApplicationAllowed()

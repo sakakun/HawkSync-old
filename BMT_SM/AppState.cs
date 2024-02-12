@@ -24,7 +24,6 @@ namespace HawkSync_SM
         public List<RCLogs> RCLogs { get; set; }
         public Dictionary<string, byte[]> imageCache { get; set; }
         public WatsonTcpServer server { get; set; }
-        public List<FirewallRule> FireWall { get; set; }
         public EventLog eventLog { get; set; }
         public Dictionary<int, Process> ApplicationProcesses { get; set; }
         public Dictionary<int, ConsoleQueue> ConsoleQueue { get; set; }
@@ -73,6 +72,7 @@ namespace HawkSync_SM
             };
 
             Mods = new Dictionary<int, ModsClass>();
+
         }
     }
 }

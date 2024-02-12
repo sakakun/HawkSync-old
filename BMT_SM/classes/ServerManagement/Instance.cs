@@ -133,6 +133,7 @@ namespace HawkSync_SM
         public bool IsTeamSabre { get; set; } = false;
         public List<int> modsDetected { get; set; }
         public int Mod { get; set; }
+        public FirewallManagement Firewall { get; set; } = new FirewallManagement();
     }
 
     public enum InstanceStatus

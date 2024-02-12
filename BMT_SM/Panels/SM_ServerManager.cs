@@ -2815,7 +2815,7 @@ namespace HawkSync_SM
             data_chatViewer.ClearSelection();
         }
 
-        private void button12_Click(object sender, EventArgs e)
+        private void event_manualAddBan(object sender, EventArgs e)
         {
             // add new ban
             string playerName = text_adPlayerName.Text;

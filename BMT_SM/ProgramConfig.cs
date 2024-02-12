@@ -17,18 +17,19 @@ namespace HawkSync_SM
         public static int RCPort { get; set; }
         public static bool RCEnabled { get; set; }
         
-        // IP Management
+        // IP/Firewall Management
         public static string PublicIP { get; set; }
-        public static bool Enable_VPNWhiteList { get; set; }
-        public static bool EnableVPNCheck { get; set; }       
+        public static bool EnableVPNCheck { get; set; }
+        public static bool EnableWFM { get; set; } = false;
         public static string ip_quality_score_apikey { get; set; }
         
+
         // Next Checkin Dates
         public static DateTime checkExpiredBans { get; set; }
         public static DateTime NovaStatusCheck { get; set; }
 
         // To Be Removed
         public static int RCFTPPort { get; set; }
-        
+
     }
 }
