@@ -387,11 +387,11 @@
     <Compile Include="Panels\Start_Game.Designer.cs">
       <DependentUpon>Start_Game.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Options.cs">
+    <Compile Include="Panels\SM_Options.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Options.Designer.cs">
-      <DependentUpon>Options.cs</DependentUpon>
+    <Compile Include="Panels\SM_Options.Designer.cs">
+      <DependentUpon>SM_Options.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\SM_ProfileList.cs">
       <SubType>Form</SubType>
@@ -423,12 +423,6 @@
     <EmbeddedResource Include="Panels\SM_ServerProfile.resx">
       <DependentUpon>SM_ServerProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Options.en.resx">
-      <DependentUpon>Options.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Options.fr.resx">
-      <DependentUpon>Options.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Panels\PlayerInfo.resx">
       <DependentUpon>PlayerInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -450,8 +444,8 @@
     <EmbeddedResource Include="Panels\SM_ProfileList.resx">
       <DependentUpon>SM_ProfileList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Options.resx">
-      <DependentUpon>Options.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\SM_Options.resx">
+      <DependentUpon>SM_Options.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -491,6 +485,27 @@
     <Content Include="default.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\bhd.gif" />
+    <Content Include="images\bhdts.gif" />
+    <Content Include="images\bo.gif" />
+    <Content Include="images\dj.gif" />
+    <Content Include="images\hosting.gif" />
+    <Content Include="images\ic.gif" />
+    <Content Include="images\ice.gif" />
+    <Content Include="images\info.png" />
+    <Content Include="images\jo.gif" />
+    <Content Include="images\joe.gif" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\notactive.gif" />
+    <Content Include="images\nothosting.gif" />
+    <Content Include="images\real.gif" />
+    <Content Include="images\scoring.gif" />
+    <Content Include="images\sg.gif" />
+    <Content Include="images\sna.gif" />
+    <Content Include="images\snajo.gif" />
+    <Content Include="images\swat.gif" />
+    <Content Include="images\wot.gif" />
+    <Content Include="images\ipqs.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

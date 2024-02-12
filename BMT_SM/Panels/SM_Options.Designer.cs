@@ -1,7 +1,7 @@
 ﻿
 namespace HawkSync_SM
 {
-    partial class Options
+    partial class SM_Options
     {
         /// <summary>
         /// Required designer variable.
@@ -29,22 +29,22 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_Options));
             this.btn_save = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_general = new System.Windows.Forms.TabPage();
+            this.gb_WindowsFirewall = new System.Windows.Forms.GroupBox();
+            this.pbInfo_WFB = new System.Windows.Forms.PictureBox();
+            this.cb_enableWFB = new System.Windows.Forms.CheckBox();
             this.remoteSettingsBox = new System.Windows.Forms.GroupBox();
             this.num_remotePort = new System.Windows.Forms.NumericUpDown();
             this.label_remotePort = new System.Windows.Forms.Label();
             this.chbox_enableRemote = new System.Windows.Forms.CheckBox();
             this.vpnBox = new System.Windows.Forms.GroupBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.cb_enableVPNChecks = new System.Windows.Forms.CheckBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.ipQualityScore_APIKEY = new System.Windows.Forms.TextBox();
-            this.label_apikey = new System.Windows.Forms.Label();
-            this.label_apiNo = new System.Windows.Forms.Label();
-            this.radio_apibtn2 = new System.Windows.Forms.RadioButton();
-            this.label_apiYes = new System.Windows.Forms.Label();
-            this.radio_apibtn1 = new System.Windows.Forms.RadioButton();
+            this.label_IPQS = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -64,9 +64,12 @@ namespace HawkSync_SM
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage_general.SuspendLayout();
+            this.gb_WindowsFirewall.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbInfo_WFB)).BeginInit();
             this.remoteSettingsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_remotePort)).BeginInit();
             this.vpnBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -76,52 +79,86 @@ namespace HawkSync_SM
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(4, 319);
+            this.btn_save.Location = new System.Drawing.Point(12, 227);
             this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(776, 34);
+            this.btn_save.Size = new System.Drawing.Size(763, 34);
             this.btn_save.TabIndex = 0;
             this.btn_save.Text = "Save and Close";
             this.btn_save.UseVisualStyleBackColor = true;
-            this.btn_save.Click += new System.EventHandler(this.Button1_Click);
+            this.btn_save.Click += new System.EventHandler(this.event_saveClose);
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage_general);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(788, 317);
+            this.tabControl1.Size = new System.Drawing.Size(767, 209);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage_general
             // 
+            this.tabPage_general.Controls.Add(this.gb_WindowsFirewall);
             this.tabPage_general.Controls.Add(this.remoteSettingsBox);
             this.tabPage_general.Controls.Add(this.vpnBox);
             this.tabPage_general.Location = new System.Drawing.Point(4, 22);
             this.tabPage_general.Name = "tabPage_general";
             this.tabPage_general.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_general.Size = new System.Drawing.Size(780, 291);
+            this.tabPage_general.Size = new System.Drawing.Size(759, 183);
             this.tabPage_general.TabIndex = 0;
             this.tabPage_general.Text = "General";
             this.tabPage_general.UseVisualStyleBackColor = true;
+            // 
+            // gb_WindowsFirewall
+            // 
+            this.gb_WindowsFirewall.Controls.Add(this.pbInfo_WFB);
+            this.gb_WindowsFirewall.Controls.Add(this.cb_enableWFB);
+            this.gb_WindowsFirewall.Location = new System.Drawing.Point(522, 103);
+            this.gb_WindowsFirewall.Name = "gb_WindowsFirewall";
+            this.gb_WindowsFirewall.Size = new System.Drawing.Size(231, 50);
+            this.gb_WindowsFirewall.TabIndex = 14;
+            this.gb_WindowsFirewall.TabStop = false;
+            this.gb_WindowsFirewall.Text = "Windows Firewall Settings";
+            // 
+            // pbInfo_WFB
+            // 
+            this.pbInfo_WFB.Image = global::HawkSync_SM.Properties.Resources.info;
+            this.pbInfo_WFB.Location = new System.Drawing.Point(15, 21);
+            this.pbInfo_WFB.Name = "pbInfo_WFB";
+            this.pbInfo_WFB.Size = new System.Drawing.Size(16, 16);
+            this.pbInfo_WFB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbInfo_WFB.TabIndex = 15;
+            this.pbInfo_WFB.TabStop = false;
+            // 
+            // cb_enableWFB
+            // 
+            this.cb_enableWFB.AutoSize = true;
+            this.cb_enableWFB.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_enableWFB.Location = new System.Drawing.Point(77, 21);
+            this.cb_enableWFB.Name = "cb_enableWFB";
+            this.cb_enableWFB.Size = new System.Drawing.Size(148, 17);
+            this.cb_enableWFB.TabIndex = 0;
+            this.cb_enableWFB.Text = "Allow Banning via Firewall";
+            this.cb_enableWFB.UseVisualStyleBackColor = true;
             // 
             // remoteSettingsBox
             // 
             this.remoteSettingsBox.Controls.Add(this.num_remotePort);
             this.remoteSettingsBox.Controls.Add(this.label_remotePort);
             this.remoteSettingsBox.Controls.Add(this.chbox_enableRemote);
-            this.remoteSettingsBox.Location = new System.Drawing.Point(519, 6);
+            this.remoteSettingsBox.Location = new System.Drawing.Point(522, 6);
             this.remoteSettingsBox.Name = "remoteSettingsBox";
-            this.remoteSettingsBox.Size = new System.Drawing.Size(255, 97);
+            this.remoteSettingsBox.Size = new System.Drawing.Size(231, 91);
             this.remoteSettingsBox.TabIndex = 13;
             this.remoteSettingsBox.TabStop = false;
             this.remoteSettingsBox.Text = "Remote Management Settings";
             // 
             // num_remotePort
             // 
-            this.num_remotePort.Location = new System.Drawing.Point(26, 54);
+            this.num_remotePort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.num_remotePort.Location = new System.Drawing.Point(162, 47);
             this.num_remotePort.Maximum = new decimal(new int[] {
             65565,
             0,
@@ -144,9 +181,10 @@ namespace HawkSync_SM
             // 
             // label_remotePort
             // 
+            this.label_remotePort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_remotePort.AutoSize = true;
             this.label_remotePort.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label_remotePort.Location = new System.Drawing.Point(95, 57);
+            this.label_remotePort.Location = new System.Drawing.Point(54, 49);
             this.label_remotePort.Name = "label_remotePort";
             this.label_remotePort.Size = new System.Drawing.Size(102, 13);
             this.label_remotePort.TabIndex = 17;
@@ -154,95 +192,70 @@ namespace HawkSync_SM
             // 
             // chbox_enableRemote
             // 
-            this.chbox_enableRemote.Location = new System.Drawing.Point(75, 20);
+            this.chbox_enableRemote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chbox_enableRemote.AutoSize = true;
+            this.chbox_enableRemote.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chbox_enableRemote.Location = new System.Drawing.Point(88, 24);
             this.chbox_enableRemote.Name = "chbox_enableRemote";
-            this.chbox_enableRemote.Size = new System.Drawing.Size(147, 34);
+            this.chbox_enableRemote.Size = new System.Drawing.Size(137, 17);
             this.chbox_enableRemote.TabIndex = 16;
             this.chbox_enableRemote.Text = "Enable Remote Access";
             this.chbox_enableRemote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // vpnBox
             // 
-            this.vpnBox.Controls.Add(this.linkLabel1);
+            this.vpnBox.Controls.Add(this.cb_enableVPNChecks);
+            this.vpnBox.Controls.Add(this.pictureBox2);
             this.vpnBox.Controls.Add(this.ipQualityScore_APIKEY);
-            this.vpnBox.Controls.Add(this.label_apikey);
-            this.vpnBox.Controls.Add(this.label_apiNo);
-            this.vpnBox.Controls.Add(this.radio_apibtn2);
-            this.vpnBox.Controls.Add(this.label_apiYes);
-            this.vpnBox.Controls.Add(this.radio_apibtn1);
-            this.vpnBox.Location = new System.Drawing.Point(275, 6);
+            this.vpnBox.Controls.Add(this.label_IPQS);
+            this.vpnBox.Location = new System.Drawing.Point(8, 6);
             this.vpnBox.Name = "vpnBox";
-            this.vpnBox.Size = new System.Drawing.Size(238, 97);
+            this.vpnBox.Size = new System.Drawing.Size(238, 147);
             this.vpnBox.TabIndex = 12;
             this.vpnBox.TabStop = false;
-            this.vpnBox.Text = "Check for VPN";
+            this.vpnBox.Text = "VPN Monitoring";
             // 
-            // linkLabel1
+            // cb_enableVPNChecks
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(137, 77);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(100, 13);
-            this.linkLabel1.TabIndex = 6;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "IPQualityScore.com";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.cb_enableVPNChecks.AutoSize = true;
+            this.cb_enableVPNChecks.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_enableVPNChecks.Location = new System.Drawing.Point(104, 24);
+            this.cb_enableVPNChecks.Name = "cb_enableVPNChecks";
+            this.cb_enableVPNChecks.Size = new System.Drawing.Size(128, 17);
+            this.cb_enableVPNChecks.TabIndex = 15;
+            this.cb_enableVPNChecks.Text = "Allow VPN Monitoring";
+            this.cb_enableVPNChecks.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cb_enableVPNChecks.UseVisualStyleBackColor = true;
+            this.cb_enableVPNChecks.CheckedChanged += new System.EventHandler(this.event_vpnCheckingChanged);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::HawkSync_SM.Properties.Resources.ipqs;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 55);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 14;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.link_Browse2IPQS);
             // 
             // ipQualityScore_APIKEY
             // 
-            this.ipQualityScore_APIKEY.Location = new System.Drawing.Point(58, 43);
+            this.ipQualityScore_APIKEY.Enabled = false;
+            this.ipQualityScore_APIKEY.Location = new System.Drawing.Point(6, 71);
             this.ipQualityScore_APIKEY.Name = "ipQualityScore_APIKEY";
-            this.ipQualityScore_APIKEY.Size = new System.Drawing.Size(174, 20);
+            this.ipQualityScore_APIKEY.Size = new System.Drawing.Size(226, 20);
             this.ipQualityScore_APIKEY.TabIndex = 5;
             // 
-            // label_apikey
+            // label_IPQS
             // 
-            this.label_apikey.AutoSize = true;
-            this.label_apikey.Location = new System.Drawing.Point(7, 46);
-            this.label_apikey.Name = "label_apikey";
-            this.label_apikey.Size = new System.Drawing.Size(45, 13);
-            this.label_apikey.TabIndex = 4;
-            this.label_apikey.Text = "API Key";
-            // 
-            // label_apiNo
-            // 
-            this.label_apiNo.AutoSize = true;
-            this.label_apiNo.Location = new System.Drawing.Point(151, 21);
-            this.label_apiNo.Name = "label_apiNo";
-            this.label_apiNo.Size = new System.Drawing.Size(21, 13);
-            this.label_apiNo.TabIndex = 3;
-            this.label_apiNo.Text = "No";
-            // 
-            // radio_apibtn2
-            // 
-            this.radio_apibtn2.AutoSize = true;
-            this.radio_apibtn2.Location = new System.Drawing.Point(135, 21);
-            this.radio_apibtn2.Name = "radio_apibtn2";
-            this.radio_apibtn2.Size = new System.Drawing.Size(14, 13);
-            this.radio_apibtn2.TabIndex = 2;
-            this.radio_apibtn2.TabStop = true;
-            this.radio_apibtn2.UseVisualStyleBackColor = true;
-            this.radio_apibtn2.Click += new System.EventHandler(this.radioButton2_Click);
-            // 
-            // label_apiYes
-            // 
-            this.label_apiYes.AutoSize = true;
-            this.label_apiYes.Location = new System.Drawing.Point(87, 21);
-            this.label_apiYes.Name = "label_apiYes";
-            this.label_apiYes.Size = new System.Drawing.Size(25, 13);
-            this.label_apiYes.TabIndex = 1;
-            this.label_apiYes.Text = "Yes";
-            // 
-            // radio_apibtn1
-            // 
-            this.radio_apibtn1.AutoSize = true;
-            this.radio_apibtn1.Location = new System.Drawing.Point(71, 21);
-            this.radio_apibtn1.Name = "radio_apibtn1";
-            this.radio_apibtn1.Size = new System.Drawing.Size(14, 13);
-            this.radio_apibtn1.TabIndex = 0;
-            this.radio_apibtn1.TabStop = true;
-            this.radio_apibtn1.UseVisualStyleBackColor = true;
-            this.radio_apibtn1.Click += new System.EventHandler(this.radioButton1_Click);
+            this.label_IPQS.AutoSize = true;
+            this.label_IPQS.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.label_IPQS.Location = new System.Drawing.Point(102, 55);
+            this.label_IPQS.Name = "label_IPQS";
+            this.label_IPQS.Size = new System.Drawing.Size(130, 13);
+            this.label_IPQS.TabIndex = 4;
+            this.label_IPQS.Text = "IP Quality Score (API Key)";
             // 
             // tabPage1
             // 
@@ -251,7 +264,7 @@ namespace HawkSync_SM
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(780, 291);
+            this.tabPage1.Size = new System.Drawing.Size(759, 183);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Mods";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -421,29 +434,33 @@ namespace HawkSync_SM
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(780, 291);
+            this.tabPage2.Size = new System.Drawing.Size(759, 183);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "About";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // Options
+            // SM_Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 357);
+            this.ClientSize = new System.Drawing.Size(791, 271);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_save);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Options";
+            this.Name = "SM_Options";
             this.Text = "Babstats Multi-Tracker - Options";
             this.Load += new System.EventHandler(this.Options_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage_general.ResumeLayout(false);
+            this.gb_WindowsFirewall.ResumeLayout(false);
+            this.gb_WindowsFirewall.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbInfo_WFB)).EndInit();
             this.remoteSettingsBox.ResumeLayout(false);
             this.remoteSettingsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_remotePort)).EndInit();
             this.vpnBox.ResumeLayout(false);
             this.vpnBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -460,13 +477,8 @@ namespace HawkSync_SM
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_general;
         private System.Windows.Forms.GroupBox vpnBox;
-        private System.Windows.Forms.Label label_apiNo;
-        private System.Windows.Forms.RadioButton radio_apibtn2;
-        private System.Windows.Forms.Label label_apiYes;
-        private System.Windows.Forms.RadioButton radio_apibtn1;
         private System.Windows.Forms.TextBox ipQualityScore_APIKEY;
-        private System.Windows.Forms.Label label_apikey;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label_IPQS;
         private System.Windows.Forms.GroupBox remoteSettingsBox;
         private System.Windows.Forms.NumericUpDown num_remotePort;
         private System.Windows.Forms.Label label_remotePort;
@@ -488,5 +500,10 @@ namespace HawkSync_SM
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.GroupBox gb_WindowsFirewall;
+        private System.Windows.Forms.CheckBox cb_enableWFB;
+        private System.Windows.Forms.CheckBox cb_enableVPNChecks;
+        private System.Windows.Forms.PictureBox pbInfo_WFB;
     }
 }
