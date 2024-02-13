@@ -1,5 +1,4 @@
 ﻿using HawkSync_SM.classes.ChatManagement;
-using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
