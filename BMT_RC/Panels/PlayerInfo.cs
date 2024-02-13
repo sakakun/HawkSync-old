@@ -1,15 +1,11 @@
-﻿using System;
+﻿using HawkSync_RC.classes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using HawkSync_RC.classes;
-using Newtonsoft.Json;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_RC
@@ -172,7 +168,7 @@ namespace HawkSync_RC
                 label21.Text = "N/A - VPN Check Disabled";
                 label22.Text = "N/A - VPN Check Disabled";
             }
-            
+
             // check VPN whitelist
             label20.Text = "False";
             for (int whitelist = 0; whitelist < _state.Instances[ArrayID].VPNWhiteList.Count; whitelist++)
@@ -183,7 +179,7 @@ namespace HawkSync_RC
                     break;
                 }
             }
-            
+
             for (int banned = 0; banned < _state.Instances[ArrayID].BanList.Count; banned++)
             {
                 if (_state.Instances[ArrayID].BanList[banned].ipaddress == _state.Instances[ArrayID].PlayerList[playerSlot].address)

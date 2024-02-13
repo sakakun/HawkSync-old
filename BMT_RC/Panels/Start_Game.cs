@@ -2,12 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HawkSync_RC
@@ -189,15 +184,18 @@ namespace HawkSync_RC
             {
                 MessageBox.Show("Please enter a valid Server Name!", "Error");
                 return;
-            } else if (string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            }
+            else if (string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
             {
                 MessageBox.Show("Please enter a valid MOTD!", "Error");
                 return;
-            } else if (string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrWhiteSpace(textBox3.Text) || textBox3.TextLength > 2)
+            }
+            else if (string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrWhiteSpace(textBox3.Text) || textBox3.TextLength > 2)
             {
                 MessageBox.Show("Please enter a valid 2 character Country Code!", "Error");
                 return;
-            } else if (listBox2.Items.Count == 0)
+            }
+            else if (listBox2.Items.Count == 0)
             {
                 MessageBox.Show("Please enter at least 1 start up map!", "Error");
                 return;

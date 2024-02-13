@@ -1,21 +1,21 @@
-﻿using Newtonsoft.Json;
+﻿using Equin.ApplicationFramework;
+using HawkSync_RC.classes;
+using HawkSync_RC.classes.RCClasses;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
-using HawkSync_RC.classes;
 using System.Net;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
-using HawkSync_RC.classes.RCClasses;
+using System.Windows.Forms;
 using TextBox = System.Windows.Forms.TextBox;
-using Equin.ApplicationFramework;
+using Timer = System.Windows.Forms.Timer;
 /*
 using System.Threading.Tasks;
 using WatsonTcp;
@@ -38,7 +38,7 @@ namespace HawkSync_RC
         DataTable ChatLogTable;
         DataTable searchBannedTable;
         DataTable VPNWhiteListTable;
-        
+
         Timer playerTableTimer;
 
         int ArrayID = -1;
@@ -71,19 +71,19 @@ namespace HawkSync_RC
         const int PROCESS_VM_OPERATION = 0x0008;
         const int PROCESS_QUERY_INFORMATION = 0x0400;
 
-		/* Server Manager Run */
+        /* Server Manager Run */
         public RC_ServerManager(AppState state, RCSetup setup, int profileid)
         {
             InitializeComponent();
             _state = state;
-            
-			RCSetup = setup;
+
+            RCSetup = setup;
             ArrayID = profileid;
             playersTable = new DataTable();
             bannedTable = new DataTable();
             ChatLogTable = new DataTable();
             VPNWhiteListTable = new DataTable();
-			
+
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
@@ -92,10 +92,10 @@ namespace HawkSync_RC
                 playerTableTimer.Interval = 1000; // auto refresh 1 second
             }
             ).Start();
-            
+
         }
-        		
-		/* Server Manager Load Settings (Called by InitializeComponent(); */
+
+        /* Server Manager Load Settings (Called by InitializeComponent(); */
         private void ServerManager_Load(object sender, EventArgs e)
         {
             // players table
@@ -136,7 +136,8 @@ namespace HawkSync_RC
                     if ((DateTime.Parse(bannedPlayer.expires) - DateTime.Now).TotalDays > 2)
                     {
                         newRow["Time Remaining"] = (DateTime.Parse(bannedPlayer.expires) - DateTime.Now).Days + " Days";
-                    }else if ((DateTime.Parse(bannedPlayer.expires) - DateTime.Now).TotalDays > 1.5)
+                    }
+                    else if ((DateTime.Parse(bannedPlayer.expires) - DateTime.Now).TotalDays > 1.5)
                     {
                         newRow["Time Remaining"] = "2 Days";
                     }
@@ -371,7 +372,8 @@ namespace HawkSync_RC
                     {
                         HostAddr -= 0x29C;
                         continue;
-                    }else if (tryHostName == _state.Instances[ArrayID].HostName)
+                    }
+                    else if (tryHostName == _state.Instances[ArrayID].HostName)
                     {
                         break;
                     }
@@ -388,7 +390,7 @@ namespace HawkSync_RC
             RCSetup.SpectateTimer.Tick += SpectateTimer_Tick;
         }
 
-		/* Server Manager Setup Tables */
+        /* Server Manager Setup Tables */
         private void SetupPlayersTable()
         {
             grid_playerList.Columns["Slot #"].Width = 45;
@@ -410,13 +412,13 @@ namespace HawkSync_RC
             grid_bannedPlayerList.Columns["Time Remaining"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             grid_bannedPlayerList.Columns["Time Remaining"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
-		/* Server Manager Setup Tables END*/	
-		
-		/* Player Ticker Functions
+        /* Server Manager Setup Tables END*/
+
+        /* Player Ticker Functions
 		*  - This ticker also updates the other lists within the Server Window
 		*  - Informational Only - No Return Statements to Server Manager
 		*/
-		private void PlayerTableTimer_Tick(object sender, EventArgs e)
+        private void PlayerTableTimer_Tick(object sender, EventArgs e)
         {
             UpdatePlayerlist();
             UpdatePlayerCounter();
@@ -425,7 +427,7 @@ namespace HawkSync_RC
             UpdateCurrentMap();
             UpdatePlayerAddress();
         }
-		
+
         private void UpdatePlayerlist()
         {
             if (playersTable.Rows.Count == _state.Instances[ArrayID].PlayerList.Count)
@@ -535,7 +537,7 @@ namespace HawkSync_RC
             }
             UpdatePlayerTeamColors();
         }
-		
+
         private void UpdatePlayerTeamColors()
         { /* Called by UpdatePlayerlist() */
             for (int i = 1; i < playersTable.Rows.Count; i++)
@@ -602,7 +604,8 @@ namespace HawkSync_RC
                         toolStripMenuItem133.DropDownItems.Add(warningItem, null, SendPlayerWarning);
                     }
                 }
-            }else if (_state.Instances[ArrayID].CustomWarnings.Count < toolStripMenuItem133.DropDownItems.Count)
+            }
+            else if (_state.Instances[ArrayID].CustomWarnings.Count < toolStripMenuItem133.DropDownItems.Count)
             {
                 List<int> removeList = new List<int>();
                 foreach (ToolStripItem warningMenuItem in toolStripMenuItem133.DropDownItems)
@@ -634,7 +637,7 @@ namespace HawkSync_RC
         {
             ChatLogMessages.DataSource = _state.ChatLogs[ArrayID].Messages;
         }
-       
+
         private void UpdateCurrentMap()
         {
             label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
@@ -687,10 +690,10 @@ namespace HawkSync_RC
                 }
             }
         }
-		/* Player Ticker Functions END */
+        /* Player Ticker Functions END */
 
 
-		/* Server Manager: Players Tab
+        /* Server Manager: Players Tab
 		*  - Current Player List & Right Click Menu
 		*  - Banned Players
 		*  - VPN Settings
@@ -699,7 +702,7 @@ namespace HawkSync_RC
 		*    - Player Spectating
 		*/
 
-		// Players Tab: Players List
+        // Players Tab: Players List
         private void playerList_menuToggle(object sender, MouseEventArgs e)
         { /* Player List Context Menu, Called by grid_playerList Mouse Click */
             if (e.Button == MouseButtons.Right)
@@ -721,23 +724,25 @@ namespace HawkSync_RC
                 }
             }
         }
-			
-		private void playerListAction_click(object sender, EventArgs e, string action, bool permBan = false)
-		{ /* PlayerList Menu - Kick Player, Called by kickPlayer_reason* */
+
+        private void playerListAction_click(object sender, EventArgs e, string action, bool permBan = false)
+        { /* PlayerList Menu - Kick Player, Called by kickPlayer_reason* */
             string textValue = "";
             DateTime dateTime = DateTime.Now;
 
             if (sender is ToolStripMenuItem clickedItem)
-			{
-				textValue = clickedItem.Text;
-					
-			} else if (sender is ToolStripTextBox reasonBox)
+            {
+                textValue = clickedItem.Text;
+
+            }
+            else if (sender is ToolStripTextBox reasonBox)
             {
                 if (reasonBox.Text == "Custom Reason" || reasonBox.Text == string.Empty)
                 {
                     reasonBox.Text = "Custom Reason";
                     return;
-                } else
+                }
+                else
                 {
                     playerList_contextMenu.Hide();
                     textValue = reasonBox.Text;
@@ -784,7 +789,7 @@ namespace HawkSync_RC
 
         // Players Tab: Banned Players
         // Players Tab: VPN Settings
-		private void RequestVPNWarnLevel(int id)
+        private void RequestVPNWarnLevel(int id)
         {
             if (!_state.IPQualityScore.ContainsKey(ArrayID))
             {
@@ -808,8 +813,8 @@ namespace HawkSync_RC
                 return;
             }
         }
-		
-		
+
+
         // Players Tab: Warning Messages
         private void playerWarn_doubleClick(object sender, EventArgs e)
         { /* Delete Warning Message, Called by listBox_playerWarnMessages Double Click */
@@ -870,8 +875,8 @@ namespace HawkSync_RC
             }
         }
 
-		// Players Tab - Supporting Functions
-		private void SendPlayerWarning(object sender, EventArgs e)
+        // Players Tab - Supporting Functions
+        private void SendPlayerWarning(object sender, EventArgs e)
         {
             int selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
             ToolStripItem button = (ToolStripItem)sender;
@@ -895,8 +900,8 @@ namespace HawkSync_RC
             }
         }
 
-		
-		// Players Tab: Misc (Spectating)
+
+        // Players Tab: Misc (Spectating)
         private void SpectateTimer_Tick(object sender, EventArgs e)
         {
             byte[] playerNameBytes = new byte[30];
@@ -904,7 +909,7 @@ namespace HawkSync_RC
             ReadProcessMemory((int)RCSetup.GameHandle, RCSetup.spectateAddress + 0xC8, playerNameBytes, playerNameBytes.Length, ref playerNameRead);
             string spectatePlayerName = Encoding.Default.GetString(playerNameBytes);
             spectatePlayerName = spectatePlayerName.Remove(spectatePlayerName.IndexOf('\0'));
-            
+
             // detect if I'm dead? - Reset
             byte[] myPlayerHealthBytes = new byte[4];
             int myPlayerHealthRead = 0;
@@ -912,7 +917,7 @@ namespace HawkSync_RC
             int myPlayerHealth = BitConverter.ToInt32(myPlayerHealthBytes, 0);
 
             // reset SpecMod if player disconnects, or server is scoring, or if my player dies
-            if (spectatePlayerName == "" || _state.Instances[ArrayID].Status == InstanceStatus.SCORING || 
+            if (spectatePlayerName == "" || _state.Instances[ArrayID].Status == InstanceStatus.SCORING ||
                 myPlayerHealth == 0 || (myPlayerHealth > 100 && !_state.Instances[ArrayID].GodModeList.Contains(RCSetup.myPlayerSlot)))
             {
                 byte[] blankData = new byte[668];
@@ -937,9 +942,9 @@ namespace HawkSync_RC
                 label_currentSpec.Text = "Spectating: " + RCSetup.spectateName;
             }
         }
-		        
 
-		/* Server Manager: Settings Tab
+
+        /* Server Manager: Settings Tab
 		*	
 		*/
         private void serverSettings_updateSettingsClick(object sender, EventArgs e)
@@ -1283,12 +1288,12 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating DM/TDM Score.");
                 }
             }
-            if ((checkBox40.Checked != _state.Instances[ArrayID].FriendlyFire) || 
-                (cb_showFriendTags.Checked != _state.Instances[ArrayID].FriendlyTags) || 
-                (cb_TeamClays.Checked != _state.Instances[ArrayID].ShowTeamClays) || 
-                (cb_autoBalance.Checked != _state.Instances[ArrayID].AutoBalance) || 
-                (cb_ffWarning.Checked != _state.Instances[ArrayID].FriendlyFireWarning) || 
-                (cb_Tracers.Checked != _state.Instances[ArrayID].ShowTracers) || 
+            if ((checkBox40.Checked != _state.Instances[ArrayID].FriendlyFire) ||
+                (cb_showFriendTags.Checked != _state.Instances[ArrayID].FriendlyTags) ||
+                (cb_TeamClays.Checked != _state.Instances[ArrayID].ShowTeamClays) ||
+                (cb_autoBalance.Checked != _state.Instances[ArrayID].AutoBalance) ||
+                (cb_ffWarning.Checked != _state.Instances[ArrayID].FriendlyFireWarning) ||
+                (cb_Tracers.Checked != _state.Instances[ArrayID].ShowTracers) ||
                 (cb_AutoRange.Checked != _state.Instances[ArrayID].AllowAutoRange))
             {
                 updateList.Add("-- Game Play Options --");
@@ -1598,7 +1603,7 @@ namespace HawkSync_RC
             cbl_weaponSelection.SetItemChecked(13, _state.Instances[ArrayID].WeaponRestrictions.WPN_AT4);
         }
 
-		/* Server Manager: Maps Tab
+        /* Server Manager: Maps Tab
 		*	
 		*/
         private void mapSettingsGameType_changed(object sender, EventArgs e)
@@ -1973,7 +1978,8 @@ namespace HawkSync_RC
                 if (clickedButton.Text == "Up")
                 {
                     direction = -1;
-                } else
+                }
+                else
                 {
                     direction = 1;
                 }
@@ -2030,7 +2036,7 @@ namespace HawkSync_RC
             RC_PopupSaveRotation popup_SaveRotation = new RC_PopupSaveRotation(_state, RCSetup, ArrayID, ref selectedMaps);
             popup_SaveRotation.ShowDialog();
         }
-       
+
         private void mapAction_clickLoadRotation(object sender, EventArgs e)
         {
             // load rotation
@@ -2141,7 +2147,7 @@ namespace HawkSync_RC
             }
             else
             {
-                 playerInfo = bannedTable.Rows[grid_bannedPlayerList.CurrentCell.RowIndex];
+                playerInfo = bannedTable.Rows[grid_bannedPlayerList.CurrentCell.RowIndex];
             }
             Dictionary<string, dynamic> request = new Dictionary<string, dynamic>()
             {
@@ -2162,7 +2168,7 @@ namespace HawkSync_RC
                 {
                     bannedTable.Rows.Remove(playerInfo);
                 }
-                
+
                 MessageBox.Show("Ban has been successfully removed!", "Success");
                 return;
             }
@@ -2538,7 +2544,7 @@ namespace HawkSync_RC
 
         private void chat_dropDownPlayerNameChanged(object sender, EventArgs e)
         {
-            
+
             ChatLogMessages.RemoveFilter();
             ChatLogMessages.ApplyFilter(delegate (PlayerChatLog chatLog)
             {

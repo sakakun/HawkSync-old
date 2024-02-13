@@ -21,7 +21,8 @@ namespace HawkSync_SM
 
         public static void public_ip()
         {
-            try {
+            try
+            {
                 string url = "http://checkip.dyndns.org";
                 System.Net.WebRequest req = System.Net.WebRequest.Create(url);
                 System.Net.WebResponse resp = req.GetResponse();
@@ -32,7 +33,8 @@ namespace HawkSync_SM
                 string[] a3 = a2.Split('<');
                 string a4 = a3[0];
                 ProgramConfig.PublicIP = a4;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 ProgramConfig.PublicIP = "0.0.0.0";
             }
@@ -106,7 +108,7 @@ namespace HawkSync_SM
         public Dictionary<int, ob_ipWhitelist> cache_loadWhitelist(int ArrayID, int InstanceID, SQLiteConnection db)
         {
             Dictionary<int, ob_ipWhitelist> WhiteList = new Dictionary<int, ob_ipWhitelist>();
-            
+
             // Build this regardless, incase it has to be turned off but don't want to loose the settings.
             SQLiteCommand query = new SQLiteCommand("SELECT `description`, `address` FROM `vpnwhitelist` WHERE `profile_id` = @profileid;", db);
             query.Parameters.AddWithValue("@profileid", InstanceID);
@@ -158,7 +160,7 @@ namespace HawkSync_SM
                 {
                     var ipInfo = _state.IPQualityCache[ArrayID].IPInformation.FirstOrDefault(info => info.address == playerData.Value.address);
                     bool isNewAddress = ipInfo == null;
-                    
+
                     if (isNewAddress)
                     {
                         var jsonData = IPQualityCheck(playerData.Value.address);

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using HawkSync_RC.classes;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HawkSync_RC.classes;
 
 namespace HawkSync_RC
 {

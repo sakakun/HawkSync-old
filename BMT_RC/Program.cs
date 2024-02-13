@@ -1,12 +1,7 @@
 ﻿using Salaros.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
 
 namespace HawkSync_RC
 {
@@ -20,39 +15,39 @@ namespace HawkSync_RC
         {
             try
             {
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
 
                 string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Remote Control");
                 if (!Directory.Exists(appDataPath)) { Directory.CreateDirectory(appDataPath); }
 
                 // check remote.ini
                 ConfigParser configFile = new ConfigParser();
-				bool RemoteINIFileExist = File.Exists(ProgramConfig.RemoteINI);
-				if (!RemoteINIFileExist)
-				{
-					configFile.SetValue("Main", "Ban", 0);
-					configFile.SetValue("Main", "BanReason", "\"\"");
-					configFile.SetValue("Main", "LastSelected", 0);
-					configFile.SetValue("Main", "InternalRefresh", 3);
-					File.WriteAllText(ProgramConfig.RemoteINI, configFile.ToString());
-				}
+                bool RemoteINIFileExist = File.Exists(ProgramConfig.RemoteINI);
+                if (!RemoteINIFileExist)
+                {
+                    configFile.SetValue("Main", "Ban", 0);
+                    configFile.SetValue("Main", "BanReason", "\"\"");
+                    configFile.SetValue("Main", "LastSelected", 0);
+                    configFile.SetValue("Main", "InternalRefresh", 3);
+                    File.WriteAllText(ProgramConfig.RemoteINI, configFile.ToString());
+                }
 
-				// check profile.cfg
-				bool RemoteProfilesExist = File.Exists(ProgramConfig.RemoteProfiles);
-				ConfigParser remoteProfilesConfig = new ConfigParser();
-				if (!RemoteProfilesExist)
-				{
-					File.WriteAllText(ProgramConfig.RemoteProfiles, remoteProfilesConfig.ToString());
-				}
+                // check profile.cfg
+                bool RemoteProfilesExist = File.Exists(ProgramConfig.RemoteProfiles);
+                ConfigParser remoteProfilesConfig = new ConfigParser();
+                if (!RemoteProfilesExist)
+                {
+                    File.WriteAllText(ProgramConfig.RemoteProfiles, remoteProfilesConfig.ToString());
+                }
 
                 Application.Run(new Main_Login());
             }
             catch (Exception)
             {
 
-				return;
-			}
-		}
+                return;
+            }
+        }
     }
 }

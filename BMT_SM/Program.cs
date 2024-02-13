@@ -27,12 +27,15 @@ namespace HawkSync_SM
             AppContext.SetSwitch("Switch.UseLegacyAccessibilityFeatures", false);
 
             // Firewall Check & Modification
-            if (IsApplicationAllowed()) {
+            if (IsApplicationAllowed())
+            {
                 Console.WriteLine("Application is already allowed through the firewall.");
-            } else {
+            }
+            else
+            {
                 AddApplicationToFirewall(Process.GetCurrentProcess().MainModule.FileName);
             }
-            
+
             // Process Database & Preload Configurations
             ProcessDatabase();
             // Load Prefered Language from DB
@@ -118,7 +121,8 @@ namespace HawkSync_SM
                 }
             }
         }
-        static private void ProcessDatabase() {
+        static private void ProcessDatabase()
+        {
 
             // setup BMT Global Stuff
             string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Server Manager");
@@ -137,7 +141,7 @@ namespace HawkSync_SM
 
             // Public IP Address
             IPManagement.public_ip();
-            
+
         }
         static private void LoadLanguages()
         {
@@ -165,6 +169,6 @@ namespace HawkSync_SM
             db.Close();
             db.Dispose();
         }
-               
+
     }
 }

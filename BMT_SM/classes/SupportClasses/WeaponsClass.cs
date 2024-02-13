@@ -8,7 +8,7 @@
         public bool WPN_REMMINGTONSG { get; set; } = true;
         // primary slot
         public bool WPN_CAR15 { get; set; } = true;
-        public bool WPN_CAR15_203 { get; set; } =   true;
+        public bool WPN_CAR15_203 { get; set; } = true;
         public bool WPN_M16_BURST { get; set; } = true;
         public bool WPN_M16_BURST_203 { get; set; } = true;
         public bool WPN_M21 { get; set; } = true;
@@ -20,7 +20,7 @@
         public bool WPN_M240 { get; set; } = true;
         public bool WPN_MP5 { get; set; } = true;
         // Team Sabre Expansion Weapons
-        public bool WPN_G3 { get; set; } = true;    
+        public bool WPN_G3 { get; set; } = true;
         public bool WPN_G36 { get; set; } = true;
         public bool WPN_PSG1 { get; set; } = true;
         // Grenades

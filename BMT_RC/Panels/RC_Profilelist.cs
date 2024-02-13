@@ -2,13 +2,10 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -110,11 +107,12 @@ namespace HawkSync_RC
                         updateRow["Slots"] = string.Empty;
                         updateRow["Map"] = string.Empty;
                         updateRow["Game Type"] = string.Empty;
-                        updateRow["Server Status"] = BitmapToByteArray(HawkSync_RC.Properties.Resources.notactive); 
+                        updateRow["Server Status"] = BitmapToByteArray(HawkSync_RC.Properties.Resources.notactive);
                         img.Dispose();
                         statusIMG.Dispose();
                     }
-                }else if (_state.UserCodes.SuperAdmin == true)
+                }
+                else if (_state.UserCodes.SuperAdmin == true)
                 {
                     DataRow updateRow = TVInstances.Rows[item.Key];
                     if (item.Value.Status != classes.InstanceStatus.OFFLINE)
@@ -344,7 +342,8 @@ namespace HawkSync_RC
                         img.Dispose();
                         statusIMG.Dispose();
                     }
-                }else if (_state.UserCodes.SuperAdmin == true)
+                }
+                else if (_state.UserCodes.SuperAdmin == true)
                 {
                     if (_state.Instances[instanceItem.Key].Status != classes.InstanceStatus.OFFLINE)
                     {

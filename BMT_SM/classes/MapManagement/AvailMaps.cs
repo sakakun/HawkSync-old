@@ -36,12 +36,13 @@ namespace HawkSync_SM.classes.MapManagement
                     try
                     {
                         first_line = File.ReadLines(_state.Instances[ArrayID].GamePath + "\\" + file.Name, Encoding.Default).First().ToString();
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         MessageBox.Show("File Name: " + file.Name + "\n" + "Reason: " + e.Message, "Skipping Map File");
                         continue;
                     }
-                    
+
                     first_line = first_line.Replace("", "|").Replace("\0\0\0", "|");
                     string[] first_line_arr = first_line.Split("|".ToCharArray());
                     var first_line_list = new List<string>();

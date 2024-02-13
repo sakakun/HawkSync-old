@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using HawkSync_SM.classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
@@ -12,8 +14,6 @@ using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using HawkSync_SM.classes;
-using System.Management.Instrumentation;
 
 namespace HawkSync_SM
 {
@@ -33,7 +33,7 @@ namespace HawkSync_SM
             if (state.Instances.Count > 0 && ArrayID < state.Instances.Count)
                 onload_existingProfile(state, ArrayID);
             else
-                onload_freshProfile(state); 
+                onload_freshProfile(state);
 
         }
 
@@ -217,8 +217,8 @@ namespace HawkSync_SM
                 .Where(ip => ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 .Select(ip => ip.Address.ToString())
                 .ToList();
-            
-            ipv4Addresses.Insert(0,"0.0.0.0");
+
+            ipv4Addresses.Insert(0, "0.0.0.0");
             return ipv4Addresses;
         }
 
@@ -251,7 +251,7 @@ namespace HawkSync_SM
             }
             textbox_serverPath.Text = TextBoxValue;
         }
-      
+
         public void btn_hideWindow(object sender, EventArgs e)
         {
             if (!Regex.IsMatch(textBox_hostName.Text, "^[a-zA-Z0-9-]*$"))

@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using HawkSync_RC.classes;
 using HawkSync_RC.TVFunctions;
-using HawkSync_RC.classes;
-using System.Threading;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Web.UI.WebControls;
-using HawkSync_RC.classes.RCClasses;
-using Newtonsoft.Json;
-using WatsonTcp;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace HawkSync_RC
 {

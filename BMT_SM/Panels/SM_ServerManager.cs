@@ -22,7 +22,7 @@ namespace HawkSync_SM
     {
         public DataTable adminTable = new DataTable();
         public DataTable playersTable = new DataTable();
-        
+
         BindingList<ob_PlayerChatLog> playerMessages = new BindingList<ob_PlayerChatLog>();
 
         const int PROCESS_WM_READ = 0x0010;
@@ -815,7 +815,7 @@ namespace HawkSync_SM
             cb_chatPlayerSelect.Items.Clear();
             cb_chatPlayerSelect.Items.Add("Select Player");
             cb_chatPlayerSelect.SelectedIndex = 0;
-            
+
             _state.Instances[ArrayID].PlayerList.Keys.ToList().ForEach(delegate (int slot)
             {
                 cb_chatPlayerSelect.Items.Add(_state.Instances[ArrayID].PlayerList[slot].name);

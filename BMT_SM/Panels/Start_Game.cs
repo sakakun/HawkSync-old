@@ -537,7 +537,7 @@ namespace HawkSync_SM
                 update_query.ExecuteNonQuery();
                 update_query.Dispose();
 
-                
+
                 MemoryStream ms = new MemoryStream();
                 int dedicatedSlots = _state.Instances[ArrayID].MaxSlots + Convert.ToInt32(_state.Instances[ArrayID].Dedicated);
                 bool loopMaps = true;
@@ -974,15 +974,16 @@ namespace HawkSync_SM
                 serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, ArrayID);
                 _state.Instances[ArrayID].AutoMessages.NextMessage = DateTime.Now.AddMinutes(1.0);
 
-                if(ProgramConfig.EnableWFB)
+                if (ProgramConfig.EnableWFB)
                 {
                     // Add Firewall Rules
                     _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
                     _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
                 }
-                
+
                 this.Close();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1138,7 +1139,7 @@ namespace HawkSync_SM
                 listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " " + "<" + map.Value.MapFile + ">");
                 label33.Text = $"{listBox2.Items.Count} / {max_start_maps}";
             }
-            
+
             db.Close();
             db.Dispose();
 

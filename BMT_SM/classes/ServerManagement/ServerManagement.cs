@@ -1151,7 +1151,7 @@ namespace HawkSync_SM
             }
         }
         public void SendChatMessage(ref AppState _state, int InstanceID, string ChatChannel, string Msg)
-        {           
+        {
             // Set Chat Color
             int colorbuffer_written = 0;
             byte[] colorcode = HexConverter.ToByteArray(ChatChannel);
@@ -1234,7 +1234,7 @@ namespace HawkSync_SM
         }
         public InternalPlayerStats GetPlayerStats(ref AppState _state, int instanceid, int reqslot)
         {
-            
+
             var baseaddr = 0x400000;
             var startList = baseaddr + 0x005ED600;
 
@@ -1573,7 +1573,7 @@ namespace HawkSync_SM
             byte[] mapIndexBytes = new byte[4];
             int mapIndexRead = 0;
             ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
-            
+
             _state.Instances[ArrayID].mapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
         }
         public void ChangeGameScore(ref AppState _state, int ArrayID)
@@ -1772,7 +1772,7 @@ namespace HawkSync_SM
 
             // get last message sent...
             int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
-            
+
             byte[] Message = new byte[74];
             int MessageRead = 0;
             ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);

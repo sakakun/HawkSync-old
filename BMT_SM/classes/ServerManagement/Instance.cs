@@ -27,7 +27,7 @@ namespace HawkSync_SM
         public int KOTHScore { get; set; } = 10;
         public int ZoneTimer { get; set; } = 4;
         public bool WindowedMode { get; set; } = true;
-        public int NumPlayers { get; set; } 
+        public int NumPlayers { get; set; }
         public string Slots { get; set; }
         public string Map { get; set; }
         public string GameTypeName { get; set; }

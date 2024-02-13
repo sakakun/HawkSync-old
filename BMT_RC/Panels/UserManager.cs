@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using HawkSync_RC.classes;
+﻿using HawkSync_RC.classes;
 using HawkSync_RC.TVFunctions;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
 
 namespace HawkSync_RC
 {
@@ -456,7 +451,7 @@ namespace HawkSync_RC
             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.EnableGodMode = listView1.Groups[2].Items[7].Checked;
             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.DisableGodMode = listView1.Groups[2].Items[8].Checked;
             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.BanListAddPlayer = listView1.Groups[2].Items[9].Checked;
-             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.BanListDeletePlayer = listView1.Groups[2].Items[10].Checked;
+            instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.BanListDeletePlayer = listView1.Groups[2].Items[10].Checked;
             // slaps
             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.SlapListAddSlap = listView1.Groups[4].Items[0].Checked;
             instancePermissions.ServerManagerPermissions.PlayerManagerPermissions.SlapListDeleteSlap = listView1.Groups[4].Items[1].Checked;

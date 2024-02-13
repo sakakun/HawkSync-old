@@ -15,7 +15,7 @@ namespace HawkSync_SM
 {
     public partial class Main_Load
     {
-        
+
         public Main_Load()
         {
             AppState state;

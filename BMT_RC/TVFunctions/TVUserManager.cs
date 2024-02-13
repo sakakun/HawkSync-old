@@ -3,9 +3,7 @@ using HawkSync_RC.classes.RCClasses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WatsonTcp;
 
 namespace HawkSync_RC.TVFunctions
@@ -32,7 +30,7 @@ namespace HawkSync_RC.TVFunctions
 
             SyncResponse reply = _setup.client.SendAndWait(ProgramConfig.timeOut, bytes);
             Dictionary<dynamic, dynamic> responseArray = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(Encoding.ASCII.GetString(Compression.Decompress(reply.Data)));
-            users = JsonConvert.DeserializeObject< Dictionary<string, UserCodes>>(responseArray["users"]);
+            users = JsonConvert.DeserializeObject<Dictionary<string, UserCodes>>(responseArray["users"]);
             return (OpenClass.Status)responseArray["Status"];
         }
         public OpenClass.Status AddUser(string username, string password, bool superadmin, int subadmin, Permissions permissions)

@@ -16,13 +16,13 @@ namespace HawkSync_SM
         public static Version RCVersion = Version.Parse("1.0.0");
         public static int RCPort { get; set; }
         public static bool RCEnabled { get; set; }
-        
+
         // IP/Firewall Management
         public static string PublicIP { get; set; }
         public static bool EnableVPNCheck { get; set; }
         public static bool EnableWFB { get; set; }
         public static string ip_quality_score_apikey { get; set; }
-        
+
 
         // Next Checkin Dates
         public static DateTime checkExpiredBans { get; set; }

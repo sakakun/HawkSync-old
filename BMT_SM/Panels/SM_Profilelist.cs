@@ -254,7 +254,7 @@ namespace HawkSync_SM
                 }
             }
         }
-       
+
         // Server Manager Functions //
         /* 
          * InstanceSeverCheck
@@ -324,12 +324,12 @@ namespace HawkSync_SM
 
                                     int timeRemainingInGame = serverManagement.GetTimeLeft(ref _state, rowId);
                                     var map = serverManagement.GetCurrentMission(ref _state, rowId);
-                                    var currentPlayers = serverManagement.GetCurrentPlayers(ref _state,rowId);
+                                    var currentPlayers = serverManagement.GetCurrentPlayers(ref _state, rowId);
                                     var currentGameType = "";
                                     foreach (var gameTypeList in gameTypes)
                                     {
                                         var gametype = gameTypeList.Value;
-                                        if (serverManagement.GetCurrentGameType(ref _state,rowId).Equals(gametype.DatabaseId))
+                                        if (serverManagement.GetCurrentGameType(ref _state, rowId).Equals(gametype.DatabaseId))
                                         {
                                             currentGameType = gametype.ShortName;
                                             break;
@@ -531,7 +531,8 @@ namespace HawkSync_SM
         /* 
          * ProcessAppState
          */
-        private void processAppState(SQLiteConnection db) {
+        private void processAppState(SQLiteConnection db)
+        {
             try
             {
                 // SQL query to fetch data from the database
@@ -877,7 +878,7 @@ namespace HawkSync_SM
                 serverManagement.SetHostnames(item.Value);
             }
             warnlevelquery.Dispose();
-            
+
             _state.adminNotes = onload_getPlayerAdminNotes(hawkSyncDB);
             _state.playerHistories = onload_getPlayerHistories(hawkSyncDB);
             _state.RCLogs = get_RCActionLogs(hawkSyncDB);
@@ -888,7 +889,7 @@ namespace HawkSync_SM
             _state.adminChatMsgs = onload_getAdminChatMsgs(hawkSyncDB);
             _state.SystemInfo = GatherSystemInfo();
             _state.autoRes = SetupAutoRestart(hawkSyncDB);
-         
+
             GlobalAppState.AppState = _state;
             hawkSyncDB.Close();
             Ticker.Enabled = true;
@@ -974,11 +975,16 @@ namespace HawkSync_SM
 
                 // Add Instance to the Profile Table
                 DataRow dr = table_profileList.NewRow();
-                if (_state.Instances[lastIndex].GameType == 1) {
+                if (_state.Instances[lastIndex].GameType == 1)
+                {
                     img = "jo.gif";
-                } else if (_state.Instances[lastIndex].GameType == 0) {
+                }
+                else if (_state.Instances[lastIndex].GameType == 0)
+                {
                     img = _state.Instances[lastIndex].IsTeamSabre ? "bhdts.gif" : "bhd.gif";
-                } else {
+                }
+                else
+                {
                     img = "bhd.gif";
                 }
                 dr["ID"] = _state.Instances[lastIndex].Id;
@@ -987,10 +993,11 @@ namespace HawkSync_SM
                 dr["Server Status"] = get_imageResource("notactive.gif");
                 table_profileList.Rows.Add(dr);
                 event_setStatusImage(lastIndex);
-                
+
                 createProfile.Close();
                 MessageBox.Show("Profile Added Successfully.", "Success", MessageBoxButtons.OK);
-                if (_state.Instances.Count > 0) {
+                if (_state.Instances.Count > 0)
+                {
                     list_serverProfiles.Rows[lastIndex].Selected = true;
                     btn_start.Enabled = true;
                 }
@@ -1009,7 +1016,7 @@ namespace HawkSync_SM
                 return;
             }
 
-            
+
 
             int id = list_serverProfiles.CurrentRow.Index;
             string img;
@@ -1059,7 +1066,7 @@ namespace HawkSync_SM
                 MessageBox.Show("There are no profiles to delete.");
                 return;
             }
-            
+
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
             DialogResult result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile", buttons);
             if (result == DialogResult.Yes)
@@ -1147,7 +1154,7 @@ namespace HawkSync_SM
                 // Call regardless.
                 instance.Firewall.DeleteFirewallRules(instance.GameName, "Allow");
                 instance.Firewall.DeleteFirewallRules(instance.GameName, "Deny");
-                
+
                 return;
             }
 
@@ -1309,7 +1316,7 @@ namespace HawkSync_SM
             });
 
             chatLog.CurrentIndex = nextIndex;
-            
+
         }
         /*
          * Event: Server Status Change
@@ -1453,9 +1460,9 @@ namespace HawkSync_SM
 
         // Main_Profile On Change Events
         private void serverProfiles_SelectionChanged(object sender, EventArgs e)
-        {           
+        {
             int intCount = 0;
-            while(intCount < _state.Instances.Count)
+            while (intCount < _state.Instances.Count)
             {
                 if (_state.Instances[intCount].Status == InstanceStatus.ONLINE ||
                     _state.Instances[intCount].Status == InstanceStatus.SCORING ||
@@ -1488,7 +1495,7 @@ namespace HawkSync_SM
                 string statusIMG;
                 int findInstanceIndex = bindingSource.Find("ID", _state.Instances[i].Id);
                 if (findInstanceIndex == -1)
-                {  
+                {
                     DataRow dr = table_profileList.NewRow();
                     statusIMG = "notactive.gif";
                     if (_state.Instances[i].GameType == 0 && _state.Instances[i].IsTeamSabre == true)

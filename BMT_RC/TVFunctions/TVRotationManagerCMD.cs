@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using HawkSync_RC.classes;
+﻿using HawkSync_RC.classes;
 using HawkSync_RC.classes.RCClasses;
 using Newtonsoft.Json;
-using static System.Windows.Forms.AxHost;
+using System.Collections.Generic;
+using System.Text;
 using WatsonTcp;
 
 namespace HawkSync_RC.TVFunctions

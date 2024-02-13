@@ -126,7 +126,7 @@ namespace HawkSync_SM
                 if (result == DialogResult.Cancel && ProgramConfig.EnableWFB == true)
                 {
                     MessageBox.Show("Changes to WFB skipped!", "Success");
-                } 
+                }
                 else
                 {
                     ProgramConfig.EnableWFB = cb_enableWFB.Checked;
@@ -135,7 +135,7 @@ namespace HawkSync_SM
                     cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
                 }
-                
+
             }
 
             cmd.Dispose();

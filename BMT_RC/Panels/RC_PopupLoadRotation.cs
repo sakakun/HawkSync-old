@@ -1,14 +1,4 @@
-﻿using HawkSync_RC.classes;
-using HawkSync_RC.TVFunctions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace HawkSync_RC

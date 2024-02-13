@@ -1,17 +1,14 @@
-﻿using Nini.Config;
+﻿using HawkSync_RC.classes;
+using HawkSync_RC.classes.RCClasses;
+using Newtonsoft.Json;
+using Nini.Config;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using HawkSync_RC.classes;
-using System.Net;
-using WatsonTcp;
-using Newtonsoft.Json;
-using System.Windows.Forms;
-using HawkSync_RC.classes.RCClasses;
 using System.Diagnostics;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
+using WatsonTcp;
 
 namespace HawkSync_RC
 {

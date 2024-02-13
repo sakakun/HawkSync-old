@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Nini.Config;
-using Timer = System.Windows.Forms.Timer;
-using HawkSync_RC.classes;
+﻿using HawkSync_RC.classes;
 using Newtonsoft.Json;
-using System.Net;
+using Nini.Config;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
-using WatsonTcp;
+using System.Drawing;
 using System.Management;
+using System.Net;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
+using WatsonTcp;
+using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_RC
 {
@@ -238,10 +233,10 @@ namespace HawkSync_RC
         {
             // delete profile
             int profileInt = comboBox1.SelectedIndex;
-            RCSetup.ProfileConfig.Configs.RemoveAt(profileInt-1);
+            RCSetup.ProfileConfig.Configs.RemoveAt(profileInt - 1);
             RCSetup.ProfileConfig.Save();
             comboBox1.Items.RemoveAt(profileInt);
-            comboBox1.SelectedIndex = profileInt-1;
+            comboBox1.SelectedIndex = profileInt - 1;
             MessageBox.Show("Profile successfully deleted!", "Success");
         }
 
@@ -432,7 +427,7 @@ namespace HawkSync_RC
                 }
 
                 string openConn = clientClass.Open(RCSetup.client);
-                
+
                 OpenClass openConnInfo = JsonConvert.DeserializeObject<OpenClass>(openConn);
 
                 if (openConnInfo.LoginMessage == OpenClass.Status.UPDATEREQUIRED)

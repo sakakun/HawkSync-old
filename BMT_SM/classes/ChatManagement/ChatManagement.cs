@@ -10,7 +10,7 @@ namespace HawkSync_SM.classes.ChatManagement
 {
     public class ChatManagement
     {
-        
+
         public static string[] ChatChannels = new string[] {
             "6A01", // 0 = Global Chat (Blue)
             "6A03", // 1 = Global Chat (Yellow)
