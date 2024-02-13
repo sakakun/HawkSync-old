@@ -53,7 +53,7 @@ namespace HawkSync_RC
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_connectServer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -99,13 +99,13 @@ namespace HawkSync_RC
             this.label1.Text = "Server Profile:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // chat_channelSelection
+            // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(82, 10);
-            this.comboBox1.Name = "chat_channelSelection";
+            this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(235, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -182,11 +182,11 @@ namespace HawkSync_RC
             0,
             0});
             // 
-            // serverManager_container
+            // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 7);
-            this.tabControl1.Name = "serverManager_container";
+            this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(451, 357);
             this.tabControl1.TabIndex = 1;
@@ -211,7 +211,7 @@ namespace HawkSync_RC
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.btn_connectServer);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(761, 393);
@@ -320,25 +320,25 @@ namespace HawkSync_RC
             this.label6.Text = "Password:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btn_deleteAddress
+            // button2
             // 
             this.button2.Location = new System.Drawing.Point(346, 80);
-            this.button2.Name = "btn_deleteAddress";
+            this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(79, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Delete Profile";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // btn_addAddress
+            // btn_connectServer
             // 
-            this.button3.Location = new System.Drawing.Point(346, 19);
-            this.button3.Name = "btn_addAddress";
-            this.button3.Size = new System.Drawing.Size(79, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Connect";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_connectServer.Location = new System.Drawing.Point(346, 19);
+            this.btn_connectServer.Name = "btn_connectServer";
+            this.btn_connectServer.Size = new System.Drawing.Size(79, 23);
+            this.btn_connectServer.TabIndex = 6;
+            this.btn_connectServer.Text = "Connect";
+            this.btn_connectServer.UseVisualStyleBackColor = true;
+            this.btn_connectServer.Click += new System.EventHandler(this.click_connectServer);
             // 
             // Main_Login
             // 
@@ -385,7 +385,7 @@ namespace HawkSync_RC
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_connectServer;
         private System.Windows.Forms.Button button12;
     }
 }

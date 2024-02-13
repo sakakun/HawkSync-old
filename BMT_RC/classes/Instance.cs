@@ -109,6 +109,6 @@ namespace HawkSync_RC.classes
         LOADINGMAP = 1,
         STARTDELAY = 2,
         ONLINE = 3,
-        SCORING = 4,
+        SCORING = 4
     }
 }

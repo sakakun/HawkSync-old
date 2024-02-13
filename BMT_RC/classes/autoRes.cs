@@ -7,55 +7,57 @@ namespace HawkSync_RC.classes
     public class autoRes
     {
         public Dictionary<string, GameType> gameTypes { get; set; }
+
         public List<MapList> ShuffleSelectedMapList(List<MapList> selectedMapList)
         {
-            Random rng = new Random();
-            int n = selectedMapList.Count;
+            var rng = new Random();
+            var n = selectedMapList.Count;
             while (n > 1)
             {
                 n--;
-                int k = rng.Next(n + 1);
-                MapList value = selectedMapList[k];
+                var k = rng.Next(n + 1);
+                var value = selectedMapList[k];
                 selectedMapList[k] = selectedMapList[n];
                 selectedMapList[n] = value;
             }
+
             return selectedMapList;
         }
+
         public string StringToHex(string HexString, int totallength)
         {
-            byte[] StringToByte = Encoding.Default.GetBytes(HexString);
+            var StringToByte = Encoding.Default.GetBytes(HexString);
             var ConvertedHexString = BitConverter.ToString(StringToByte).Replace("-", " ");
 
             if (totallength != 0)
-            {
-                for (int x = ConvertedHexString.Length / 3; x < totallength; x++)
-                {
+                for (var x = ConvertedHexString.Length / 3; x < totallength; x++)
                     ConvertedHexString += " 00";
-                }
-            }
 
             return ConvertedHexString;
         }
+
         public string IntToHex(int HexInt)
         {
-            byte[] IntToByte = BitConverter.GetBytes(HexInt);
+            var IntToByte = BitConverter.GetBytes(HexInt);
             var ConvertedHexInt = BitConverter.ToString(IntToByte).Replace("-", " ");
             return ConvertedHexInt;
         }
+
         public string BoolToHex(bool val)
         {
             switch (val)
             {
                 case true:
-                    byte[] newTrueVal = BitConverter.GetBytes(1);
+                    var newTrueVal = BitConverter.GetBytes(1);
                     var ConvertHexTrue = BitConverter.ToString(newTrueVal).Replace("-", " ").Replace(" 00", "");
                     return ConvertHexTrue;
                 default:
-                    byte[] newValFalse = BitConverter.GetBytes(0);
+                    var newValFalse = BitConverter.GetBytes(0);
                     var ConvertHexFalse = BitConverter.ToString(newValFalse).Replace("-", " ").Replace(" 00", "");
                     return ConvertHexFalse;
             }
         }
+
         public bool IsMapTeamBased(int gametype)
         {
             switch (gametype)

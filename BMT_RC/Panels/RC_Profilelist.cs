@@ -1,26 +1,29 @@
-﻿using HawkSync_RC.classes;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using HawkSync_RC.classes;
+using HawkSync_RC.Properties;
+using Newtonsoft.Json;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_RC
 {
     public partial class RC_Profilelist : Form
     {
-        AppState _state;
-        RCSetup _setup;
-        RC_ServerManager serverManager;
-        Start_Game start_Game;
+        private readonly RCSetup _setup;
+        private readonly AppState _state;
+        private Bitmap img;
+        private RC_ServerManager serverManager;
+        private Start_Game start_Game;
+        private Bitmap statusIMG;
         public Timer Ticker;
-        DataTable TVInstances;
-        Bitmap img;
-        Bitmap statusIMG;
+        private readonly DataTable TVInstances;
+
         public RC_Profilelist(AppState state, RCSetup setup)
         {
             InitializeComponent();
@@ -31,12 +34,12 @@ namespace HawkSync_RC
             Ticker.Tick += Ticker_Tick;
         }
 
-        static byte[] BitmapToByteArray(Bitmap bitmap)
+        private static byte[] BitmapToByteArray(Bitmap bitmap)
         {
-            using (MemoryStream stream = new MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 // Save the bitmap to the stream in a specific format (e.g., PNG, JPEG)
-                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                bitmap.Save(stream, ImageFormat.Png);
 
                 // Get the byte array from the memory stream
                 return stream.ToArray();
@@ -47,21 +50,19 @@ namespace HawkSync_RC
         {
             UpdateButtons();
             foreach (var item in _state.Instances)
-            {
-                if ((_state.UserCodes.SuperAdmin == false) && (_state.UserCodes.Permissions.InstancePermissions.ContainsKey(item.Key)) && _state.UserCodes.Permissions.InstancePermissions[item.Key].Access == true)
+                if (_state.UserCodes.SuperAdmin == false &&
+                    _state.UserCodes.Permissions.InstancePermissions.ContainsKey(item.Key) &&
+                    _state.UserCodes.Permissions.InstancePermissions[item.Key].Access)
                 {
-                    BindingSource bs = new BindingSource
+                    var bs = new BindingSource
                     {
                         DataSource = TVInstances
                     };
-                    int rowID = bs.Find("ID", item.Value.Id);
-                    if (rowID == -1)
-                    {
-                        break;
-                    }
+                    var rowID = bs.Find("ID", item.Value.Id);
+                    if (rowID == -1) break;
                     bs.Dispose();
-                    DataRow updateRow = TVInstances.Rows[rowID];
-                    if (item.Value.Status != classes.InstanceStatus.OFFLINE)
+                    var updateRow = TVInstances.Rows[rowID];
+                    if (item.Value.Status != InstanceStatus.OFFLINE)
                     {
                         updateRow["Slots"] = item.Value.NumPlayers + "/" + item.Value.MaxSlots;
                         updateRow["Map"] = item.Value.Map;
@@ -78,25 +79,27 @@ namespace HawkSync_RC
                                 updateRow["Time Remaining"] = item.Value.TimeRemaining + " Minutes";
                                 break;
                         }
-                        string path = string.Empty;
+
+                        var path = string.Empty;
                         switch (item.Value.Status)
                         {
-                            case classes.InstanceStatus.ONLINE:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.ONLINE:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.STARTDELAY:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.STARTDELAY:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.LOADINGMAP:
-                                statusIMG = HawkSync_RC.Properties.Resources.loading;
+                            case InstanceStatus.LOADINGMAP:
+                                statusIMG = Resources.loading;
                                 break;
-                            case classes.InstanceStatus.SCORING:
-                                statusIMG = HawkSync_RC.Properties.Resources.scoring;
+                            case InstanceStatus.SCORING:
+                                statusIMG = Resources.scoring;
                                 break;
                             default:
-                                statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                                statusIMG = Resources.notactive;
                                 break;
                         }
+
                         updateRow["Server Status"] = BitmapToByteArray(statusIMG);
                         img.Dispose();
                         statusIMG.Dispose();
@@ -107,15 +110,15 @@ namespace HawkSync_RC
                         updateRow["Slots"] = string.Empty;
                         updateRow["Map"] = string.Empty;
                         updateRow["Game Type"] = string.Empty;
-                        updateRow["Server Status"] = BitmapToByteArray(HawkSync_RC.Properties.Resources.notactive);
+                        updateRow["Server Status"] = BitmapToByteArray(Resources.notactive);
                         img.Dispose();
                         statusIMG.Dispose();
                     }
                 }
-                else if (_state.UserCodes.SuperAdmin == true)
+                else if (_state.UserCodes.SuperAdmin)
                 {
-                    DataRow updateRow = TVInstances.Rows[item.Key];
-                    if (item.Value.Status != classes.InstanceStatus.OFFLINE)
+                    var updateRow = TVInstances.Rows[item.Key];
+                    if (item.Value.Status != InstanceStatus.OFFLINE)
                     {
                         updateRow["Slots"] = item.Value.NumPlayers + "/" + item.Value.MaxSlots;
                         updateRow["Map"] = item.Value.Map;
@@ -132,25 +135,27 @@ namespace HawkSync_RC
                                 updateRow["Time Remaining"] = item.Value.TimeRemaining + " Minutes";
                                 break;
                         }
-                        string path = string.Empty;
+
+                        var path = string.Empty;
                         switch (item.Value.Status)
                         {
-                            case classes.InstanceStatus.ONLINE:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.ONLINE:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.STARTDELAY:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.STARTDELAY:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.LOADINGMAP:
-                                statusIMG = HawkSync_RC.Properties.Resources.loading;
+                            case InstanceStatus.LOADINGMAP:
+                                statusIMG = Resources.loading;
                                 break;
-                            case classes.InstanceStatus.SCORING:
-                                statusIMG = HawkSync_RC.Properties.Resources.scoring;
+                            case InstanceStatus.SCORING:
+                                statusIMG = Resources.scoring;
                                 break;
                             default:
-                                statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                                statusIMG = Resources.notactive;
                                 break;
                         }
+
                         updateRow["Server Status"] = BitmapToByteArray(statusIMG);
                         img.Dispose();
                         statusIMG.Dispose();
@@ -161,43 +166,37 @@ namespace HawkSync_RC
                         updateRow["Slots"] = string.Empty;
                         updateRow["Map"] = string.Empty;
                         updateRow["Game Type"] = string.Empty;
-                        updateRow["Server Status"] = BitmapToByteArray(HawkSync_RC.Properties.Resources.notactive);
+                        updateRow["Server Status"] = BitmapToByteArray(Resources.notactive);
                         img.Dispose();
                         statusIMG.Dispose();
                     }
                 }
-            }
         }
 
         private void UpdateButtons()
         {
-            if (dataGridView1.CurrentCell == null)
-            {
-                return; // sanity check for sorting...
-            }
-            if (dataGridView1.CurrentCell.RowIndex == -1)
-            {
-                return; // no instance selected, don't open the winform
-            }
-            DataRow instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
-            int serverid = Convert.ToInt32(instanceRow["ID"]);
-            int ArrayID = -1;
+            if (dataGridView1.CurrentCell == null) return; // sanity check for sorting...
+            if (dataGridView1.CurrentCell.RowIndex == -1) return; // no instance selected, don't open the winform
+            var instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
+            var serverid = Convert.ToInt32(instanceRow["ID"]);
+            var ArrayID = -1;
             foreach (var instance in _state.Instances)
-            {
                 if (serverid == instance.Value.Id)
                 {
                     ArrayID = instance.Key;
                     break;
                 }
-            }
+
             if (ArrayID == -1)
             {
                 MessageBox.Show("We could not detect the instance that is selected.", "Oh no!");
                 return;
             }
-            if ((_state.UserCodes.SuperAdmin == true) || (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == true && _state.UserCodes.Permissions.InstancePermissions[ArrayID] != null))
+
+            if (_state.UserCodes.SuperAdmin || (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access &&
+                                                _state.UserCodes.Permissions.InstancePermissions[ArrayID] != null))
             {
-                if (_state.Instances[ArrayID].Status == classes.InstanceStatus.OFFLINE)
+                if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
                 {
                     button1.Enabled = false;
                     button3.Text = "Start Game";
@@ -208,7 +207,8 @@ namespace HawkSync_RC
                     button3.Text = "Stop Game";
                 }
             }
-            else if (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == false || _state.UserCodes.Permissions.InstancePermissions[ArrayID] == null)
+            else if (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == false ||
+                     _state.UserCodes.Permissions.InstancePermissions[ArrayID] == null)
             {
                 button1.Enabled = false;
                 button3.Enabled = false;
@@ -217,14 +217,14 @@ namespace HawkSync_RC
 
         private void button5_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        public byte[] imageToByteArray(System.Drawing.Image imageIn)
+        public byte[] imageToByteArray(Image imageIn)
         {
-            MemoryStream ms = new MemoryStream();
-            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-            byte[] memory = ms.ToArray();
+            var ms = new MemoryStream();
+            imageIn.Save(ms, ImageFormat.Gif);
+            var memory = ms.ToArray();
             imageIn.Dispose();
             ms.Close();
             ms.Dispose();
@@ -253,17 +253,20 @@ namespace HawkSync_RC
                 TVInstances.Columns.Add("Web Stats Status");
                 TVInstances.Columns.Add("Server Status", typeof(byte[]));
             }
+
             foreach (var instanceItem in _state.Instances)
-            {
-                if ((_state.UserCodes.SuperAdmin == false) && (_state.UserCodes.Permissions.InstancePermissions.ContainsKey(instanceItem.Key)) && _state.UserCodes.Permissions.InstancePermissions[instanceItem.Key].Access == true)
+                if (_state.UserCodes.SuperAdmin == false &&
+                    _state.UserCodes.Permissions.InstancePermissions.ContainsKey(instanceItem.Key) &&
+                    _state.UserCodes.Permissions.InstancePermissions[instanceItem.Key].Access)
                 {
-                    if (_state.Instances[instanceItem.Key].Status != classes.InstanceStatus.OFFLINE)
+                    if (_state.Instances[instanceItem.Key].Status != InstanceStatus.OFFLINE)
                     {
-                        DataRow newRow = TVInstances.NewRow();
+                        var newRow = TVInstances.NewRow();
                         newRow["ID"] = _state.Instances[instanceItem.Key].Id;
                         newRow["Game Name"] = _state.Instances[instanceItem.Key].GameName;
-                        statusIMG = HawkSync_RC.Properties.Resources.notactive;
-                        newRow["Slots"] = _state.Instances[instanceItem.Key].NumPlayers + "/" + _state.Instances[instanceItem.Key].MaxSlots;
+                        statusIMG = Resources.notactive;
+                        newRow["Slots"] = _state.Instances[instanceItem.Key].NumPlayers + "/" +
+                                          _state.Instances[instanceItem.Key].MaxSlots;
                         newRow["Map"] = _state.Instances[instanceItem.Key].Map;
                         newRow["Game Type"] = _state.Instances[instanceItem.Key].GameTypeName;
                         switch (_state.Instances[instanceItem.Key].TimeRemaining)
@@ -275,41 +278,45 @@ namespace HawkSync_RC
                                 newRow["Time Remaining"] = _state.Instances[instanceItem.Key].TimeRemaining + " Minute";
                                 break;
                             default:
-                                newRow["Time Remaining"] = _state.Instances[instanceItem.Key].TimeRemaining + " Minutes";
+                                newRow["Time Remaining"] =
+                                    _state.Instances[instanceItem.Key].TimeRemaining + " Minutes";
                                 break;
                         }
+
                         switch (_state.Instances[instanceItem.Key].GameType)
                         {
                             case 1:
-                                img = HawkSync_RC.Properties.Resources.bhdts;
+                                img = Resources.bhdts;
                                 break;
                             case 2:
-                                img = HawkSync_RC.Properties.Resources.jo;
+                                img = Resources.jo;
                                 break;
                             default:
-                                img = HawkSync_RC.Properties.Resources.bhd;
+                                img = Resources.bhd;
                                 break;
                         }
+
                         newRow["Mod"] = BitmapToByteArray(img);
-                        string path = string.Empty;
+                        var path = string.Empty;
                         switch (_state.Instances[instanceItem.Key].Status)
                         {
-                            case classes.InstanceStatus.ONLINE:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.ONLINE:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.STARTDELAY:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.STARTDELAY:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.LOADINGMAP:
-                                statusIMG = HawkSync_RC.Properties.Resources.loading;
+                            case InstanceStatus.LOADINGMAP:
+                                statusIMG = Resources.loading;
                                 break;
-                            case classes.InstanceStatus.SCORING:
-                                statusIMG = HawkSync_RC.Properties.Resources.scoring;
+                            case InstanceStatus.SCORING:
+                                statusIMG = Resources.scoring;
                                 break;
                             default:
-                                statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                                statusIMG = Resources.notactive;
                                 break;
                         }
+
                         newRow["Server Status"] = BitmapToByteArray(statusIMG);
                         TVInstances.Rows.Add(newRow);
                         img.Dispose();
@@ -317,7 +324,7 @@ namespace HawkSync_RC
                     }
                     else
                     {
-                        DataRow deadRow = TVInstances.NewRow();
+                        var deadRow = TVInstances.NewRow();
                         deadRow["ID"] = _state.Instances[instanceItem.Key].Id;
                         deadRow["Game Name"] = _state.Instances[instanceItem.Key].GameName;
                         deadRow["Slots"] = string.Empty;
@@ -326,32 +333,34 @@ namespace HawkSync_RC
                         switch (_state.Instances[instanceItem.Key].GameType)
                         {
                             case 1:
-                                img = HawkSync_RC.Properties.Resources.bhdts;
+                                img = Resources.bhdts;
                                 break;
                             case 2:
-                                img = HawkSync_RC.Properties.Resources.jo;
+                                img = Resources.jo;
                                 break;
                             default:
-                                img = HawkSync_RC.Properties.Resources.bhd;
+                                img = Resources.bhd;
                                 break;
                         }
+
                         deadRow["Mod"] = BitmapToByteArray(img);
-                        statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                        statusIMG = Resources.notactive;
                         deadRow["Server Status"] = BitmapToByteArray(statusIMG);
                         TVInstances.Rows.Add(deadRow);
                         img.Dispose();
                         statusIMG.Dispose();
                     }
                 }
-                else if (_state.UserCodes.SuperAdmin == true)
+                else if (_state.UserCodes.SuperAdmin)
                 {
-                    if (_state.Instances[instanceItem.Key].Status != classes.InstanceStatus.OFFLINE)
+                    if (_state.Instances[instanceItem.Key].Status != InstanceStatus.OFFLINE)
                     {
-                        DataRow newRow = TVInstances.NewRow();
+                        var newRow = TVInstances.NewRow();
                         newRow["ID"] = _state.Instances[instanceItem.Key].Id;
                         newRow["Game Name"] = _state.Instances[instanceItem.Key].GameName;
-                        statusIMG = HawkSync_RC.Properties.Resources.notactive;
-                        newRow["Slots"] = _state.Instances[instanceItem.Key].NumPlayers + "/" + _state.Instances[instanceItem.Key].MaxSlots;
+                        statusIMG = Resources.notactive;
+                        newRow["Slots"] = _state.Instances[instanceItem.Key].NumPlayers + "/" +
+                                          _state.Instances[instanceItem.Key].MaxSlots;
                         newRow["Map"] = _state.Instances[instanceItem.Key].Map;
                         newRow["Game Type"] = _state.Instances[instanceItem.Key].GameTypeName;
                         switch (_state.Instances[instanceItem.Key].TimeRemaining)
@@ -363,41 +372,45 @@ namespace HawkSync_RC
                                 newRow["Time Remaining"] = _state.Instances[instanceItem.Key].TimeRemaining + " Minute";
                                 break;
                             default:
-                                newRow["Time Remaining"] = _state.Instances[instanceItem.Key].TimeRemaining + " Minutes";
+                                newRow["Time Remaining"] =
+                                    _state.Instances[instanceItem.Key].TimeRemaining + " Minutes";
                                 break;
                         }
+
                         switch (_state.Instances[instanceItem.Key].GameType)
                         {
                             case 1:
-                                img = HawkSync_RC.Properties.Resources.bhdts;
+                                img = Resources.bhdts;
                                 break;
                             case 2:
-                                img = HawkSync_RC.Properties.Resources.jo;
+                                img = Resources.jo;
                                 break;
                             default:
-                                img = HawkSync_RC.Properties.Resources.bhd;
+                                img = Resources.bhd;
                                 break;
                         }
+
                         newRow["Mod"] = BitmapToByteArray(img);
-                        string path = string.Empty;
+                        var path = string.Empty;
                         switch (_state.Instances[instanceItem.Key].Status)
                         {
-                            case classes.InstanceStatus.ONLINE:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.ONLINE:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.STARTDELAY:
-                                statusIMG = HawkSync_RC.Properties.Resources.hosting;
+                            case InstanceStatus.STARTDELAY:
+                                statusIMG = Resources.hosting;
                                 break;
-                            case classes.InstanceStatus.LOADINGMAP:
-                                statusIMG = HawkSync_RC.Properties.Resources.loading;
+                            case InstanceStatus.LOADINGMAP:
+                                statusIMG = Resources.loading;
                                 break;
-                            case classes.InstanceStatus.SCORING:
-                                statusIMG = HawkSync_RC.Properties.Resources.scoring;
+                            case InstanceStatus.SCORING:
+                                statusIMG = Resources.scoring;
                                 break;
                             default:
-                                statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                                statusIMG = Resources.notactive;
                                 break;
                         }
+
                         newRow["Server Status"] = BitmapToByteArray(statusIMG);
                         TVInstances.Rows.Add(newRow);
                         img.Dispose();
@@ -405,7 +418,7 @@ namespace HawkSync_RC
                     }
                     else
                     {
-                        DataRow deadRow = TVInstances.NewRow();
+                        var deadRow = TVInstances.NewRow();
                         deadRow["ID"] = _state.Instances[instanceItem.Key].Id;
                         deadRow["Game Name"] = _state.Instances[instanceItem.Key].GameName;
                         deadRow["Slots"] = string.Empty;
@@ -414,40 +427,36 @@ namespace HawkSync_RC
                         switch (_state.Instances[instanceItem.Key].GameType)
                         {
                             case 1:
-                                img = HawkSync_RC.Properties.Resources.bhdts;
+                                img = Resources.bhdts;
                                 break;
                             case 2:
-                                img = HawkSync_RC.Properties.Resources.jo;
+                                img = Resources.jo;
                                 break;
                             default:
-                                img = HawkSync_RC.Properties.Resources.bhd;
+                                img = Resources.bhd;
                                 break;
                         }
+
                         deadRow["Mod"] = BitmapToByteArray(img);
-                        statusIMG = HawkSync_RC.Properties.Resources.notactive;
+                        statusIMG = Resources.notactive;
                         deadRow["Server Status"] = BitmapToByteArray(statusIMG);
                         TVInstances.Rows.Add(deadRow);
                         img.Dispose();
                         statusIMG.Dispose();
                     }
                 }
-            }
+
             dataGridView1.DataSource = TVInstances;
             SetupTable();
 
-            if (_state.UserCodes.SuperAdmin == true)
-            {
-                button6.Enabled = true;
-            }
-            if (_state.UserCodes.SubAdmin > 0)
-            {
-                button6.Enabled = false;
-            }
+            if (_state.UserCodes.SuperAdmin) button6.Enabled = true;
+            if (_state.UserCodes.SubAdmin > 0) button6.Enabled = false;
             /*if (_state.UserCodes.SuperAdmin == true || _state.UserCodes.Permissions.)
             {
-                
+
             }*/
         }
+
         private void SetupTable()
         {
             dataGridView1.Columns["ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -463,11 +472,14 @@ namespace HawkSync_RC
             dataGridView1.Columns["Game Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns["Game Type"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["Time Remaining"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns["Time Remaining"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Time Remaining"].HeaderCell.Style.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["Web Stats Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns["Web Stats Status"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Web Stats Status"].HeaderCell.Style.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["Server Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns["Server Status"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Server Status"].HeaderCell.Style.Alignment =
+                DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void Profilelist_FormClosing(object sender, FormClosingEventArgs e)
@@ -481,64 +493,55 @@ namespace HawkSync_RC
             // rotation manager
             if (dataGridView1.CurrentCell.RowIndex != -1)
             {
-                DataRow row = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
-                RC_RotationManager rotationManager = new RC_RotationManager(_state, _setup, Convert.ToInt32(row["ID"]));
+                var row = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
+                var rotationManager = new RC_RotationManager(_state, _setup, Convert.ToInt32(row["ID"]));
                 rotationManager.ShowDialog();
             }
             else
             {
-                MessageBox.Show("We could not detect which profile you selected.\nPlease restart BMT RC.", "Unknown Error");
+                MessageBox.Show("We could not detect which profile you selected.\nPlease restart BMT RC.",
+                    "Unknown Error");
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell.RowIndex == -1)
-            {
-                return; // no instance selected, don't open the winform
-            }
-            DataRow instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
-            int serverid = Convert.ToInt32(instanceRow["ID"]);
-            int ArrayID = -1;
+            if (dataGridView1.CurrentCell.RowIndex == -1) return; // no instance selected, don't open the winform
+            var instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
+            var serverid = Convert.ToInt32(instanceRow["ID"]);
+            var ArrayID = -1;
             foreach (var instance in _state.Instances)
-            {
                 if (serverid == instance.Value.Id)
                 {
                     ArrayID = instance.Key;
                     break;
                 }
-            }
+
             if (ArrayID == -1)
             {
                 MessageBox.Show("We could not detect the instance that is selected.", "Oh no!");
                 return;
             }
+
             serverManager = new RC_ServerManager(_state, _setup, ArrayID);
             serverManager.ShowDialog();
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell == null)
-            {
-                return; // sanity check for sorting...
-            }
-            if (dataGridView1.CurrentCell.RowIndex == -1)
-            {
-                return; // no instance selected, don't open the winform
-            }
+            if (dataGridView1.CurrentCell == null) return; // sanity check for sorting...
+            if (dataGridView1.CurrentCell.RowIndex == -1) return; // no instance selected, don't open the winform
 
-            DataRow instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
-            int serverid = Convert.ToInt32(instanceRow["ID"]);
-            int ArrayID = -1;
+            var instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
+            var serverid = Convert.ToInt32(instanceRow["ID"]);
+            var ArrayID = -1;
             foreach (var instance in _state.Instances)
-            {
                 if (serverid == instance.Value.Id)
                 {
                     ArrayID = instance.Key;
                     break;
                 }
-            }
+
             if (ArrayID == -1)
             {
                 MessageBox.Show("We could not detect the instance that is selected.", "Oh no!");
@@ -546,36 +549,29 @@ namespace HawkSync_RC
             }
 
 
-
-            if (_state.UserCodes.SuperAdmin == false && _state.UserCodes.Permissions.InstancePermissions[ArrayID].StartInstance == true && _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
+            if (_state.UserCodes.SuperAdmin == false &&
+                _state.UserCodes.Permissions.InstancePermissions[ArrayID].StartInstance &&
+                _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
             {
                 button3.Enabled = false;
                 button3.Text = "Start Game";
                 //return;
             }
-            else if (_state.UserCodes.SuperAdmin == true && _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
+            else if (_state.UserCodes.SuperAdmin && _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
             {
                 button1.Enabled = false;
                 button3.Text = "Start Game";
             }
-            else if (_state.UserCodes.SuperAdmin == false && _state.UserCodes.Permissions.InstancePermissions[ArrayID].StartInstance == false && _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
+            else if (_state.UserCodes.SuperAdmin == false &&
+                     _state.UserCodes.Permissions.InstancePermissions[ArrayID].StartInstance == false &&
+                     _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
             {
                 button3.Enabled = false;
             }
 
 
-
-
-
-
-
-
-
-
-
-
-
-            if ((_state.UserCodes.SuperAdmin == true) || (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == true && _state.UserCodes.Permissions.InstancePermissions[ArrayID] != null))
+            if (_state.UserCodes.SuperAdmin || (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access &&
+                                                _state.UserCodes.Permissions.InstancePermissions[ArrayID] != null))
             {
                 if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
                 {
@@ -588,7 +584,8 @@ namespace HawkSync_RC
                     button3.Text = "Stop Game";
                 }
             }
-            else if (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == false || _state.UserCodes.Permissions.InstancePermissions[ArrayID] == null)
+            else if (_state.UserCodes.Permissions.InstancePermissions[ArrayID].Access == false ||
+                     _state.UserCodes.Permissions.InstancePermissions[ArrayID] == null)
             {
                 button1.Enabled = false;
                 button3.Enabled = false;
@@ -599,67 +596,61 @@ namespace HawkSync_RC
         {
             /*UserManager_Old userManager = new UserManager_Old(_state, _setup);
             userManager.ShowDialog();*/
-            UserManager userManager = new UserManager(_state, _setup);
+            var userManager = new UserManager(_state, _setup);
             userManager.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.CurrentCell.RowIndex == -1)
-            {
-                return; // no instance selected, don't open the winform
-            }
-            DataRow instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
-            int serverid = Convert.ToInt32(instanceRow["ID"]);
-            int ArrayID = -1;
+            if (dataGridView1.CurrentCell.RowIndex == -1) return; // no instance selected, don't open the winform
+            var instanceRow = TVInstances.Rows[dataGridView1.CurrentCell.RowIndex];
+            var serverid = Convert.ToInt32(instanceRow["ID"]);
+            var ArrayID = -1;
             foreach (var instance in _state.Instances)
-            {
                 if (serverid == instance.Value.Id)
                 {
                     ArrayID = instance.Key;
                     break;
                 }
-            }
+
             if (ArrayID == -1)
             {
                 MessageBox.Show("We could not detect the instance that is selected.", "Oh no!");
                 return;
             }
 
-            if (_state.Instances[ArrayID].Status == classes.InstanceStatus.OFFLINE)
+            if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
             {
                 start_Game = new Start_Game(_state, _setup, ArrayID);
                 start_Game.ShowDialog();
             }
             else
             {
-                DialogResult serverStopMsg = MessageBox.Show("Are you sure you want to stop this instance?", "Attention!", MessageBoxButtons.YesNo);
+                var serverStopMsg = MessageBox.Show("Are you sure you want to stop this instance?", "Attention!",
+                    MessageBoxButtons.YesNo);
                 if (serverStopMsg == DialogResult.Yes)
-                {
                     try
                     {
-                        Dictionary<string, dynamic> request = new Dictionary<string, dynamic>()
+                        var request = new Dictionary<string, dynamic>
                         {
                             { "SessionID", _setup.SessionID },
                             { "action", "BMTRC.StopInstance" },
                             { "serverID", _state.Instances[ArrayID].Id }
                         };
-                        byte[] responseBytes = _setup.SendCMD(request);
-                        Dictionary<string, dynamic> response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(Encoding.Default.GetString(responseBytes));
+                        var responseBytes = _setup.SendCMD(request);
+                        var response =
+                            JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                                Encoding.Default.GetString(responseBytes));
                         if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
-                        {
-                            MessageBox.Show("An unknown error has occurred!\nPlease try your request again later.", "Error");
-                            return;
-                        }
+                            MessageBox.Show("An unknown error has occurred!\nPlease try your request again later.",
+                                "Error");
                     }
                     catch
                     {
-                        MessageBox.Show("An unknown error has occurred!\nPlease try your request again later.", "Error");
-                        return;
+                        MessageBox.Show("An unknown error has occurred!\nPlease try your request again later.",
+                            "Error");
                     }
-                }
             }
         }
-
     }
 }

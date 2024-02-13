@@ -4,36 +4,27 @@ namespace HawkSync_RC.classes
 {
     public class playerlist
     {
-        public int slot { get; set; }
-        public string name { get; set; }
-        public string address { get; set; }
-        public int ping { get; set; }
-        public int kills { get; set; }
-        public int deaths { get; set; }
-        public int zonetime { get; set; }
-        public int zonekills { get; set; }
-        public int zonedefendkills { get; set; }
-        public int playerrevives { get; set; }
-        public int team { get; set; } // blue/red team
-        public int flagcaptures { get; set; }
-        public int suicides { get; set; }
-        public int teamkills { get; set; }
-        public int headshots { get; set; }
-        public int knifekills { get; set; }
-        public int revives { get; set; }
-        public int pspattempts { get; set; }
-        public int psptakeover { get; set; }
-        public int doublekills { get; set; }
-        public int flagcarrierkills { get; set; }
-        public int flagcarrierdeaths { get; set; }
-        public int exp { get; set; }
-        public int ADTargetsDestroyed { get; set; }
-        public int FlagSaves { get; set; }
-        public int totalshots { get; set; }
-        public string PlayerClass { get; set; }
-        public string selectedWeapon { get; set; }
-        public string lastselectedWeapon { get; set; }
-        public List<string> weapons { get; set; }
+        public enum CharacterClass
+        {
+            CQB = 5,
+            MEDIC = 6,
+            SNIPER = 7,
+            GUNNER = 8,
+            SAS_CQB = 9,
+            SAS_MEDIC = 10,
+            SAS_SNIPER = 11,
+            SAS_GUNNER = 12
+        }
+
+        public enum Teams
+        {
+            TEAM_GREEN = 0,
+            TEAM_BLUE = 1,
+            TEAM_RED = 2,
+            TEAM_YELLOW = 3,
+            TEAM_PURPLE = 4,
+            TEAM_SPEC = 5 // this shouldn't be here because there is no spectator camera
+        }
 
         // list of weapons assigned to an int.
         public enum WeaponStack
@@ -91,27 +82,38 @@ namespace HawkSync_RC.classes
             WPN_GRENADELAUNCHER_M203 = 38,
             WPN_50_EMPLACEMENT_TRUCK = 40,
             WPN_50_EMPLACEMENT = 41,
-            WPN_EMC_CANNON = 42,
+            WPN_EMC_CANNON = 42
         }
-        public enum Teams
-        {
-            TEAM_GREEN = 0,
-            TEAM_BLUE = 1,
-            TEAM_RED = 2,
-            TEAM_YELLOW = 3,
-            TEAM_PURPLE = 4,
-            TEAM_SPEC = 5 // this shouldn't be here because there is no spectator camera
-        }
-        public enum CharacterClass
-        {
-            CQB = 5,
-            MEDIC = 6,
-            SNIPER = 7,
-            GUNNER = 8,
-            SAS_CQB = 9,
-            SAS_MEDIC = 10,
-            SAS_SNIPER = 11,
-            SAS_GUNNER = 12,
-        }
+
+        public int slot { get; set; }
+        public string name { get; set; }
+        public string address { get; set; }
+        public int ping { get; set; }
+        public int kills { get; set; }
+        public int deaths { get; set; }
+        public int zonetime { get; set; }
+        public int zonekills { get; set; }
+        public int zonedefendkills { get; set; }
+        public int playerrevives { get; set; }
+        public int team { get; set; } // blue/red team
+        public int flagcaptures { get; set; }
+        public int suicides { get; set; }
+        public int teamkills { get; set; }
+        public int headshots { get; set; }
+        public int knifekills { get; set; }
+        public int revives { get; set; }
+        public int pspattempts { get; set; }
+        public int psptakeover { get; set; }
+        public int doublekills { get; set; }
+        public int flagcarrierkills { get; set; }
+        public int flagcarrierdeaths { get; set; }
+        public int exp { get; set; }
+        public int ADTargetsDestroyed { get; set; }
+        public int FlagSaves { get; set; }
+        public int totalshots { get; set; }
+        public string PlayerClass { get; set; }
+        public string selectedWeapon { get; set; }
+        public string lastselectedWeapon { get; set; }
+        public List<string> weapons { get; set; }
     }
 }

@@ -1,20 +1,21 @@
-﻿using HawkSync_RC.classes;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using HawkSync_RC.classes;
+using Newtonsoft.Json;
 
 namespace HawkSync_RC
 {
     public partial class Start_Game : Form
     {
-        AppState _state;
-        int ArrayID = -1;
-        List<MapList> selectedMapList = new List<MapList>();
-        List<MapList> selectedGameTypeMapList = new List<MapList>();
-        Dictionary<int, MapList> avalMaps;
-        RCSetup RCSetup = null;
+        private readonly AppState _state;
+        private readonly int ArrayID = -1;
+        private Dictionary<int, MapList> avalMaps;
+        private readonly RCSetup RCSetup;
+        private readonly List<MapList> selectedGameTypeMapList = new List<MapList>();
+        private readonly List<MapList> selectedMapList = new List<MapList>();
+
         public Start_Game(AppState state, RCSetup setup, int arrayID)
         {
             InitializeComponent();
@@ -26,47 +27,43 @@ namespace HawkSync_RC
 
         private void Start_Game_Load(object sender, EventArgs e)
         {
-            Dictionary<dynamic, dynamic> cmd = new Dictionary<dynamic, dynamic>
+            var cmd = new Dictionary<dynamic, dynamic>
             {
                 { "action", "BMTRC.GetAvalMaps" },
                 { "serverID", _state.Instances[ArrayID].Id },
                 { "SessionID", RCSetup.SessionID }
             };
-            byte[] compressReply = RCSetup.SendCMD(cmd);
-            Dictionary<dynamic, dynamic> data = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(Encoding.Default.GetString(compressReply));
+            var compressReply = RCSetup.SendCMD(cmd);
+            var data = JsonConvert.DeserializeObject<Dictionary<dynamic, dynamic>>(
+                Encoding.Default.GetString(compressReply));
             if ((OpenClass.Status)data["Status"] == OpenClass.Status.SUCCESS)
-            {
                 avalMaps = JsonConvert.DeserializeObject<Dictionary<int, MapList>>(data["maps"]);
-            }
-            foreach (var gameType in _state.autoRes.gameTypes)
-            {
-                comboBox10.Items.Add(gameType.Value.Name);
-            }
+            foreach (var gameType in _state.autoRes.gameTypes) comboBox10.Items.Add(gameType.Value.Name);
             comboBox10.SelectedIndex = 0;
             // fill slot
-            int slotnum = 1;
+            var slotnum = 1;
             while (slotnum < 51)
             {
                 comboBox2.Items.Add(slotnum);
                 slotnum++;
             }
+
             // end fill slot
             // maxkills
-            for (int maxkills = 1; maxkills < 501; maxkills++)
+            for (var maxkills = 1; maxkills < 501; maxkills++)
             {
                 comboBox4.Items.Add(maxkills);
                 comboBox5.Items.Add(maxkills);
             }
+
             //end maxkills
-            for (int zonetimer = 1; zonetimer < 61; zonetimer++)
+            for (var zonetimer = 1; zonetimer < 61; zonetimer++)
             {
                 comboBox6.Items.Add(zonetimer);
                 comboBox8.Items.Add(zonetimer);
             }
-            for (int respawntime = 1; respawntime < 121; respawntime++)
-            {
-                comboBox7.Items.Add(respawntime);
-            }
+
+            for (var respawntime = 1; respawntime < 121; respawntime++) comboBox7.Items.Add(respawntime);
             textBox1.Text = _state.Instances[ArrayID].ServerName;
             textBox2.Text = _state.Instances[ArrayID].MOTD;
             textBox3.Text = _state.Instances[ArrayID].CountryCode;
@@ -105,6 +102,7 @@ namespace HawkSync_RC
                     checkBox13.Checked = true;
                     break;
             }
+
             switch (_state.Instances[ArrayID].MaxPing)
             {
                 case false:
@@ -116,13 +114,16 @@ namespace HawkSync_RC
                     checkBox14.Checked = true;
                     break;
             }
+
             selectedMapList.Clear();
             foreach (var map in _state.Instances[ArrayID].MapList)
             {
                 selectedMapList.Add(map.Value);
-                listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" + map.Value.MapFile + ">");
+                listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" + map.Value.MapFile +
+                                   ">");
             }
-            label33.Text = listBox2.Items.Count.ToString() + " / 128";
+
+            label33.Text = listBox2.Items.Count + " / 128";
         }
 
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
@@ -131,7 +132,6 @@ namespace HawkSync_RC
             selectedGameTypeMapList.Clear();
 
             foreach (var mapItem in avalMaps)
-            {
                 if (mapItem.Value.GameTypes.Contains(comboBox10.SelectedIndex))
                 {
                     selectedGameTypeMapList.Add(new MapList
@@ -142,7 +142,6 @@ namespace HawkSync_RC
                     });
                     listBox1.Items.Add(mapItem.Value.MapName + " <" + mapItem.Value.MapFile + ">");
                 }
-            }
         }
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
@@ -157,7 +156,7 @@ namespace HawkSync_RC
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -169,13 +168,11 @@ namespace HawkSync_RC
 
         private void listBox2_DoubleClick(object sender, EventArgs e)
         {
-            if (listBox2.SelectedIndex == -1)
-            {
-                return; // don't do anything since nothing is selected
-            }
+            if (listBox2.SelectedIndex == -1) return; // don't do anything since nothing is selected
             selectedMapList.RemoveAt(listBox2.SelectedIndex);
             listBox2.Items.Remove(listBox2.SelectedItem);
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             // update settings and start game
@@ -185,23 +182,27 @@ namespace HawkSync_RC
                 MessageBox.Show("Please enter a valid Server Name!", "Error");
                 return;
             }
-            else if (string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+
+            if (string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
             {
                 MessageBox.Show("Please enter a valid MOTD!", "Error");
                 return;
             }
-            else if (string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrWhiteSpace(textBox3.Text) || textBox3.TextLength > 2)
+
+            if (string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrWhiteSpace(textBox3.Text) ||
+                textBox3.TextLength > 2)
             {
                 MessageBox.Show("Please enter a valid 2 character Country Code!", "Error");
                 return;
             }
-            else if (listBox2.Items.Count == 0)
+
+            if (listBox2.Items.Count == 0)
             {
                 MessageBox.Show("Please enter at least 1 start up map!", "Error");
                 return;
             }
 
-            Dictionary<string, dynamic> request = new Dictionary<string, dynamic>()
+            var request = new Dictionary<string, dynamic>
             {
                 { "SessionID", RCSetup.SessionID },
                 { "action", "BMTRC.StartInstance" },
@@ -237,30 +238,32 @@ namespace HawkSync_RC
                 { "MaxPingValue", Convert.ToInt32(textBox8.Text) },
                 { "StartList", JsonConvert.SerializeObject(selectedMapList) }
             };
-            Dictionary<string, dynamic> response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+            var response =
+                JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                    Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
             {
-                MessageBox.Show("The server has been restarted successfully!\n\nPlease allow the RC a few moments to update.", "Success");
-                this.Close();
+                MessageBox.Show(
+                    "The server has been restarted successfully!\n\nPlease allow the RC a few moments to update.",
+                    "Success");
+                Close();
             }
             else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
             {
                 MessageBox.Show("An error has occurred!", "Error");
-                return;
             }
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            string gameTypeShortCode = string.Empty;
+            var gameTypeShortCode = string.Empty;
             foreach (var gt in _state.autoRes.gameTypes)
-            {
                 if (gt.Value.Name == comboBox10.SelectedItem.ToString())
                 {
                     gameTypeShortCode = gt.Key;
                     break;
                 }
-            }
+
             selectedMapList.Add(new MapList
             {
                 CustomMap = selectedGameTypeMapList[listBox1.SelectedIndex].CustomMap,
@@ -268,7 +271,9 @@ namespace HawkSync_RC
                 MapName = selectedGameTypeMapList[listBox1.SelectedIndex].MapName,
                 GameType = gameTypeShortCode
             });
-            listBox2.Items.Add("|" + gameTypeShortCode + "| " + selectedGameTypeMapList[listBox1.SelectedIndex].MapName + " <" + selectedGameTypeMapList[listBox1.SelectedIndex].MapFile + ">");
+            listBox2.Items.Add("|" + gameTypeShortCode + "| " +
+                               selectedGameTypeMapList[listBox1.SelectedIndex].MapName + " <" +
+                               selectedGameTypeMapList[listBox1.SelectedIndex].MapFile + ">");
         }
     }
 }

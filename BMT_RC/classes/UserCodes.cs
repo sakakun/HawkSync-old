@@ -10,6 +10,7 @@ namespace HawkSync_RC.classes
         public int SubAdmin { get; set; }
         public Permissions Permissions { get; set; }
     }
+
     public class Permissions
     {
         public bool WebAdmin { get; set; }
@@ -17,6 +18,7 @@ namespace HawkSync_RC.classes
         public MainAppPermissions MainAppPermissions { get; set; }
         public Dictionary<int, InstancePermissions> InstancePermissions { get; set; }
     }
+
     public class InstancePermissions
     {
         public bool Access { get; set; }
@@ -27,10 +29,12 @@ namespace HawkSync_RC.classes
         public RotationManagerPermissions RotationManagerPermissions { get; set; }
         public FileManagerPermissions FileManagerPermissions { get; set; }
     }
+
     public class MainAppPermissions
     {
         public UserManagerPermissions UserManagerPermissions { get; set; }
     }
+
     public class UserManagerPermissions
     {
         public bool Access { get; set; }
@@ -38,6 +42,7 @@ namespace HawkSync_RC.classes
         public bool User_Delete { get; set; }
         public bool User_Modify { get; set; }
     }
+
     public class ServerManagerPermissions
     {
         public bool Access { get; set; }
@@ -47,6 +52,7 @@ namespace HawkSync_RC.classes
         public MapManagerPermissions MapManagerPermissions { get; set; }
         public ChatManagerPermissions ChatManagerPermissions { get; set; }
     }
+
     public class AutoMessagesPermissions
     {
         public bool Access { get; set; }
@@ -54,6 +60,7 @@ namespace HawkSync_RC.classes
         public bool DeleteMsg { get; set; }
         public bool ModifyInterval { get; set; }
     }
+
     public class PlayerManagerPermissions
     {
         public bool Access { get; set; }
@@ -74,6 +81,7 @@ namespace HawkSync_RC.classes
         public bool ChangePlayerTeam { get; set; }
         public VPNSettings VPNSettings { get; set; }
     }
+
     public class VPNSettings
     {
         public bool Access { get; set; }
@@ -81,6 +89,7 @@ namespace HawkSync_RC.classes
         public bool WhiteListDeletePlayer { get; set; }
         public bool ModifyWarnLevel { get; set; }
     }
+
     public class ServerSettingsPermissions
     {
         public bool Access { get; set; }
@@ -141,17 +150,20 @@ namespace HawkSync_RC.classes
         public bool SaveRotation { get; set; }
         public bool LoadRotation { get; set; }
     }
+
     public class ChatManagerPermissions
     {
         public bool Access { get; set; }
         public bool SendMsg { get; set; }
     }
+
     public class RotationManagerPermissions
     {
         public bool Access { get; set; }
         public bool CreateNewRotation { get; set; }
         public bool DeleteRotation { get; set; }
     }
+
     public class FileManagerPermissions
     {
         public bool Access { get; set; }

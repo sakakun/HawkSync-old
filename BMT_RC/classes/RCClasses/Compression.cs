@@ -6,7 +6,7 @@ namespace HawkSync_RC.classes.RCClasses
     public static class Compression
     {
         /// <summary>
-        /// Compresses a string and returns a deflate compressed, Base64 encoded string.
+        ///     Compresses a string and returns a deflate compressed, Base64 encoded string.
         /// </summary>
         /// <param name="uncompressedString">String to compress</param>
         public static byte[] Compress(byte[] uncompressedString)
@@ -35,7 +35,7 @@ namespace HawkSync_RC.classes.RCClasses
 
 
         /// <summary>
-        /// Decompresses a deflate compressed, Base64 encoded string and returns an uncompressed string.
+        ///     Decompresses a deflate compressed, Base64 encoded string and returns an uncompressed string.
         /// </summary>
         /// <param name="compressedString">String to decompress.</param>
         public static byte[] Decompress(byte[] compressedString)

@@ -2,13 +2,6 @@
 {
     public class OpenClass
     {
-        public string action { get; set; }
-        public string msg { get; set; }
-        public bool success { get; set; }
-        public string SessionID { get; set; }
-        public Status LoginMessage { get; set; }
-        public string message { get; set; }
-
         public enum Status
         {
             TIMEOUT = -3,
@@ -28,7 +21,14 @@
             INVALIDIPADDRESS = 11,
             INVALIDBANREASON = 12,
             UPDATEREQUIRED = 13,
-            USERALREADYEXISTS = 14,
+            USERALREADYEXISTS = 14
         }
+
+        public string action { get; set; }
+        public string msg { get; set; }
+        public bool success { get; set; }
+        public string SessionID { get; set; }
+        public Status LoginMessage { get; set; }
+        public string message { get; set; }
     }
 }
