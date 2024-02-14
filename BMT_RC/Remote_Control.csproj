@@ -138,51 +138,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppState.cs" />
-    <Compile Include="ChangeTeamClass.cs" />
-    <Compile Include="classes\adminNotes.cs" />
-    <Compile Include="classes\autoRes.cs" />
-    <Compile Include="classes\auto_messages.cs" />
-    <Compile Include="classes\ChatLogs.cs" />
+    <Compile Include="definedObj\ChangeTeamClass.cs" />
+    <Compile Include="definedObj\adminNotes.cs" />
+    <Compile Include="classes\autoRestart.cs" />
+    <Compile Include="definedObj\autoMessages.cs" />
+    <Compile Include="definedObj\ChatLogs.cs" />
     <Compile Include="classes\clientClass.cs" />
-    <Compile Include="classes\CountryCodes.cs" />
-    <Compile Include="classes\GameType.cs" />
-    <Compile Include="classes\Instance.cs" />
-    <Compile Include="classes\IPQualityClass.cs" />
-    <Compile Include="classes\ipqualityscore.cs" />
-    <Compile Include="classes\MapList.cs" />
-    <Compile Include="classes\OpenClass.cs" />
-    <Compile Include="classes\playerbans.cs" />
-    <Compile Include="classes\PlayerChatLog.cs" />
-    <Compile Include="classes\playerHistory.cs" />
-    <Compile Include="classes\playerlist.cs" />
-    <Compile Include="classes\PlayerRoles.cs" />
-    <Compile Include="classes\pluginClasses\vm_internal.cs" />
-    <Compile Include="classes\pluginClasses\vm_PluginSettings.cs" />
-    <Compile Include="classes\pluginClasses\wp_PluginSettings.cs" />
-    <Compile Include="classes\PluginsClass.cs" />
-    <Compile Include="classes\PreviousTeams.cs" />
-    <Compile Include="classes\RCClasses\Compression.cs" />
-    <Compile Include="classes\RCClasses\playerAddress.cs" />
-    <Compile Include="classes\RCInstances.cs" />
-    <Compile Include="classes\RCLogs.cs" />
-    <Compile Include="classes\RCPermissions.cs" />
-    <Compile Include="classes\RCProfile.cs" />
-    <Compile Include="classes\savedmaprotations.cs" />
-    <Compile Include="classes\SystemInfoClass.cs" />
-    <Compile Include="classes\UserCodes.cs" />
-    <Compile Include="classes\VoteMapsTally.cs" />
-    <Compile Include="classes\VPNWhiteListClass.cs" />
-    <Compile Include="classes\WarnPlayerClass.cs" />
-    <Compile Include="classes\WeaponsClass.cs" />
-    <Compile Include="classes\WelcomePlayer.cs" />
+    <Compile Include="definedObj\CountryCodes.cs" />
+    <Compile Include="definedObj\GameType.cs" />
+    <Compile Include="definedObj\Instance.cs" />
+    <Compile Include="definedObj\IPQualityClass.cs" />
+    <Compile Include="definedObj\ipqualityscore.cs" />
+    <Compile Include="definedObj\MapList.cs" />
+    <Compile Include="definedObj\OpenClass.cs" />
+    <Compile Include="definedObj\playerbans.cs" />
+    <Compile Include="definedObj\PlayerChatLog.cs" />
+    <Compile Include="definedObj\playerHistory.cs" />
+    <Compile Include="definedObj\playerlist.cs" />
+    <Compile Include="definedObj\PlayerRoles.cs" />
+    <Compile Include="definedObj\vm_internal.cs" />
+    <Compile Include="definedObj\vm_PluginSettings.cs" />
+    <Compile Include="definedObj\wp_PluginSettings.cs" />
+    <Compile Include="definedObj\PluginsClass.cs" />
+    <Compile Include="definedObj\PreviousTeams.cs" />
+    <Compile Include="classes\SupportClasses\Compression.cs" />
+    <Compile Include="definedObj\playerAddress.cs" />
+    <Compile Include="definedObj\RCInstances.cs" />
+    <Compile Include="definedObj\RCLogs.cs" />
+    <Compile Include="definedObj\RCPermissions.cs" />
+    <Compile Include="definedObj\RCProfile.cs" />
+    <Compile Include="definedObj\savedmaprotations.cs" />
+    <Compile Include="definedObj\SystemInfoClass.cs" />
+    <Compile Include="definedObj\UserCodes.cs" />
+    <Compile Include="definedObj\VoteMapsTally.cs" />
+    <Compile Include="definedObj\VPNWhiteListClass.cs" />
+    <Compile Include="definedObj\WarnPlayerClass.cs" />
+    <Compile Include="definedObj\WeaponsClass.cs" />
+    <Compile Include="definedObj\WelcomePlayer.cs" />
     <Compile Include="Panels\ClientOptions.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Panels\ClientOptions.Designer.cs">
       <DependentUpon>ClientOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Crypt.cs" />
-    <Compile Include="HexConverter.cs" />
+    <Compile Include="classes\SupportClasses\Crypt.cs" />
+    <Compile Include="classes\SupportClasses\HexConverter.cs" />
     <Compile Include="Main_Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,8 +221,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RCFunctions\SpectateFunctions.cs" />
-    <Compile Include="RCSetup.cs" />
+    <Compile Include="classes\Spectate\SpectateFunctions.cs" />
+    <Compile Include="classes\RemoteInit\RCSetup.cs" />
     <Compile Include="Panels\RC_RotationManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,8 +241,8 @@
     <Compile Include="Panels\Start_Game.Designer.cs">
       <DependentUpon>Start_Game.cs</DependentUpon>
     </Compile>
-    <Compile Include="TVFunctions\TVRotationManagerCMD.cs" />
-    <Compile Include="TVFunctions\TVUserManager.cs" />
+    <Compile Include="classes\TVRotationManagerCMD.cs" />
+    <Compile Include="classes\TVUserManager.cs" />
     <Compile Include="Panels\UserManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,7 +284,6 @@
     <EmbeddedResource Include="Panels\UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -69,7 +69,7 @@ namespace HawkSync_RC.classes
         public int misc_left_leaning { get; set; }
         public bool enableVPNCheck { get; set; }
         public DateTime nextWebStatsStatusUpdate { get; set; }
-        public auto_messages AutoMessages { get; set; }
+        public autoMessages AutoMessages { get; set; }
         public DateTime NextUpdateWebStats { get; set; }
         public InstanceStatus Status { get; set; }
         public DateTime LastUpdateTime { get; set; }

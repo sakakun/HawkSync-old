@@ -494,7 +494,7 @@ namespace HawkSync_RC
                         var autoResReply = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(autoRes);
                         if ((OpenClass.Status)autoResReply["Status"] == OpenClass.Status.SUCCESS)
                             _state.autoRes =
-                                JsonConvert.DeserializeObject<autoRes>(Crypt.Base64Decode(autoResReply["AutoRes"]));
+                                JsonConvert.DeserializeObject<autoRestart>(Crypt.Base64Decode(autoResReply["AutoRes"]));
 
                         // something went wrong while trying to retrieve the AutoRes Class from TV
                         var ftpPortResponse = clientClass.GetFTPPort(RCSetup.client, RCSetup.SessionID);

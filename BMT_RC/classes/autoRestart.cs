@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HawkSync_RC.classes
 {
-    public class autoRes
+    public class autoRestart
     {
         public Dictionary<string, GameType> gameTypes { get; set; }
 
