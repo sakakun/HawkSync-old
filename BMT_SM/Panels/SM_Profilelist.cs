@@ -1202,23 +1202,18 @@ namespace HawkSync_SM
          */
         private void event_processPlayerWarnings(int instanceid)
         {
-            if (_state.Instances[instanceid].WarningQueue.Count == 0)
-            {
-                return;
-            }
-            else
-            {
-                for (int i = 0; i < _state.Instances[instanceid].WarningQueue.Count; i++)
-                {
-                    var item = _state.Instances[instanceid].WarningQueue[i];
+            var warningQueue = _state.Instances[instanceid].WarningQueue;
+            var playerList = _state.Instances[instanceid].PlayerList;
 
-                    string playername = _state.Instances[instanceid].PlayerList[item.slot].name;
-                    (new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[2], $"WARNING!!! {playername} - {item.warningMsg}");
-                    _state.Instances[instanceid].WarningQueue.RemoveAt(i);
-
-                }
+            while (warningQueue.Count > 0)
+            {
+                var item = warningQueue[0];
+                string playername = playerList[item.slot].name;
+                (new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[2], $"WARNING!!! {playername} - {item.warningMsg}");
+                warningQueue.RemoveAt(0);
             }
         }
+
         private void event_getChatLogs(int profileid)
         {
             //0x80
