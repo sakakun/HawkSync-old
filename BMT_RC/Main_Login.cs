@@ -678,7 +678,7 @@ namespace HawkSync_RC
             }
 
             RCSetup.loopTrigger = false;
-            updateInternal.Abort();
+            updateInternal.Join();
         }
     }
 }
