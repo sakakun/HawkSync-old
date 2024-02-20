@@ -1160,8 +1160,8 @@ namespace HawkSync_SM
 
             int InstanceID = Convert.ToInt32(list_serverProfiles.CurrentCell.RowIndex);
 
-            Start_Game start_Game = new Start_Game(InstanceID, _state);
-            start_Game.ShowDialog();
+            SM_StartGame StartGame = new SM_StartGame(InstanceID, _state);
+            StartGame.ShowDialog();
         }
         /*
          * Event: Server Online

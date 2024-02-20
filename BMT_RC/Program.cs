@@ -40,7 +40,7 @@ namespace HawkSync_RC
                 if (!RemoteProfilesExist)
                     File.WriteAllText(ProgramConfig.RemoteProfiles, remoteProfilesConfig.ToString());
 
-                Application.Run(new Main_Login());
+                Application.Run(new RC_RemoteLogin());
             }
             catch (Exception)
             {

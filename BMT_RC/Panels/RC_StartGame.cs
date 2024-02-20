@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace HawkSync_RC
 {
-    public partial class Start_Game : Form
+    public partial class RC_StartGame : Form
     {
         private readonly AppState _state;
         private readonly int ArrayID = -1;
@@ -16,7 +16,7 @@ namespace HawkSync_RC
         private readonly List<MapList> selectedGameTypeMapList = new List<MapList>();
         private readonly List<MapList> selectedMapList = new List<MapList>();
 
-        public Start_Game(AppState state, RCSetup setup, int arrayID)
+        public RC_StartGame(AppState state, RCSetup setup, int arrayID)
         {
             InitializeComponent();
             _state = state;
@@ -44,7 +44,7 @@ namespace HawkSync_RC
             var slotnum = 1;
             while (slotnum < 51)
             {
-                comboBox2.Items.Add(slotnum);
+                comboBox_maxPlayers.Items.Add(slotnum);
                 slotnum++;
             }
 
@@ -52,66 +52,66 @@ namespace HawkSync_RC
             // maxkills
             for (var maxkills = 1; maxkills < 501; maxkills++)
             {
-                comboBox4.Items.Add(maxkills);
-                comboBox5.Items.Add(maxkills);
+                comboBox_maxKills.Items.Add(maxkills);
+                comboBox_flagsScored.Items.Add(maxkills);
             }
 
             //end maxkills
             for (var zonetimer = 1; zonetimer < 61; zonetimer++)
             {
-                comboBox6.Items.Add(zonetimer);
-                comboBox8.Items.Add(zonetimer);
+                comboBox_zoneTimer.Items.Add(zonetimer);
+                comboBox_timeLimit.Items.Add(zonetimer);
             }
 
-            for (var respawntime = 1; respawntime < 121; respawntime++) comboBox7.Items.Add(respawntime);
-            textBox1.Text = _state.Instances[ArrayID].ServerName;
-            textBox2.Text = _state.Instances[ArrayID].MOTD;
-            textBox3.Text = _state.Instances[ArrayID].CountryCode;
-            textBox4.Text = _state.Instances[ArrayID].Password;
+            for (var respawntime = 1; respawntime < 121; respawntime++) comboBox_respawnTime.Items.Add(respawntime);
+            textBox_serverName.Text = _state.Instances[ArrayID].ServerName;
+            textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
+            textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
+            textBox_serverPassword.Text = _state.Instances[ArrayID].Password;
             comboBox_sessionType.SelectedIndex = 0;
             comboBox_sessionType.Enabled = false;
-            comboBox2.SelectedItem = _state.Instances[ArrayID].MaxSlots;
-            comboBox3.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            checkBox1.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
-            comboBox4.SelectedIndex = _state.Instances[ArrayID].MaxKills;
-            comboBox5.SelectedIndex = _state.Instances[ArrayID].GameScore;
-            comboBox6.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
-            comboBox7.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            comboBox8.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            checkBox2.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            checkBox3.Checked = _state.Instances[ArrayID].WindowedMode;
-            checkBox4.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            checkBox5.Checked = _state.Instances[ArrayID].Dedicated;
-            textBox5.Text = _state.Instances[ArrayID].BluePassword;
-            textBox6.Text = _state.Instances[ArrayID].RedPassword;
-            checkBox6.Checked = _state.Instances[ArrayID].FriendlyFire;
-            checkBox8.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            checkBox7.Checked = _state.Instances[ArrayID].FriendlyTags;
-            checkBox9.Checked = _state.Instances[ArrayID].AutoBalance;
-            checkBox10.Checked = _state.Instances[ArrayID].ShowTracers;
-            checkBox11.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            checkBox12.Checked = _state.Instances[ArrayID].AllowAutoRange;
+            comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
+            comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
+            checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
+            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].MaxKills;
+            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].GameScore;
+            comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
+            comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
+            comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
+            checkBox_reqNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
+            checkBox_windowMode.Checked = _state.Instances[ArrayID].WindowedMode;
+            checkBox_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
+            checkBox_runDedicated.Checked = _state.Instances[ArrayID].Dedicated;
+            textBox_passBlue.Text = _state.Instances[ArrayID].BluePassword;
+            textBox_passRed.Text = _state.Instances[ArrayID].RedPassword;
+            checkBox_ffire.Checked = _state.Instances[ArrayID].FriendlyFire;
+            checkBox_ffireWarn.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
+            checkBox_ftags.Checked = _state.Instances[ArrayID].FriendlyTags;
+            checkBox_autoBal.Checked = _state.Instances[ArrayID].AutoBalance;
+            checkBox_showTrace.Checked = _state.Instances[ArrayID].ShowTracers;
+            checkBox_showTeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
+            checkBox_autoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
             switch (_state.Instances[ArrayID].MinPing)
             {
                 case false:
-                    checkBox13.Checked = false;
-                    textBox7.Text = "0";
+                    checkBox_minPing.Checked = false;
+                    textBox_minPing.Text = "0";
                     break;
                 case true:
-                    textBox7.Text = Convert.ToString(_state.Instances[ArrayID].MinPingValue);
-                    checkBox13.Checked = true;
+                    textBox_minPing.Text = Convert.ToString(_state.Instances[ArrayID].MinPingValue);
+                    checkBox_minPing.Checked = true;
                     break;
             }
 
             switch (_state.Instances[ArrayID].MaxPing)
             {
                 case false:
-                    checkBox14.Checked = false;
-                    textBox8.Text = "0";
+                    checkBox_maxPing.Checked = false;
+                    textBox_maxPing.Text = "0";
                     break;
                 case true:
-                    textBox8.Text = Convert.ToString(_state.Instances[ArrayID].MaxPingValue);
-                    checkBox14.Checked = true;
+                    textBox_maxPing.Text = Convert.ToString(_state.Instances[ArrayID].MaxPingValue);
+                    checkBox_maxPing.Checked = true;
                     break;
             }
 
@@ -123,7 +123,7 @@ namespace HawkSync_RC
                                    ">");
             }
 
-            label33.Text = listBox2.Items.Count + " / 128";
+            label_mapCount.Text = listBox2.Items.Count + " / 128";
         }
 
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,12 +146,12 @@ namespace HawkSync_RC
 
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
-            textBox7.Enabled = checkBox13.Checked;
+            textBox_minPing.Enabled = checkBox_minPing.Checked;
         }
 
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
-            textBox8.Enabled = checkBox14.Checked;
+            textBox_maxPing.Enabled = checkBox_maxPing.Checked;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -177,20 +177,20 @@ namespace HawkSync_RC
         {
             // update settings and start game
             // server name
-            if (string.IsNullOrEmpty(textBox1.Text) || string.IsNullOrWhiteSpace(textBox1.Text))
+            if (string.IsNullOrEmpty(textBox_serverName.Text) || string.IsNullOrWhiteSpace(textBox_serverName.Text))
             {
                 MessageBox.Show("Please enter a valid Server Name!", "Error");
                 return;
             }
 
-            if (string.IsNullOrEmpty(textBox2.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
+            if (string.IsNullOrEmpty(textBox_MOTD.Text) || string.IsNullOrWhiteSpace(textBox_MOTD.Text))
             {
                 MessageBox.Show("Please enter a valid MOTD!", "Error");
                 return;
             }
 
-            if (string.IsNullOrEmpty(textBox3.Text) || string.IsNullOrWhiteSpace(textBox3.Text) ||
-                textBox3.TextLength > 2)
+            if (string.IsNullOrEmpty(textBox_countryCode.Text) || string.IsNullOrWhiteSpace(textBox_countryCode.Text) ||
+                textBox_countryCode.TextLength > 2)
             {
                 MessageBox.Show("Please enter a valid 2 character Country Code!", "Error");
                 return;
@@ -207,35 +207,35 @@ namespace HawkSync_RC
                 { "SessionID", RCSetup.SessionID },
                 { "action", "BMTRC.StartInstance" },
                 { "serverID", _state.Instances[ArrayID].Id },
-                { "ServerName", textBox1.Text },
-                { "MOTD", textBox2.Text },
-                { "CountryCode", textBox3.Text },
-                { "password", textBox4.Text },
+                { "ServerName", textBox_serverName.Text },
+                { "MOTD", textBox_MOTD.Text },
+                { "CountryCode", textBox_countryCode.Text },
+                { "password", textBox_serverPassword.Text },
                 { "SessionType", comboBox_sessionType.SelectedIndex },
-                { "MaxSlots", Convert.ToInt32(comboBox2.SelectedItem) },
-                { "StartDelay", comboBox3.SelectedIndex },
-                { "MaxKills", comboBox4.SelectedIndex },
-                { "GameScore", comboBox5.SelectedIndex },
-                { "ZoneTimer", comboBox6.SelectedIndex },
-                { "RespawnTimer", comboBox7.SelectedIndex },
-                { "TimeLimit", comboBox8.SelectedIndex },
-                { "RequireNovaLogin", checkBox2.Checked },
-                { "WindowedMode", checkBox3.Checked },
-                { "AllowCustomSkins", checkBox4.Checked },
-                { "Dedicated", checkBox5.Checked },
-                { "BluePassword", textBox5.Text },
-                { "RedPassword", textBox6.Text },
-                { "FriendlyFire", checkBox6.Checked },
-                { "FriendlyFireWarning", checkBox8.Checked },
-                { "FriendlyTags", checkBox7.Checked },
-                { "AutoBalance", checkBox9.Checked },
-                { "ShowTracers", checkBox10.Checked },
-                { "ShowTeamClays", checkBox11.Checked },
-                { "AllowAutoRange", checkBox12.Checked },
-                { "MinPing", checkBox13.Checked },
-                { "MinPingValue", Convert.ToInt32(textBox7.Text) },
-                { "MaxPing", checkBox14.Checked },
-                { "MaxPingValue", Convert.ToInt32(textBox8.Text) },
+                { "MaxSlots", Convert.ToInt32(comboBox_maxPlayers.SelectedItem) },
+                { "StartDelay", comboBox_startDelay.SelectedIndex },
+                { "MaxKills", comboBox_maxKills.SelectedIndex },
+                { "GameScore", comboBox_flagsScored.SelectedIndex },
+                { "ZoneTimer", comboBox_zoneTimer.SelectedIndex },
+                { "RespawnTimer", comboBox_respawnTime.SelectedIndex },
+                { "TimeLimit", comboBox_timeLimit.SelectedIndex },
+                { "RequireNovaLogin", checkBox_reqNova.Checked },
+                { "WindowedMode", checkBox_windowMode.Checked },
+                { "AllowCustomSkins", checkBox_customSkin.Checked },
+                { "Dedicated", checkBox_runDedicated.Checked },
+                { "BluePassword", textBox_passBlue.Text },
+                { "RedPassword", textBox_passRed.Text },
+                { "FriendlyFire", checkBox_ffire.Checked },
+                { "FriendlyFireWarning", checkBox_ffireWarn.Checked },
+                { "FriendlyTags", checkBox_ftags.Checked },
+                { "AutoBalance", checkBox_autoBal.Checked },
+                { "ShowTracers", checkBox_showTrace.Checked },
+                { "ShowTeamClays", checkBox_showTeamClays.Checked },
+                { "AllowAutoRange", checkBox_autoRange.Checked },
+                { "MinPing", checkBox_minPing.Checked },
+                { "MinPingValue", Convert.ToInt32(textBox_minPing.Text) },
+                { "MaxPing", checkBox_maxPing.Checked },
+                { "MaxPingValue", Convert.ToInt32(textBox_maxPing.Text) },
                 { "StartList", JsonConvert.SerializeObject(selectedMapList) }
             };
             var response =
@@ -275,5 +275,6 @@ namespace HawkSync_RC
                                selectedGameTypeMapList[listBox1.SelectedIndex].MapName + " <" +
                                selectedGameTypeMapList[listBox1.SelectedIndex].MapFile + ">");
         }
+
     }
 }

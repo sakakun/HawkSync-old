@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace HawkSync_SM
 {
-    public partial class Start_Game : Form
+    public partial class SM_StartGame : Form
     {
         [DllImport("user32.dll")]
         static extern IntPtr FindWindow(string windowClass, string windowName);
@@ -57,7 +57,7 @@ namespace HawkSync_SM
         public int max_start_maps = 128;
         AppState _state;
 
-        public Start_Game(int InstanceID, AppState state)
+        public SM_StartGame(int InstanceID, AppState state)
         {
             _state = state;
             ArrayID = InstanceID;
@@ -71,7 +71,7 @@ namespace HawkSync_SM
                 listBox2.Items.Clear();
                 MessageBox.Show("It appears you've added more maps then allowed.\n\nResetting MapCycle. Please try again.\n\nError: #55", "Uh Oh!");
                 listBox2.Items.Clear();
-                label33.Text = $"{listBox2.Items.Count} / {max_start_maps}";
+                label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
                 SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                 conn.Open();
                 SQLiteCommand clearmaps = new SQLiteCommand($"UPDATE `instances_config` SET `mapcycle` = '[]' WHERE `profile_id` = @profileid;", conn);
@@ -136,7 +136,7 @@ namespace HawkSync_SM
                     GameType = maptypeList
                 });
                 listBox2.Items.Add(maptype + listBox1.SelectedItem);
-                label33.Text = $"{listBox2.Items.Count} / {max_start_maps}";
+                label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
             }
         }
 
@@ -144,7 +144,7 @@ namespace HawkSync_SM
         {
             selectedMapList.RemoveAt(listBox2.SelectedIndex);
             listBox2.Items.RemoveAt(listBox2.SelectedIndex);
-            label33.Text = $"{listBox2.Items.Count} / {max_start_maps}";
+            label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
         }
 
         private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
@@ -195,7 +195,7 @@ namespace HawkSync_SM
                 string server_name = textBox_serverName.Text;
                 string motd = textBox_MOTD.Text;
                 string country_code = textBox_countryCode.Text;
-                string server_password = textBox_passServer.Text;
+                string server_password = textBox_serverPassword.Text;
                 int session_type = 0;
                 int max_slots = Convert.ToInt32(comboBox_maxPlayers.SelectedItem);
                 int start_delay = comboBox_startDelay.SelectedIndex;
@@ -1017,7 +1017,7 @@ namespace HawkSync_SM
         {
             listBox2.Items.Clear();
             selectedMapList.Clear();
-            label33.Text = listBox2.Items.Count.ToString() + " / 128";
+            label_mapCount.Text = listBox2.Items.Count.ToString() + " / 128";
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -1086,7 +1086,7 @@ namespace HawkSync_SM
             textBox_serverName.Text = _state.Instances[ArrayID].ServerName;
             textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
             textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
-            textBox_passServer.Text = _state.Instances[ArrayID].Password;
+            textBox_serverPassword.Text = _state.Instances[ArrayID].Password;
             comboBox_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
             comboBox_sessionType.Enabled = false;
             comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
@@ -1137,7 +1137,7 @@ namespace HawkSync_SM
             foreach (var map in _state.Instances[ArrayID].MapList)
             {
                 listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " " + "<" + map.Value.MapFile + ">");
-                label33.Text = $"{listBox2.Items.Count} / {max_start_maps}";
+                label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
             }
 
             db.Close();
@@ -1179,8 +1179,9 @@ namespace HawkSync_SM
                 }
                 selectedMapList = new List<MapList>();
                 selectedMapList = SM_PopupLoadRotation._mapList;
-                label33.Text = _state.Instances[ArrayID].MapList.Count + " / 128";
+                label_mapCount.Text = _state.Instances[ArrayID].MapList.Count + " / 128";
             }
         }
+
     }
 }

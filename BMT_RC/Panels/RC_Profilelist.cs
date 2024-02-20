@@ -19,7 +19,7 @@ namespace HawkSync_RC
         private readonly AppState _state;
         private Bitmap img;
         private RC_ServerManager serverManager;
-        private Start_Game start_Game;
+        private RC_StartGame start_Game;
         private Bitmap statusIMG;
         public Timer Ticker;
         private readonly DataTable TVInstances;
@@ -621,7 +621,7 @@ namespace HawkSync_RC
 
             if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
             {
-                start_Game = new Start_Game(_state, _setup, ArrayID);
+                start_Game = new RC_StartGame(_state, _setup, ArrayID);
                 start_Game.ShowDialog();
             }
             else

@@ -1,7 +1,7 @@
 ﻿
 namespace HawkSync_SM
 {
-    partial class Start_Game
+    partial class SM_StartGame
     {
         /// <summary>
         /// Required designer variable.
@@ -29,35 +29,35 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Start_Game));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_StartGame));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label28 = new System.Windows.Forms.Label();
+            this.label_autoRange = new System.Windows.Forms.Label();
             this.checkBox_autoBal = new System.Windows.Forms.CheckBox();
-            this.label25 = new System.Windows.Forms.Label();
+            this.label_autoBal = new System.Windows.Forms.Label();
             this.checkBox_showTeamClays = new System.Windows.Forms.CheckBox();
-            this.label27 = new System.Windows.Forms.Label();
+            this.label_showClays = new System.Windows.Forms.Label();
             this.label_MaxPC = new System.Windows.Forms.Label();
             this.checkBox_autoRange = new System.Windows.Forms.CheckBox();
             this.textBox_maxPing = new System.Windows.Forms.TextBox();
             this.checkBox_maxPing = new System.Windows.Forms.CheckBox();
             this.textBox_passRed = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
+            this.label_showTracers = new System.Windows.Forms.Label();
+            this.label_teamRed = new System.Windows.Forms.Label();
             this.checkBox_showTrace = new System.Windows.Forms.CheckBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.label_gameMod = new System.Windows.Forms.Label();
             this.label_MinPC = new System.Windows.Forms.Label();
             this.textBox_minPing = new System.Windows.Forms.TextBox();
             this.label_ffWarn = new System.Windows.Forms.Label();
             this.checkBox_minPing = new System.Windows.Forms.CheckBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.label_ftags = new System.Windows.Forms.Label();
             this.label_countryCode = new System.Windows.Forms.Label();
             this.checkBox_ftags = new System.Windows.Forms.CheckBox();
             this.textBox_passBlue = new System.Windows.Forms.TextBox();
             this.checkBox_ffireWarn = new System.Windows.Forms.CheckBox();
             this.textBox_MOTD = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
+            this.label_teamBlue = new System.Windows.Forms.Label();
             this.label_ffire = new System.Windows.Forms.Label();
             this.checkBox_ffire = new System.Windows.Forms.CheckBox();
             this.label_loopMaps = new System.Windows.Forms.Label();
@@ -67,21 +67,21 @@ namespace HawkSync_SM
             this.textBox_serverName = new System.Windows.Forms.TextBox();
             this.label_serverName = new System.Windows.Forms.Label();
             this.textBox_countryCode = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label_timeLimit = new System.Windows.Forms.Label();
+            this.label_maxKills = new System.Windows.Forms.Label();
             this.comboBox_maxKills = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label_flagsScored = new System.Windows.Forms.Label();
             this.comboBox_sessionType = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_sessionType = new System.Windows.Forms.Label();
+            this.label_serverPassword = new System.Windows.Forms.Label();
             this.comboBox_flagsScored = new System.Windows.Forms.ComboBox();
             this.label_runDedicated = new System.Windows.Forms.Label();
             this.checkBox_runDedicated = new System.Windows.Forms.CheckBox();
             this.label_customSkins = new System.Windows.Forms.Label();
             this.btn_Cancel = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label_zoneTimer = new System.Windows.Forms.Label();
             this.checkBox_customSkin = new System.Windows.Forms.CheckBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.label_respawnTimer = new System.Windows.Forms.Label();
             this.checkBox_windowMode = new System.Windows.Forms.CheckBox();
             this.label_windowMode = new System.Windows.Forms.Label();
             this.comboBox_respawnTime = new System.Windows.Forms.ComboBox();
@@ -90,17 +90,17 @@ namespace HawkSync_SM
             this.label_reqNova = new System.Windows.Forms.Label();
             this.comboBox_zoneTimer = new System.Windows.Forms.ComboBox();
             this.comboBox_maxPlayers = new System.Windows.Forms.ComboBox();
-            this.textBox_passServer = new System.Windows.Forms.TextBox();
+            this.textBox_serverPassword = new System.Windows.Forms.TextBox();
             this.comboBox_timeLimit = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label_maxSlots = new System.Windows.Forms.Label();
             this.comboBox_startDelay = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label_startDelay = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btn_loadMaps = new System.Windows.Forms.Button();
             this.btn_resetMaps = new System.Windows.Forms.Button();
             this.btn_shuffleMaps = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
+            this.label_mapCount = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -131,31 +131,31 @@ namespace HawkSync_SM
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label28);
+            this.groupBox1.Controls.Add(this.label_autoRange);
             this.groupBox1.Controls.Add(this.checkBox_autoBal);
-            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.label_autoBal);
             this.groupBox1.Controls.Add(this.checkBox_showTeamClays);
-            this.groupBox1.Controls.Add(this.label27);
+            this.groupBox1.Controls.Add(this.label_showClays);
             this.groupBox1.Controls.Add(this.label_MaxPC);
             this.groupBox1.Controls.Add(this.checkBox_autoRange);
             this.groupBox1.Controls.Add(this.textBox_maxPing);
             this.groupBox1.Controls.Add(this.checkBox_maxPing);
             this.groupBox1.Controls.Add(this.textBox_passRed);
-            this.groupBox1.Controls.Add(this.label26);
-            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.label_showTracers);
+            this.groupBox1.Controls.Add(this.label_teamRed);
             this.groupBox1.Controls.Add(this.checkBox_showTrace);
-            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.label_gameMod);
             this.groupBox1.Controls.Add(this.label_MinPC);
             this.groupBox1.Controls.Add(this.textBox_minPing);
             this.groupBox1.Controls.Add(this.label_ffWarn);
             this.groupBox1.Controls.Add(this.checkBox_minPing);
-            this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.label_ftags);
             this.groupBox1.Controls.Add(this.label_countryCode);
             this.groupBox1.Controls.Add(this.checkBox_ftags);
             this.groupBox1.Controls.Add(this.textBox_passBlue);
             this.groupBox1.Controls.Add(this.checkBox_ffireWarn);
             this.groupBox1.Controls.Add(this.textBox_MOTD);
-            this.groupBox1.Controls.Add(this.label20);
+            this.groupBox1.Controls.Add(this.label_teamBlue);
             this.groupBox1.Controls.Add(this.label_ffire);
             this.groupBox1.Controls.Add(this.checkBox_ffire);
             this.groupBox1.Controls.Add(this.label_loopMaps);
@@ -165,21 +165,21 @@ namespace HawkSync_SM
             this.groupBox1.Controls.Add(this.textBox_serverName);
             this.groupBox1.Controls.Add(this.label_serverName);
             this.groupBox1.Controls.Add(this.textBox_countryCode);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label_timeLimit);
+            this.groupBox1.Controls.Add(this.label_maxKills);
             this.groupBox1.Controls.Add(this.comboBox_maxKills);
-            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label_flagsScored);
             this.groupBox1.Controls.Add(this.comboBox_sessionType);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label_sessionType);
+            this.groupBox1.Controls.Add(this.label_serverPassword);
             this.groupBox1.Controls.Add(this.comboBox_flagsScored);
             this.groupBox1.Controls.Add(this.label_runDedicated);
             this.groupBox1.Controls.Add(this.checkBox_runDedicated);
             this.groupBox1.Controls.Add(this.label_customSkins);
             this.groupBox1.Controls.Add(this.btn_Cancel);
-            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label_zoneTimer);
             this.groupBox1.Controls.Add(this.checkBox_customSkin);
-            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label_respawnTimer);
             this.groupBox1.Controls.Add(this.checkBox_windowMode);
             this.groupBox1.Controls.Add(this.label_windowMode);
             this.groupBox1.Controls.Add(this.comboBox_respawnTime);
@@ -188,19 +188,19 @@ namespace HawkSync_SM
             this.groupBox1.Controls.Add(this.label_reqNova);
             this.groupBox1.Controls.Add(this.comboBox_zoneTimer);
             this.groupBox1.Controls.Add(this.comboBox_maxPlayers);
-            this.groupBox1.Controls.Add(this.textBox_passServer);
+            this.groupBox1.Controls.Add(this.textBox_serverPassword);
             this.groupBox1.Controls.Add(this.comboBox_timeLimit);
-            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label_maxSlots);
             this.groupBox1.Controls.Add(this.comboBox_startDelay);
-            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label_startDelay);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // label28
+            // label_autoRange
             // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
+            resources.ApplyResources(this.label_autoRange, "label_autoRange");
+            this.label_autoRange.Name = "label_autoRange";
             // 
             // checkBox_autoBal
             // 
@@ -208,10 +208,10 @@ namespace HawkSync_SM
             this.checkBox_autoBal.Name = "checkBox_autoBal";
             this.checkBox_autoBal.UseVisualStyleBackColor = true;
             // 
-            // label25
+            // label_autoBal
             // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
+            resources.ApplyResources(this.label_autoBal, "label_autoBal");
+            this.label_autoBal.Name = "label_autoBal";
             // 
             // checkBox_showTeamClays
             // 
@@ -219,10 +219,10 @@ namespace HawkSync_SM
             this.checkBox_showTeamClays.Name = "checkBox_showTeamClays";
             this.checkBox_showTeamClays.UseVisualStyleBackColor = true;
             // 
-            // label27
+            // label_showClays
             // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = "label27";
+            resources.ApplyResources(this.label_showClays, "label_showClays");
+            this.label_showClays.Name = "label_showClays";
             // 
             // label_MaxPC
             // 
@@ -252,15 +252,15 @@ namespace HawkSync_SM
             resources.ApplyResources(this.textBox_passRed, "textBox_passRed");
             this.textBox_passRed.Name = "textBox_passRed";
             // 
-            // label26
+            // label_showTracers
             // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
+            resources.ApplyResources(this.label_showTracers, "label_showTracers");
+            this.label_showTracers.Name = "label_showTracers";
             // 
-            // label21
+            // label_teamRed
             // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = "label21";
+            resources.ApplyResources(this.label_teamRed, "label_teamRed");
+            this.label_teamRed.Name = "label_teamRed";
             // 
             // checkBox_showTrace
             // 
@@ -268,10 +268,10 @@ namespace HawkSync_SM
             this.checkBox_showTrace.Name = "checkBox_showTrace";
             this.checkBox_showTrace.UseVisualStyleBackColor = true;
             // 
-            // label18
+            // label_gameMod
             // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
+            resources.ApplyResources(this.label_gameMod, "label_gameMod");
+            this.label_gameMod.Name = "label_gameMod";
             // 
             // label_MinPC
             // 
@@ -295,10 +295,10 @@ namespace HawkSync_SM
             this.checkBox_minPing.UseVisualStyleBackColor = true;
             this.checkBox_minPing.CheckedChanged += new System.EventHandler(this.checkBoxMinP_CheckedChanged);
             // 
-            // label23
+            // label_ftags
             // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
+            resources.ApplyResources(this.label_ftags, "label_ftags");
+            this.label_ftags.Name = "label_ftags";
             // 
             // label_countryCode
             // 
@@ -327,10 +327,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.textBox_MOTD, "textBox_MOTD");
             this.textBox_MOTD.Name = "textBox_MOTD";
             // 
-            // label20
+            // label_teamBlue
             // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
+            resources.ApplyResources(this.label_teamBlue, "label_teamBlue");
+            this.label_teamBlue.Name = "label_teamBlue";
             // 
             // label_ffire
             // 
@@ -381,15 +381,15 @@ namespace HawkSync_SM
             resources.ApplyResources(this.textBox_countryCode, "textBox_countryCode");
             this.textBox_countryCode.Name = "textBox_countryCode";
             // 
-            // label13
+            // label_timeLimit
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
+            resources.ApplyResources(this.label_timeLimit, "label_timeLimit");
+            this.label_timeLimit.Name = "label_timeLimit";
             // 
-            // label9
+            // label_maxKills
             // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
+            resources.ApplyResources(this.label_maxKills, "label_maxKills");
+            this.label_maxKills.Name = "label_maxKills";
             // 
             // comboBox_maxKills
             // 
@@ -398,10 +398,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.comboBox_maxKills, "comboBox_maxKills");
             this.comboBox_maxKills.Name = "comboBox_maxKills";
             // 
-            // label10
+            // label_flagsScored
             // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.label_flagsScored, "label_flagsScored");
+            this.label_flagsScored.Name = "label_flagsScored";
             // 
             // comboBox_sessionType
             // 
@@ -412,15 +412,15 @@ namespace HawkSync_SM
             resources.ApplyResources(this.comboBox_sessionType, "comboBox_sessionType");
             this.comboBox_sessionType.Name = "comboBox_sessionType";
             // 
-            // label5
+            // label_sessionType
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
+            resources.ApplyResources(this.label_sessionType, "label_sessionType");
+            this.label_sessionType.Name = "label_sessionType";
             // 
-            // label4
+            // label_serverPassword
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            resources.ApplyResources(this.label_serverPassword, "label_serverPassword");
+            this.label_serverPassword.Name = "label_serverPassword";
             // 
             // comboBox_flagsScored
             // 
@@ -452,10 +452,10 @@ namespace HawkSync_SM
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_CloseClick);
             // 
-            // label11
+            // label_zoneTimer
             // 
-            resources.ApplyResources(this.label11, "label11");
-            this.label11.Name = "label11";
+            resources.ApplyResources(this.label_zoneTimer, "label_zoneTimer");
+            this.label_zoneTimer.Name = "label_zoneTimer";
             // 
             // checkBox_customSkin
             // 
@@ -463,10 +463,10 @@ namespace HawkSync_SM
             this.checkBox_customSkin.Name = "checkBox_customSkin";
             this.checkBox_customSkin.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // label_respawnTimer
             // 
-            resources.ApplyResources(this.label12, "label12");
-            this.label12.Name = "label12";
+            resources.ApplyResources(this.label_respawnTimer, "label_respawnTimer");
+            this.label_respawnTimer.Name = "label_respawnTimer";
             // 
             // checkBox_windowMode
             // 
@@ -518,10 +518,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.comboBox_maxPlayers, "comboBox_maxPlayers");
             this.comboBox_maxPlayers.Name = "comboBox_maxPlayers";
             // 
-            // textBox_passServer
+            // textBox_serverPassword
             // 
-            resources.ApplyResources(this.textBox_passServer, "textBox_passServer");
-            this.textBox_passServer.Name = "textBox_passServer";
+            resources.ApplyResources(this.textBox_serverPassword, "textBox_serverPassword");
+            this.textBox_serverPassword.Name = "textBox_serverPassword";
             // 
             // comboBox_timeLimit
             // 
@@ -530,10 +530,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.comboBox_timeLimit, "comboBox_timeLimit");
             this.comboBox_timeLimit.Name = "comboBox_timeLimit";
             // 
-            // label6
+            // label_maxSlots
             // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
+            resources.ApplyResources(this.label_maxSlots, "label_maxSlots");
+            this.label_maxSlots.Name = "label_maxSlots";
             // 
             // comboBox_startDelay
             // 
@@ -547,10 +547,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.comboBox_startDelay, "comboBox_startDelay");
             this.comboBox_startDelay.Name = "comboBox_startDelay";
             // 
-            // label7
+            // label_startDelay
             // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
+            resources.ApplyResources(this.label_startDelay, "label_startDelay");
+            this.label_startDelay.Name = "label_startDelay";
             // 
             // tabPage2
             // 
@@ -564,7 +564,7 @@ namespace HawkSync_SM
             this.groupBox2.Controls.Add(this.btn_loadMaps);
             this.groupBox2.Controls.Add(this.btn_resetMaps);
             this.groupBox2.Controls.Add(this.btn_shuffleMaps);
-            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.label_mapCount);
             this.groupBox2.Controls.Add(this.label32);
             this.groupBox2.Controls.Add(this.listBox2);
             this.groupBox2.Controls.Add(this.tableLayoutPanel1);
@@ -593,10 +593,10 @@ namespace HawkSync_SM
             this.btn_shuffleMaps.UseVisualStyleBackColor = true;
             this.btn_shuffleMaps.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label33
+            // label_mapCount
             // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
+            resources.ApplyResources(this.label_mapCount, "label_mapCount");
+            this.label_mapCount.Name = "label_mapCount";
             // 
             // label32
             // 
@@ -633,12 +633,12 @@ namespace HawkSync_SM
             this.listBox1.Name = "listBox1";
             this.listBox1.DoubleClick += new System.EventHandler(this.ListBox1_DoubleClick);
             // 
-            // Start_Game
+            // SM_StartGame
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
-            this.Name = "Start_Game";
+            this.Name = "SM_StartGame";
             this.Load += new System.EventHandler(this.Start_Game_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -657,12 +657,12 @@ namespace HawkSync_SM
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_maxSlots;
         private System.Windows.Forms.ComboBox comboBox_maxPlayers;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_sessionType;
         private System.Windows.Forms.ComboBox comboBox_sessionType;
-        private System.Windows.Forms.TextBox textBox_passServer;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox_serverPassword;
+        private System.Windows.Forms.Label label_serverPassword;
         private System.Windows.Forms.TextBox textBox_countryCode;
         private System.Windows.Forms.Label label_countryCode;
         private System.Windows.Forms.TextBox textBox_MOTD;
@@ -670,19 +670,19 @@ namespace HawkSync_SM
         private System.Windows.Forms.TextBox textBox_serverName;
         private System.Windows.Forms.Label label_serverName;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_maxKills;
         private System.Windows.Forms.ComboBox comboBox_maxKills;
         private System.Windows.Forms.Label label_loopMaps;
         private System.Windows.Forms.CheckBox checkBox_loopMaps;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label_startDelay;
         private System.Windows.Forms.ComboBox comboBox_startDelay;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label_zoneTimer;
         private System.Windows.Forms.ComboBox comboBox_zoneTimer;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label_flagsScored;
         private System.Windows.Forms.ComboBox comboBox_flagsScored;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label_respawnTimer;
         private System.Windows.Forms.ComboBox comboBox_respawnTime;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label_timeLimit;
         private System.Windows.Forms.ComboBox comboBox_timeLimit;
         private System.Windows.Forms.Label label_runDedicated;
         private System.Windows.Forms.CheckBox checkBox_runDedicated;
@@ -692,14 +692,14 @@ namespace HawkSync_SM
         private System.Windows.Forms.CheckBox checkBox_windowMode;
         private System.Windows.Forms.Label label_reqNova;
         private System.Windows.Forms.CheckBox checkBox_reqNova;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label_gameMod;
         private System.Windows.Forms.ComboBox comboBox_gameMod;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox comboBox10;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label_mapCount;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Button btn_resetMaps;
         private System.Windows.Forms.Button btn_shuffleMaps;
@@ -708,25 +708,25 @@ namespace HawkSync_SM
         private System.Windows.Forms.Button btn_startServer;
         private System.Windows.Forms.TextBox textBox_passRed;
         private System.Windows.Forms.TextBox textBox_passBlue;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label_teamRed;
+        private System.Windows.Forms.Label label_teamBlue;
         private System.Windows.Forms.TextBox textBox_maxPing;
         private System.Windows.Forms.Label label_MaxPC;
         private System.Windows.Forms.CheckBox checkBox_maxPing;
         private System.Windows.Forms.TextBox textBox_minPing;
         private System.Windows.Forms.Label label_MinPC;
         private System.Windows.Forms.CheckBox checkBox_minPing;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label_autoRange;
         private System.Windows.Forms.CheckBox checkBox_autoRange;
-        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label_showClays;
         private System.Windows.Forms.CheckBox checkBox_showTeamClays;
-        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label_showTracers;
         private System.Windows.Forms.CheckBox checkBox_showTrace;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label_autoBal;
         private System.Windows.Forms.CheckBox checkBox_autoBal;
         private System.Windows.Forms.Label label_ffWarn;
         private System.Windows.Forms.CheckBox checkBox_ffireWarn;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label_ftags;
         private System.Windows.Forms.CheckBox checkBox_ftags;
         private System.Windows.Forms.Label label_ffire;
         private System.Windows.Forms.CheckBox checkBox_ffire;

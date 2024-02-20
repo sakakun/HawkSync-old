@@ -183,11 +183,11 @@
     </Compile>
     <Compile Include="classes\SupportClasses\Crypt.cs" />
     <Compile Include="classes\SupportClasses\HexConverter.cs" />
-    <Compile Include="Main_Login.cs">
+    <Compile Include="RC_RemoteLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main_Login.Designer.cs">
-      <DependentUpon>Main_Login.cs</DependentUpon>
+    <Compile Include="RC_RemoteLogin.Designer.cs">
+      <DependentUpon>RC_RemoteLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\PlayerInfo.cs">
       <SubType>Form</SubType>
@@ -235,11 +235,11 @@
     <Compile Include="Panels\RC_ServerManager.Designer.cs">
       <DependentUpon>RC_ServerManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panels\Start_Game.cs">
+    <Compile Include="Panels\RC_StartGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\Start_Game.Designer.cs">
-      <DependentUpon>Start_Game.cs</DependentUpon>
+    <Compile Include="Panels\RC_StartGame.Designer.cs">
+      <DependentUpon>RC_StartGame.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\TVRotationManagerCMD.cs" />
     <Compile Include="classes\TVUserManager.cs" />
@@ -252,8 +252,8 @@
     <EmbeddedResource Include="Panels\ClientOptions.resx">
       <DependentUpon>ClientOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main_Login.resx">
-      <DependentUpon>Main_Login.cs</DependentUpon>
+    <EmbeddedResource Include="RC_RemoteLogin.resx">
+      <DependentUpon>RC_RemoteLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\PlayerInfo.resx">
       <DependentUpon>PlayerInfo.cs</DependentUpon>
@@ -278,8 +278,8 @@
     <EmbeddedResource Include="Panels\RC_ServerManager.resx">
       <DependentUpon>RC_ServerManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\Start_Game.resx">
-      <DependentUpon>Start_Game.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\RC_StartGame.resx">
+      <DependentUpon>RC_StartGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\UserManager.resx">
       <DependentUpon>UserManager.cs</DependentUpon>
