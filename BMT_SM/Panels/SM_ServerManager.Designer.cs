@@ -35,8 +35,6 @@ namespace HawkSync_SM
             this.page_players = new System.Windows.Forms.TabPage();
             this.tabControl_playerSelection = new System.Windows.Forms.TabControl();
             this.tab_bannedPlayers = new System.Windows.Forms.TabPage();
-            this.label_banSearch = new System.Windows.Forms.Label();
-            this.text_banSearch = new System.Windows.Forms.TextBox();
             this.group_addBan = new System.Windows.Forms.GroupBox();
             this.drop_adminList = new System.Windows.Forms.ComboBox();
             this.button_addBan = new System.Windows.Forms.Button();
@@ -220,16 +218,16 @@ namespace HawkSync_SM
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.label_interval = new System.Windows.Forms.Label();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_playerControls = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cm_armDisarm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem133 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem76 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem129 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_warnPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_killPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_funCommands = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem130 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem131 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem36 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
@@ -242,7 +240,7 @@ namespace HawkSync_SM
             this.toolStripMenuItem128 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_tempBan = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem37 = new System.Windows.Forms.ToolStripMenuItem();
@@ -360,7 +358,7 @@ namespace HawkSync_SM
             this.toolStripMenuItem125 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox11 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_permBan = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem26 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
@@ -373,7 +371,7 @@ namespace HawkSync_SM
             this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripMenuItem132 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_changeTeam = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
@@ -435,7 +433,7 @@ namespace HawkSync_SM
             this.gb_addMessages.SuspendLayout();
             this.contextMenuStrip3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.cm_playerControls.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -469,8 +467,6 @@ namespace HawkSync_SM
             // 
             // tab_bannedPlayers
             // 
-            this.tab_bannedPlayers.Controls.Add(this.label_banSearch);
-            this.tab_bannedPlayers.Controls.Add(this.text_banSearch);
             this.tab_bannedPlayers.Controls.Add(this.group_addBan);
             this.tab_bannedPlayers.Controls.Add(this.groupBox9);
             this.tab_bannedPlayers.Controls.Add(this.button_removeBan);
@@ -478,16 +474,6 @@ namespace HawkSync_SM
             resources.ApplyResources(this.tab_bannedPlayers, "tab_bannedPlayers");
             this.tab_bannedPlayers.Name = "tab_bannedPlayers";
             this.tab_bannedPlayers.UseVisualStyleBackColor = true;
-            // 
-            // label_banSearch
-            // 
-            resources.ApplyResources(this.label_banSearch, "label_banSearch");
-            this.label_banSearch.Name = "label_banSearch";
-            // 
-            // text_banSearch
-            // 
-            resources.ApplyResources(this.text_banSearch, "text_banSearch");
-            this.text_banSearch.Name = "text_banSearch";
             // 
             // group_addBan
             // 
@@ -1898,28 +1884,28 @@ namespace HawkSync_SM
             0});
             this.num_autoMsgInterval.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // contextMenuStrip1
+            // cm_playerControls
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem12,
-            this.toolStripMenuItem133,
-            this.toolStripMenuItem76,
-            this.toolStripMenuItem129,
-            this.toolStripMenuItem36,
-            this.toolStripMenuItem1,
-            this.toolStripMenuItem11,
-            this.toolStripMenuItem132});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
+            this.cm_playerControls.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cm_playerControls.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_armDisarm,
+            this.cm_warnPlayer,
+            this.cm_killPlayer,
+            this.cm_funCommands,
+            this.cm_kickPlayer,
+            this.cm_tempBan,
+            this.cm_permBan,
+            this.cm_changeTeam});
+            this.cm_playerControls.Name = "contextMenuStrip1";
+            resources.ApplyResources(this.cm_playerControls, "cm_playerControls");
             // 
-            // toolStripMenuItem12
+            // cm_armDisarm
             // 
-            this.toolStripMenuItem12.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_armDisarm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem13,
             this.toolStripMenuItem14});
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            resources.ApplyResources(this.toolStripMenuItem12, "toolStripMenuItem12");
+            this.cm_armDisarm.Name = "cm_armDisarm";
+            resources.ApplyResources(this.cm_armDisarm, "cm_armDisarm");
             // 
             // toolStripMenuItem13
             // 
@@ -1933,24 +1919,24 @@ namespace HawkSync_SM
             resources.ApplyResources(this.toolStripMenuItem14, "toolStripMenuItem14");
             this.toolStripMenuItem14.Click += new System.EventHandler(this.toolStripMenuItem14_Click);
             // 
-            // toolStripMenuItem133
+            // cm_warnPlayer
             // 
-            this.toolStripMenuItem133.Name = "toolStripMenuItem133";
-            resources.ApplyResources(this.toolStripMenuItem133, "toolStripMenuItem133");
+            this.cm_warnPlayer.Name = "cm_warnPlayer";
+            resources.ApplyResources(this.cm_warnPlayer, "cm_warnPlayer");
             // 
-            // toolStripMenuItem76
+            // cm_killPlayer
             // 
-            this.toolStripMenuItem76.Name = "toolStripMenuItem76";
-            resources.ApplyResources(this.toolStripMenuItem76, "toolStripMenuItem76");
-            this.toolStripMenuItem76.Click += new System.EventHandler(this.toolStripMenuItem76_Click);
+            this.cm_killPlayer.Name = "cm_killPlayer";
+            resources.ApplyResources(this.cm_killPlayer, "cm_killPlayer");
+            this.cm_killPlayer.Click += new System.EventHandler(this.toolStripMenuItem76_Click);
             // 
-            // toolStripMenuItem129
+            // cm_funCommands
             // 
-            this.toolStripMenuItem129.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_funCommands.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem130,
             this.toolStripMenuItem131});
-            this.toolStripMenuItem129.Name = "toolStripMenuItem129";
-            resources.ApplyResources(this.toolStripMenuItem129, "toolStripMenuItem129");
+            this.cm_funCommands.Name = "cm_funCommands";
+            resources.ApplyResources(this.cm_funCommands, "cm_funCommands");
             // 
             // toolStripMenuItem130
             // 
@@ -1964,9 +1950,9 @@ namespace HawkSync_SM
             resources.ApplyResources(this.toolStripMenuItem131, "toolStripMenuItem131");
             this.toolStripMenuItem131.Click += new System.EventHandler(this.toolStripMenuItem131_Click);
             // 
-            // toolStripMenuItem36
+            // cm_kickPlayer
             // 
-            this.toolStripMenuItem36.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_kickPlayer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem18,
             this.toolStripMenuItem19,
             this.toolStripMenuItem20,
@@ -1979,8 +1965,8 @@ namespace HawkSync_SM
             this.toolStripMenuItem128,
             this.toolStripSeparator1,
             this.toolStripTextBox2});
-            this.toolStripMenuItem36.Name = "toolStripMenuItem36";
-            resources.ApplyResources(this.toolStripMenuItem36, "toolStripMenuItem36");
+            this.cm_kickPlayer.Name = "cm_kickPlayer";
+            resources.ApplyResources(this.cm_kickPlayer, "cm_kickPlayer");
             // 
             // toolStripMenuItem18
             // 
@@ -2049,13 +2035,13 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox2
             // 
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
             resources.ApplyResources(this.toolStripTextBox2, "toolStripTextBox2");
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox2_KeyPress);
             // 
-            // toolStripMenuItem1
+            // cm_tempBan
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_tempBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.toolStripMenuItem4,
@@ -2065,8 +2051,8 @@ namespace HawkSync_SM
             this.toolStripMenuItem8,
             this.toolStripMenuItem9,
             this.toolStripMenuItem10});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.cm_tempBan.Name = "cm_tempBan";
+            resources.ApplyResources(this.cm_tempBan, "cm_tempBan");
             // 
             // toolStripMenuItem2
             // 
@@ -2153,8 +2139,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox3
             // 
-            this.toolStripTextBox3.Name = "toolStripTextBox3";
             resources.ApplyResources(this.toolStripTextBox3, "toolStripTextBox3");
+            this.toolStripTextBox3.Name = "toolStripTextBox3";
             this.toolStripTextBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox3_KeyPress);
             // 
             // toolStripMenuItem3
@@ -2242,8 +2228,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox4
             // 
-            this.toolStripTextBox4.Name = "toolStripTextBox4";
             resources.ApplyResources(this.toolStripTextBox4, "toolStripTextBox4");
+            this.toolStripTextBox4.Name = "toolStripTextBox4";
             this.toolStripTextBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox4_KeyPress);
             // 
             // toolStripMenuItem4
@@ -2331,8 +2317,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox5
             // 
-            this.toolStripTextBox5.Name = "toolStripTextBox5";
             resources.ApplyResources(this.toolStripTextBox5, "toolStripTextBox5");
+            this.toolStripTextBox5.Name = "toolStripTextBox5";
             this.toolStripTextBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox5_KeyPress);
             // 
             // toolStripMenuItem5
@@ -2420,8 +2406,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox6
             // 
-            this.toolStripTextBox6.Name = "toolStripTextBox6";
             resources.ApplyResources(this.toolStripTextBox6, "toolStripTextBox6");
+            this.toolStripTextBox6.Name = "toolStripTextBox6";
             this.toolStripTextBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox6_KeyPress);
             // 
             // toolStripMenuItem6
@@ -2509,8 +2495,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox7
             // 
-            this.toolStripTextBox7.Name = "toolStripTextBox7";
             resources.ApplyResources(this.toolStripTextBox7, "toolStripTextBox7");
+            this.toolStripTextBox7.Name = "toolStripTextBox7";
             this.toolStripTextBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox7_KeyPress);
             // 
             // toolStripMenuItem7
@@ -2598,8 +2584,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox8
             // 
-            this.toolStripTextBox8.Name = "toolStripTextBox8";
             resources.ApplyResources(this.toolStripTextBox8, "toolStripTextBox8");
+            this.toolStripTextBox8.Name = "toolStripTextBox8";
             this.toolStripTextBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox8_KeyPress);
             // 
             // toolStripMenuItem8
@@ -2687,8 +2673,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox9
             // 
-            this.toolStripTextBox9.Name = "toolStripTextBox9";
             resources.ApplyResources(this.toolStripTextBox9, "toolStripTextBox9");
+            this.toolStripTextBox9.Name = "toolStripTextBox9";
             this.toolStripTextBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox9_KeyPress);
             // 
             // toolStripMenuItem9
@@ -2776,8 +2762,8 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox10
             // 
-            this.toolStripTextBox10.Name = "toolStripTextBox10";
             resources.ApplyResources(this.toolStripTextBox10, "toolStripTextBox10");
+            this.toolStripTextBox10.Name = "toolStripTextBox10";
             this.toolStripTextBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox10_KeyPress);
             // 
             // toolStripMenuItem10
@@ -2865,13 +2851,13 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox11
             // 
-            this.toolStripTextBox11.Name = "toolStripTextBox11";
             resources.ApplyResources(this.toolStripTextBox11, "toolStripTextBox11");
+            this.toolStripTextBox11.Name = "toolStripTextBox11";
             this.toolStripTextBox11.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox11_KeyPress);
             // 
-            // toolStripMenuItem11
+            // cm_permBan
             // 
-            this.toolStripMenuItem11.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_permBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem25,
             this.toolStripMenuItem26,
             this.toolStripMenuItem27,
@@ -2884,8 +2870,8 @@ namespace HawkSync_SM
             this.toolStripMenuItem34,
             this.toolStripSeparator2,
             this.toolStripTextBox1});
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            resources.ApplyResources(this.toolStripMenuItem11, "toolStripMenuItem11");
+            this.cm_permBan.Name = "cm_permBan";
+            resources.ApplyResources(this.cm_permBan, "cm_permBan");
             // 
             // toolStripMenuItem25
             // 
@@ -2954,15 +2940,15 @@ namespace HawkSync_SM
             // 
             // toolStripTextBox1
             // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
             resources.ApplyResources(this.toolStripTextBox1, "toolStripTextBox1");
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolStripTextBox1_KeyPress);
             // 
-            // toolStripMenuItem132
+            // cm_changeTeam
             // 
-            this.toolStripMenuItem132.Name = "toolStripMenuItem132";
-            resources.ApplyResources(this.toolStripMenuItem132, "toolStripMenuItem132");
-            this.toolStripMenuItem132.Click += new System.EventHandler(this.toolStripMenuItem132_Click);
+            this.cm_changeTeam.Name = "cm_changeTeam";
+            resources.ApplyResources(this.cm_changeTeam, "cm_changeTeam");
+            this.cm_changeTeam.Click += new System.EventHandler(this.toolStripMenuItem132_Click);
             // 
             // contextMenuStrip2
             // 
@@ -3002,7 +2988,6 @@ namespace HawkSync_SM
             this.page_players.ResumeLayout(false);
             this.tabControl_playerSelection.ResumeLayout(false);
             this.tab_bannedPlayers.ResumeLayout(false);
-            this.tab_bannedPlayers.PerformLayout();
             this.group_addBan.ResumeLayout(false);
             this.group_addBan.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -3078,7 +3063,7 @@ namespace HawkSync_SM
             this.gb_addMessages.PerformLayout();
             this.contextMenuStrip3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.num_autoMsgInterval)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.cm_playerControls.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -3118,7 +3103,6 @@ namespace HawkSync_SM
         private System.Windows.Forms.Label label_banReason;
         private System.Windows.Forms.Label label_bdPlayerName;
         private System.Windows.Forms.Button button_removeBan;
-        private System.Windows.Forms.TextBox text_banSearch;
         private System.Windows.Forms.GroupBox group_vpnSettings;
         private System.Windows.Forms.Button btn_playerWarnMessageAdd;
         private System.Windows.Forms.TextBox textBox_playerWarnMessageAdd;
@@ -3197,11 +3181,11 @@ namespace HawkSync_SM
         private System.Windows.Forms.TrackBar endOfMapTimer_TrackBar;
         private System.Windows.Forms.Button btn_scoreSkip;
         private System.Windows.Forms.ListBox listBox_AutoMessages;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ContextMenuStrip cm_playerControls;
+        private System.Windows.Forms.ToolStripMenuItem cm_armDisarm;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cm_tempBan;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
@@ -3211,7 +3195,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem cm_permBan;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem26;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
@@ -3238,7 +3222,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.CheckBox cb_enableVPNChecks;
         private System.Windows.Forms.Label label_vpn_abuse;
         private System.Windows.Forms.NumericUpDown num_vpnAbuseLevel;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem36;
+        private System.Windows.Forms.ToolStripMenuItem cm_kickPlayer;
         private System.Windows.Forms.ComboBox cb_chatPlayerSelect;
         private System.Windows.Forms.RadioButton rb_chatAll;
         private System.Windows.Forms.RadioButton rb_chatGlobal;
@@ -3365,12 +3349,12 @@ namespace HawkSync_SM
         private System.Windows.Forms.Label label_scoreKOTH;
         private System.Windows.Forms.NumericUpDown num_scoreFB;
         private System.Windows.Forms.Label label_scoreFB;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem76;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem129;
+        private System.Windows.Forms.ToolStripMenuItem cm_killPlayer;
+        private System.Windows.Forms.ToolStripMenuItem cm_funCommands;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem130;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem131;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem132;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem133;
+        private System.Windows.Forms.ToolStripMenuItem cm_changeTeam;
+        private System.Windows.Forms.ToolStripMenuItem cm_warnPlayer;
         private System.Windows.Forms.CheckedListBox cbl_weaponSelection;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.ComboBox chat_channelSelection;
@@ -3425,7 +3409,6 @@ namespace HawkSync_SM
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem143;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem144;
         private System.Windows.Forms.Panel panel_chatControls;
-        private System.Windows.Forms.Label label_banSearch;
         private System.Windows.Forms.Label value_banIPAddress;
         private System.Windows.Forms.Label label_banIPAddress;
         private System.Windows.Forms.GroupBox groupBox_playerWarnMsg;

@@ -17,18 +17,18 @@ namespace HawkSync_RC
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void event_loadMaps(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex == -1) return; // nothing selected...
             // load rotation
             RC_ServerManager.loadList = _state.Instances[ArrayID].savedmaprotations[listBox1.SelectedIndex].mapcycle;
-            Close();
+            this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void event_closeWindow(object sender, EventArgs e)
         {
-            // cancel
-            Close();
+            RC_ServerManager.loadList.Clear();
+            this.Close();
         }
 
         private void Popup_LoadRotation_Load(object sender, EventArgs e)

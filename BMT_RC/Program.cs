@@ -42,8 +42,9 @@ namespace HawkSync_RC
 
                 Application.Run(new RC_RemoteLogin());
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                Console.WriteLine(exception);
             }
         }
     }

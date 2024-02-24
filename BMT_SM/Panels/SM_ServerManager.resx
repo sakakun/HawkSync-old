@@ -117,843 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;label_banSearch.Name" xml:space="preserve">
-    <value>label_banSearch</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Name" xml:space="preserve">
-    <value>text_banSearch</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Name" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.Name" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;button_removeBan.Name" xml:space="preserve">
-    <value>button_removeBan</value>
-  </data>
-  <data name="&gt;&gt;button_removeBan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button_removeBan.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;button_removeBan.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;grid_bannedPlayerList.Name" xml:space="preserve">
-    <value>grid_bannedPlayerList</value>
-  </data>
-  <data name="&gt;&gt;grid_bannedPlayerList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grid_bannedPlayerList.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;grid_bannedPlayerList.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tab_bannedPlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tab_bannedPlayers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="tab_bannedPlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 363</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tab_bannedPlayers.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tab_bannedPlayers.Text" xml:space="preserve">
-    <value>Banned Players</value>
-  </data>
-  <data name="&gt;&gt;tab_bannedPlayers.Name" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;tab_bannedPlayers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tab_bannedPlayers.Parent" xml:space="preserve">
-    <value>tabControl_playerSelection</value>
-  </data>
-  <data name="&gt;&gt;tab_bannedPlayers.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;button14.Name" xml:space="preserve">
-    <value>button14</value>
-  </data>
-  <data name="&gt;&gt;button14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button14.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;button14.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;textBox15.Name" xml:space="preserve">
-    <value>textBox15</value>
-  </data>
-  <data name="&gt;&gt;textBox15.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox15.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;textBox15.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label48.Name" xml:space="preserve">
-    <value>label48</value>
-  </data>
-  <data name="&gt;&gt;label48.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label48.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;label48.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;button18.Name" xml:space="preserve">
-    <value>button18</value>
-  </data>
-  <data name="&gt;&gt;button18.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button18.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;button18.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;button17.Name" xml:space="preserve">
-    <value>button17</value>
-  </data>
-  <data name="&gt;&gt;button17.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button17.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;button17.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;textBox14.Name" xml:space="preserve">
-    <value>textBox14</value>
-  </data>
-  <data name="&gt;&gt;textBox14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox14.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;textBox14.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label47.Name" xml:space="preserve">
-    <value>label47</value>
-  </data>
-  <data name="&gt;&gt;label47.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label47.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;label47.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;grid_vpn_allowlist.Name" xml:space="preserve">
-    <value>grid_vpn_allowlist</value>
-  </data>
-  <data name="&gt;&gt;grid_vpn_allowlist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grid_vpn_allowlist.Parent" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;grid_vpn_allowlist.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="group_vpnWhitelist.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 68</value>
-  </data>
-  <data name="group_vpnWhitelist.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 291</value>
-  </data>
-  <data name="group_vpnWhitelist.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="group_vpnWhitelist.Text" xml:space="preserve">
-    <value>VPN Whitelist</value>
-  </data>
-  <data name="&gt;&gt;group_vpnWhitelist.Name" xml:space="preserve">
-    <value>group_vpnWhitelist</value>
-  </data>
-  <data name="&gt;&gt;group_vpnWhitelist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_vpnWhitelist.Parent" xml:space="preserve">
-    <value>tab_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;group_vpnWhitelist.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_enableVPNChecks.Name" xml:space="preserve">
-    <value>cb_enableVPNChecks</value>
-  </data>
-  <data name="&gt;&gt;cb_enableVPNChecks.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_enableVPNChecks.Parent" xml:space="preserve">
-    <value>group_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_enableVPNChecks.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label_vpn_abuse.Name" xml:space="preserve">
-    <value>label_vpn_abuse</value>
-  </data>
-  <data name="&gt;&gt;label_vpn_abuse.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_vpn_abuse.Parent" xml:space="preserve">
-    <value>group_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;label_vpn_abuse.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;num_vpnAbuseLevel.Name" xml:space="preserve">
-    <value>num_vpnAbuseLevel</value>
-  </data>
-  <data name="&gt;&gt;num_vpnAbuseLevel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_vpnAbuseLevel.Parent" xml:space="preserve">
-    <value>group_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;num_vpnAbuseLevel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="group_vpnSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="group_vpnSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 58</value>
-  </data>
-  <data name="group_vpnSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_vpnSettings.Text" xml:space="preserve">
-    <value>VPN Settings</value>
-  </data>
-  <data name="&gt;&gt;group_vpnSettings.Name" xml:space="preserve">
-    <value>group_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;group_vpnSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_vpnSettings.Parent" xml:space="preserve">
-    <value>tab_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;group_vpnSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tab_vpnSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tab_vpnSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 363</value>
-  </data>
-  <data name="tab_vpnSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="tab_vpnSettings.Text" xml:space="preserve">
-    <value>VPN Settings</value>
-  </data>
-  <data name="&gt;&gt;tab_vpnSettings.Name" xml:space="preserve">
-    <value>tab_vpnSettings</value>
-  </data>
-  <data name="&gt;&gt;tab_vpnSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tab_vpnSettings.Parent" xml:space="preserve">
-    <value>tabControl_playerSelection</value>
-  </data>
-  <data name="&gt;&gt;tab_vpnSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Name" xml:space="preserve">
-    <value>groupBox_playerWarnMsg</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Parent" xml:space="preserve">
-    <value>tab_warnMsgs</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="tab_warnMsgs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="tab_warnMsgs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 363</value>
-  </data>
-  <data name="tab_warnMsgs.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tab_warnMsgs.Text" xml:space="preserve">
-    <value>Warning Messages</value>
-  </data>
-  <data name="&gt;&gt;tab_warnMsgs.Name" xml:space="preserve">
-    <value>tab_warnMsgs</value>
-  </data>
-  <data name="&gt;&gt;tab_warnMsgs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tab_warnMsgs.Parent" xml:space="preserve">
-    <value>tabControl_playerSelection</value>
-  </data>
-  <data name="&gt;&gt;tab_warnMsgs.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="tabControl_playerSelection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>342, 9</value>
-  </data>
-  <data name="tabControl_playerSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>454, 389</value>
-  </data>
-  <data name="tabControl_playerSelection.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;tabControl_playerSelection.Name" xml:space="preserve">
-    <value>tabControl_playerSelection</value>
-  </data>
-  <data name="&gt;&gt;tabControl_playerSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl_playerSelection.Parent" xml:space="preserve">
-    <value>page_players</value>
-  </data>
-  <data name="&gt;&gt;tabControl_playerSelection.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;grid_playerList.Name" xml:space="preserve">
-    <value>grid_playerList</value>
-  </data>
-  <data name="&gt;&gt;grid_playerList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;grid_playerList.Parent" xml:space="preserve">
-    <value>group_currentPlayers</value>
-  </data>
-  <data name="&gt;&gt;grid_playerList.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="group_currentPlayers.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="group_currentPlayers.Size" type="System.Drawing.Size, System.Drawing">
-    <value>333, 394</value>
-  </data>
-  <data name="group_currentPlayers.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="group_currentPlayers.Text" xml:space="preserve">
-    <value>Current Players:</value>
-  </data>
-  <data name="&gt;&gt;group_currentPlayers.Name" xml:space="preserve">
-    <value>group_currentPlayers</value>
-  </data>
-  <data name="&gt;&gt;group_currentPlayers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_currentPlayers.Parent" xml:space="preserve">
-    <value>page_players</value>
-  </data>
-  <data name="&gt;&gt;group_currentPlayers.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="page_players.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="page_players.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 401</value>
-  </data>
-  <data name="page_players.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="page_players.Text" xml:space="preserve">
-    <value>Players</value>
-  </data>
-  <data name="&gt;&gt;page_players.Name" xml:space="preserve">
-    <value>page_players</value>
-  </data>
-  <data name="&gt;&gt;page_players.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;page_players.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;page_players.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Name" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Parent" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;gB_options.Name" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;gB_options.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_options.Parent" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.Name" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.Parent" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.Name" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.Parent" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="page_serverSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="page_serverSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 401</value>
-  </data>
-  <data name="page_serverSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="page_serverSettings.Text" xml:space="preserve">
-    <value>Server Settings</value>
-  </data>
-  <data name="&gt;&gt;page_serverSettings.Name" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;page_serverSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;page_serverSettings.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;page_serverSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.Name" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.Parent" xml:space="preserve">
-    <value>page_maps</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Name" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Parent" xml:space="preserve">
-    <value>page_maps</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Name" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Parent" xml:space="preserve">
-    <value>page_maps</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="page_maps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="page_maps.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 401</value>
-  </data>
-  <data name="page_maps.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="page_maps.Text" xml:space="preserve">
-    <value>Maps</value>
-  </data>
-  <data name="&gt;&gt;page_maps.Name" xml:space="preserve">
-    <value>page_maps</value>
-  </data>
-  <data name="&gt;&gt;page_maps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;page_maps.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;page_maps.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Name" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Name" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Name" xml:space="preserve">
-    <value>data_chatViewer</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="page_chat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="page_chat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 401</value>
-  </data>
-  <data name="page_chat.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="page_chat.Text" xml:space="preserve">
-    <value>Chat</value>
-  </data>
-  <data name="&gt;&gt;page_chat.Name" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;page_chat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;page_chat.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;page_chat.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Name" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Parent" xml:space="preserve">
-    <value>page_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="page_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="page_autoMessages.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
-  </data>
-  <data name="page_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>800, 401</value>
-  </data>
-  <data name="page_autoMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="page_autoMessages.Text" xml:space="preserve">
-    <value>Auto Messages</value>
-  </data>
-  <data name="&gt;&gt;page_autoMessages.Name" xml:space="preserve">
-    <value>page_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;page_autoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;page_autoMessages.Parent" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;page_autoMessages.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>808, 427</value>
-  </data>
-  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label_banSearch.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label_banSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>124, 157</value>
-  </data>
-  <data name="label_banSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 13</value>
-  </data>
-  <data name="label_banSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="label_banSearch.Text" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.Name" xml:space="preserve">
-    <value>label_banSearch</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;label_banSearch.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="text_banSearch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>171, 154</value>
-  </data>
-  <data name="text_banSearch.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 20</value>
-  </data>
-  <data name="text_banSearch.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Name" xml:space="preserve">
-    <value>text_banSearch</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;text_banSearch.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;drop_adminList.Name" xml:space="preserve">
-    <value>drop_adminList</value>
-  </data>
-  <data name="&gt;&gt;drop_adminList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;drop_adminList.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;drop_adminList.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;button_addBan.Name" xml:space="preserve">
-    <value>button_addBan</value>
-  </data>
-  <data name="&gt;&gt;button_addBan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button_addBan.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;button_addBan.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label_abPlayerName.Name" xml:space="preserve">
-    <value>label_abPlayerName</value>
-  </data>
-  <data name="&gt;&gt;label_abPlayerName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_abPlayerName.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;label_abPlayerName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;combo_abReason.Name" xml:space="preserve">
-    <value>combo_abReason</value>
-  </data>
-  <data name="&gt;&gt;combo_abReason.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;combo_abReason.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;combo_abReason.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;text_adPlayerName.Name" xml:space="preserve">
-    <value>text_adPlayerName</value>
-  </data>
-  <data name="&gt;&gt;text_adPlayerName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_adPlayerName.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;text_adPlayerName.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label_abIPAddress.Name" xml:space="preserve">
-    <value>label_abIPAddress</value>
-  </data>
-  <data name="&gt;&gt;label_abIPAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_abIPAddress.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;label_abIPAddress.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;text_abIPAddress.Name" xml:space="preserve">
-    <value>text_abIPAddress</value>
-  </data>
-  <data name="&gt;&gt;text_abIPAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_abIPAddress.Parent" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;text_abIPAddress.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="group_addBan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 284</value>
-  </data>
-  <data name="group_addBan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>434, 73</value>
-  </data>
-  <data name="group_addBan.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="group_addBan.Text" xml:space="preserve">
-    <value>Add Ban</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Name" xml:space="preserve">
-    <value>group_addBan</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.Parent" xml:space="preserve">
-    <value>tab_bannedPlayers</value>
-  </data>
-  <data name="&gt;&gt;group_addBan.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="drop_adminList.Location" type="System.Drawing.Point, System.Drawing">
     <value>216, 18</value>
   </data>
   <data name="drop_adminList.Size" type="System.Drawing.Size, System.Drawing">
     <value>135, 21</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="drop_adminList.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
@@ -1143,153 +314,34 @@
   <data name="&gt;&gt;text_abIPAddress.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;value_banIPAddress.Name" xml:space="preserve">
-    <value>value_banIPAddress</value>
+  <data name="group_addBan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 284</value>
   </data>
-  <data name="&gt;&gt;value_banIPAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="group_addBan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>434, 73</value>
   </data>
-  <data name="&gt;&gt;value_banIPAddress.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;value_banIPAddress.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label_banIPAddress.Name" xml:space="preserve">
-    <value>label_banIPAddress</value>
-  </data>
-  <data name="&gt;&gt;label_banIPAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banIPAddress.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label_banIPAddress.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;value_banAdmin.Name" xml:space="preserve">
-    <value>value_banAdmin</value>
-  </data>
-  <data name="&gt;&gt;value_banAdmin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;value_banAdmin.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;value_banAdmin.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;value_banDateAdded.Name" xml:space="preserve">
-    <value>value_banDateAdded</value>
-  </data>
-  <data name="&gt;&gt;value_banDateAdded.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;value_banDateAdded.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;value_banDateAdded.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;value_banReason.Name" xml:space="preserve">
-    <value>value_banReason</value>
-  </data>
-  <data name="&gt;&gt;value_banReason.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;value_banReason.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;value_banReason.ZOrder" xml:space="preserve">
+  <data name="group_addBan.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;value_bdPlayerName.Name" xml:space="preserve">
-    <value>value_bdPlayerName</value>
+  <data name="group_addBan.Text" xml:space="preserve">
+    <value>Add Ban</value>
   </data>
-  <data name="&gt;&gt;value_bdPlayerName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;group_addBan.Name" xml:space="preserve">
+    <value>group_addBan</value>
   </data>
-  <data name="&gt;&gt;value_bdPlayerName.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;value_bdPlayerName.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label_banAdmin.Name" xml:space="preserve">
-    <value>label_banAdmin</value>
-  </data>
-  <data name="&gt;&gt;label_banAdmin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banAdmin.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label_banAdmin.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label_banReason.Name" xml:space="preserve">
-    <value>label_banReason</value>
-  </data>
-  <data name="&gt;&gt;label_banReason.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banReason.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label_banReason.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label_banDateAdded.Name" xml:space="preserve">
-    <value>label_banDateAdded</value>
-  </data>
-  <data name="&gt;&gt;label_banDateAdded.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_banDateAdded.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label_banDateAdded.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;label_bdPlayerName.Name" xml:space="preserve">
-    <value>label_bdPlayerName</value>
-  </data>
-  <data name="&gt;&gt;label_bdPlayerName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_bdPlayerName.Parent" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;label_bdPlayerName.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="groupBox9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 178</value>
-  </data>
-  <data name="groupBox9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>434, 100</value>
-  </data>
-  <data name="groupBox9.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="groupBox9.Text" xml:space="preserve">
-    <value>Ban Details</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.Name" xml:space="preserve">
-    <value>groupBox9</value>
-  </data>
-  <data name="&gt;&gt;groupBox9.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_addBan.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox9.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_addBan.Parent" xml:space="preserve">
     <value>tab_bannedPlayers</value>
   </data>
-  <data name="&gt;&gt;groupBox9.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;group_addBan.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="value_banIPAddress.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="value_banIPAddress.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -1569,6 +621,30 @@
   <data name="&gt;&gt;label_bdPlayerName.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <data name="groupBox9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 178</value>
+  </data>
+  <data name="groupBox9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>434, 100</value>
+  </data>
+  <data name="groupBox9.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBox9.Text" xml:space="preserve">
+    <value>Ban Details</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Name" xml:space="preserve">
+    <value>groupBox9</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.Parent" xml:space="preserve">
+    <value>tab_bannedPlayers</value>
+  </data>
+  <data name="&gt;&gt;groupBox9.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="button_removeBan.Location" type="System.Drawing.Point, System.Drawing">
     <value>343, 153</value>
   </data>
@@ -1591,7 +667,7 @@
     <value>tab_bannedPlayers</value>
   </data>
   <data name="&gt;&gt;button_removeBan.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="grid_bannedPlayerList.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 10</value>
@@ -1612,7 +688,34 @@
     <value>tab_bannedPlayers</value>
   </data>
   <data name="&gt;&gt;grid_bannedPlayerList.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>3</value>
+  </data>
+  <data name="tab_bannedPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tab_bannedPlayers.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tab_bannedPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 363</value>
+  </data>
+  <data name="tab_bannedPlayers.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="tab_bannedPlayers.Text" xml:space="preserve">
+    <value>Banned Players</value>
+  </data>
+  <data name="&gt;&gt;tab_bannedPlayers.Name" xml:space="preserve">
+    <value>tab_bannedPlayers</value>
+  </data>
+  <data name="&gt;&gt;tab_bannedPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tab_bannedPlayers.Parent" xml:space="preserve">
+    <value>tabControl_playerSelection</value>
+  </data>
+  <data name="&gt;&gt;tab_bannedPlayers.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="button14.Location" type="System.Drawing.Point, System.Drawing">
     <value>179, 263</value>
@@ -1824,6 +927,30 @@
   <data name="&gt;&gt;grid_vpn_allowlist.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="group_vpnWhitelist.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 68</value>
+  </data>
+  <data name="group_vpnWhitelist.Size" type="System.Drawing.Size, System.Drawing">
+    <value>439, 291</value>
+  </data>
+  <data name="group_vpnWhitelist.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="group_vpnWhitelist.Text" xml:space="preserve">
+    <value>VPN Whitelist</value>
+  </data>
+  <data name="&gt;&gt;group_vpnWhitelist.Name" xml:space="preserve">
+    <value>group_vpnWhitelist</value>
+  </data>
+  <data name="&gt;&gt;group_vpnWhitelist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;group_vpnWhitelist.Parent" xml:space="preserve">
+    <value>tab_vpnSettings</value>
+  </data>
+  <data name="&gt;&gt;group_vpnWhitelist.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="cb_enableVPNChecks.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1911,65 +1038,53 @@
   <data name="&gt;&gt;num_vpnAbuseLevel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;listBox_playerWarnMessages.Name" xml:space="preserve">
-    <value>listBox_playerWarnMessages</value>
+  <data name="group_vpnSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
   </data>
-  <data name="&gt;&gt;listBox_playerWarnMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="group_vpnSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>439, 58</value>
   </data>
-  <data name="&gt;&gt;listBox_playerWarnMessages.Parent" xml:space="preserve">
-    <value>groupBox_playerWarnMsg</value>
-  </data>
-  <data name="&gt;&gt;listBox_playerWarnMessages.ZOrder" xml:space="preserve">
+  <data name="group_vpnSettings.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;btn_playerWarnMessageAdd.Name" xml:space="preserve">
-    <value>btn_playerWarnMessageAdd</value>
+  <data name="group_vpnSettings.Text" xml:space="preserve">
+    <value>VPN Settings</value>
   </data>
-  <data name="&gt;&gt;btn_playerWarnMessageAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;group_vpnSettings.Name" xml:space="preserve">
+    <value>group_vpnSettings</value>
   </data>
-  <data name="&gt;&gt;btn_playerWarnMessageAdd.Parent" xml:space="preserve">
-    <value>groupBox_playerWarnMsg</value>
-  </data>
-  <data name="&gt;&gt;btn_playerWarnMessageAdd.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;textBox_playerWarnMessageAdd.Name" xml:space="preserve">
-    <value>textBox_playerWarnMessageAdd</value>
-  </data>
-  <data name="&gt;&gt;textBox_playerWarnMessageAdd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;textBox_playerWarnMessageAdd.Parent" xml:space="preserve">
-    <value>groupBox_playerWarnMsg</value>
-  </data>
-  <data name="&gt;&gt;textBox_playerWarnMessageAdd.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupBox_playerWarnMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="groupBox_playerWarnMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>440, 357</value>
-  </data>
-  <data name="groupBox_playerWarnMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="groupBox_playerWarnMsg.Text" xml:space="preserve">
-    <value>Player Warning Messages</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Name" xml:space="preserve">
-    <value>groupBox_playerWarnMsg</value>
-  </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_vpnSettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.Parent" xml:space="preserve">
-    <value>tab_warnMsgs</value>
+  <data name="&gt;&gt;group_vpnSettings.Parent" xml:space="preserve">
+    <value>tab_vpnSettings</value>
   </data>
-  <data name="&gt;&gt;groupBox_playerWarnMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;group_vpnSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tab_vpnSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tab_vpnSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 363</value>
+  </data>
+  <data name="tab_vpnSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tab_vpnSettings.Text" xml:space="preserve">
+    <value>VPN Settings</value>
+  </data>
+  <data name="&gt;&gt;tab_vpnSettings.Name" xml:space="preserve">
+    <value>tab_vpnSettings</value>
+  </data>
+  <data name="&gt;&gt;tab_vpnSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tab_vpnSettings.Parent" xml:space="preserve">
+    <value>tabControl_playerSelection</value>
+  </data>
+  <data name="&gt;&gt;tab_vpnSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="listBox_playerWarnMessages.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
@@ -2040,6 +1155,75 @@
   <data name="&gt;&gt;textBox_playerWarnMessageAdd.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="groupBox_playerWarnMsg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="groupBox_playerWarnMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>440, 357</value>
+  </data>
+  <data name="groupBox_playerWarnMsg.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="groupBox_playerWarnMsg.Text" xml:space="preserve">
+    <value>Player Warning Messages</value>
+  </data>
+  <data name="&gt;&gt;groupBox_playerWarnMsg.Name" xml:space="preserve">
+    <value>groupBox_playerWarnMsg</value>
+  </data>
+  <data name="&gt;&gt;groupBox_playerWarnMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_playerWarnMsg.Parent" xml:space="preserve">
+    <value>tab_warnMsgs</value>
+  </data>
+  <data name="&gt;&gt;groupBox_playerWarnMsg.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tab_warnMsgs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tab_warnMsgs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>446, 363</value>
+  </data>
+  <data name="tab_warnMsgs.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tab_warnMsgs.Text" xml:space="preserve">
+    <value>Warning Messages</value>
+  </data>
+  <data name="&gt;&gt;tab_warnMsgs.Name" xml:space="preserve">
+    <value>tab_warnMsgs</value>
+  </data>
+  <data name="&gt;&gt;tab_warnMsgs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tab_warnMsgs.Parent" xml:space="preserve">
+    <value>tabControl_playerSelection</value>
+  </data>
+  <data name="&gt;&gt;tab_warnMsgs.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tabControl_playerSelection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>342, 9</value>
+  </data>
+  <data name="tabControl_playerSelection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>454, 389</value>
+  </data>
+  <data name="tabControl_playerSelection.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tabControl_playerSelection.Name" xml:space="preserve">
+    <value>tabControl_playerSelection</value>
+  </data>
+  <data name="&gt;&gt;tabControl_playerSelection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl_playerSelection.Parent" xml:space="preserve">
+    <value>page_players</value>
+  </data>
+  <data name="&gt;&gt;tabControl_playerSelection.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grid_playerList.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
@@ -2064,280 +1248,52 @@
   <data name="&gt;&gt;grid_playerList.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;tabPage10.Name" xml:space="preserve">
-    <value>tabPage10</value>
+  <data name="group_currentPlayers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
-  <data name="&gt;&gt;tabPage10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="group_currentPlayers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>333, 394</value>
   </data>
-  <data name="&gt;&gt;tabPage10.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.ZOrder" xml:space="preserve">
+  <data name="group_currentPlayers.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;tabPage14.Name" xml:space="preserve">
-    <value>tabPage14</value>
+  <data name="group_currentPlayers.Text" xml:space="preserve">
+    <value>Current Players:</value>
   </data>
-  <data name="&gt;&gt;tabPage14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;group_currentPlayers.Name" xml:space="preserve">
+    <value>group_currentPlayers</value>
   </data>
-  <data name="&gt;&gt;tabPage14.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
+  <data name="&gt;&gt;group_currentPlayers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage14.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_currentPlayers.Parent" xml:space="preserve">
+    <value>page_players</value>
+  </data>
+  <data name="&gt;&gt;group_currentPlayers.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="tabCtl_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 4</value>
-  </data>
-  <data name="tabCtl_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 393</value>
-  </data>
-  <data name="tabCtl_ServerSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Name" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.Parent" xml:space="preserve">
-    <value>page_serverSettings</value>
-  </data>
-  <data name="&gt;&gt;tabCtl_ServerSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Name" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.Name" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.Name" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Name" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Name" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.Name" xml:space="preserve">
-    <value>gb_misc</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="tabPage10.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="page_players.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPage10.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="page_players.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 401</value>
   </data>
-  <data name="tabPage10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>397, 367</value>
-  </data>
-  <data name="tabPage10.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="tabPage10.Text" xml:space="preserve">
-    <value>Server Settings</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.Name" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_AutoRange.Name" xml:space="preserve">
-    <value>cb_AutoRange</value>
-  </data>
-  <data name="&gt;&gt;cb_AutoRange.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_AutoRange.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;cb_AutoRange.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_TeamClays.Name" xml:space="preserve">
-    <value>cb_TeamClays</value>
-  </data>
-  <data name="&gt;&gt;cb_TeamClays.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_TeamClays.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;cb_TeamClays.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_Tracers.Name" xml:space="preserve">
-    <value>cb_Tracers</value>
-  </data>
-  <data name="&gt;&gt;cb_Tracers.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_Tracers.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;cb_Tracers.ZOrder" xml:space="preserve">
+  <data name="page_players.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;num_MaxTeamLives.Name" xml:space="preserve">
-    <value>num_MaxTeamLives</value>
+  <data name="page_players.Text" xml:space="preserve">
+    <value>Players</value>
   </data>
-  <data name="&gt;&gt;num_MaxTeamLives.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;page_players.Name" xml:space="preserve">
+    <value>page_players</value>
   </data>
-  <data name="&gt;&gt;num_MaxTeamLives.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
+  <data name="&gt;&gt;page_players.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;num_MaxTeamLives.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;page_players.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;label_maxTeamLives.Name" xml:space="preserve">
-    <value>label_maxTeamLives</value>
-  </data>
-  <data name="&gt;&gt;label_maxTeamLives.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_maxTeamLives.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;label_maxTeamLives.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;numericUpDown5.Name" xml:space="preserve">
-    <value>numericUpDown5</value>
-  </data>
-  <data name="&gt;&gt;numericUpDown5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;numericUpDown5.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;numericUpDown5.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label_flagReturnTimer.Name" xml:space="preserve">
-    <value>label_flagReturnTimer</value>
-  </data>
-  <data name="&gt;&gt;label_flagReturnTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_flagReturnTimer.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;label_flagReturnTimer.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;num_pspTimer.Name" xml:space="preserve">
-    <value>num_pspTimer</value>
-  </data>
-  <data name="&gt;&gt;num_pspTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_pspTimer.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;num_pspTimer.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label_PSPtime.Name" xml:space="preserve">
-    <value>label_PSPtime</value>
-  </data>
-  <data name="&gt;&gt;label_PSPtime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_PSPtime.Parent" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;label_PSPtime.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="gb_GamePlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 151</value>
-  </data>
-  <data name="gb_GamePlay.Size" type="System.Drawing.Size, System.Drawing">
-    <value>385, 90</value>
-  </data>
-  <data name="gb_GamePlay.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gb_GamePlay.Text" xml:space="preserve">
-    <value>Game Play Options</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Name" xml:space="preserve">
-    <value>gb_GamePlay</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.Parent" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;gb_GamePlay.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;page_players.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="cb_AutoRange.AutoSize" type="System.Boolean, mscorlib">
@@ -2565,101 +1521,29 @@
   <data name="&gt;&gt;label_PSPtime.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;num_scoreDM.Name" xml:space="preserve">
-    <value>num_scoreDM</value>
+  <data name="gb_GamePlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 151</value>
   </data>
-  <data name="&gt;&gt;num_scoreDM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_GamePlay.Size" type="System.Drawing.Size, System.Drawing">
+    <value>385, 90</value>
   </data>
-  <data name="&gt;&gt;num_scoreDM.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;num_scoreDM.ZOrder" xml:space="preserve">
+  <data name="gb_GamePlay.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;label_scoreDM.Name" xml:space="preserve">
-    <value>label_scoreDM</value>
+  <data name="gb_GamePlay.Text" xml:space="preserve">
+    <value>Game Play Options</value>
   </data>
-  <data name="&gt;&gt;label_scoreDM.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gb_GamePlay.Name" xml:space="preserve">
+    <value>gb_GamePlay</value>
   </data>
-  <data name="&gt;&gt;label_scoreDM.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;label_scoreDM.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;num_scoreKOTH.Name" xml:space="preserve">
-    <value>num_scoreKOTH</value>
-  </data>
-  <data name="&gt;&gt;num_scoreKOTH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_scoreKOTH.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;num_scoreKOTH.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_scoreKOTH.Name" xml:space="preserve">
-    <value>label_scoreKOTH</value>
-  </data>
-  <data name="&gt;&gt;label_scoreKOTH.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_scoreKOTH.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;label_scoreKOTH.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;num_scoreFB.Name" xml:space="preserve">
-    <value>num_scoreFB</value>
-  </data>
-  <data name="&gt;&gt;num_scoreFB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_scoreFB.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;num_scoreFB.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label_scoreFB.Name" xml:space="preserve">
-    <value>label_scoreFB</value>
-  </data>
-  <data name="&gt;&gt;label_scoreFB.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_scoreFB.Parent" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;label_scoreFB.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="groupBox24.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 244</value>
-  </data>
-  <data name="groupBox24.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 94</value>
-  </data>
-  <data name="groupBox24.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox24.Text" xml:space="preserve">
-    <value>Scoring Options</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.Name" xml:space="preserve">
-    <value>groupBox24</value>
-  </data>
-  <data name="&gt;&gt;groupBox24.Type" xml:space="preserve">
+  <data name="&gt;&gt;gb_GamePlay.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox24.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gb_GamePlay.Parent" xml:space="preserve">
     <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;groupBox24.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;gb_GamePlay.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="num_scoreDM.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 67</value>
@@ -2805,77 +1689,29 @@
   <data name="&gt;&gt;label_scoreFB.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;num_maxPing.Name" xml:space="preserve">
-    <value>num_maxPing</value>
+  <data name="groupBox24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 244</value>
   </data>
-  <data name="&gt;&gt;num_maxPing.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="groupBox24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 94</value>
   </data>
-  <data name="&gt;&gt;num_maxPing.Parent" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;num_maxPing.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;num_minPing.Name" xml:space="preserve">
-    <value>num_minPing</value>
-  </data>
-  <data name="&gt;&gt;num_minPing.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_minPing.Parent" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;num_minPing.ZOrder" xml:space="preserve">
+  <data name="groupBox24.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;cb_maxPing.Name" xml:space="preserve">
-    <value>cb_maxPing</value>
+  <data name="groupBox24.Text" xml:space="preserve">
+    <value>Scoring Options</value>
   </data>
-  <data name="&gt;&gt;cb_maxPing.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;groupBox24.Name" xml:space="preserve">
+    <value>groupBox24</value>
   </data>
-  <data name="&gt;&gt;cb_maxPing.Parent" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;cb_maxPing.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;cb_minPing.Name" xml:space="preserve">
-    <value>cb_minPing</value>
-  </data>
-  <data name="&gt;&gt;cb_minPing.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_minPing.Parent" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;cb_minPing.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="gb_pingOptions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 6</value>
-  </data>
-  <data name="gb_pingOptions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 75</value>
-  </data>
-  <data name="gb_pingOptions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gb_pingOptions.Text" xml:space="preserve">
-    <value>Ping Check</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.Name" xml:space="preserve">
-    <value>gb_pingOptions</value>
-  </data>
-  <data name="&gt;&gt;gb_pingOptions.Type" xml:space="preserve">
+  <data name="&gt;&gt;groupBox24.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gb_pingOptions.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBox24.Parent" xml:space="preserve">
     <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;gb_pingOptions.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;groupBox24.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="num_maxPing.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 43</value>
@@ -2979,89 +1815,29 @@
   <data name="&gt;&gt;cb_minPing.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;cb_ffWarning.Name" xml:space="preserve">
-    <value>cb_ffWarning</value>
+  <data name="gb_pingOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 6</value>
   </data>
-  <data name="&gt;&gt;cb_ffWarning.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_pingOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 75</value>
   </data>
-  <data name="&gt;&gt;cb_ffWarning.Parent" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;cb_ffWarning.ZOrder" xml:space="preserve">
+  <data name="gb_pingOptions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;cb_showFriendTags.Name" xml:space="preserve">
-    <value>cb_showFriendTags</value>
+  <data name="gb_pingOptions.Text" xml:space="preserve">
+    <value>Ping Check</value>
   </data>
-  <data name="&gt;&gt;cb_showFriendTags.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gb_pingOptions.Name" xml:space="preserve">
+    <value>gb_pingOptions</value>
   </data>
-  <data name="&gt;&gt;cb_showFriendTags.Parent" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;cb_showFriendTags.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;num_maxFriendKills.Name" xml:space="preserve">
-    <value>num_maxFriendKills</value>
-  </data>
-  <data name="&gt;&gt;num_maxFriendKills.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_maxFriendKills.Parent" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;num_maxFriendKills.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_maxFriendKills.Name" xml:space="preserve">
-    <value>label_maxFriendKills</value>
-  </data>
-  <data name="&gt;&gt;label_maxFriendKills.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_maxFriendKills.Parent" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;label_maxFriendKills.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;cb_friendFireKills.Name" xml:space="preserve">
-    <value>cb_friendFireKills</value>
-  </data>
-  <data name="&gt;&gt;cb_friendFireKills.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_friendFireKills.Parent" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;cb_friendFireKills.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gb_FriendlyFire.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 82</value>
-  </data>
-  <data name="gb_FriendlyFire.Size" type="System.Drawing.Size, System.Drawing">
-    <value>385, 68</value>
-  </data>
-  <data name="gb_FriendlyFire.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="gb_FriendlyFire.Text" xml:space="preserve">
-    <value>Friendly Fire</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Name" xml:space="preserve">
-    <value>gb_FriendlyFire</value>
-  </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Type" xml:space="preserve">
+  <data name="&gt;&gt;gb_pingOptions.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gb_FriendlyFire.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gb_pingOptions.Parent" xml:space="preserve">
     <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;gb_FriendlyFire.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;gb_pingOptions.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="cb_ffWarning.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3195,77 +1971,29 @@
   <data name="&gt;&gt;cb_friendFireKills.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;text_redPass.Name" xml:space="preserve">
-    <value>text_redPass</value>
+  <data name="gb_FriendlyFire.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 82</value>
   </data>
-  <data name="&gt;&gt;text_redPass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_FriendlyFire.Size" type="System.Drawing.Size, System.Drawing">
+    <value>385, 68</value>
   </data>
-  <data name="&gt;&gt;text_redPass.Parent" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;text_redPass.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_bluePass.Name" xml:space="preserve">
-    <value>text_bluePass</value>
-  </data>
-  <data name="&gt;&gt;text_bluePass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_bluePass.Parent" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;text_bluePass.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label_redPass.Name" xml:space="preserve">
-    <value>label_redPass</value>
-  </data>
-  <data name="&gt;&gt;label_redPass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_redPass.Parent" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;label_redPass.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_bluePass.Name" xml:space="preserve">
-    <value>label_bluePass</value>
-  </data>
-  <data name="&gt;&gt;label_bluePass.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_bluePass.Parent" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;label_bluePass.ZOrder" xml:space="preserve">
+  <data name="gb_FriendlyFire.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="gB_TeamPasswords.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+  <data name="gb_FriendlyFire.Text" xml:space="preserve">
+    <value>Friendly Fire</value>
   </data>
-  <data name="gB_TeamPasswords.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 75</value>
+  <data name="&gt;&gt;gb_FriendlyFire.Name" xml:space="preserve">
+    <value>gb_FriendlyFire</value>
   </data>
-  <data name="gB_TeamPasswords.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="gB_TeamPasswords.Text" xml:space="preserve">
-    <value>Team Passwords</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Name" xml:space="preserve">
-    <value>gB_TeamPasswords</value>
-  </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Type" xml:space="preserve">
+  <data name="&gt;&gt;gb_FriendlyFire.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gB_TeamPasswords.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gb_FriendlyFire.Parent" xml:space="preserve">
     <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;gB_TeamPasswords.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;gb_FriendlyFire.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="text_redPass.Location" type="System.Drawing.Point, System.Drawing">
     <value>69, 42</value>
@@ -3369,65 +2097,29 @@
   <data name="&gt;&gt;label_bluePass.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;cb_destroyBuildings.Name" xml:space="preserve">
-    <value>cb_destroyBuildings</value>
+  <data name="gB_TeamPasswords.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
   </data>
-  <data name="&gt;&gt;cb_destroyBuildings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gB_TeamPasswords.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 75</value>
   </data>
-  <data name="&gt;&gt;cb_destroyBuildings.Parent" xml:space="preserve">
-    <value>gb_misc</value>
-  </data>
-  <data name="&gt;&gt;cb_destroyBuildings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_fatBullets.Name" xml:space="preserve">
-    <value>cb_fatBullets</value>
-  </data>
-  <data name="&gt;&gt;cb_fatBullets.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_fatBullets.Parent" xml:space="preserve">
-    <value>gb_misc</value>
-  </data>
-  <data name="&gt;&gt;cb_fatBullets.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_oneShotKills.Name" xml:space="preserve">
-    <value>cb_oneShotKills</value>
-  </data>
-  <data name="&gt;&gt;cb_oneShotKills.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_oneShotKills.Parent" xml:space="preserve">
-    <value>gb_misc</value>
-  </data>
-  <data name="&gt;&gt;cb_oneShotKills.ZOrder" xml:space="preserve">
+  <data name="gB_TeamPasswords.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="gb_misc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 244</value>
+  <data name="gB_TeamPasswords.Text" xml:space="preserve">
+    <value>Team Passwords</value>
   </data>
-  <data name="gb_misc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 94</value>
+  <data name="&gt;&gt;gB_TeamPasswords.Name" xml:space="preserve">
+    <value>gB_TeamPasswords</value>
   </data>
-  <data name="gb_misc.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gb_misc.Text" xml:space="preserve">
-    <value>Miscellaneous</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.Name" xml:space="preserve">
-    <value>gb_misc</value>
-  </data>
-  <data name="&gt;&gt;gb_misc.Type" xml:space="preserve">
+  <data name="&gt;&gt;gB_TeamPasswords.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gb_misc.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gB_TeamPasswords.Parent" xml:space="preserve">
     <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;gb_misc.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="&gt;&gt;gB_TeamPasswords.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="cb_destroyBuildings.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3510,112 +2202,55 @@
   <data name="&gt;&gt;cb_oneShotKills.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;groupBox22.Name" xml:space="preserve">
-    <value>groupBox22</value>
+  <data name="gb_misc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 244</value>
   </data>
-  <data name="&gt;&gt;groupBox22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_misc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 94</value>
   </data>
-  <data name="&gt;&gt;groupBox22.Parent" xml:space="preserve">
-    <value>tabPage14</value>
-  </data>
-  <data name="&gt;&gt;groupBox22.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Name" xml:space="preserve">
-    <value>gb_roleRestrictions</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Parent" xml:space="preserve">
-    <value>tabPage14</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.ZOrder" xml:space="preserve">
+  <data name="gb_misc.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="tabPage14.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="gb_misc.Text" xml:space="preserve">
+    <value>Miscellaneous</value>
+  </data>
+  <data name="&gt;&gt;gb_misc.Name" xml:space="preserve">
+    <value>gb_misc</value>
+  </data>
+  <data name="&gt;&gt;gb_misc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gb_misc.Parent" xml:space="preserve">
+    <value>tabPage10</value>
+  </data>
+  <data name="&gt;&gt;gb_misc.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tabPage10.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="tabPage14.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tabPage10.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage10.Size" type="System.Drawing.Size, System.Drawing">
     <value>397, 367</value>
   </data>
-  <data name="tabPage14.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="tabPage14.Text" xml:space="preserve">
-    <value>Restrictions</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Name" xml:space="preserve">
-    <value>tabPage14</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;rb_WeaonSelNone.Name" xml:space="preserve">
-    <value>rb_WeaonSelNone</value>
-  </data>
-  <data name="&gt;&gt;rb_WeaonSelNone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_WeaonSelNone.Parent" xml:space="preserve">
-    <value>groupBox22</value>
-  </data>
-  <data name="&gt;&gt;rb_WeaonSelNone.ZOrder" xml:space="preserve">
+  <data name="tabPage10.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;rb_WeaonSelAll.Name" xml:space="preserve">
-    <value>rb_WeaonSelAll</value>
+  <data name="tabPage10.Text" xml:space="preserve">
+    <value>Server Settings</value>
   </data>
-  <data name="&gt;&gt;rb_WeaonSelAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tabPage10.Name" xml:space="preserve">
+    <value>tabPage10</value>
   </data>
-  <data name="&gt;&gt;rb_WeaonSelAll.Parent" xml:space="preserve">
-    <value>groupBox22</value>
+  <data name="&gt;&gt;tabPage10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;rb_WeaonSelAll.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;tabPage10.Parent" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
   </data>
-  <data name="&gt;&gt;cbl_weaponSelection.Name" xml:space="preserve">
-    <value>cbl_weaponSelection</value>
-  </data>
-  <data name="&gt;&gt;cbl_weaponSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbl_weaponSelection.Parent" xml:space="preserve">
-    <value>groupBox22</value>
-  </data>
-  <data name="&gt;&gt;cbl_weaponSelection.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="groupBox22.Location" type="System.Drawing.Point, System.Drawing">
-    <value>203, 6</value>
-  </data>
-  <data name="groupBox22.Size" type="System.Drawing.Size, System.Drawing">
-    <value>188, 352</value>
-  </data>
-  <data name="groupBox22.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="groupBox22.Text" xml:space="preserve">
-    <value>Weapon Restrictions</value>
-  </data>
-  <data name="&gt;&gt;groupBox22.Name" xml:space="preserve">
-    <value>groupBox22</value>
-  </data>
-  <data name="&gt;&gt;groupBox22.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox22.Parent" xml:space="preserve">
-    <value>tabPage14</value>
-  </data>
-  <data name="&gt;&gt;groupBox22.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tabPage10.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="rb_WeaonSelNone.AutoSize" type="System.Boolean, mscorlib">
@@ -3765,65 +2400,29 @@
   <data name="&gt;&gt;cbl_weaponSelection.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;rb_roleSelNone.Name" xml:space="preserve">
-    <value>rb_roleSelNone</value>
+  <data name="groupBox22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>203, 6</value>
   </data>
-  <data name="&gt;&gt;rb_roleSelNone.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="groupBox22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>188, 352</value>
   </data>
-  <data name="&gt;&gt;rb_roleSelNone.Parent" xml:space="preserve">
-    <value>gb_roleRestrictions</value>
-  </data>
-  <data name="&gt;&gt;rb_roleSelNone.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;rb_roleSelAll.Name" xml:space="preserve">
-    <value>rb_roleSelAll</value>
-  </data>
-  <data name="&gt;&gt;rb_roleSelAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_roleSelAll.Parent" xml:space="preserve">
-    <value>gb_roleRestrictions</value>
-  </data>
-  <data name="&gt;&gt;rb_roleSelAll.ZOrder" xml:space="preserve">
+  <data name="groupBox22.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;cbl_roleSelection.Name" xml:space="preserve">
-    <value>cbl_roleSelection</value>
+  <data name="groupBox22.Text" xml:space="preserve">
+    <value>Weapon Restrictions</value>
   </data>
-  <data name="&gt;&gt;cbl_roleSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckedListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;groupBox22.Name" xml:space="preserve">
+    <value>groupBox22</value>
   </data>
-  <data name="&gt;&gt;cbl_roleSelection.Parent" xml:space="preserve">
-    <value>gb_roleRestrictions</value>
-  </data>
-  <data name="&gt;&gt;cbl_roleSelection.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="gb_roleRestrictions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 6</value>
-  </data>
-  <data name="gb_roleRestrictions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>191, 352</value>
-  </data>
-  <data name="gb_roleRestrictions.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gb_roleRestrictions.Text" xml:space="preserve">
-    <value>Role Restrictions</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Name" xml:space="preserve">
-    <value>gb_roleRestrictions</value>
-  </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Type" xml:space="preserve">
+  <data name="&gt;&gt;groupBox22.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gb_roleRestrictions.Parent" xml:space="preserve">
+  <data name="&gt;&gt;groupBox22.Parent" xml:space="preserve">
     <value>tabPage14</value>
   </data>
-  <data name="&gt;&gt;gb_roleRestrictions.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;groupBox22.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="rb_roleSelNone.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3921,53 +2520,74 @@
   <data name="&gt;&gt;cbl_roleSelection.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Name" xml:space="preserve">
-    <value>btn_settingsRevertChanges</value>
+  <data name="gb_roleRestrictions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 6</value>
   </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_roleRestrictions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 352</value>
   </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.ZOrder" xml:space="preserve">
+  <data name="gb_roleRestrictions.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Name" xml:space="preserve">
-    <value>btn_UpdateServerSettings</value>
+  <data name="gb_roleRestrictions.Text" xml:space="preserve">
+    <value>Role Restrictions</value>
   </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gb_roleRestrictions.Name" xml:space="preserve">
+    <value>gb_roleRestrictions</value>
   </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="gB_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 340</value>
-  </data>
-  <data name="gB_options.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 57</value>
-  </data>
-  <data name="gB_options.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="gB_options.Text" xml:space="preserve">
-    <value>Options</value>
-  </data>
-  <data name="&gt;&gt;gB_options.Name" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;gB_options.Type" xml:space="preserve">
+  <data name="&gt;&gt;gb_roleRestrictions.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gB_options.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gb_roleRestrictions.Parent" xml:space="preserve">
+    <value>tabPage14</value>
+  </data>
+  <data name="&gt;&gt;gb_roleRestrictions.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabPage14.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="tabPage14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>397, 367</value>
+  </data>
+  <data name="tabPage14.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="tabPage14.Text" xml:space="preserve">
+    <value>Restrictions</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Name" xml:space="preserve">
+    <value>tabPage14</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Parent" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabCtl_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 4</value>
+  </data>
+  <data name="tabCtl_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>405, 393</value>
+  </data>
+  <data name="tabCtl_ServerSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Name" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Parent" xml:space="preserve">
     <value>page_serverSettings</value>
   </data>
-  <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;tabCtl_ServerSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="btn_settingsRevertChanges.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom</value>
@@ -4023,185 +2643,44 @@
   <data name="&gt;&gt;btn_UpdateServerSettings.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;gB_motd.Name" xml:space="preserve">
-    <value>gB_motd</value>
+  <data name="gB_options.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 340</value>
   </data>
-  <data name="&gt;&gt;gB_motd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gB_options.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 57</value>
   </data>
-  <data name="&gt;&gt;gB_motd.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_motd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Name" xml:space="preserve">
-    <value>cb_autoBalance</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Name" xml:space="preserve">
-    <value>cb_customSkin</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.ZOrder" xml:space="preserve">
+  <data name="gB_options.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;cb_requireNova.Name" xml:space="preserve">
-    <value>cb_requireNova</value>
+  <data name="gB_options.Text" xml:space="preserve">
+    <value>Options</value>
   </data>
-  <data name="&gt;&gt;cb_requireNova.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gB_options.Name" xml:space="preserve">
+    <value>gB_options</value>
   </data>
-  <data name="&gt;&gt;cb_requireNova.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_requireNova.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Name" xml:space="preserve">
-    <value>cb_gameDedicated</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Name" xml:space="preserve">
-    <value>cb_respawnTime</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Name" xml:space="preserve">
-    <value>label_respawnTime</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Name" xml:space="preserve">
-    <value>cb_replayMaps</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Name" xml:space="preserve">
-    <value>label_replayMaps</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Name" xml:space="preserve">
-    <value>cb_startDelay</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Name" xml:space="preserve">
-    <value>label_startDelay</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Name" xml:space="preserve">
-    <value>cb_timeLimit</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Name" xml:space="preserve">
-    <value>label_timeLimit</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="gB_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 118</value>
-  </data>
-  <data name="gB_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 215</value>
-  </data>
-  <data name="gB_ServerSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gB_ServerSettings.Text" xml:space="preserve">
-    <value>Server Settings</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.Name" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerSettings.Type" xml:space="preserve">
+  <data name="&gt;&gt;gB_options.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gB_ServerSettings.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gB_options.Parent" xml:space="preserve">
     <value>page_serverSettings</value>
   </data>
-  <data name="&gt;&gt;gB_ServerSettings.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 16</value>
+  </data>
+  <data name="richTextBox1.MaxLength" type="System.Int32, mscorlib">
+    <value>85</value>
+  </data>
+  <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>370, 65</value>
+  </data>
+  <data name="richTextBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
     <value>richTextBox1</value>
@@ -4237,33 +2716,6 @@
     <value>gB_ServerSettings</value>
   </data>
   <data name="&gt;&gt;gB_motd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="richTextBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 16</value>
-  </data>
-  <data name="richTextBox1.MaxLength" type="System.Int32, mscorlib">
-    <value>85</value>
-  </data>
-  <data name="richTextBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>370, 65</value>
-  </data>
-  <data name="richTextBox1.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="richTextBox1.Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
-    <value>richTextBox1</value>
-  </data>
-  <data name="&gt;&gt;richTextBox1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;richTextBox1.Parent" xml:space="preserve">
-    <value>gB_motd</value>
-  </data>
-  <data name="&gt;&gt;richTextBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="cb_autoBalance.AutoSize" type="System.Boolean, mscorlib">
@@ -4590,149 +3042,29 @@
   <data name="&gt;&gt;label_timeLimit.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="&gt;&gt;smNum_maxSlots.Name" xml:space="preserve">
-    <value>smNum_maxSlots</value>
+  <data name="gB_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 118</value>
   </data>
-  <data name="&gt;&gt;smNum_maxSlots.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gB_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 215</value>
   </data>
-  <data name="&gt;&gt;smNum_maxSlots.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smNum_maxSlots.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Name" xml:space="preserve">
-    <value>label_maxSlots</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.ZOrder" xml:space="preserve">
+  <data name="gB_ServerSettings.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;smT_serverPassword.Name" xml:space="preserve">
-    <value>smT_serverPassword</value>
+  <data name="gB_ServerSettings.Text" xml:space="preserve">
+    <value>Server Settings</value>
   </data>
-  <data name="&gt;&gt;smT_serverPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gB_ServerSettings.Name" xml:space="preserve">
+    <value>gB_ServerSettings</value>
   </data>
-  <data name="&gt;&gt;smT_serverPassword.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smT_serverPassword.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Name" xml:space="preserve">
-    <value>label_ServerPassword</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Name" xml:space="preserve">
-    <value>smCB_sessionType</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Name" xml:space="preserve">
-    <value>label_SessionType</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Name" xml:space="preserve">
-    <value>smCB_country</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Name" xml:space="preserve">
-    <value>label_Country</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_Country.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Name" xml:space="preserve">
-    <value>smT_serverName</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Name" xml:space="preserve">
-    <value>label_serverName</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="gB_ServerDetails.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="gB_ServerDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 107</value>
-  </data>
-  <data name="gB_ServerDetails.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gB_ServerDetails.Text" xml:space="preserve">
-    <value>Server Details</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.Name" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;gB_ServerDetails.Type" xml:space="preserve">
+  <data name="&gt;&gt;gB_ServerSettings.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gB_ServerDetails.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gB_ServerSettings.Parent" xml:space="preserve">
     <value>page_serverSettings</value>
   </data>
-  <data name="&gt;&gt;gB_ServerDetails.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;gB_ServerSettings.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="smNum_maxSlots.Location" type="System.Drawing.Point, System.Drawing">
     <value>301, 47</value>
@@ -4983,113 +3315,53 @@
   <data name="&gt;&gt;label_serverName.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;label_currentMapPlaying.Name" xml:space="preserve">
-    <value>label_currentMapPlaying</value>
+  <data name="gB_ServerDetails.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
   </data>
-  <data name="&gt;&gt;label_currentMapPlaying.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gB_ServerDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 107</value>
   </data>
-  <data name="&gt;&gt;label_currentMapPlaying.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;label_currentMapPlaying.ZOrder" xml:space="preserve">
+  <data name="gB_ServerDetails.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;list_mapRotation.Name" xml:space="preserve">
-    <value>list_mapRotation</value>
+  <data name="gB_ServerDetails.Text" xml:space="preserve">
+    <value>Server Details</value>
   </data>
-  <data name="&gt;&gt;list_mapRotation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gB_ServerDetails.Name" xml:space="preserve">
+    <value>gB_ServerDetails</value>
   </data>
-  <data name="&gt;&gt;list_mapRotation.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;list_mapRotation.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label_CurrentMap.Name" xml:space="preserve">
-    <value>label_CurrentMap</value>
-  </data>
-  <data name="&gt;&gt;label_CurrentMap.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_CurrentMap.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;label_CurrentMap.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;endOfMapTimer_TrackBar.Name" xml:space="preserve">
-    <value>endOfMapTimer_TrackBar</value>
-  </data>
-  <data name="&gt;&gt;endOfMapTimer_TrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;endOfMapTimer_TrackBar.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;endOfMapTimer_TrackBar.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label_mapsSelected.Name" xml:space="preserve">
-    <value>label_mapsSelected</value>
-  </data>
-  <data name="&gt;&gt;label_mapsSelected.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_mapsSelected.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;label_mapsSelected.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label_EOMtimer.Name" xml:space="preserve">
-    <value>label_EOMtimer</value>
-  </data>
-  <data name="&gt;&gt;label_EOMtimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_EOMtimer.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;label_EOMtimer.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label_currentMapCount.Name" xml:space="preserve">
-    <value>label_currentMapCount</value>
-  </data>
-  <data name="&gt;&gt;label_currentMapCount.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_currentMapCount.Parent" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;label_currentMapCount.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="gB_mapRotation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>462, 15</value>
-  </data>
-  <data name="gB_mapRotation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>332, 375</value>
-  </data>
-  <data name="gB_mapRotation.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gB_mapRotation.Text" xml:space="preserve">
-    <value>Maps in Rotation</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.Name" xml:space="preserve">
-    <value>gB_mapRotation</value>
-  </data>
-  <data name="&gt;&gt;gB_mapRotation.Type" xml:space="preserve">
+  <data name="&gt;&gt;gB_ServerDetails.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gB_mapRotation.Parent" xml:space="preserve">
-    <value>page_maps</value>
+  <data name="&gt;&gt;gB_ServerDetails.Parent" xml:space="preserve">
+    <value>page_serverSettings</value>
   </data>
-  <data name="&gt;&gt;gB_mapRotation.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;gB_ServerDetails.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="page_serverSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="page_serverSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 401</value>
+  </data>
+  <data name="page_serverSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="page_serverSettings.Text" xml:space="preserve">
+    <value>Server Settings</value>
+  </data>
+  <data name="&gt;&gt;page_serverSettings.Name" xml:space="preserve">
+    <value>page_serverSettings</value>
+  </data>
+  <data name="&gt;&gt;page_serverSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;page_serverSettings.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;page_serverSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="label_currentMapPlaying.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -5268,89 +3540,29 @@
   <data name="&gt;&gt;label_currentMapCount.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;dropDown_mapSettingsGameType.Name" xml:space="preserve">
-    <value>dropDown_mapSettingsGameType</value>
+  <data name="gB_mapRotation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>462, 15</value>
   </data>
-  <data name="&gt;&gt;dropDown_mapSettingsGameType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gB_mapRotation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>332, 375</value>
   </data>
-  <data name="&gt;&gt;dropDown_mapSettingsGameType.Parent" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;dropDown_mapSettingsGameType.ZOrder" xml:space="preserve">
+  <data name="gB_mapRotation.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;label_numMapsAvailable.Name" xml:space="preserve">
-    <value>label_numMapsAvailable</value>
+  <data name="gB_mapRotation.Text" xml:space="preserve">
+    <value>Maps in Rotation</value>
   </data>
-  <data name="&gt;&gt;label_numMapsAvailable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gB_mapRotation.Name" xml:space="preserve">
+    <value>gB_mapRotation</value>
   </data>
-  <data name="&gt;&gt;label_numMapsAvailable.Parent" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;label_numMapsAvailable.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;label_gameType.Name" xml:space="preserve">
-    <value>label_gameType</value>
-  </data>
-  <data name="&gt;&gt;label_gameType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_gameType.Parent" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;label_gameType.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_totalMaps.Name" xml:space="preserve">
-    <value>label_totalMaps</value>
-  </data>
-  <data name="&gt;&gt;label_totalMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_totalMaps.Parent" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;label_totalMaps.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;listBox_mapsAvailable.Name" xml:space="preserve">
-    <value>listBox_mapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;listBox_mapsAvailable.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBox_mapsAvailable.Parent" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;listBox_mapsAvailable.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gb_MapsAvailable.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 15</value>
-  </data>
-  <data name="gb_MapsAvailable.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 375</value>
-  </data>
-  <data name="gb_MapsAvailable.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="gb_MapsAvailable.Text" xml:space="preserve">
-    <value>Maps Available</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Name" xml:space="preserve">
-    <value>gb_MapsAvailable</value>
-  </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Type" xml:space="preserve">
+  <data name="&gt;&gt;gB_mapRotation.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;gb_MapsAvailable.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gB_mapRotation.Parent" xml:space="preserve">
     <value>page_maps</value>
   </data>
-  <data name="&gt;&gt;gb_MapsAvailable.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;gB_mapRotation.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="dropDown_mapSettingsGameType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top</value>
@@ -5478,158 +3690,29 @@
   <data name="&gt;&gt;listBox_mapsAvailable.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;btn_loadRotation.Name" xml:space="preserve">
-    <value>btn_loadRotation</value>
+  <data name="gb_MapsAvailable.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 15</value>
   </data>
-  <data name="&gt;&gt;btn_loadRotation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="gb_MapsAvailable.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 375</value>
   </data>
-  <data name="&gt;&gt;btn_loadRotation.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_loadRotation.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label59.Name" xml:space="preserve">
-    <value>label59</value>
-  </data>
-  <data name="&gt;&gt;label59.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label59.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;label59.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btn_SaveRoation.Name" xml:space="preserve">
-    <value>btn_SaveRoation</value>
-  </data>
-  <data name="&gt;&gt;btn_SaveRoation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_SaveRoation.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_SaveRoation.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;btn_updateMaps.Name" xml:space="preserve">
-    <value>btn_updateMaps</value>
-  </data>
-  <data name="&gt;&gt;btn_updateMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_updateMaps.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_updateMaps.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;btn_ShuffleMaps.Name" xml:space="preserve">
-    <value>btn_ShuffleMaps</value>
-  </data>
-  <data name="&gt;&gt;btn_ShuffleMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_ShuffleMaps.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_ShuffleMaps.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Name" xml:space="preserve">
-    <value>btn_scoreSkip</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;btn_playMapNext.Name" xml:space="preserve">
-    <value>btn_playMapNext</value>
-  </data>
-  <data name="&gt;&gt;btn_playMapNext.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_playMapNext.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_playMapNext.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapDown.Name" xml:space="preserve">
-    <value>btn_moveMapDown</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapDown.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapDown.ZOrder" xml:space="preserve">
+  <data name="gb_MapsAvailable.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="gb_MapsAvailable.Text" xml:space="preserve">
+    <value>Maps Available</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;gb_MapsAvailable.Name" xml:space="preserve">
+    <value>gb_MapsAvailable</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
+  <data name="&gt;&gt;gb_MapsAvailable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapUp.Name" xml:space="preserve">
-    <value>btn_moveMapUp</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapUp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapUp.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_moveMapUp.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="panel_mapControls.Location" type="System.Drawing.Point, System.Drawing">
-    <value>353, 44</value>
-  </data>
-  <data name="panel_mapControls.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 316</value>
-  </data>
-  <data name="panel_mapControls.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Name" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_mapControls.Parent" xml:space="preserve">
+  <data name="&gt;&gt;gb_MapsAvailable.Parent" xml:space="preserve">
     <value>page_maps</value>
   </data>
-  <data name="&gt;&gt;panel_mapControls.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;gb_MapsAvailable.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="btn_loadRotation.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 281</value>
@@ -5904,62 +3987,50 @@
   <data name="&gt;&gt;btn_moveMapUp.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Name" xml:space="preserve">
-    <value>chat_textBoxMsg</value>
+  <data name="panel_mapControls.Location" type="System.Drawing.Point, System.Drawing">
+    <value>353, 44</value>
   </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="panel_mapControls.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 316</value>
   </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Name" xml:space="preserve">
-    <value>chat_channelSelection</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Name" xml:space="preserve">
-    <value>btn_sendChat</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.ZOrder" xml:space="preserve">
+  <data name="panel_mapControls.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="panel_chatMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 366</value>
+  <data name="&gt;&gt;panel_mapControls.Name" xml:space="preserve">
+    <value>panel_mapControls</value>
   </data>
-  <data name="panel_chatMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>674, 29</value>
-  </data>
-  <data name="panel_chatMessage.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Name" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Type" xml:space="preserve">
+  <data name="&gt;&gt;panel_mapControls.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel_chatMessage.Parent" xml:space="preserve">
-    <value>page_chat</value>
+  <data name="&gt;&gt;panel_mapControls.Parent" xml:space="preserve">
+    <value>page_maps</value>
   </data>
-  <data name="&gt;&gt;panel_chatMessage.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;panel_mapControls.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="page_maps.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="page_maps.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 401</value>
+  </data>
+  <data name="page_maps.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="page_maps.Text" xml:space="preserve">
+    <value>Maps</value>
+  </data>
+  <data name="&gt;&gt;page_maps.Name" xml:space="preserve">
+    <value>page_maps</value>
+  </data>
+  <data name="&gt;&gt;page_maps.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;page_maps.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;page_maps.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="chat_textBoxMsg.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 4</value>
@@ -6045,146 +4116,29 @@
   <data name="&gt;&gt;btn_sendChat.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Name" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
+  <data name="panel_chatMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 366</value>
   </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="panel_chatMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 29</value>
   </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
+  <data name="panel_chatMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="&gt;&gt;groupBox_chatChannel.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;panel_chatMessage.Name" xml:space="preserve">
+    <value>panel_chatMessage</value>
   </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Name" xml:space="preserve">
-    <value>cb_chatPlayerSelect</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel_chatControls.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 332</value>
-  </data>
-  <data name="panel_chatControls.Size" type="System.Drawing.Size, System.Drawing">
-    <value>794, 29</value>
-  </data>
-  <data name="panel_chatControls.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Name" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Type" xml:space="preserve">
+  <data name="&gt;&gt;panel_chatMessage.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;panel_chatControls.Parent" xml:space="preserve">
+  <data name="&gt;&gt;panel_chatMessage.Parent" xml:space="preserve">
     <value>page_chat</value>
   </data>
-  <data name="&gt;&gt;panel_chatControls.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;panel_chatMessage.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="groupBox_chatChannel.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
-  </data>
-  <data name="&gt;&gt;rb_chatAll.Name" xml:space="preserve">
-    <value>rb_chatAll</value>
-  </data>
-  <data name="&gt;&gt;rb_chatAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_chatAll.Parent" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;rb_chatAll.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;rb_chatGlobal.Name" xml:space="preserve">
-    <value>rb_chatGlobal</value>
-  </data>
-  <data name="&gt;&gt;rb_chatGlobal.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_chatGlobal.Parent" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;rb_chatGlobal.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;rb_chatPlayerHist.Name" xml:space="preserve">
-    <value>rb_chatPlayerHist</value>
-  </data>
-  <data name="&gt;&gt;rb_chatPlayerHist.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_chatPlayerHist.Parent" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;rb_chatPlayerHist.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;rb_chatRedTeam.Name" xml:space="preserve">
-    <value>rb_chatRedTeam</value>
-  </data>
-  <data name="&gt;&gt;rb_chatRedTeam.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_chatRedTeam.Parent" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;rb_chatRedTeam.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;rb_chatBlueTeam.Name" xml:space="preserve">
-    <value>rb_chatBlueTeam</value>
-  </data>
-  <data name="&gt;&gt;rb_chatBlueTeam.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb_chatBlueTeam.Parent" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;rb_chatBlueTeam.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="groupBox_chatChannel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>131, -6</value>
-  </data>
-  <data name="groupBox_chatChannel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>505, 35</value>
-  </data>
-  <data name="groupBox_chatChannel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Name" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="rb_chatAll.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -6324,6 +4278,27 @@
   <data name="&gt;&gt;rb_chatBlueTeam.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="groupBox_chatChannel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>131, -6</value>
+  </data>
+  <data name="groupBox_chatChannel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>505, 35</value>
+  </data>
+  <data name="groupBox_chatChannel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Name" xml:space="preserve">
+    <value>groupBox_chatChannel</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Parent" xml:space="preserve">
+    <value>panel_chatControls</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="cb_chatPlayerSelect.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -6375,6 +4350,27 @@
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="panel_chatControls.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 332</value>
+  </data>
+  <data name="panel_chatControls.Size" type="System.Drawing.Size, System.Drawing">
+    <value>794, 29</value>
+  </data>
+  <data name="panel_chatControls.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;panel_chatControls.Name" xml:space="preserve">
+    <value>panel_chatControls</value>
+  </data>
+  <data name="&gt;&gt;panel_chatControls.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel_chatControls.Parent" xml:space="preserve">
+    <value>page_chat</value>
+  </data>
+  <data name="&gt;&gt;panel_chatControls.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="data_chatViewer.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
@@ -6399,137 +4395,29 @@
   <data name="&gt;&gt;data_chatViewer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
-    <value>gb_addMessages</value>
+  <data name="page_chat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
-  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="page_chat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 401</value>
   </data>
-  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
+  <data name="page_chat.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="page_chat.Text" xml:space="preserve">
+    <value>Chat</value>
   </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Name" xml:space="preserve">
-    <value>listBox_AutoMessages</value>
+  <data name="&gt;&gt;page_chat.Name" xml:space="preserve">
+    <value>page_chat</value>
   </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;page_chat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
+  <data name="&gt;&gt;page_chat.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;listBox_AutoMessages.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Name" xml:space="preserve">
-    <value>cb_enableAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Name" xml:space="preserve">
-    <value>label_interval</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;label_interval.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;page_chat.ZOrder" xml:space="preserve">
     <value>3</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Name" xml:space="preserve">
-    <value>num_autoMsgInterval</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gb_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="gb_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>790, 390</value>
-  </data>
-  <data name="gb_autoMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gb_autoMessages.Text" xml:space="preserve">
-    <value>Messages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Name" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Parent" xml:space="preserve">
-    <value>page_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Name" xml:space="preserve">
-    <value>btn_addAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
-    <value>text_newAutoMessage</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="gb_addMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 342</value>
-  </data>
-  <data name="gb_addMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>778, 44</value>
-  </data>
-  <data name="gb_addMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gb_addMessages.Text" xml:space="preserve">
-    <value>Add Message</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="btn_addAutoMsg.Location" type="System.Drawing.Point, System.Drawing">
     <value>697, 14</value>
@@ -6558,39 +4446,6 @@
   <metadata name="contextMenuStrip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>414, 17</value>
   </metadata>
-  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 246</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip3.Name" xml:space="preserve">
-    <value>contextMenuStrip3</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="text_newAutoMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
-  </data>
-  <data name="text_newAutoMessage.MaxLength" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="text_newAutoMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>685, 20</value>
-  </data>
-  <data name="text_newAutoMessage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
-    <value>text_newAutoMessage</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="toolStripMenuItem134.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
   </data>
@@ -6689,6 +4544,63 @@
   </data>
   <data name="toolStripMenuItem144.Text" xml:space="preserve">
     <value>Lowest Exp</value>
+  </data>
+  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 246</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip3.Name" xml:space="preserve">
+    <value>contextMenuStrip3</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="text_newAutoMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="text_newAutoMessage.MaxLength" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="text_newAutoMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>685, 20</value>
+  </data>
+  <data name="text_newAutoMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
+    <value>text_newAutoMessage</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
+    <value>gb_addMessages</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gb_addMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 342</value>
+  </data>
+  <data name="gb_addMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>778, 44</value>
+  </data>
+  <data name="gb_addMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gb_addMessages.Text" xml:space="preserve">
+    <value>Add Message</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
+    <value>gb_addMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="listBox_AutoMessages.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 15</value>
@@ -6789,53 +4701,110 @@
   <data name="&gt;&gt;num_autoMsgInterval.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <data name="gb_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="gb_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>790, 390</value>
+  </data>
+  <data name="gb_autoMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="gb_autoMessages.Text" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="&gt;&gt;gb_autoMessages.Name" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_autoMessages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gb_autoMessages.Parent" xml:space="preserve">
+    <value>page_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_autoMessages.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="page_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="page_autoMessages.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="page_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>800, 401</value>
+  </data>
+  <data name="page_autoMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="page_autoMessages.Text" xml:space="preserve">
+    <value>Auto Messages</value>
+  </data>
+  <data name="&gt;&gt;page_autoMessages.Name" xml:space="preserve">
+    <value>page_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;page_autoMessages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;page_autoMessages.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;page_autoMessages.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>808, 427</value>
+  </data>
+  <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="cm_playerControls.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 180</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
-    <value>contextMenuStrip1</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="toolStripMenuItem12.Text" xml:space="preserve">
-    <value>Arm/Disarm</value>
-  </data>
   <data name="toolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem13.Text" xml:space="preserve">
     <value>Disarm Player</value>
   </data>
   <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>146, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem14.Text" xml:space="preserve">
     <value>Rearm Player</value>
   </data>
-  <data name="toolStripMenuItem133.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cm_armDisarm.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem133.Text" xml:space="preserve">
+  <data name="cm_armDisarm.Text" xml:space="preserve">
+    <value>Arm/Disarm</value>
+  </data>
+  <data name="cm_warnPlayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="cm_warnPlayer.Text" xml:space="preserve">
     <value>Warn Player</value>
   </data>
-  <data name="toolStripMenuItem76.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cm_killPlayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem76.Text" xml:space="preserve">
+  <data name="cm_killPlayer.Text" xml:space="preserve">
     <value>Kill Player</value>
-  </data>
-  <data name="toolStripMenuItem129.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 22</value>
-  </data>
-  <data name="toolStripMenuItem129.Text" xml:space="preserve">
-    <value>Fun Commands</value>
   </data>
   <data name="toolStripMenuItem130.Size" type="System.Drawing.Size, System.Drawing">
     <value>188, 22</value>
@@ -6849,11 +4818,11 @@
   <data name="toolStripMenuItem131.Text" xml:space="preserve">
     <value>Deactivate God Mode</value>
   </data>
-  <data name="toolStripMenuItem36.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cm_funCommands.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem36.Text" xml:space="preserve">
-    <value>Kick Player</value>
+  <data name="cm_funCommands.Text" xml:space="preserve">
+    <value>Fun Commands</value>
   </data>
   <data name="toolStripMenuItem18.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -6918,23 +4887,20 @@
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox2.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox2.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cm_kickPlayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem1.Text" xml:space="preserve">
-    <value>Temp Ban</value>
-  </data>
-  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
-  </data>
-  <data name="toolStripMenuItem2.Text" xml:space="preserve">
-    <value>1 Day</value>
+  <data name="cm_kickPlayer.Text" xml:space="preserve">
+    <value>Kick Player</value>
   </data>
   <data name="toolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -6999,17 +4965,20 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox3.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox3.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox3.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>2 Days</value>
+  <data name="toolStripMenuItem2.Text" xml:space="preserve">
+    <value>1 Day</value>
   </data>
   <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7074,17 +5043,20 @@
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox4.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox4.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox4.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem4.Text" xml:space="preserve">
-    <value>3 Days</value>
+  <data name="toolStripMenuItem3.Text" xml:space="preserve">
+    <value>2 Days</value>
   </data>
   <data name="toolStripMenuItem55.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7149,17 +5121,20 @@
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox5.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox5.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem5.Text" xml:space="preserve">
-    <value>4 Days</value>
+  <data name="toolStripMenuItem4.Text" xml:space="preserve">
+    <value>3 Days</value>
   </data>
   <data name="toolStripMenuItem65.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7224,17 +5199,20 @@
   <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox6.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox6.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem6.Text" xml:space="preserve">
-    <value>5 Days</value>
+  <data name="toolStripMenuItem5.Text" xml:space="preserve">
+    <value>4 Days</value>
   </data>
   <data name="toolStripMenuItem75.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7299,17 +5277,20 @@
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox7.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox7.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem7.Text" xml:space="preserve">
-    <value>6 Days</value>
+  <data name="toolStripMenuItem6.Text" xml:space="preserve">
+    <value>5 Days</value>
   </data>
   <data name="toolStripMenuItem86.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7374,17 +5355,20 @@
   <data name="toolStripSeparator8.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox8.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox8.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox8.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem8.Text" xml:space="preserve">
-    <value>1 Week</value>
+  <data name="toolStripMenuItem7.Text" xml:space="preserve">
+    <value>6 Days</value>
   </data>
   <data name="toolStripMenuItem96.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7449,17 +5433,20 @@
   <data name="toolStripSeparator9.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox9.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox9.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem9.Text" xml:space="preserve">
-    <value>2 Weeks</value>
+  <data name="toolStripMenuItem8.Text" xml:space="preserve">
+    <value>1 Week</value>
   </data>
   <data name="toolStripMenuItem106.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7524,17 +5511,20 @@
   <data name="toolStripSeparator10.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox10.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox10.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox10.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 22</value>
+  <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
   </data>
-  <data name="toolStripMenuItem10.Text" xml:space="preserve">
-    <value>1 Month</value>
+  <data name="toolStripMenuItem9.Text" xml:space="preserve">
+    <value>2 Weeks</value>
   </data>
   <data name="toolStripMenuItem116.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7599,17 +5589,26 @@
   <data name="toolStripSeparator11.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox11.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox11.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="toolStripMenuItem10.Text" xml:space="preserve">
+    <value>1 Month</value>
+  </data>
+  <data name="cm_tempBan.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem11.Text" xml:space="preserve">
-    <value>Perm Ban</value>
+  <data name="cm_tempBan.Text" xml:space="preserve">
+    <value>Temp Ban</value>
   </data>
   <data name="toolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
@@ -7674,30 +5673,39 @@
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 6</value>
   </data>
+  <data name="toolStripTextBox1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
+  </data>
   <data name="toolStripTextBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
   </data>
   <data name="toolStripTextBox1.Text" xml:space="preserve">
     <value>Custom Reason</value>
   </data>
-  <data name="toolStripMenuItem132.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cm_permBan.Size" type="System.Drawing.Size, System.Drawing">
     <value>159, 22</value>
   </data>
-  <data name="toolStripMenuItem132.Text" xml:space="preserve">
+  <data name="cm_permBan.Text" xml:space="preserve">
+    <value>Perm Ban</value>
+  </data>
+  <data name="cm_changeTeam.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 22</value>
+  </data>
+  <data name="cm_changeTeam.Text" xml:space="preserve">
     <value>Change Team</value>
+  </data>
+  <data name="cm_playerControls.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 180</value>
+  </data>
+  <data name="&gt;&gt;cm_playerControls.Name" xml:space="preserve">
+    <value>cm_playerControls</value>
+  </data>
+  <data name="&gt;&gt;cm_playerControls.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="contextMenuStrip2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>162, 17</value>
   </metadata>
-  <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 48</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
-    <value>contextMenuStrip2</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
     <value>199, 22</value>
   </data>
@@ -7709,6 +5717,15 @@
   </data>
   <data name="toolStripMenuItem35.Text" xml:space="preserve">
     <value>Delete Selected Address</value>
+  </data>
+  <data name="contextMenuStrip2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 48</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip2.Name" xml:space="preserve">
+    <value>contextMenuStrip2</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>317, 17</value>
@@ -7839,10 +5856,10 @@
   <data name="&gt;&gt;toolStripMenuItem144.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem12.Name" xml:space="preserve">
-    <value>toolStripMenuItem12</value>
+  <data name="&gt;&gt;cm_armDisarm.Name" xml:space="preserve">
+    <value>cm_armDisarm</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem12.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_armDisarm.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem13.Name" xml:space="preserve">
@@ -7857,22 +5874,22 @@
   <data name="&gt;&gt;toolStripMenuItem14.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem133.Name" xml:space="preserve">
-    <value>toolStripMenuItem133</value>
+  <data name="&gt;&gt;cm_warnPlayer.Name" xml:space="preserve">
+    <value>cm_warnPlayer</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem133.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_warnPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem76.Name" xml:space="preserve">
-    <value>toolStripMenuItem76</value>
+  <data name="&gt;&gt;cm_killPlayer.Name" xml:space="preserve">
+    <value>cm_killPlayer</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem76.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_killPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem129.Name" xml:space="preserve">
-    <value>toolStripMenuItem129</value>
+  <data name="&gt;&gt;cm_funCommands.Name" xml:space="preserve">
+    <value>cm_funCommands</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem129.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_funCommands.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem130.Name" xml:space="preserve">
@@ -7887,10 +5904,10 @@
   <data name="&gt;&gt;toolStripMenuItem131.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Name" xml:space="preserve">
-    <value>toolStripMenuItem36</value>
+  <data name="&gt;&gt;cm_kickPlayer.Name" xml:space="preserve">
+    <value>cm_kickPlayer</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem36.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_kickPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem18.Name" xml:space="preserve">
@@ -7965,10 +5982,10 @@
   <data name="&gt;&gt;toolStripTextBox2.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
-    <value>toolStripMenuItem1</value>
+  <data name="&gt;&gt;cm_tempBan.Name" xml:space="preserve">
+    <value>cm_tempBan</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_tempBan.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
@@ -8673,10 +6690,10 @@
   <data name="&gt;&gt;toolStripTextBox11.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem11.Name" xml:space="preserve">
-    <value>toolStripMenuItem11</value>
+  <data name="&gt;&gt;cm_permBan.Name" xml:space="preserve">
+    <value>cm_permBan</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem11.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_permBan.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem25.Name" xml:space="preserve">
@@ -8751,10 +6768,10 @@
   <data name="&gt;&gt;toolStripTextBox1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem132.Name" xml:space="preserve">
-    <value>toolStripMenuItem132</value>
+  <data name="&gt;&gt;cm_changeTeam.Name" xml:space="preserve">
+    <value>cm_changeTeam</value>
   </data>
-  <data name="&gt;&gt;toolStripMenuItem132.Type" xml:space="preserve">
+  <data name="&gt;&gt;cm_changeTeam.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem16.Name" xml:space="preserve">

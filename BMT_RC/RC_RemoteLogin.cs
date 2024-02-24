@@ -136,7 +136,9 @@ namespace HawkSync_RC
 
         private void event_quitRemoteControl(object sender, EventArgs e)
         {
-            Close();
+            event_resetLogin();
+            this.Close();
+            Application.Exit();
         }
 
         private void event_openOptions(object sender, EventArgs e)
@@ -355,13 +357,6 @@ namespace HawkSync_RC
                         if ((OpenClass.Status)autoResReply["Status"] == OpenClass.Status.SUCCESS)
                             _state.autoRes =
                                 JsonConvert.DeserializeObject<autoRestart>(Crypt.Base64Decode(autoResReply["AutoRes"]));
-
-                        // something went wrong while trying to retrieve the AutoRes Class from TV
-                        var ftpPortResponse = _clientClass.GetFTPPort(_RCSetup.client, _RCSetup.SessionID);
-                        var ftpPortResponseObject =
-                            JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(ftpPortResponse);
-                        if ((OpenClass.Status)ftpPortResponseObject["Status"] == OpenClass.Status.SUCCESS)
-                            _state.ftpPort = (int)ftpPortResponseObject["Port"];
 
                         // something went wrong while trying to retrieve the AutoRes Class from TV
                         var Instances = _clientClass.GetInstances(_RCSetup.client, _RCSetup.SessionID);

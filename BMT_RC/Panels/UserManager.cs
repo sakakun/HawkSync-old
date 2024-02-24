@@ -19,7 +19,7 @@ namespace HawkSync_RC
         private readonly DataTable rcLogs;
         private readonly int subadmin = 0;
         public Dictionary<int, InstancePermissions> tmpCodes;
-        private readonly TVUserManager userManager;
+        private readonly userManager userManager;
         private readonly DataTable usersTable;
 
         public UserManager(AppState state, RCSetup setup)
@@ -27,7 +27,7 @@ namespace HawkSync_RC
             InitializeComponent();
             _state = state;
             _setup = setup;
-            userManager = new TVUserManager(_state, _setup);
+            userManager = new userManager(_state, _setup);
             // usersTable
             usersTable = new DataTable();
             usersTable.Columns.Add("ID", typeof(string));

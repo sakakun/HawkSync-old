@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.ComponentModel;
+using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HawkSync_RC
 {
@@ -30,7 +33,6 @@ namespace HawkSync_RC
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RC_ServerManager));
             this.serverManager_container = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -39,7 +41,6 @@ namespace HawkSync_RC
             this.grid_playerList = new System.Windows.Forms.DataGridView();
             this.tabControl_playerSelection = new System.Windows.Forms.TabControl();
             this.tab_bannedPlayers = new System.Windows.Forms.TabPage();
-            this.label_banSearch = new System.Windows.Forms.Label();
             this.group_addBan = new System.Windows.Forms.GroupBox();
             this.text_adPlayerName = new System.Windows.Forms.TextBox();
             this.button_addBan = new System.Windows.Forms.Button();
@@ -48,7 +49,6 @@ namespace HawkSync_RC
             this.combo_abReason = new System.Windows.Forms.ComboBox();
             this.label_abIPAddress = new System.Windows.Forms.Label();
             this.button_removeBan = new System.Windows.Forms.Button();
-            this.text_banSearch = new System.Windows.Forms.TextBox();
             this.group_banDetails = new System.Windows.Forms.GroupBox();
             this.value_banIPAddress = new System.Windows.Forms.Label();
             this.label_banIPAddress = new System.Windows.Forms.Label();
@@ -212,7 +212,7 @@ namespace HawkSync_RC
             this.listBox_AutoMessages = new System.Windows.Forms.ListBox();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
-            this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -221,12 +221,22 @@ namespace HawkSync_RC
             this.toolStripMenuItem129 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem130 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem131 = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListMenu_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.playerListMenu_tempBan = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_1Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_2Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_3Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_4Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_5Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_6Day = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_1Week = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_2Week = new System.Windows.Forms.ToolStripMenuItem();
+            this.StripMenu_1Month = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_permBanPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListMenu_Seperator = new System.Windows.Forms.ToolStripSeparator();
             this.playerListMenu_changeTeams = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_spectate = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerListMenu_Seperator = new System.Windows.Forms.ToolStripSeparator();
             this.actionReason_Abusive = new System.Windows.Forms.ToolStripMenuItem();
             this.actionReason_Racism = new System.Windows.Forms.ToolStripMenuItem();
             this.actionReason_Cheating = new System.Windows.Forms.ToolStripMenuItem();
@@ -367,7 +377,18 @@ namespace HawkSync_RC
             this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem24 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem126 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem127 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem128 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.serverManager_container.SuspendLayout();
             this.page_players.SuspendLayout();
             this.group_currentPlayers.SuspendLayout();
@@ -511,10 +532,8 @@ namespace HawkSync_RC
             // 
             // tab_bannedPlayers
             // 
-            this.tab_bannedPlayers.Controls.Add(this.label_banSearch);
             this.tab_bannedPlayers.Controls.Add(this.group_addBan);
             this.tab_bannedPlayers.Controls.Add(this.button_removeBan);
-            this.tab_bannedPlayers.Controls.Add(this.text_banSearch);
             this.tab_bannedPlayers.Controls.Add(this.group_banDetails);
             this.tab_bannedPlayers.Controls.Add(this.grid_bannedPlayerList);
             this.tab_bannedPlayers.Location = new System.Drawing.Point(4, 22);
@@ -524,15 +543,6 @@ namespace HawkSync_RC
             this.tab_bannedPlayers.TabIndex = 0;
             this.tab_bannedPlayers.Text = "Banned Players";
             this.tab_bannedPlayers.UseVisualStyleBackColor = true;
-            // 
-            // label_banSearch
-            // 
-            this.label_banSearch.AutoSize = true;
-            this.label_banSearch.Location = new System.Drawing.Point(124, 157);
-            this.label_banSearch.Name = "label_banSearch";
-            this.label_banSearch.Size = new System.Drawing.Size(41, 13);
-            this.label_banSearch.TabIndex = 0;
-            this.label_banSearch.Text = "Search";
             // 
             // group_addBan
             // 
@@ -622,14 +632,6 @@ namespace HawkSync_RC
             this.button_removeBan.Text = "Remove Ban";
             this.button_removeBan.UseVisualStyleBackColor = true;
             this.button_removeBan.Click += new System.EventHandler(this.banList_clickRemove);
-            // 
-            // text_banSearch
-            // 
-            this.text_banSearch.Location = new System.Drawing.Point(171, 154);
-            this.text_banSearch.Name = "text_banSearch";
-            this.text_banSearch.Size = new System.Drawing.Size(166, 20);
-            this.text_banSearch.TabIndex = 2;
-            this.text_banSearch.TextChanged += new System.EventHandler(this.textBox_banSearch_changed);
             // 
             // group_banDetails
             // 
@@ -2447,7 +2449,7 @@ namespace HawkSync_RC
             this.toolStripMenuItem133,
             this.toolStripMenuItem76,
             this.toolStripMenuItem129,
-            this.playerListMenu_kickPlayer,
+            this.cm_kickPlayer,
             this.playerListMenu_tempBan,
             this.playerListMenu_permBanPlayer,
             this.playerListMenu_changeTeams,
@@ -2514,30 +2516,94 @@ namespace HawkSync_RC
             this.toolStripMenuItem131.Text = "Deactivate God Mode";
             this.toolStripMenuItem131.Click += new System.EventHandler(this.playerList_actionDeactivateGodMode);
             // 
-            // playerListMenu_kickPlayer
+            // cm_kickPlayer
             // 
-            this.playerListMenu_kickPlayer.Name = "playerListMenu_kickPlayer";
-            this.playerListMenu_kickPlayer.Size = new System.Drawing.Size(159, 22);
-            this.playerListMenu_kickPlayer.Text = "Kick Player";
+            this.cm_kickPlayer.Name = "cm_kickPlayer";
+            this.cm_kickPlayer.Size = new System.Drawing.Size(159, 22);
+            this.cm_kickPlayer.Text = "Kick Player";
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(206, 6);
             // 
             // playerListMenu_tempBan
             // 
+            this.playerListMenu_tempBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StripMenu_1Day,
+            this.StripMenu_2Day,
+            this.StripMenu_3Day,
+            this.StripMenu_4Day,
+            this.StripMenu_5Day,
+            this.StripMenu_6Day,
+            this.StripMenu_1Week,
+            this.StripMenu_2Week,
+            this.StripMenu_1Month});
             this.playerListMenu_tempBan.Name = "playerListMenu_tempBan";
             this.playerListMenu_tempBan.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_tempBan.Text = "Temp Ban";
             // 
+            // StripMenu_1Day
+            // 
+            this.StripMenu_1Day.Name = "StripMenu_1Day";
+            this.StripMenu_1Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Day.Text = "1 Day";
+            // 
+            // StripMenu_2Day
+            // 
+            this.StripMenu_2Day.Name = "StripMenu_2Day";
+            this.StripMenu_2Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_2Day.Text = "2 Days";
+            // 
+            // StripMenu_3Day
+            // 
+            this.StripMenu_3Day.Name = "StripMenu_3Day";
+            this.StripMenu_3Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_3Day.Text = "3 Days";
+            // 
+            // StripMenu_4Day
+            // 
+            this.StripMenu_4Day.Name = "StripMenu_4Day";
+            this.StripMenu_4Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_4Day.Text = "4 Days";
+            // 
+            // StripMenu_5Day
+            // 
+            this.StripMenu_5Day.Name = "StripMenu_5Day";
+            this.StripMenu_5Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_5Day.Text = "5 Days";
+            // 
+            // StripMenu_6Day
+            // 
+            this.StripMenu_6Day.Name = "StripMenu_6Day";
+            this.StripMenu_6Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_6Day.Text = "6 Days";
+            // 
+            // StripMenu_1Week
+            // 
+            this.StripMenu_1Week.Name = "StripMenu_1Week";
+            this.StripMenu_1Week.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Week.Text = "1 Week";
+            // 
+            // StripMenu_2Week
+            // 
+            this.StripMenu_2Week.Name = "StripMenu_2Week";
+            this.StripMenu_2Week.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_2Week.Text = "2 Weeks";
+            // 
+            // StripMenu_1Month
+            // 
+            this.StripMenu_1Month.Name = "StripMenu_1Month";
+            this.StripMenu_1Month.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Month.Text = "1 Month";
+            // 
             // playerListMenu_permBanPlayer
             // 
             this.playerListMenu_permBanPlayer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playerListMenu_Seperator});
+            this.toolStripSeparator});
             this.playerListMenu_permBanPlayer.Name = "playerListMenu_permBanPlayer";
             this.playerListMenu_permBanPlayer.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_permBanPlayer.Text = "Perm Ban";
-            // 
-            // playerListMenu_Seperator
-            // 
-            this.playerListMenu_Seperator.Name = "playerListMenu_Seperator";
-            this.playerListMenu_Seperator.Size = new System.Drawing.Size(57, 6);
             // 
             // playerListMenu_changeTeams
             // 
@@ -2552,6 +2618,11 @@ namespace HawkSync_RC
             this.playerListMenu_spectate.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_spectate.Text = "Spectate";
             this.playerListMenu_spectate.Click += new System.EventHandler(this.actionSpectate_click);
+            // 
+            // playerListMenu_Seperator
+            // 
+            this.playerListMenu_Seperator.Name = "playerListMenu_Seperator";
+            this.playerListMenu_Seperator.Size = new System.Drawing.Size(177, 6);
             // 
             // actionReason_Abusive
             // 
@@ -3268,6 +3339,62 @@ namespace HawkSync_RC
             // 
             this.toolTip1.UseAnimation = false;
             // 
+            // toolStripMenuItem18
+            // 
+            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
+            this.toolStripMenuItem18.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem19
+            // 
+            this.toolStripMenuItem19.Name = "toolStripMenuItem19";
+            this.toolStripMenuItem19.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem20
+            // 
+            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
+            this.toolStripMenuItem20.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem21
+            // 
+            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
+            this.toolStripMenuItem21.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem22
+            // 
+            this.toolStripMenuItem22.Name = "toolStripMenuItem22";
+            this.toolStripMenuItem22.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem23
+            // 
+            this.toolStripMenuItem23.Name = "toolStripMenuItem23";
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem24
+            // 
+            this.toolStripMenuItem24.Name = "toolStripMenuItem24";
+            this.toolStripMenuItem24.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem126
+            // 
+            this.toolStripMenuItem126.Name = "toolStripMenuItem126";
+            this.toolStripMenuItem126.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem127
+            // 
+            this.toolStripMenuItem127.Name = "toolStripMenuItem127";
+            this.toolStripMenuItem127.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripMenuItem128
+            // 
+            this.toolStripMenuItem128.Name = "toolStripMenuItem128";
+            this.toolStripMenuItem128.Size = new System.Drawing.Size(32, 19);
+            // 
+            // toolStripTextBox2
+            // 
+            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
+            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
+            // 
             // RC_ServerManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3291,7 +3418,6 @@ namespace HawkSync_RC
             ((System.ComponentModel.ISupportInitialize)(this.grid_playerList)).EndInit();
             this.tabControl_playerSelection.ResumeLayout(false);
             this.tab_bannedPlayers.ResumeLayout(false);
-            this.tab_bannedPlayers.PerformLayout();
             this.group_addBan.ResumeLayout(false);
             this.group_addBan.PerformLayout();
             this.group_banDetails.ResumeLayout(false);
@@ -3370,24 +3496,24 @@ namespace HawkSync_RC
 
         }
 
-        private ToolStripMenuItem CreateReasonItem(string text, string action, bool permBan = false)
+        private ToolStripMenuItem CreateReasonItem(string text, string action, bool permBan = false, int days = 0)
         {
             ToolStripMenuItem item = new ToolStripMenuItem();
             item.Name = "actionReason_" + text.Replace(" ", ""); // Unique name for each item
             item.Size = new System.Drawing.Size(209, 22);
             item.Text = text;
-            item.Click += (sender, e) => playerListAction_click(sender, e, action, permBan); // Set the click event with the specified action
+            item.Click += (sender, e) => playerListAction_click(sender, e, action, permBan, days); // Set the click event with the specified action
             return item;
         }
 
-        private ToolStripTextBox CreateReasonTextBox(string text, string action, bool permBan = false)
+        private ToolStripTextBox CreateReasonTextBox(string text, string action, bool permBan = false, int days = 0)
         {
             ToolStripTextBox textBox = new ToolStripTextBox();
             textBox.Name = "actionReason_" + text.Replace(" ", ""); // Unique name for each item
             textBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             textBox.Size = new System.Drawing.Size(209, 23);
             textBox.Text = "Custom Reason";
-            textBox.KeyDown += (sender, e) => playerListAction_custom(sender, e, action, permBan); // Set the keydown event with the specified action
+            textBox.KeyDown += (sender, e) => playerListAction_custom(sender, e, action, permBan, days); // Set the keydown event with the specified action
             return textBox;
         }
 
@@ -3414,8 +3540,6 @@ namespace HawkSync_RC
         private System.Windows.Forms.Label label_banDateAdded;
         private System.Windows.Forms.Label label_bdPlayerName;
         private System.Windows.Forms.Button button_removeBan;
-        private System.Windows.Forms.TextBox text_banSearch;
-        private System.Windows.Forms.Label label_banSearch;
         private System.Windows.Forms.DataGridView grid_bannedPlayerList;
         private System.Windows.Forms.TabPage tab_vpnSettings;
         private System.Windows.Forms.GroupBox group_vpnWhitelist;
@@ -3538,6 +3662,15 @@ namespace HawkSync_RC
         private System.Windows.Forms.Button btn_addAutoMsg;
         private System.Windows.Forms.ListBox listBox_AutoMessages;
         private System.Windows.Forms.ContextMenuStrip playerList_contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_2Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_3Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_4Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_5Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_6Day;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Week;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_2Week;
+        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Month;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
@@ -3546,7 +3679,6 @@ namespace HawkSync_RC
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem129;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem130;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem131;
-        private System.Windows.Forms.ToolStripMenuItem playerListMenu_kickPlayer;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Abusive;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Racism;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Cheating;
@@ -3729,5 +3861,18 @@ namespace HawkSync_RC
         private RadioButton rb_chatPlayerHist;
         private RadioButton rb_chatRedTeam;
         private RadioButton rb_chatBlueTeam;
+        private ToolStripMenuItem cm_kickPlayer;
+        private ToolStripMenuItem toolStripMenuItem18;
+        private ToolStripMenuItem toolStripMenuItem19;
+        private ToolStripMenuItem toolStripMenuItem20;
+        private ToolStripMenuItem toolStripMenuItem21;
+        private ToolStripMenuItem toolStripMenuItem22;
+        private ToolStripMenuItem toolStripMenuItem23;
+        private ToolStripMenuItem toolStripMenuItem24;
+        private ToolStripMenuItem toolStripMenuItem126;
+        private ToolStripMenuItem toolStripMenuItem127;
+        private ToolStripMenuItem toolStripMenuItem128;
+        private ToolStripSeparator toolStripSeparator;
+        private ToolStripTextBox toolStripTextBox2;
     }
 }

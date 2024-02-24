@@ -17,7 +17,7 @@ namespace HawkSync_RC
         private List<MapList> avilableMaps;
         private readonly RCSetup RCSetup;
         private List<MapList> selectedMaps;
-        private readonly TVRotationManagerCMD TVRotationManagerCMD;
+        private readonly rotationManager TVRotationManagerCMD;
         private string uploadDirectory;
 
         public RC_RotationManager(AppState state, RCSetup setup, int instanceID)
@@ -39,7 +39,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            TVRotationManagerCMD = new TVRotationManagerCMD(RCSetup, _state, ArrayID);
+            TVRotationManagerCMD = new rotationManager(RCSetup, _state, ArrayID);
             avilableMaps = new List<MapList>();
             selectedMaps = new List<MapList>();
             label1.Text = string.Empty;

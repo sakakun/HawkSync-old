@@ -65,43 +65,43 @@
             this.label_teamBlue = new System.Windows.Forms.Label();
             this.btn_startServer = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label_runDedicated = new System.Windows.Forms.Label();
+            this.btn_Cancel = new System.Windows.Forms.Button();
+            this.checkBox_runDedicated = new System.Windows.Forms.CheckBox();
+            this.label_reqNova = new System.Windows.Forms.Label();
+            this.label_windowMode = new System.Windows.Forms.Label();
+            this.checkBox_reqNova = new System.Windows.Forms.CheckBox();
+            this.label_allowSkins = new System.Windows.Forms.Label();
+            this.checkBox_windowMode = new System.Windows.Forms.CheckBox();
             this.label_serverName = new System.Windows.Forms.Label();
+            this.checkBox_customSkin = new System.Windows.Forms.CheckBox();
             this.label_gameMod = new System.Windows.Forms.Label();
             this.comboBox_gameMod = new System.Windows.Forms.ComboBox();
             this.textBox_serverName = new System.Windows.Forms.TextBox();
             this.label_MOTD = new System.Windows.Forms.Label();
             this.textBox_MOTD = new System.Windows.Forms.TextBox();
+            this.label_loopMaps = new System.Windows.Forms.Label();
+            this.label_maxKills = new System.Windows.Forms.Label();
+            this.checkBox_loopMaps = new System.Windows.Forms.CheckBox();
+            this.label_flagsScored = new System.Windows.Forms.Label();
+            this.comboBox_maxKills = new System.Windows.Forms.ComboBox();
+            this.label_zoneTimer = new System.Windows.Forms.Label();
+            this.comboBox_flagsScored = new System.Windows.Forms.ComboBox();
+            this.label_respawnTimer = new System.Windows.Forms.Label();
+            this.comboBox_zoneTimer = new System.Windows.Forms.ComboBox();
             this.label_serverPassword = new System.Windows.Forms.Label();
+            this.comboBox_respawnTime = new System.Windows.Forms.ComboBox();
             this.textBox_serverPassword = new System.Windows.Forms.TextBox();
+            this.comboBox_timeLimit = new System.Windows.Forms.ComboBox();
+            this.label_timeLimit = new System.Windows.Forms.Label();
             this.label_sessionType = new System.Windows.Forms.Label();
             this.comboBox_sessionType = new System.Windows.Forms.ComboBox();
             this.label_countryCode = new System.Windows.Forms.Label();
             this.textBox_countryCode = new System.Windows.Forms.TextBox();
-            this.btn_Cancel = new System.Windows.Forms.Button();
-            this.label_runDedicated = new System.Windows.Forms.Label();
-            this.checkBox_runDedicated = new System.Windows.Forms.CheckBox();
-            this.label_allowSkins = new System.Windows.Forms.Label();
-            this.checkBox_customSkin = new System.Windows.Forms.CheckBox();
-            this.label_windowMode = new System.Windows.Forms.Label();
-            this.checkBox_windowMode = new System.Windows.Forms.CheckBox();
-            this.label_reqNova = new System.Windows.Forms.Label();
-            this.checkBox_reqNova = new System.Windows.Forms.CheckBox();
-            this.label_timeLimit = new System.Windows.Forms.Label();
-            this.comboBox_timeLimit = new System.Windows.Forms.ComboBox();
-            this.label_respawnTimer = new System.Windows.Forms.Label();
-            this.comboBox_respawnTime = new System.Windows.Forms.ComboBox();
-            this.label_zoneTimer = new System.Windows.Forms.Label();
-            this.comboBox_zoneTimer = new System.Windows.Forms.ComboBox();
-            this.label_flagsScored = new System.Windows.Forms.Label();
-            this.comboBox_flagsScored = new System.Windows.Forms.ComboBox();
-            this.label_maxKills = new System.Windows.Forms.Label();
-            this.comboBox_maxKills = new System.Windows.Forms.ComboBox();
-            this.label_loopMaps = new System.Windows.Forms.Label();
-            this.checkBox_loopMaps = new System.Windows.Forms.CheckBox();
-            this.label_startDelay = new System.Windows.Forms.Label();
-            this.comboBox_startDelay = new System.Windows.Forms.ComboBox();
             this.label_maxSlots = new System.Windows.Forms.Label();
             this.comboBox_maxPlayers = new System.Windows.Forms.ComboBox();
+            this.label_startDelay = new System.Windows.Forms.Label();
+            this.comboBox_startDelay = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.groupBox2.SuspendLayout();
@@ -135,6 +135,7 @@
             this.btn_loadMaps.TabIndex = 10;
             this.btn_loadMaps.Text = "Load Rotation";
             this.btn_loadMaps.UseVisualStyleBackColor = true;
+            this.btn_loadMaps.Click += new System.EventHandler(this.mapAction_clickLoadRotation);
             // 
             // btn_resetMaps
             // 
@@ -520,6 +521,79 @@
             this.tabPage1.Text = "Server Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label_runDedicated
+            // 
+            this.label_runDedicated.AutoSize = true;
+            this.label_runDedicated.Location = new System.Drawing.Point(295, 64);
+            this.label_runDedicated.Name = "label_runDedicated";
+            this.label_runDedicated.Size = new System.Drawing.Size(82, 13);
+            this.label_runDedicated.TabIndex = 33;
+            this.label_runDedicated.Text = "Run Dedicated:";
+            // 
+            // btn_Cancel
+            // 
+            this.btn_Cancel.Location = new System.Drawing.Point(274, 283);
+            this.btn_Cancel.Name = "btn_Cancel";
+            this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
+            this.btn_Cancel.TabIndex = 5;
+            this.btn_Cancel.Text = "Cancel";
+            this.btn_Cancel.UseVisualStyleBackColor = true;
+            this.btn_Cancel.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // checkBox_runDedicated
+            // 
+            this.checkBox_runDedicated.AutoSize = true;
+            this.checkBox_runDedicated.Location = new System.Drawing.Point(274, 64);
+            this.checkBox_runDedicated.Name = "checkBox_runDedicated";
+            this.checkBox_runDedicated.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_runDedicated.TabIndex = 32;
+            this.checkBox_runDedicated.UseVisualStyleBackColor = true;
+            // 
+            // label_reqNova
+            // 
+            this.label_reqNova.AutoSize = true;
+            this.label_reqNova.Location = new System.Drawing.Point(295, 84);
+            this.label_reqNova.Name = "label_reqNova";
+            this.label_reqNova.Size = new System.Drawing.Size(99, 13);
+            this.label_reqNova.TabIndex = 27;
+            this.label_reqNova.Text = "Require NovaLogic";
+            // 
+            // label_windowMode
+            // 
+            this.label_windowMode.AutoSize = true;
+            this.label_windowMode.Location = new System.Drawing.Point(295, 103);
+            this.label_windowMode.Name = "label_windowMode";
+            this.label_windowMode.Size = new System.Drawing.Size(111, 13);
+            this.label_windowMode.TabIndex = 29;
+            this.label_windowMode.Text = "Run Windowed Mode";
+            // 
+            // checkBox_reqNova
+            // 
+            this.checkBox_reqNova.AutoSize = true;
+            this.checkBox_reqNova.Location = new System.Drawing.Point(274, 84);
+            this.checkBox_reqNova.Name = "checkBox_reqNova";
+            this.checkBox_reqNova.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_reqNova.TabIndex = 26;
+            this.checkBox_reqNova.UseVisualStyleBackColor = true;
+            // 
+            // label_allowSkins
+            // 
+            this.label_allowSkins.AutoSize = true;
+            this.label_allowSkins.Location = new System.Drawing.Point(295, 122);
+            this.label_allowSkins.Name = "label_allowSkins";
+            this.label_allowSkins.Size = new System.Drawing.Size(99, 13);
+            this.label_allowSkins.TabIndex = 31;
+            this.label_allowSkins.Text = "Allow Custom Skins";
+            // 
+            // checkBox_windowMode
+            // 
+            this.checkBox_windowMode.AutoSize = true;
+            this.checkBox_windowMode.Location = new System.Drawing.Point(274, 103);
+            this.checkBox_windowMode.Name = "checkBox_windowMode";
+            this.checkBox_windowMode.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_windowMode.TabIndex = 28;
+            this.checkBox_windowMode.UseVisualStyleBackColor = true;
+            // 
             // label_serverName
             // 
             this.label_serverName.AutoSize = true;
@@ -528,6 +602,15 @@
             this.label_serverName.Size = new System.Drawing.Size(69, 13);
             this.label_serverName.TabIndex = 0;
             this.label_serverName.Text = "Server Name";
+            // 
+            // checkBox_customSkin
+            // 
+            this.checkBox_customSkin.AutoSize = true;
+            this.checkBox_customSkin.Location = new System.Drawing.Point(274, 122);
+            this.checkBox_customSkin.Name = "checkBox_customSkin";
+            this.checkBox_customSkin.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_customSkin.TabIndex = 30;
+            this.checkBox_customSkin.UseVisualStyleBackColor = true;
             // 
             // label_gameMod
             // 
@@ -575,6 +658,87 @@
             this.textBox_MOTD.Size = new System.Drawing.Size(212, 20);
             this.textBox_MOTD.TabIndex = 3;
             // 
+            // label_loopMaps
+            // 
+            this.label_loopMaps.AutoSize = true;
+            this.label_loopMaps.Location = new System.Drawing.Point(295, 141);
+            this.label_loopMaps.Name = "label_loopMaps";
+            this.label_loopMaps.Size = new System.Drawing.Size(60, 13);
+            this.label_loopMaps.TabIndex = 15;
+            this.label_loopMaps.Text = "Loop Maps";
+            // 
+            // label_maxKills
+            // 
+            this.label_maxKills.AutoSize = true;
+            this.label_maxKills.Location = new System.Drawing.Point(378, 169);
+            this.label_maxKills.Name = "label_maxKills";
+            this.label_maxKills.Size = new System.Drawing.Size(48, 13);
+            this.label_maxKills.TabIndex = 17;
+            this.label_maxKills.Text = "Max Kills";
+            // 
+            // checkBox_loopMaps
+            // 
+            this.checkBox_loopMaps.AutoSize = true;
+            this.checkBox_loopMaps.Location = new System.Drawing.Point(274, 141);
+            this.checkBox_loopMaps.Name = "checkBox_loopMaps";
+            this.checkBox_loopMaps.Size = new System.Drawing.Size(15, 14);
+            this.checkBox_loopMaps.TabIndex = 14;
+            this.checkBox_loopMaps.UseVisualStyleBackColor = true;
+            // 
+            // label_flagsScored
+            // 
+            this.label_flagsScored.AutoSize = true;
+            this.label_flagsScored.Location = new System.Drawing.Point(378, 196);
+            this.label_flagsScored.Name = "label_flagsScored";
+            this.label_flagsScored.Size = new System.Drawing.Size(78, 13);
+            this.label_flagsScored.TabIndex = 19;
+            this.label_flagsScored.Text = "Flags Captured";
+            // 
+            // comboBox_maxKills
+            // 
+            this.comboBox_maxKills.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_maxKills.FormattingEnabled = true;
+            this.comboBox_maxKills.Location = new System.Drawing.Point(274, 166);
+            this.comboBox_maxKills.Name = "comboBox_maxKills";
+            this.comboBox_maxKills.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_maxKills.TabIndex = 16;
+            // 
+            // label_zoneTimer
+            // 
+            this.label_zoneTimer.AutoSize = true;
+            this.label_zoneTimer.Location = new System.Drawing.Point(378, 223);
+            this.label_zoneTimer.Name = "label_zoneTimer";
+            this.label_zoneTimer.Size = new System.Drawing.Size(61, 13);
+            this.label_zoneTimer.TabIndex = 21;
+            this.label_zoneTimer.Text = "Zone Timer";
+            // 
+            // comboBox_flagsScored
+            // 
+            this.comboBox_flagsScored.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_flagsScored.FormattingEnabled = true;
+            this.comboBox_flagsScored.Location = new System.Drawing.Point(274, 193);
+            this.comboBox_flagsScored.Name = "comboBox_flagsScored";
+            this.comboBox_flagsScored.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_flagsScored.TabIndex = 18;
+            // 
+            // label_respawnTimer
+            // 
+            this.label_respawnTimer.AutoSize = true;
+            this.label_respawnTimer.Location = new System.Drawing.Point(378, 250);
+            this.label_respawnTimer.Name = "label_respawnTimer";
+            this.label_respawnTimer.Size = new System.Drawing.Size(78, 13);
+            this.label_respawnTimer.TabIndex = 23;
+            this.label_respawnTimer.Text = "Respawn Time";
+            // 
+            // comboBox_zoneTimer
+            // 
+            this.comboBox_zoneTimer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_zoneTimer.FormattingEnabled = true;
+            this.comboBox_zoneTimer.Location = new System.Drawing.Point(274, 220);
+            this.comboBox_zoneTimer.Name = "comboBox_zoneTimer";
+            this.comboBox_zoneTimer.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_zoneTimer.TabIndex = 20;
+            // 
             // label_serverPassword
             // 
             this.label_serverPassword.AutoSize = true;
@@ -584,6 +748,15 @@
             this.label_serverPassword.TabIndex = 6;
             this.label_serverPassword.Text = "Server Password";
             // 
+            // comboBox_respawnTime
+            // 
+            this.comboBox_respawnTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_respawnTime.FormattingEnabled = true;
+            this.comboBox_respawnTime.Location = new System.Drawing.Point(274, 247);
+            this.comboBox_respawnTime.Name = "comboBox_respawnTime";
+            this.comboBox_respawnTime.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_respawnTime.TabIndex = 22;
+            // 
             // textBox_serverPassword
             // 
             this.textBox_serverPassword.Location = new System.Drawing.Point(131, 61);
@@ -591,6 +764,24 @@
             this.textBox_serverPassword.Name = "textBox_serverPassword";
             this.textBox_serverPassword.Size = new System.Drawing.Size(98, 20);
             this.textBox_serverPassword.TabIndex = 7;
+            // 
+            // comboBox_timeLimit
+            // 
+            this.comboBox_timeLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_timeLimit.FormattingEnabled = true;
+            this.comboBox_timeLimit.Location = new System.Drawing.Point(131, 247);
+            this.comboBox_timeLimit.Name = "comboBox_timeLimit";
+            this.comboBox_timeLimit.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_timeLimit.TabIndex = 24;
+            // 
+            // label_timeLimit
+            // 
+            this.label_timeLimit.AutoSize = true;
+            this.label_timeLimit.Location = new System.Drawing.Point(71, 250);
+            this.label_timeLimit.Name = "label_timeLimit";
+            this.label_timeLimit.Size = new System.Drawing.Size(54, 13);
+            this.label_timeLimit.TabIndex = 25;
+            this.label_timeLimit.Text = "Time Limit";
             // 
             // label_sessionType
             // 
@@ -630,195 +821,23 @@
             this.textBox_countryCode.TabIndex = 5;
             this.textBox_countryCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // btn_Cancel
+            // label_maxSlots
             // 
-            this.btn_Cancel.Location = new System.Drawing.Point(274, 283);
-            this.btn_Cancel.Name = "btn_Cancel";
-            this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
-            this.btn_Cancel.TabIndex = 5;
-            this.btn_Cancel.Text = "Cancel";
-            this.btn_Cancel.UseVisualStyleBackColor = true;
-            this.btn_Cancel.Click += new System.EventHandler(this.button2_Click);
+            this.label_maxSlots.AutoSize = true;
+            this.label_maxSlots.Location = new System.Drawing.Point(72, 196);
+            this.label_maxSlots.Name = "label_maxSlots";
+            this.label_maxSlots.Size = new System.Drawing.Size(53, 13);
+            this.label_maxSlots.TabIndex = 11;
+            this.label_maxSlots.Text = "Max Slots";
             // 
-            // label_runDedicated
+            // comboBox_maxPlayers
             // 
-            this.label_runDedicated.AutoSize = true;
-            this.label_runDedicated.Location = new System.Drawing.Point(295, 64);
-            this.label_runDedicated.Name = "label_runDedicated";
-            this.label_runDedicated.Size = new System.Drawing.Size(82, 13);
-            this.label_runDedicated.TabIndex = 33;
-            this.label_runDedicated.Text = "Run Dedicated:";
-            // 
-            // checkBox_runDedicated
-            // 
-            this.checkBox_runDedicated.AutoSize = true;
-            this.checkBox_runDedicated.Location = new System.Drawing.Point(274, 64);
-            this.checkBox_runDedicated.Name = "checkBox_runDedicated";
-            this.checkBox_runDedicated.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_runDedicated.TabIndex = 32;
-            this.checkBox_runDedicated.UseVisualStyleBackColor = true;
-            // 
-            // label_allowSkins
-            // 
-            this.label_allowSkins.AutoSize = true;
-            this.label_allowSkins.Location = new System.Drawing.Point(295, 122);
-            this.label_allowSkins.Name = "label_allowSkins";
-            this.label_allowSkins.Size = new System.Drawing.Size(99, 13);
-            this.label_allowSkins.TabIndex = 31;
-            this.label_allowSkins.Text = "Allow Custom Skins";
-            // 
-            // checkBox_customSkin
-            // 
-            this.checkBox_customSkin.AutoSize = true;
-            this.checkBox_customSkin.Location = new System.Drawing.Point(274, 122);
-            this.checkBox_customSkin.Name = "checkBox_customSkin";
-            this.checkBox_customSkin.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_customSkin.TabIndex = 30;
-            this.checkBox_customSkin.UseVisualStyleBackColor = true;
-            // 
-            // label_windowMode
-            // 
-            this.label_windowMode.AutoSize = true;
-            this.label_windowMode.Location = new System.Drawing.Point(295, 103);
-            this.label_windowMode.Name = "label_windowMode";
-            this.label_windowMode.Size = new System.Drawing.Size(111, 13);
-            this.label_windowMode.TabIndex = 29;
-            this.label_windowMode.Text = "Run Windowed Mode";
-            // 
-            // checkBox_windowMode
-            // 
-            this.checkBox_windowMode.AutoSize = true;
-            this.checkBox_windowMode.Location = new System.Drawing.Point(274, 103);
-            this.checkBox_windowMode.Name = "checkBox_windowMode";
-            this.checkBox_windowMode.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_windowMode.TabIndex = 28;
-            this.checkBox_windowMode.UseVisualStyleBackColor = true;
-            // 
-            // label_reqNova
-            // 
-            this.label_reqNova.AutoSize = true;
-            this.label_reqNova.Location = new System.Drawing.Point(295, 84);
-            this.label_reqNova.Name = "label_reqNova";
-            this.label_reqNova.Size = new System.Drawing.Size(99, 13);
-            this.label_reqNova.TabIndex = 27;
-            this.label_reqNova.Text = "Require NovaLogic";
-            // 
-            // checkBox_reqNova
-            // 
-            this.checkBox_reqNova.AutoSize = true;
-            this.checkBox_reqNova.Location = new System.Drawing.Point(274, 84);
-            this.checkBox_reqNova.Name = "checkBox_reqNova";
-            this.checkBox_reqNova.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_reqNova.TabIndex = 26;
-            this.checkBox_reqNova.UseVisualStyleBackColor = true;
-            // 
-            // label_timeLimit
-            // 
-            this.label_timeLimit.AutoSize = true;
-            this.label_timeLimit.Location = new System.Drawing.Point(71, 250);
-            this.label_timeLimit.Name = "label_timeLimit";
-            this.label_timeLimit.Size = new System.Drawing.Size(54, 13);
-            this.label_timeLimit.TabIndex = 25;
-            this.label_timeLimit.Text = "Time Limit";
-            // 
-            // comboBox_timeLimit
-            // 
-            this.comboBox_timeLimit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_timeLimit.FormattingEnabled = true;
-            this.comboBox_timeLimit.Location = new System.Drawing.Point(131, 247);
-            this.comboBox_timeLimit.Name = "comboBox_timeLimit";
-            this.comboBox_timeLimit.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_timeLimit.TabIndex = 24;
-            // 
-            // label_respawnTimer
-            // 
-            this.label_respawnTimer.AutoSize = true;
-            this.label_respawnTimer.Location = new System.Drawing.Point(378, 250);
-            this.label_respawnTimer.Name = "label_respawnTimer";
-            this.label_respawnTimer.Size = new System.Drawing.Size(78, 13);
-            this.label_respawnTimer.TabIndex = 23;
-            this.label_respawnTimer.Text = "Respawn Time";
-            // 
-            // comboBox_respawnTime
-            // 
-            this.comboBox_respawnTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_respawnTime.FormattingEnabled = true;
-            this.comboBox_respawnTime.Location = new System.Drawing.Point(274, 247);
-            this.comboBox_respawnTime.Name = "comboBox_respawnTime";
-            this.comboBox_respawnTime.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_respawnTime.TabIndex = 22;
-            // 
-            // label_zoneTimer
-            // 
-            this.label_zoneTimer.AutoSize = true;
-            this.label_zoneTimer.Location = new System.Drawing.Point(378, 223);
-            this.label_zoneTimer.Name = "label_zoneTimer";
-            this.label_zoneTimer.Size = new System.Drawing.Size(61, 13);
-            this.label_zoneTimer.TabIndex = 21;
-            this.label_zoneTimer.Text = "Zone Timer";
-            // 
-            // comboBox_zoneTimer
-            // 
-            this.comboBox_zoneTimer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_zoneTimer.FormattingEnabled = true;
-            this.comboBox_zoneTimer.Location = new System.Drawing.Point(274, 220);
-            this.comboBox_zoneTimer.Name = "comboBox_zoneTimer";
-            this.comboBox_zoneTimer.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_zoneTimer.TabIndex = 20;
-            // 
-            // label_flagsScored
-            // 
-            this.label_flagsScored.AutoSize = true;
-            this.label_flagsScored.Location = new System.Drawing.Point(378, 196);
-            this.label_flagsScored.Name = "label_flagsScored";
-            this.label_flagsScored.Size = new System.Drawing.Size(78, 13);
-            this.label_flagsScored.TabIndex = 19;
-            this.label_flagsScored.Text = "Flags Captured";
-            // 
-            // comboBox_flagsScored
-            // 
-            this.comboBox_flagsScored.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_flagsScored.FormattingEnabled = true;
-            this.comboBox_flagsScored.Location = new System.Drawing.Point(274, 193);
-            this.comboBox_flagsScored.Name = "comboBox_flagsScored";
-            this.comboBox_flagsScored.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_flagsScored.TabIndex = 18;
-            // 
-            // label_maxKills
-            // 
-            this.label_maxKills.AutoSize = true;
-            this.label_maxKills.Location = new System.Drawing.Point(378, 169);
-            this.label_maxKills.Name = "label_maxKills";
-            this.label_maxKills.Size = new System.Drawing.Size(48, 13);
-            this.label_maxKills.TabIndex = 17;
-            this.label_maxKills.Text = "Max Kills";
-            // 
-            // comboBox_maxKills
-            // 
-            this.comboBox_maxKills.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_maxKills.FormattingEnabled = true;
-            this.comboBox_maxKills.Location = new System.Drawing.Point(274, 166);
-            this.comboBox_maxKills.Name = "comboBox_maxKills";
-            this.comboBox_maxKills.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_maxKills.TabIndex = 16;
-            // 
-            // label_loopMaps
-            // 
-            this.label_loopMaps.AutoSize = true;
-            this.label_loopMaps.Location = new System.Drawing.Point(295, 141);
-            this.label_loopMaps.Name = "label_loopMaps";
-            this.label_loopMaps.Size = new System.Drawing.Size(60, 13);
-            this.label_loopMaps.TabIndex = 15;
-            this.label_loopMaps.Text = "Loop Maps";
-            // 
-            // checkBox_loopMaps
-            // 
-            this.checkBox_loopMaps.AutoSize = true;
-            this.checkBox_loopMaps.Location = new System.Drawing.Point(274, 141);
-            this.checkBox_loopMaps.Name = "checkBox_loopMaps";
-            this.checkBox_loopMaps.Size = new System.Drawing.Size(15, 14);
-            this.checkBox_loopMaps.TabIndex = 14;
-            this.checkBox_loopMaps.UseVisualStyleBackColor = true;
+            this.comboBox_maxPlayers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_maxPlayers.FormattingEnabled = true;
+            this.comboBox_maxPlayers.Location = new System.Drawing.Point(131, 193);
+            this.comboBox_maxPlayers.Name = "comboBox_maxPlayers";
+            this.comboBox_maxPlayers.Size = new System.Drawing.Size(98, 21);
+            this.comboBox_maxPlayers.TabIndex = 10;
             // 
             // label_startDelay
             // 
@@ -842,24 +861,6 @@
             this.comboBox_startDelay.Name = "comboBox_startDelay";
             this.comboBox_startDelay.Size = new System.Drawing.Size(98, 21);
             this.comboBox_startDelay.TabIndex = 12;
-            // 
-            // label_maxSlots
-            // 
-            this.label_maxSlots.AutoSize = true;
-            this.label_maxSlots.Location = new System.Drawing.Point(72, 196);
-            this.label_maxSlots.Name = "label_maxSlots";
-            this.label_maxSlots.Size = new System.Drawing.Size(53, 13);
-            this.label_maxSlots.TabIndex = 11;
-            this.label_maxSlots.Text = "Max Slots";
-            // 
-            // comboBox_maxPlayers
-            // 
-            this.comboBox_maxPlayers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_maxPlayers.FormattingEnabled = true;
-            this.comboBox_maxPlayers.Location = new System.Drawing.Point(131, 193);
-            this.comboBox_maxPlayers.Name = "comboBox_maxPlayers";
-            this.comboBox_maxPlayers.Size = new System.Drawing.Size(98, 21);
-            this.comboBox_maxPlayers.TabIndex = 10;
             // 
             // tabPage2
             // 

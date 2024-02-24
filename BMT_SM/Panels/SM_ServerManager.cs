@@ -667,7 +667,7 @@ namespace HawkSync_SM
                         return;
                     }
                     grid_playerList.Rows[hitTest.RowIndex].Selected = true;
-                    contextMenuStrip1.Show(this, new Point(e.X + ((Control)sender).Left + 20, e.Y + ((Control)sender).Top + 20));
+                    cm_playerControls.Show(this, new Point(e.X + ((Control)sender).Left + 20, e.Y + ((Control)sender).Top + 20));
                 }
             }
         }
@@ -751,7 +751,7 @@ namespace HawkSync_SM
             {
                 int selectedrowindex = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
                 cmdPlayer.BanPlayer(_state.Instances[ArrayID], selectedrowindex, "", "-1", custom_bantext);
-                contextMenuStrip1.Close();
+                cm_playerControls.Close();
             }
             else
             {
@@ -2659,7 +2659,7 @@ namespace HawkSync_SM
                     Text = item
                 };
                 toolStripItem.Click += CustomWarningMenu;
-                toolStripMenuItem133.DropDownItems.Add(toolStripItem);
+                cm_warnPlayer.DropDownItems.Add(toolStripItem);
             }
 
             // weapon restrictions
@@ -2975,7 +2975,7 @@ namespace HawkSync_SM
 
             int menuIndex = 0;
 
-            foreach (ToolStripItem contextMenu in toolStripMenuItem133.DropDownItems)
+            foreach (ToolStripItem contextMenu in cm_warnPlayer.DropDownItems)
             {
                 if (findString.ToString() == contextMenu.Text)
                 {
@@ -2983,7 +2983,7 @@ namespace HawkSync_SM
                 }
                 menuIndex++;
             }
-            toolStripMenuItem133.DropDownItems.RemoveAt(menuIndex);
+            cm_warnPlayer.DropDownItems.RemoveAt(menuIndex);
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -3021,7 +3021,7 @@ namespace HawkSync_SM
                 Text = textBox_playerWarnMessageAdd.Text
             };
             toolStripItem.Click += CustomWarningMenu;
-            toolStripMenuItem133.DropDownItems.Add(toolStripItem);
+            cm_warnPlayer.DropDownItems.Add(toolStripItem);
             textBox_playerWarnMessageAdd.Text = string.Empty;
             MessageBox.Show("Warning message has been added sucessfully!", "Success");
         }

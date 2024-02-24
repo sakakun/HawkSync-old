@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace HawkSync_RC.TVFunctions
 {
-    public class TVRotationManagerCMD
+    public class rotationManager
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly AppState _state;
@@ -16,7 +16,7 @@ namespace HawkSync_RC.TVFunctions
         private Dictionary<dynamic, dynamic> json_array = new Dictionary<dynamic, dynamic>();
         private readonly RCSetup RCSetup;
 
-        public TVRotationManagerCMD(RCSetup setup, AppState state, int InstanceID)
+        public rotationManager(RCSetup setup, AppState state, int InstanceID)
         {
             RCSetup = setup;
             _state = state;

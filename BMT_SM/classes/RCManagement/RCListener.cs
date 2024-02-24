@@ -209,7 +209,7 @@ namespace HawkSync_SM
                     case "BMTRC.BanPlayer":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
-                            reply.Add("Status", RCFunctions.BanPlayer(json.serverID, json.slot, json.banReason, json.expires.ToString(), json.SessionID));
+                            reply.Add("Status", RCFunctions.BanPlayer(json.serverID, json.slot, json.banReason, json.expires, json.SessionID));
                         }
                         else
                         {

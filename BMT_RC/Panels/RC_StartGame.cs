@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Forms;
 using HawkSync_RC.classes;
@@ -276,5 +277,25 @@ namespace HawkSync_RC
                                selectedGameTypeMapList[listBox1.SelectedIndex].MapFile + ">");
         }
 
+        private void mapAction_clickLoadRotation(object sender, EventArgs e)
+        {
+            bool MapListEdited = false;
+            // load rotation
+            var popup_Load = new RC_PopupLoadRotation(_state, RCSetup, ArrayID);
+            popup_Load.ShowDialog();
+            if (RC_ServerManager.loadList.Count > 0) MapListEdited = true;
+            if (MapListEdited)
+            {
+                listBox2.Items.Clear();
+                foreach (var item in RC_ServerManager.loadList)
+                {
+                    listBox2.Items.Add("|" + item.GameType + "| " + item.MapName + " <" + item.MapFile + ">");
+                }
+
+                label_mapCount.Text = listBox2.Items.Count + " / 128";
+                MessageBox.Show("Map rotation has been loaded!\nPlease click update maps to update the server.",
+                    "Success");
+            }
+        }
     }
 }

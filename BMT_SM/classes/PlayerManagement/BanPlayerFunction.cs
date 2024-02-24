@@ -33,7 +33,7 @@ namespace HawkSync_SM
                     int NextID = Convert.ToInt32(lastID_query.ExecuteScalar());
                     NextID++; // +1 for the NEXT ID
                     lastID_query.Dispose();
-                    SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `PublicIP`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
+                    SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
                     query.Parameters.AddWithValue("@newid", NextID);
                     query.Parameters.AddWithValue("@profileid", _instances.Id);
                     query.Parameters.AddWithValue("@playername", _instances.PlayerList[slotNum].name);

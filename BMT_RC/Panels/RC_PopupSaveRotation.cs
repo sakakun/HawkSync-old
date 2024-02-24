@@ -13,7 +13,7 @@ namespace HawkSync_RC
             State = state;
             ArrayID = arrayID;
             SelectedMaps = selectedMaps;
-            TVRotationManagerCMD = new TVRotationManagerCMD(setup, state, arrayID);
+            TVRotationManagerCMD = new rotationManager(setup, state, arrayID);
             InitializeComponent();
         }
 
@@ -21,7 +21,7 @@ namespace HawkSync_RC
         private int ArrayID { get; }
         private List<MapList> SelectedMaps { get; }
         private bool SaveRotation { get; set; }
-        private TVRotationManagerCMD TVRotationManagerCMD { get; }
+        private rotationManager TVRotationManagerCMD { get; }
 
         private void button1_Click(object sender, EventArgs e)
         {

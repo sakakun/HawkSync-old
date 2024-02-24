@@ -14,6 +14,7 @@ using Equin.ApplicationFramework;
 using HawkSync_RC.classes;
 using HawkSync_RC.classes.RCClasses;
 using Newtonsoft.Json;
+using static log4net.Appender.RollingFileAppender;
 using TextBox = System.Windows.Forms.TextBox;
 using Timer = System.Windows.Forms.Timer;
 
@@ -124,29 +125,7 @@ namespace HawkSync_RC
             bannedTable.Columns.Add("Name");
             bannedTable.Columns.Add("IP Address");
             bannedTable.Columns.Add("Time Remaining");
-            foreach (var bannedPlayer in _state.Instances[ArrayID].BanList)
-            {
-                var newRow = bannedTable.NewRow();
-                newRow["Name"] = bannedPlayer.player;
-                newRow["IP Address"] = bannedPlayer.ipaddress;
-                if (bannedPlayer.expires == "-1")
-                {
-                    newRow["Time Remaining"] = "Permanent";
-                }
-                else
-                {
-                    if ((DateTime.Parse(bannedPlayer.expires) - DateTime.Now).TotalDays > 2)
-                        newRow["Time Remaining"] = (DateTime.Parse(bannedPlayer.expires) - DateTime.Now).Days + " Days";
-                    else if ((DateTime.Parse(bannedPlayer.expires) - DateTime.Now).TotalDays > 1.5)
-                        newRow["Time Remaining"] = "2 Days";
-                    else
-                        newRow["Time Remaining"] = "Today";
-                }
-
-                bannedTable.Rows.Add(newRow);
-            }
-
-            grid_bannedPlayerList.DataSource = bannedTable;
+            UpdateBannedPlayers();
             SetupBannedPlayersTable();
             RequestVPNWarnLevel(_state.Instances[ArrayID].Id);
 
@@ -408,6 +387,7 @@ namespace HawkSync_RC
             UpdateChatLogs();
             UpdateCurrentMap();
             UpdatePlayerAddress();
+            UpdateBannedPlayers();
         }
 
         private void UpdatePlayerlist()
@@ -643,6 +623,78 @@ namespace HawkSync_RC
                 }
             }
         }
+
+        private void UpdateBannedPlayers()
+        {
+            // Track players that are still present in the BanList
+            var remainingPlayers = new HashSet<string>();
+
+            // Update existing rows and track remaining players
+            foreach (DataRow row in bannedTable.Rows)
+            {
+                var playerName = row["Name"].ToString();
+                var playerIP = row["IP Address"].ToString();
+                var expires = row["Time Remaining"].ToString();
+
+                // Check if the player is still in the BanList
+                var stillBanned = _state.Instances[ArrayID].BanList.Any(bannedPlayer =>
+                    bannedPlayer.player == playerName && bannedPlayer.ipaddress == playerIP);
+
+                if (!stillBanned)
+                {
+                    // Player is no longer in the BanList, remove the row
+                    row.Delete();
+                }
+                else
+                {
+                    // Player is still in the BanList, update time remaining if necessary
+                    if (expires != "Permanent")
+                    {
+                        var remainingDays = (DateTime.Parse(expires) - DateTime.Now).TotalDays;
+                        if (remainingDays <= 0)
+                        {
+                            row["Time Remaining"] = "Expired";
+                        }
+                        else if (remainingDays > 2)
+                        {
+                            row["Time Remaining"] = $"{(int)remainingDays} Days";
+                        }
+                        else if (remainingDays > 1.5)
+                        {
+                            row["Time Remaining"] = "2 Days";
+                        }
+                        else
+                        {
+                            row["Time Remaining"] = "Today";
+                        }
+                    }
+                }
+
+                // Add player to remaining players set
+                remainingPlayers.Add(playerName);
+            }
+
+            // Add new rows for players that are not already in the table
+            foreach (var bannedPlayer in _state.Instances[ArrayID].BanList)
+            {
+                if (!remainingPlayers.Contains(bannedPlayer.player))
+                {
+                    var newRow = bannedTable.NewRow();
+                    newRow["Name"] = bannedPlayer.player;
+                    newRow["IP Address"] = bannedPlayer.ipaddress;
+                    newRow["Time Remaining"] = bannedPlayer.expires == "-1" ? "Permanent" : "Today"; // or any initial value
+
+                    bannedTable.Rows.Add(newRow);
+                }
+            }
+
+            // Accept changes after all modifications
+            bannedTable.AcceptChanges();
+
+            // Update the data source
+            grid_bannedPlayerList.DataSource = bannedTable;
+        }
+
         /* Player Ticker Functions END */
 
 
@@ -672,11 +724,21 @@ namespace HawkSync_RC
             }
         }
 
-        private void playerListAction_click(object sender, EventArgs e, string action, bool permBan = false)
+        private void playerListAction_click(object sender, EventArgs e, string action, bool permBan = false, int days = 0)
         {
-            /* PlayerList Menu - Kick Player, Called by kickPlayer_reason* */
             var textValue = "";
-            var dateTime = DateTime.Now;
+            string actionType = "kicked";
+            string dateTime = DateTime.Now.AddDays(days).ToString();
+
+            if (permBan || days > 0)
+            {
+                actionType = "banned";
+            }
+
+            if (permBan)
+            {
+                dateTime = "-1";
+            }
 
             if (sender is ToolStripMenuItem clickedItem)
             {
@@ -710,9 +772,9 @@ namespace HawkSync_RC
                     JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
                         Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
-                    MessageBox.Show("Player has been kicked successfully. Reason: " + textValue, "Success");
+                    MessageBox.Show($"Player has been {actionType} successfully. Reason: " + textValue, "Success");
                 else
-                    MessageBox.Show("BMTTV has reported an error.");
+                    MessageBox.Show("Server has reported an error.");
             }
             catch (Exception ex)
             {
@@ -721,10 +783,9 @@ namespace HawkSync_RC
             }
         }
 
-        private void playerListAction_custom(object sender, KeyEventArgs e, string action, bool permBan = false)
+        private void playerListAction_custom(object sender, KeyEventArgs e, string action, bool permBan = false, int days = 0)
         {
-            /* PlayerList Menu - Kick Player - Custom Reason, Called by actionReason_Custom */
-            if (e.KeyCode == Keys.Enter) playerListAction_click(sender, e, action, permBan);
+            if (e.KeyCode == Keys.Enter) playerListAction_click(sender, e, action, permBan, days);
         }
 
         // Players Tab: Banned Players
@@ -2024,10 +2085,7 @@ namespace HawkSync_RC
             // remove ban
             if (grid_bannedPlayerList.CurrentCell == null) return; // no ban selected
             DataRow playerInfo;
-            if (text_banSearch.Text != string.Empty)
-                playerInfo = searchBannedTable.Rows[grid_bannedPlayerList.CurrentCell.RowIndex];
-            else
-                playerInfo = bannedTable.Rows[grid_bannedPlayerList.CurrentCell.RowIndex];
+            playerInfo = bannedTable.Rows[grid_bannedPlayerList.CurrentCell.RowIndex];
             var request = new Dictionary<string, dynamic>
             {
                 { "action", "BMTRC.RemoveBan" },
@@ -2041,10 +2099,7 @@ namespace HawkSync_RC
                     Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
             {
-                if (text_banSearch.Text != string.Empty)
-                    searchBannedTable.Rows.Remove(playerInfo);
-                else
-                    bannedTable.Rows.Remove(playerInfo);
+                bannedTable.Rows.Remove(playerInfo);
 
                 MessageBox.Show("Ban has been successfully removed!", "Success");
                 return;
@@ -2112,31 +2167,38 @@ namespace HawkSync_RC
                 return;
             }
 
-            var request = new Dictionary<string, dynamic>
+            try
             {
-                { "action", "BMTRC.AddBan" },
-                { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
-                { "PlayerName", text_adPlayerName.Text },
-                { "PlayerIP", playerIP.ToString() },
-                { "banReason", combo_abReason.Text },
-                { "AddBanExpires", "-1" }
-            };
-            var response =
-                JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
-                    Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
-            if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                var request = new Dictionary<dynamic, dynamic>
+                {
+                    { "action", "BMTRC.AddBan" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "PlayerName", text_adPlayerName.Text },
+                    { "banReason", combo_abReason.Text },
+                    { "PlayerIP", playerIP.ToString() },
+                    { "AddBanExpires", "-1" }
+                };
+                var response =
+                    JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                        Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                    MessageBox.Show($"Player has been banned successfully. Reason: " + combo_abReason.Text, "Success");
+                else
+                    MessageBox.Show("Server has reported an error." + (OpenClass.Status)response["Status"]);
+            }
+            catch (Exception ex)
             {
-                var newBan = bannedTable.NewRow();
-                newBan["Name"] = text_adPlayerName.Text;
-                newBan["IP Address"] = playerIP.ToString();
-                newBan["Time Remaining"] = "Permanent";
-                bannedTable.Rows.Add(newBan);
-                MessageBox.Show("Player has been successfully added to the ban list.", "Success");
+                EventLog.WriteEntry("HawkSync_RC", ex.ToString(), EventLogEntryType.Error);
+                MessageBox.Show("Connection timed out while trying to send " + "BMTRC.AddBan" + " command.");
                 return;
             }
 
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            // Reset Fields on Success
+            text_adPlayerName.Text = string.Empty;
+            text_abIPAddress.Text = string.Empty;
+            combo_abReason.Text = "Select Reason or Enter Custom";
+
         }
 
         private void vpnList_addEntry(object sender, EventArgs e)
@@ -2353,6 +2415,7 @@ namespace HawkSync_RC
                 value_banReason.Text = "";
                 value_banDateAdded.Text = "";
                 value_banAdmin.Text = "";
+                value_banIPAddress.Text = "";
                 return;
             }
 
@@ -2362,24 +2425,22 @@ namespace HawkSync_RC
                 value_banReason.Text = "";
                 value_banDateAdded.Text = "";
                 value_banAdmin.Text = "";
+                value_banIPAddress.Text = "";
                 return;
             }
 
-            value_bdPlayerName.Text =
-                _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].player;
+            value_bdPlayerName.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].player;
             value_banReason.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].reason;
-            value_banDateAdded.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex]
-                .addedDate.ToString();
-            value_banAdmin.Text =
-                _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].bannedBy;
+            value_banDateAdded.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].addedDate.ToString();
+            value_banIPAddress.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].ipaddress;
+            value_banAdmin.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].bannedBy;
         }
 
         private void playerList_doubleClickPlayerInfo(object sender, EventArgs e)
         {
             var numPlayers = _state.Instances[ArrayID].NumPlayers;
             if (numPlayers == 0) return;
-            var playerInfo = new PlayerInfo(_state, RCSetup, ArrayID,
-                Convert.ToInt32(grid_playerList.SelectedCells[0].Value));
+            var playerInfo = new PlayerInfo(_state, RCSetup, ArrayID, Convert.ToInt32(grid_playerList.SelectedCells[0].Value));
             playerInfo.ShowDialog();
         }
 
@@ -2575,5 +2636,6 @@ namespace HawkSync_RC
                 MessageBox.Show("VPN Checking is not enabled on this server.\n", "Error");
             }
         }
+
     }
 }

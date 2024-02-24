@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace HawkSync_RC.TVFunctions
 {
-    public class TVUserManager
+    public class userManager
     {
         private readonly RCSetup _setup;
         private AppState _state;
 
-        public TVUserManager(AppState state, RCSetup setup)
+        public userManager(AppState state, RCSetup setup)
         {
             _state = state;
             _setup = setup;

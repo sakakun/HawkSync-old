@@ -212,32 +212,32 @@ namespace HawkSync_RC
             label40.Text = _state.Instances[ArrayID].PlayerList[playerSlot].suicides.ToString();
             label7.Text = _state.Instances[ArrayID].PlayerList[playerSlot].pspattempts.ToString();
             label44.Text = _state.Instances[ArrayID].PlayerList[playerSlot].totalshots.ToString();
-            foreach (var player in playerHistory)
-            {
-                var newEntry = aliases.NewRow();
-                newEntry["Name"] = player.playerName;
-                newEntry["IP"] = player.playerIP;
-                aliases.Rows.Add(newEntry);
-                /*foreach (var note in _state.adminNotes)
-                {
-                    if (note.userid == player.DatabaseId)
-                    {
-                        DataRow adminNoteNewEntry = AdminNotes.NewRow();
-                        adminNoteNewEntry["Msg"] = note.msg;
-                        AdminNotes.Rows.Add(adminNoteNewEntry);
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }*/
-            }
 
-            foreach (var note in adminNotes)
+            foreach (playerHistory player in playerHistory)
             {
-                var newEntry = AdminNotes.NewRow();
-                newEntry["Msg"] = note.msg;
-                AdminNotes.Rows.Add(newEntry);
+                if ((player.playerName == _state.Instances[ArrayID].PlayerList[playerSlot].name) || (player.playerIP == _state.Instances[ArrayID].PlayerList[playerSlot].address))
+                {
+                    DataRow newEntry = aliases.NewRow();
+                    newEntry["Name"] = player.playerName;
+                    newEntry["IP"] = player.playerIP;
+                    aliases.Rows.Add(newEntry);
+                    if (adminNotes != null && adminNotes.Count > 0)
+                    {
+                        foreach (adminNotes note in adminNotes)
+                        {
+                            if (note.userid == player.DatabaseId)
+                            {
+                                DataRow adminNoteNewEntry = AdminNotes.NewRow();
+                                adminNoteNewEntry["Msg"] = note.msg;
+                                AdminNotes.Rows.Add(adminNoteNewEntry);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
             }
 
             dataGridView11.DataSource = aliases;

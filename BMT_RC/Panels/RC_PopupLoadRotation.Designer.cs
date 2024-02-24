@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RC_PopupLoadRotation));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_loadMaps = new System.Windows.Forms.Button();
+            this.btn_close = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -52,37 +52,37 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Load Saved Rotation";
             // 
-            // button1
+            // btn_loadMaps
             // 
-            this.button1.Location = new System.Drawing.Point(13, 219);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(68, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Load";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_loadMaps.Location = new System.Drawing.Point(13, 219);
+            this.btn_loadMaps.Name = "btn_loadMaps";
+            this.btn_loadMaps.Size = new System.Drawing.Size(68, 23);
+            this.btn_loadMaps.TabIndex = 2;
+            this.btn_loadMaps.Text = "Load";
+            this.btn_loadMaps.UseVisualStyleBackColor = true;
+            this.btn_loadMaps.Click += new System.EventHandler(this.event_loadMaps);
             // 
-            // btn_deleteAddress
+            // btn_close
             // 
-            this.button2.Location = new System.Drawing.Point(118, 219);
-            this.button2.Name = "btn_deleteAddress";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_close.Location = new System.Drawing.Point(118, 219);
+            this.btn_close.Name = "btn_close";
+            this.btn_close.Size = new System.Drawing.Size(75, 23);
+            this.btn_close.TabIndex = 3;
+            this.btn_close.Text = "Cancel";
+            this.btn_close.UseVisualStyleBackColor = true;
+            this.btn_close.Click += new System.EventHandler(this.event_closeWindow);
             // 
-            // Popup_LoadRotation
+            // RC_PopupLoadRotation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(208, 255);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_close);
+            this.Controls.Add(this.btn_loadMaps);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Popup_LoadRotation";
+            this.Name = "RC_PopupLoadRotation";
             this.Text = "Load Rotation";
             this.Load += new System.EventHandler(this.Popup_LoadRotation_Load);
             this.ResumeLayout(false);
@@ -94,7 +94,7 @@
 
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_loadMaps;
+        private System.Windows.Forms.Button btn_close;
     }
 }

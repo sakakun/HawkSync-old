@@ -192,11 +192,11 @@ namespace HawkSync_RC
             this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 14;
             // 
-            // serverManager_container
+            // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(12, 18);
-            this.tabControl1.Name = "serverManager_container";
+            this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(808, 420);
             this.tabControl1.TabIndex = 24;
@@ -223,10 +223,10 @@ namespace HawkSync_RC
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 2;
             // 
-            // btn_addAddress
+            // button3
             // 
             this.button3.Location = new System.Drawing.Point(6, 365);
-            this.button3.Name = "btn_addAddress";
+            this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(68, 23);
             this.button3.TabIndex = 6;
             this.button3.Text = "Start Game";
@@ -269,7 +269,7 @@ namespace HawkSync_RC
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 20;
-            this.button5.Text = "Quit";
+            this.button5.Text = "Close";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -294,7 +294,7 @@ namespace HawkSync_RC
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // Profilelist
+            // RC_Profilelist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -311,7 +311,7 @@ namespace HawkSync_RC
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(845, 489);
             this.MinimumSize = new System.Drawing.Size(845, 489);
-            this.Name = "Profilelist";
+            this.Name = "RC_Profilelist";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Profile List";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Profilelist_FormClosing);

@@ -500,6 +500,7 @@ namespace HawkSync_SM.RCClasses
                         continue;
                     }
                 }
+
                 if (InstanceIndex != -1)
                 {
                     IPAddress ipaddress;
@@ -508,10 +509,12 @@ namespace HawkSync_SM.RCClasses
                     {
                         return RCListenerClass.StatusCodes.INVALIDPLAYERNAME;
                     }
+
                     if (IPAddress.TryParse(playerIP, out ipaddress) == false)
                     {
                         return RCListenerClass.StatusCodes.INVALIDIPADDRESS;
                     }
+
                     if (string.IsNullOrWhiteSpace(banReason) == true)
                     {
                         return RCListenerClass.StatusCodes.INVALIDBANREASON;
@@ -519,18 +522,27 @@ namespace HawkSync_SM.RCClasses
 
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
+                    SQLiteCommand lastID_query =
+                        new SQLiteCommand("SELECT `id` FROM `playerbans` ORDER BY `id` DESC LIMIT 1;", db);
+                    int NextID = Convert.ToInt32(lastID_query.ExecuteScalar());
+                    NextID++; // +1 for the NEXT ID
+                    lastID_query.Dispose();
 
-                    SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `PublicIP`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
+                    SQLiteCommand query = new SQLiteCommand(
+                        "INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);",
+                        db);
+                    query.Parameters.AddWithValue("@newid", NextID);
                     query.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
                     query.Parameters.AddWithValue("@playername", playerName);
                     query.Parameters.AddWithValue("@playerip", ipaddress);
                     query.Parameters.AddWithValue("@date", DateTime.Now);
                     query.Parameters.AddWithValue("@dateadded", DateTime.Now);
                     query.Parameters.AddWithValue("@reason", banReason);
-                    query.Parameters.AddWithValue("@expires", "-1");
+                    query.Parameters.AddWithValue("@expires", expiresDate);
                     query.Parameters.AddWithValue("@bannedby", _state.rcClients[sessionID]._username);
                     query.ExecuteNonQuery();
                     query.Dispose();
+
                     _state.Instances[InstanceIndex].BanList.Add(new ob_playerBanList
                     {
                         expires = expiresDate,
@@ -547,11 +559,15 @@ namespace HawkSync_SM.RCClasses
                         VPNBan = false
                     });
 
-                    SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
+                    SQLiteCommand newEntryCmd =
+                        new SQLiteCommand(
+                            "INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);",
+                            db);
                     newEntryCmd.Parameters.AddWithValue("@sessionid", sessionID);
                     newEntryCmd.Parameters.AddWithValue("@username", _state.rcClients[sessionID]._username);
                     newEntryCmd.Parameters.AddWithValue("@action", "AddBan");
-                    newEntryCmd.Parameters.AddWithValue("@address", _state.rcClients[sessionID].RemoteAddress.ToString());
+                    newEntryCmd.Parameters.AddWithValue("@address",
+                        _state.rcClients[sessionID].RemoteAddress.ToString());
                     newEntryCmd.Parameters.AddWithValue("@date", DateTime.Now);
                     newEntryCmd.ExecuteNonQuery();
                     newEntryCmd.Dispose();
@@ -572,10 +588,12 @@ namespace HawkSync_SM.RCClasses
                     return RCListenerClass.StatusCodes.INVALIDINSTANCE;
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return RCListenerClass.StatusCodes.FAILURE;
             }
+            
         }
 
         public dynamic DisarmPlayer(int InstanceID, int slot, string sessionid)

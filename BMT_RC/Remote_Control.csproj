@@ -241,8 +241,8 @@
     <Compile Include="Panels\RC_StartGame.Designer.cs">
       <DependentUpon>RC_StartGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\TVRotationManagerCMD.cs" />
-    <Compile Include="classes\TVUserManager.cs" />
+    <Compile Include="classes\rotationManager.cs" />
+    <Compile Include="classes\userManager.cs" />
     <Compile Include="Panels\UserManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -338,4 +338,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>wsl /home/administrator/.ssh/scripts/post-build-rc.sh</PostBuildEvent>
+  </PropertyGroup>
 </Project>
