@@ -6,6 +6,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using HawkSync_SM.classes.StatManagement;
 
 namespace HawkSync_SM
 {
@@ -59,7 +60,11 @@ namespace HawkSync_SM
 
         public void Run()
         {
-            //SendStats();
+            if (_state.Instances[ArrayID].WebStatsSoftware == 2)
+            {
+                statsBabstats _statsBabstats = new statsBabstats();
+                _statsBabstats.generateBabstats_EOM(_state, ArrayID);
+            }
             IncrementMapCounter();
             ChangeGameType();
             OverrideScoreBoard();

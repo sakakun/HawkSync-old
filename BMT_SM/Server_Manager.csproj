@@ -127,6 +127,7 @@
     <Compile Include="classes\PlayerManagement\ob_playerChangeTeamList.cs" />
     <Compile Include="classes\PlayerManagement\PlayerManagement.cs" />
     <Compile Include="classes\Plugins\pl_VoteMaps\pluginVoteMaps.cs" />
+    <Compile Include="classes\StatManagement\statsBabstats.cs" />
     <Compile Include="Panels\ChatHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,6 +264,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\SM_ServerProfile.resx">
       <DependentUpon>SM_ServerProfile.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\PlayerInfo.resx">
       <DependentUpon>PlayerInfo.cs</DependentUpon>

@@ -426,7 +426,7 @@ namespace HawkSync_SM
             this.dataGridView1.ShowCellToolTips = false;
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(750, 143);
+            this.dataGridView1.Size = new System.Drawing.Size(740, 143);
             this.dataGridView1.TabIndex = 0;
             // 
             // tabPage2

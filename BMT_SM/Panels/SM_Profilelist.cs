@@ -1389,6 +1389,9 @@ namespace HawkSync_SM
                         FlagSaves = val.FlagSaves,
                         totalshots = val.totalshots,
                         PlayerClass = val.PlayerClass,
+                        sniperkills = val.sniperkills,
+                        tkothdefensekills = val.tkothdefensekills,
+                        tkothattackkills = val.tkothattackkills,
                         weaponStats = weaponStats
                     });
                 }
@@ -1428,7 +1431,10 @@ namespace HawkSync_SM
                     _state.PlayerStats[InstanceID].Player[val.name].flagcarrierdeaths += (val.flagcarrierdeaths - _state.PlayerStats[InstanceID].Player[val.name].flagcarrierdeaths);
                     _state.PlayerStats[InstanceID].Player[val.name].exp += (val.exp - _state.PlayerStats[InstanceID].Player[val.name].exp);
                     _state.PlayerStats[InstanceID].Player[val.name].FlagSaves += (val.FlagSaves - _state.PlayerStats[InstanceID].Player[val.name].FlagSaves);
+                    _state.PlayerStats[InstanceID].Player[val.name].sniperkills += (val.sniperkills - _state.PlayerStats[InstanceID].Player[val.name].sniperkills);
                     _state.PlayerStats[InstanceID].Player[val.name].totalshots += (val.totalshots - _state.PlayerStats[InstanceID].Player[val.name].totalshots);
+                    _state.PlayerStats[InstanceID].Player[val.name].tkothdefensekills += (val.tkothdefensekills - _state.PlayerStats[InstanceID].Player[val.name].tkothdefensekills);
+                    _state.PlayerStats[InstanceID].Player[val.name].tkothattackkills += (val.tkothattackkills - _state.PlayerStats[InstanceID].Player[val.name].tkothattackkills);
                     _state.PlayerStats[InstanceID].Player[val.name].PlayerClass = val.PlayerClass;
 
                     // _state.PlayerStats[InstanceID].Player[val.name].weaponStats = weaponStats;

@@ -1,4 +1,5 @@
 ﻿using HawkSync_SM.classes.ChatManagement;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading;
 using static System.Windows.Forms.AxHost;
 
@@ -1282,7 +1284,7 @@ namespace HawkSync_SM
                 0x000ADA90, 0x000ADAD4, 0x000ADAF4, 0x000ADABC, 0x000ADAC0,
                 0x000ADAC4, 0x000ADACC, 0x000ADACC, 0x000ADAA8, 0x000ADAC8,
                 0x000ADAD4, 0x000ADAA4, 0x000ADADC, 0x000ADA94, 0x000ADAB0,
-                0x000ADAAC
+                0x000ADAAC, 0x000ADAD8, 0x000ADADC, 0x000ADAE0
             };
 
             var stats = new int[offsets.Length];
@@ -1293,6 +1295,26 @@ namespace HawkSync_SM
                 ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets[i], read_data, read_data.Length, ref bytesread);
                 stats[i] = BitConverter.ToInt32(read_data, 0);
             }
+
+            // Trail Checks
+            int[] offsets2 =
+            {
+                0x000ADA90, 0x000ADA94, 0x000ADA98, 0x000ADA9C,
+                0x000ADAA8, 0x000ADAAC, 0x000ADAB0, 0x000ADAB4,
+                0x000ADAB8, 0x000ADABC, 0x000ADAC0, 0x000ADAC4,
+                0x000ADAC8, 0x000ADACC, 0x000ADAD0, 0x000ADAD4,
+                0x000ADAE4, 0x000ADAE8, 0x000ADAEC
+            };
+            var stats2 = new int[offsets2.Length];
+            for (int i = 0; i < offsets2.Length; i++)
+            {
+                byte[] read_data = new byte[4];
+                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets2[i], read_data, read_data.Length, ref bytesread);
+                stats2[i] = BitConverter.ToInt32(read_data, 0);
+            }
+            Console.WriteLine(PlayerName);
+            Console.WriteLine(JsonConvert.SerializeObject(stats));
+            Console.WriteLine(JsonConvert.SerializeObject(stats2));
 
             byte[] read_playerObjectLocation = new byte[4];
             ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref bytesread);
@@ -1360,6 +1382,9 @@ namespace HawkSync_SM
                 ZoneDefendKills = stats[18],
                 ADTargetsDestroyed = stats[19],
                 FlagSaves = stats[20],
+                sniperkills = stats[21],
+                tkothdefensekills = stats[22],
+                tkothattackkills = stats[23]
             };
         }
         public int GetCurrentPlayers(ref AppState _state, int instanceid)
@@ -1542,7 +1567,10 @@ namespace HawkSync_SM
                                 zonekills = PlayerStats.ZoneKills,
                                 zonedefendkills = PlayerStats.ZoneDefendKills,
                                 ADTargetsDestroyed = PlayerStats.ADTargetsDestroyed,
-                                FlagSaves = PlayerStats.FlagSaves
+                                FlagSaves = PlayerStats.FlagSaves,
+                                sniperkills = PlayerStats.sniperkills,
+                                tkothdefensekills = PlayerStats.tkothdefensekills,
+                                tkothattackkills = PlayerStats.tkothattackkills
                             });
 
                             playerlistStartingLocation += 0xAF33C;

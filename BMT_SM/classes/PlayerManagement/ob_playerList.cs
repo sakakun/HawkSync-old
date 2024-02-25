@@ -30,6 +30,9 @@ namespace HawkSync_SM
         public int exp { get; set; }
         public int ADTargetsDestroyed { get; set; }
         public int FlagSaves { get; set; }
+        public int sniperkills { get; set; }
+        public int tkothdefensekills { get; set; }
+        public int tkothattackkills { get; set; }
         public int totalshots { get; set; }
         public string PlayerClass { get; set; }
         public string selectedWeapon { get; set; }

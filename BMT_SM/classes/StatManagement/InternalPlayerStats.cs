@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace HawkSync_SM
 {
@@ -30,5 +31,8 @@ namespace HawkSync_SM
         public int ZoneDefendKills { get; set; }
         public int ADTargetsDestroyed { get; set; }
         public int FlagSaves { get; set; }
+        public int sniperkills { get; set; }
+        public int tkothdefensekills { get; set; }
+        public int tkothattackkills { get; set; }
     }
 }
