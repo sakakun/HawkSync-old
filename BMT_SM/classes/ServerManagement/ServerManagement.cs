@@ -1,16 +1,11 @@
 ﻿using HawkSync_SM.classes.ChatManagement;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading;
-using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM
 {
@@ -1312,9 +1307,9 @@ namespace HawkSync_SM
                 ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets2[i], read_data, read_data.Length, ref bytesread);
                 stats2[i] = BitConverter.ToInt32(read_data, 0);
             }
-            Console.WriteLine(PlayerName);
-            Console.WriteLine(JsonConvert.SerializeObject(stats));
-            Console.WriteLine(JsonConvert.SerializeObject(stats2));
+            //Console.WriteLine(PlayerName);
+            //Console.WriteLine(JsonConvert.SerializeObject(stats));
+            //Console.WriteLine(JsonConvert.SerializeObject(stats2));
 
             byte[] read_playerObjectLocation = new byte[4];
             ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref bytesread);
@@ -1353,7 +1348,7 @@ namespace HawkSync_SM
                     }
                 }
             }
-
+            
             return new InternalPlayerStats
             {
                 PlayerName = PlayerName,
@@ -1586,6 +1581,7 @@ namespace HawkSync_SM
                         }
 
                     }
+                    
                 }
             }
             return currentPlayerList;

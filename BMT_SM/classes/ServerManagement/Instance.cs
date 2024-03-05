@@ -1,6 +1,8 @@
 ﻿using HawkSync_SM.classes;
+using HawkSync_SM.classes.StatManagement;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
 namespace HawkSync_SM
@@ -101,6 +103,7 @@ namespace HawkSync_SM
         public List<ob_playerBanList> BanList { get; set; } = new List<ob_playerBanList>();
         public Dictionary<int, ob_playerList> PlayerList { get; set; } = new Dictionary<int, ob_playerList>();
         public Dictionary<int, ob_ipWhitelist> VPNWhiteList { get; set; } = new Dictionary<int, ob_ipWhitelist>();
+        public Dictionary<string, PlayerStats> playerStats { get; set; } = new Dictionary<string, PlayerStats>();
         public Dictionary<string, string> IPWhiteList { get; set; } = new Dictionary<string, string>();
         public List<ob_playerChangeTeamList> ChangeTeamList { get; set; } = new List<ob_playerChangeTeamList>();
         public PlayerRoles RoleRestrictions { get; set; } = new PlayerRoles();

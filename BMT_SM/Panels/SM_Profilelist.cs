@@ -14,6 +14,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using HawkSync_SM.classes.StatManagement;
 using WatsonTcp;
 using Timer = System.Windows.Forms.Timer;
 
@@ -76,27 +77,35 @@ namespace HawkSync_SM
         // Server Manager - Game Profile List (Main Process)
         public SM_ProfileList(AppState state)
         {
-            // Launch GUI
-            _state = state;
-            InitializeComponent();                                                                // Load GUI (Desinger Elements)
-
-            // Ticker Checks
-            Ticker.Tick += (sender, e) =>
+            try
             {
-                InstanceSeverCheck();                                                             // Instance Status Check
-                InstanceTicker();                                                                 // Instance Ticker
-                (new PlayerManagement()).checkPlayerHistory(ref _state);                          // Process Player History
-                (new PlayerManagement()).checkExpiredBans(ref _state);                            // Check for Expired Bans
-                (new HeartBeatMonitor()).ProcessHeartBeats(ref _state);                           // HeartBeat Monitor Hook
-                RC_CleanClientConnections();                                                      // Clean RC Connections               
-            };
+                // Launch GUI
+                _state = state;
+                InitializeComponent();                                                                // Load GUI (Desinger Elements)
 
-            // Server Manager Specific Events
-            hawkSyncDB.Open();
-            processAppState(hawkSyncDB);
-            get_gameTypes(hawkSyncDB);
-            RC_BeginListening();
-            hawkSyncDB.Close();
+                // Ticker Checks
+                Ticker.Tick += (sender, e) =>
+                {
+                    InstanceSeverCheck();                                                             // Instance Status Check
+                    InstanceTicker();                                                                 // Instance Ticker
+                    (new PlayerManagement()).checkPlayerHistory(ref _state);                          // Process Player History
+                    (new PlayerManagement()).checkExpiredBans(ref _state);                            // Check for Expired Bans
+                    (new HeartBeatMonitor()).ProcessHeartBeats(ref _state);                           // HeartBeat Monitor Hook
+                    RC_CleanClientConnections();                                                      // Clean RC Connections               
+                };
+
+                // Server Manager Specific Events
+                hawkSyncDB.Open();
+                processAppState(hawkSyncDB);
+                get_gameTypes(hawkSyncDB);
+                RC_BeginListening();
+                hawkSyncDB.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            
         }
 
 
@@ -344,6 +353,7 @@ namespace HawkSync_SM
                                     {
                                         try
                                         {
+                                            // Grabs Player List & Current Player Stats
                                             instance.PlayerList = serverManagement.CurrentPlayerList(ref _state, rowId);
                                         }
                                         catch
@@ -353,10 +363,11 @@ namespace HawkSync_SM
                                         ipManagement.CheckBans(ref _state, rowId, PID);
                                     }
 
-                                    if (instance.EnableWebStats == true && instance.Status == InstanceStatus.ONLINE && instance.collectPlayerStats == true)
+                                    if (instance.EnableWebStats == true && instance.Status == InstanceStatus.ONLINE)
                                     {
-                                        // collect player stats for submission
-                                        event_collectPlayerStats(rowId);
+
+                                        (new PlayerStatsManager()).CollectPlayerStats(_state, rowId);
+
                                     }
 
                                     // important for clearing stupid map cycle shit
@@ -385,9 +396,9 @@ namespace HawkSync_SM
                                             {
                                                 log.Info("Instance " + rowId + " is running the Loading Process Handler.");
                                             }
-                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
+                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, _state.ChatLogs[rowId]);
                                             postGameProcess.Run();
-
+                                            
                                             _state.ChatLogs[rowId].Messages.Clear();
                                             _state.ChatLogs[rowId].CurrentIndex = 0;
                                         }
@@ -400,13 +411,13 @@ namespace HawkSync_SM
                                     {
                                         if (instance.IsRunningScoringGameProcesses == false)
                                         {
+                                            instance.IsRunningScoringGameProcesses = true;
                                             if (ProgramConfig.ApplicationDebug)
                                             {
                                                 log.Info("Instance " + rowId + " is running the Scoring Process Handler.");
                                             }
-                                            ScoringGameProcess postGameProcess = new ScoringGameProcess(_state, rowId, _state.ChatLogs[rowId], _state.PlayerStats[item.Key]);
+                                            ScoringGameProcess postGameProcess = new ScoringGameProcess(_state, rowId);
                                             postGameProcess.Run();
-                                            instance.IsRunningScoringGameProcesses = true;
                                         }
                                     }
 
@@ -659,7 +670,7 @@ namespace HawkSync_SM
                             };
 
                             // Initialize collectPlayerStats
-                            var collectPlayerStats = new CollectedPlayerStatsPlayers { Player = new Dictionary<string, CollectedPlayerStats>() };
+                            //var collectPlayerStats = new CollectedPlayerStatsPlayers { Player = new Dictionary<string, CollectedPlayerStats>() };
 
                             // Get instanceId
                             int instanceId = _state.Instances.Count;
@@ -670,7 +681,7 @@ namespace HawkSync_SM
                             {
                                 if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
                                 {
-                                    event_getChatLogs(instanceId);
+                                    //event_getChatLogs(instanceId);
                                 }
                             };
 
@@ -722,7 +733,7 @@ namespace HawkSync_SM
 
                             // Add instance to AppState
                             _state.Instances.Add(_state.Instances.Count, instance);
-                            _state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
+                            //_state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
 
                             // Start chat handler timer
                             _state.ChatHandlerTimer[instanceId].Start();
@@ -884,8 +895,6 @@ namespace HawkSync_SM
             _state.RCLogs = get_RCActionLogs(hawkSyncDB);
             _state.Users = onload_getUsersFromDB(hawkSyncDB);
 
-            // Plan to remove or change.
-            _state.yearlystats = onload_getStatsFromDB(hawkSyncDB);
             _state.adminChatMsgs = onload_getAdminChatMsgs(hawkSyncDB);
             _state.SystemInfo = GatherSystemInfo();
             _state.autoRes = SetupAutoRestart(hawkSyncDB);
@@ -1096,7 +1105,6 @@ namespace HawkSync_SM
 
                         _state.Instances.Remove(id);
                         _state.ChatLogs.Remove(id);
-                        _state.PlayerStats.Remove(id);
                         _state.IPQualityCache.Remove(id);
                         table_profileList.Rows.Remove(instance);
 
@@ -1205,13 +1213,13 @@ namespace HawkSync_SM
             var warningQueue = _state.Instances[instanceid].WarningQueue;
             var playerList = _state.Instances[instanceid].PlayerList;
 
-            while (warningQueue.Count > 0)
-            {
-                var item = warningQueue[0];
-                string playername = playerList[item.slot].name;
-                (new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[2], $"WARNING!!! {playername} - {item.warningMsg}");
-                warningQueue.RemoveAt(0);
-            }
+            //while (warningQueue.Count > 0)
+            //{
+                //var item = warningQueue[0];
+                //string playername = playerList[item.slot].name;
+                //(new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[2], $"WARNING!!! {playername} - {item.warningMsg}");
+                //warningQueue.RemoveAt(0);
+            //}
         }
 
         private void event_getChatLogs(int profileid)
@@ -1345,119 +1353,7 @@ namespace HawkSync_SM
 
             table_profileList.Rows.CopyTo(row.ItemArray, key);
         }
-        public void event_collectPlayerStats(int InstanceID)
-        {
-            foreach (var item in _state.Instances[InstanceID].PlayerList)
-            {
-                var key = item.Key;
-                var val = item.Value;
 
-                if (!_state.PlayerStats[InstanceID].Player.ContainsKey(val.name))
-                {
-                    // add each weapon they currently have
-                    Dictionary<string, InternalWeaponStats> weaponStats = new Dictionary<string, InternalWeaponStats>();
-                    foreach (var weapon in _state.Instances[InstanceID].PlayerList[key].weapons)
-                    {
-                        weaponStats.Add(weapon, new InternalWeaponStats
-                        {
-
-                        });
-                    }
-                    // create new player object
-                    _state.PlayerStats[InstanceID].Player.Add(val.name, new CollectedPlayerStats
-                    {
-                        kills = val.kills,
-                        deaths = val.deaths,
-                        zonetime = val.zonetime,
-                        zonekills = val.zonekills,
-                        zonedefendkills = val.zonedefendkills,
-                        playerrevives = val.playerrevives,
-                        team = val.team.ToString(),
-                        flagcaptures = val.flagcaptures,
-                        suicides = val.suicides,
-                        teamkills = val.teamkills,
-                        headshots = val.headshots,
-                        knifekills = val.knifekills,
-                        revives = val.revives,
-                        pspattempts = val.pspattempts,
-                        psptakeover = val.psptakeover,
-                        doublekills = val.doublekills,
-                        flagcarrierkills = val.flagcarrierkills,
-                        flagcarrierdeaths = val.flagcarrierdeaths,
-                        exp = val.exp,
-                        ADTargetsDestroyed = val.ADTargetsDestroyed,
-                        FlagSaves = val.FlagSaves,
-                        totalshots = val.totalshots,
-                        PlayerClass = val.PlayerClass,
-                        sniperkills = val.sniperkills,
-                        tkothdefensekills = val.tkothdefensekills,
-                        tkothattackkills = val.tkothattackkills,
-                        weaponStats = weaponStats
-                    });
-                }
-                else
-                {
-                    Dictionary<string, InternalWeaponStats> weaponStats = _state.PlayerStats[InstanceID].Player[val.name].weaponStats;
-
-                    if (_state.PlayerStats[InstanceID].Player[val.name].weaponStats.ContainsKey(val.selectedWeapon))
-                    {
-                        _state.PlayerStats[InstanceID].Player[val.name].weaponStats[val.selectedWeapon].kills += (val.kills - (val.kills - _state.PlayerStats[InstanceID].Player[val.name].weaponStats[val.selectedWeapon].kills));
-                        _state.PlayerStats[InstanceID].Player[val.name].weaponStats[val.selectedWeapon].shotsfired += (val.totalshots - (val.totalshots - _state.PlayerStats[InstanceID].Player[val.name].weaponStats[val.selectedWeapon].shotsfired));
-                    }
-                    else
-                    {
-                        _state.PlayerStats[InstanceID].Player[val.name].weaponStats.Add(val.selectedWeapon, new InternalWeaponStats());
-                    }
-
-                    // update existing player object...
-                    _state.PlayerStats[InstanceID].Player[val.name].ADTargetsDestroyed += (val.ADTargetsDestroyed - _state.PlayerStats[InstanceID].Player[val.name].ADTargetsDestroyed);
-                    _state.PlayerStats[InstanceID].Player[val.name].kills += (val.kills - _state.PlayerStats[InstanceID].Player[val.name].kills);
-                    _state.PlayerStats[InstanceID].Player[val.name].deaths += (val.deaths - _state.PlayerStats[InstanceID].Player[val.name].deaths);
-                    _state.PlayerStats[InstanceID].Player[val.name].zonetime += (val.zonetime - _state.PlayerStats[InstanceID].Player[val.name].zonetime);
-                    _state.PlayerStats[InstanceID].Player[val.name].zonekills += (val.zonekills - _state.PlayerStats[InstanceID].Player[val.name].zonekills);
-                    _state.PlayerStats[InstanceID].Player[val.name].zonedefendkills += (val.zonedefendkills - _state.PlayerStats[InstanceID].Player[val.name].zonedefendkills);
-                    _state.PlayerStats[InstanceID].Player[val.name].playerrevives += (val.playerrevives - _state.PlayerStats[InstanceID].Player[val.name].playerrevives);
-                    _state.PlayerStats[InstanceID].Player[val.name].team = val.team.ToString();
-                    _state.PlayerStats[InstanceID].Player[val.name].flagcaptures += (val.flagcaptures - _state.PlayerStats[InstanceID].Player[val.name].flagcaptures);
-                    _state.PlayerStats[InstanceID].Player[val.name].suicides += (val.suicides - _state.PlayerStats[InstanceID].Player[val.name].suicides);
-                    _state.PlayerStats[InstanceID].Player[val.name].teamkills += (val.teamkills - _state.PlayerStats[InstanceID].Player[val.name].teamkills);
-                    _state.PlayerStats[InstanceID].Player[val.name].headshots += (val.headshots - _state.PlayerStats[InstanceID].Player[val.name].headshots);
-                    _state.PlayerStats[InstanceID].Player[val.name].knifekills += (val.knifekills - _state.PlayerStats[InstanceID].Player[val.name].knifekills);
-                    _state.PlayerStats[InstanceID].Player[val.name].revives += (val.revives - _state.PlayerStats[InstanceID].Player[val.name].revives);
-                    _state.PlayerStats[InstanceID].Player[val.name].pspattempts += (val.pspattempts - _state.PlayerStats[InstanceID].Player[val.name].pspattempts);
-                    _state.PlayerStats[InstanceID].Player[val.name].psptakeover += (val.psptakeover - _state.PlayerStats[InstanceID].Player[val.name].psptakeover);
-                    _state.PlayerStats[InstanceID].Player[val.name].doublekills += (val.doublekills - _state.PlayerStats[InstanceID].Player[val.name].doublekills);
-                    _state.PlayerStats[InstanceID].Player[val.name].flagcarrierkills += (val.flagcarrierkills - _state.PlayerStats[InstanceID].Player[val.name].flagcarrierkills);
-                    _state.PlayerStats[InstanceID].Player[val.name].flagcarrierdeaths += (val.flagcarrierdeaths - _state.PlayerStats[InstanceID].Player[val.name].flagcarrierdeaths);
-                    _state.PlayerStats[InstanceID].Player[val.name].exp += (val.exp - _state.PlayerStats[InstanceID].Player[val.name].exp);
-                    _state.PlayerStats[InstanceID].Player[val.name].FlagSaves += (val.FlagSaves - _state.PlayerStats[InstanceID].Player[val.name].FlagSaves);
-                    _state.PlayerStats[InstanceID].Player[val.name].sniperkills += (val.sniperkills - _state.PlayerStats[InstanceID].Player[val.name].sniperkills);
-                    _state.PlayerStats[InstanceID].Player[val.name].totalshots += (val.totalshots - _state.PlayerStats[InstanceID].Player[val.name].totalshots);
-                    _state.PlayerStats[InstanceID].Player[val.name].tkothdefensekills += (val.tkothdefensekills - _state.PlayerStats[InstanceID].Player[val.name].tkothdefensekills);
-                    _state.PlayerStats[InstanceID].Player[val.name].tkothattackkills += (val.tkothattackkills - _state.PlayerStats[InstanceID].Player[val.name].tkothattackkills);
-                    _state.PlayerStats[InstanceID].Player[val.name].PlayerClass = val.PlayerClass;
-
-                    // _state.PlayerStats[InstanceID].Player[val.name].weaponStats = weaponStats;
-                }
-
-                // HOOK: detect disconnected player & remove vote
-                bool found = false;
-                int i = -1;
-                foreach (var vote in _state.Instances[InstanceID].VoteMapsTally)
-                {
-                    i++;
-                    if (vote.PlayerName == item.Value.name)
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found == false)
-                {
-                    _state.Instances[InstanceID].VoteMapsTally.RemoveAt(i);
-                }
-            }
-        }
 
         // Main_Profile On Change Events
         private void serverProfiles_SelectionChanged(object sender, EventArgs e)
@@ -1806,45 +1702,6 @@ namespace HawkSync_SM
 
             return playerBanList;
         }
-
-        // Functions to Remove
-        private Dictionary<int, monthlystats> onload_getStatsFromDB(SQLiteConnection gametype_db)
-        {
-            Dictionary<int, monthlystats> stats = new Dictionary<int, monthlystats>();
-
-            using (SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM `monthlystats` WHERE `year` = @year;", gametype_db))
-            {
-                cmd.Parameters.AddWithValue("@year", DateTime.Now.Year);
-
-                using (SQLiteDataReader read = cmd.ExecuteReader())
-                {
-                    while (read.Read())
-                    {
-                        int year = read.GetInt32(read.GetOrdinal("year"));
-                        int month = read.GetInt32(read.GetOrdinal("month"));
-                        int day = read.GetInt32(read.GetOrdinal("day"));
-                        int count = read.GetInt32(read.GetOrdinal("count"));
-
-                        if (!stats.TryGetValue(year, out var yearlyStats))
-                        {
-                            yearlyStats = new monthlystats { monthstat = new Dictionary<int, daystat>() };
-                            stats[year] = yearlyStats;
-                        }
-
-                        if (!yearlyStats.monthstat.TryGetValue(month, out var monthlyStats))
-                        {
-                            monthlyStats = new daystat { daystats = new List<day>() };
-                            yearlyStats.monthstat[month] = monthlyStats;
-                        }
-
-                        monthlyStats.daystats.Add(new day { Day = day, Count = count });
-                    }
-                }
-            }
-
-            return stats;
-        }
-
 
         // RC Control Functions //
         /*

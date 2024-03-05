@@ -106,15 +106,6 @@
     <Compile Include="classes\ChatManagement\ChatManagement.cs" />
     <Compile Include="classes\ChatManagement\ob_AdminChatMsgs.cs" />
     <Compile Include="classes\adminnotes.cs" />
-    <Compile Include="Api\classes\ApiClass.cs" />
-    <Compile Include="Api\classes\ApiFunctions.cs" />
-    <Compile Include="Api\v1\AdminChatAPI.cs" />
-    <Compile Include="Api\v1\AutoMessageController.cs" />
-    <Compile Include="Api\v1\OptionsController.cs" />
-    <Compile Include="Api\v1\DashboardStatsController.cs" />
-    <Compile Include="Api\v1\InstanceController.cs" />
-    <Compile Include="Api\v1\PlayerManager.cs" />
-    <Compile Include="Api\v1\UserController.cs" />
     <Compile Include="AppState.cs" />
     <Compile Include="classes\IPManagement\FirewallManagement.cs" />
     <Compile Include="classes\IPManagement\IPManagement.cs" />
@@ -127,6 +118,7 @@
     <Compile Include="classes\PlayerManagement\ob_playerChangeTeamList.cs" />
     <Compile Include="classes\PlayerManagement\PlayerManagement.cs" />
     <Compile Include="classes\Plugins\pl_VoteMaps\pluginVoteMaps.cs" />
+    <Compile Include="classes\StatManagement\PlayerStats.cs" />
     <Compile Include="classes\StatManagement\statsBabstats.cs" />
     <Compile Include="Panels\ChatHistory.cs">
       <SubType>Form</SubType>
@@ -148,8 +140,6 @@
     <Compile Include="classes\SystemInfoClass.cs" />
     <Compile Include="classes\Plugins\VoteMapsTally.cs" />
     <Compile Include="classes\Plugins\WelcomePlayer.cs" />
-    <Compile Include="classes\StatManagement\CollectedPlayerStats.cs" />
-    <Compile Include="classes\StatManagement\CollectedPlayerStatsPlayers.cs" />
     <Compile Include="classes\SupportClasses\Crypt.cs" />
     <Compile Include="classes\MapManagement\CustomMap.cs" />
     <Compile Include="Panels\SM_ServerProfile.cs">
@@ -168,7 +158,6 @@
     <Compile Include="classes\IPManagement\ipqualityClass.cs" />
     <Compile Include="classes\IPManagement\ipqualityscore.cs" />
     <Compile Include="classes\MapManagement\MapList.cs" />
-    <Compile Include="classes\StatManagement\monthlystats.cs" />
     <Compile Include="classes\PlayerManagement\ob_playerBanList.cs" />
     <Compile Include="classes\ChatManagement\ob_PlayerChatLog.cs" />
     <Compile Include="classes\PlayerManagement\ob_playerHistory.cs" />
@@ -456,6 +445,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -11,10 +11,8 @@ namespace HawkSync_SM
     {
         public Dictionary<int, Instance> Instances { get; set; }
         public Dictionary<int, ipqualityscore> IPQualityCache { get; set; }
-        public Dictionary<int, CollectedPlayerStatsPlayers> PlayerStats { get; set; }
         public Dictionary<int, ob_ChatLogs> ChatLogs { get; set; }
         public Dictionary<string, UserCodes> Users { get; set; }
-        public Dictionary<int, monthlystats> yearlystats { get; set; }
         public List<ob_AdminChatMsgs> adminChatMsgs { get; set; }
         public SystemInfoClass SystemInfo { get; set; }
         public autoRes autoRes { get; set; }
@@ -36,13 +34,9 @@ namespace HawkSync_SM
 
             IPQualityCache = new Dictionary<int, ipqualityscore>();
 
-            PlayerStats = new Dictionary<int, CollectedPlayerStatsPlayers>();
-
             ChatLogs = new Dictionary<int, ob_ChatLogs>();
 
             Users = new Dictionary<string, UserCodes>();
-
-            yearlystats = new Dictionary<int, monthlystats>();
 
             adminChatMsgs = new List<ob_AdminChatMsgs>();
 

@@ -45,30 +45,28 @@ namespace HawkSync_SM
 
         AppState _state;
         int ArrayID = -1;
-        ob_ChatLogs _chatLogs;
-        CollectedPlayerStatsPlayers _collectedPlayerStats;
 
-        public ScoringGameProcess(AppState state, int InstanceID, ob_ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public ScoringGameProcess(AppState state, int InstanceID)
         {
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
-            _chatLogs = chatlogs;
             ArrayID = InstanceID;
-            _collectedPlayerStats = collectedPlayerStats;
             _connection.Open();
         }
 
         public void Run()
         {
-            if (_state.Instances[ArrayID].WebStatsSoftware == 2)
-            {
-                statsBabstats _statsBabstats = new statsBabstats();
-                _statsBabstats.generateBabstats_EOM(_state, ArrayID);
-            }
+            SendStats();
             IncrementMapCounter();
             ChangeGameType();
             OverrideScoreBoard();
             _connection.Close();
+        }
+
+        private void SendStats()
+        {
+            statsBabstats sendBabstats = new statsBabstats();
+            sendBabstats.sendBabstatsImportData(_state, ArrayID);
         }
 
         private void UpdateGameScores()
@@ -133,40 +131,6 @@ namespace HawkSync_SM
         private void IncrementMapCounter()
         {
             _state.Instances[ArrayID].mapCounter++;
-        }
-
-        private void SendStats()
-        {
-            if (_state.Instances[ArrayID].EnableWebStats == false || (_state.Instances[ArrayID].WebstatsURL == "" || _state.Instances[ArrayID].WebstatsURL == null || _state.Instances[ArrayID].WebstatsURL == "0") && _state.Instances[ArrayID].collectPlayerStats == false)
-            {
-                return;
-            }
-            Dictionary<dynamic, dynamic> submit = new Dictionary<dynamic, dynamic>
-            {
-                { "playerstats", _collectedPlayerStats }
-            };
-
-            string webStatsURL = _state.Instances[ArrayID].WebstatsURL.TrimEnd('/');
-
-            string submitString = JsonConvert.SerializeObject(submit);
-            byte[] json2Bytes = Encoding.Default.GetBytes(submitString);
-
-            string base64Encode = Convert.ToBase64String(json2Bytes);
-            string queryString = "action=submitstats";
-            queryString += $"&playerstats={base64Encode}";
-
-
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-            WebClient WebStatsClient = new WebClient();
-            WebStatsClient.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-            WebStatsClient.Headers.Add("User-Agent", "Babstats Program");
-            //Console.WriteLine(submitString);
-            _collectedPlayerStats.Player.Clear(); // clear after submission to prevent send the SAME+more stats.
-            string result = WebStatsClient.UploadString(_state.Instances[ArrayID].WebstatsURL + "/updatestats.php", queryString);
-            WebStatsClient.Dispose();
-            //master_server list = JsonConvert.DeserializeObject<master_server>(result);
         }
 
         private void ChangeGameType()

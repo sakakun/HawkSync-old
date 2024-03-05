@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HawkSync_SM.classes.StatManagement;
+using System;
 using System.Data.SQLite;
 using System.Runtime.InteropServices;
 
@@ -41,37 +42,29 @@ namespace HawkSync_SM
 
         AppState _state;
         ob_ChatLogs _chatLogs;
-        CollectedPlayerStatsPlayers _collectedPlayerStats;
         int ArrayID = 0;
 
-        public PostGameProcess(AppState state, int instanceid, ob_ChatLogs chatlogs, CollectedPlayerStatsPlayers collectedPlayerStats)
+        public PostGameProcess(AppState state, int instanceid, ob_ChatLogs chatlogs)
         {
             ArrayID = instanceid;
 
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
             _chatLogs = chatlogs;
-            _collectedPlayerStats = collectedPlayerStats;
             _connection.Open();
 
         }
         public void Run()
         {
             InsertChatLogs();
-            SendStats();
             ResetPlayers();
-            ResetVoteMaps();
             _connection.Close();
-        }
-
-        private void ResetVoteMaps()
-        {
-            _state.Instances[ArrayID].VoteMapStandBy = false;
         }
 
         private void ResetPlayers()
         {
-
+            // Clear the Player Stats
+            _state.Instances[ArrayID].playerStats.Clear();
         }
 
         private void InsertChatLogs()
@@ -91,9 +84,5 @@ namespace HawkSync_SM
             }
         }
 
-        private void SendStats()
-        {
-
-        }
     }
 }

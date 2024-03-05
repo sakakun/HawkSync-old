@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Results;
 using static System.Windows.Forms.AxHost;
@@ -351,79 +353,57 @@ namespace HawkSync_SM.classes.StatManagement
             string ServerLine = line_ServerID();
             string GameLine = line_GameInfo();
             string playerLines = "";
-            foreach (var player in _state.Instances[instanceID].PlayerList)
+
+            foreach (var player in _state.Instances[instanceID].playerStats)
             {
-                /* PlayerStats #13 #14 #15 #16 #17 #18 #19 #20 #21 #22 #23 #24 #25 #26 #27 #28 #29 #30 #31 #32 #33 #34 #35 #36 #37 #38 #39 #40
-                 * #13 = suicides
-                   #14 = murders
-                   #15 = kills
-                   #16 = deaths
-                   #17 = zonetime
-                   #18 = flags
-                   #19 = flagsaves
-                   #20 = targets
-                   #21 = revives
-                   #22 = medsaves
-                   #23 = pspattempts
-                   #24 = psptakeovers
-                   #25 = flagcarrierkills
-                   #26 = doublekills
-                   #27 = headshots
-                   #28 = knifings
-                   #29 = sniperkills
-                   #30 = tkothattackkills
-                   #31 = tkothdefendkills
-                   #32 = sdaddefendkills
-                   #33 = sdadpolicekills
-                   #34 = sdadattackkills
-                   #35 = sdadsecurekills
-                   #36 = shotsperkill
-                   #37 = experience
-                   #38 = team
-                   #39 = playedtillend
-                   #40 = timer
-                 *
-                 */
-                string v01 = player.Value.suicides.ToString();
-                string v02 = player.Value.teamkills.ToString();
-                string v03 = player.Value.kills.ToString();
-                string v04 = player.Value.deaths.ToString();
-                string v05 = player.Value.zonetime.ToString();
-                string v06 = player.Value.flagcaptures.ToString();
-                string v07 = player.Value.FlagSaves.ToString();
-                string v08 = player.Value.ADTargetsDestroyed.ToString();
-                string v09 = player.Value.revives.ToString();
-                string v10 = player.Value.playerrevives.ToString();
-                string v11 = player.Value.pspattempts.ToString();
-                string v12 = player.Value.psptakeover.ToString();
-                string v13 = player.Value.flagcarrierkills.ToString();
-                string v14 = player.Value.doublekills.ToString();
-                string v15 = player.Value.headshots.ToString();
-                string v16 = player.Value.knifekills.ToString();
-                string v17 = player.Value.sniperkills.ToString();
-                string v18 = player.Value.tkothattackkills.ToString(); // tkothattackkills
-                string v19 = player.Value.tkothdefensekills.ToString(); // tkothdefendkills
+
+                ob_playerList stats = player.Value.PlayerData;
+                int timer = (player.Value.LastSeen - player.Value.FirstSeen).Seconds;
+
+                string v01 = stats.suicides.ToString();
+                string v02 = stats.teamkills.ToString();
+                string v03 = stats.kills.ToString();
+                string v04 = stats.deaths.ToString();
+                string v05 = stats.zonetime.ToString();
+                string v06 = stats.flagcaptures.ToString();
+                string v07 = stats.FlagSaves.ToString();
+                string v08 = stats.ADTargetsDestroyed.ToString();
+                string v09 = stats.revives.ToString();
+                string v10 = stats.playerrevives.ToString();
+                string v11 = stats.pspattempts.ToString();
+                string v12 = stats.psptakeover.ToString();
+                string v13 = stats.flagcarrierkills.ToString();
+                string v14 = stats.doublekills.ToString();
+                string v15 = stats.headshots.ToString();
+                string v16 = stats.knifekills.ToString();
+                string v17 = stats.sniperkills.ToString();
+                string v18 = stats.tkothattackkills.ToString(); // tkothattackkills
+                string v19 = stats.tkothdefensekills.ToString(); // tkothdefendkills
                 string v20 = "0"; // sdaddefendkills
                 string v21 = "0"; // sdadpolicekills
                 string v22 = "0"; // sdadattackkills
                 string v23 = "0"; // sdadsecurekills
-                string v24 = (player.Value.totalshots / player.Value.kills).ToString();
-                string v25 = player.Value.exp.ToString();
-                string v26 = player.Value.team.ToString();
-                string v27 = "1"; // playedtillend technically, and player that is in the active player list EOM.
-                string v28 = "0"; // timer seconds
-                playerLines += $"Player {player.Value.name}__&__{player.Value.address}\n";
+                string v24 = stats.kills > 0 ? (stats.totalshots / stats.kills).ToString() : "0";
+                string v25 = stats.exp.ToString();
+                string v26 = stats.team.ToString();
+                string v27 = "1";
+                string v28 = timer.ToString(); // timer seconds
+                playerLines += $"Player {stats.name}__&__{stats.address}\n";
                 playerLines += $"PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}";
+
             }
 
             Console.WriteLine(ServerLine);
             Console.WriteLine(GameLine);
+            Console.WriteLine(playerLines);
 
         }
 
-        public void sendBabstatsData()
+        public void sendBabstatsImportData(AppState state, int instanceID)
         {
-            // Take data from generateBabstats_EOM or generateBabstats_APM to send to specified Babstats Server via POST.
+
+            this.generateBabstats_EOM(state, instanceID);
+            
         }
     }
 }

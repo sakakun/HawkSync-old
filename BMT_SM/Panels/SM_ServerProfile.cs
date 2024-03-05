@@ -123,7 +123,7 @@ namespace HawkSync_SM
                     CurrentIndex = 0,
                     Messages = new BindingList<ob_PlayerChatLog>()
                 });
-                _state.PlayerStats.Add(_state.PlayerStats.Count, new CollectedPlayerStatsPlayers());
+                //_state.PlayerStats.Add(_state.PlayerStats.Count, new CollectedPlayerStatsPlayers());
                 _state.IPQualityCache.Add(_state.IPQualityCache.Count, new ipqualityscore());
 
 

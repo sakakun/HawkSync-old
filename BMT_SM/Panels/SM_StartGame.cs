@@ -198,7 +198,7 @@ namespace HawkSync_SM
                 string server_password = textBox_serverPassword.Text;
                 int session_type = 0;
                 int max_slots = Convert.ToInt32(comboBox_maxPlayers.SelectedItem);
-                int start_delay = comboBox_startDelay.SelectedIndex;
+                int start_delay = Convert.ToInt32(comboBox_startDelay.Text);
                 int loop_maps;
                 if (checkBox_loopMaps.Checked)
                 {
