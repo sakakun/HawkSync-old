@@ -33,6 +33,7 @@ namespace HawkSync_RC
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RC_ServerManager));
             this.serverManager_container = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -126,7 +127,7 @@ namespace HawkSync_RC
             this.gb_GamePlay = new System.Windows.Forms.GroupBox();
             this.cb_Tracers = new System.Windows.Forms.CheckBox();
             this.label_flagReturnTimer = new System.Windows.Forms.Label();
-            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.num_flagReturn = new System.Windows.Forms.NumericUpDown();
             this.num_MaxTeamLives = new System.Windows.Forms.NumericUpDown();
             this.cb_TeamClays = new System.Windows.Forms.CheckBox();
             this.label_maxTeamLives = new System.Windows.Forms.Label();
@@ -212,7 +213,7 @@ namespace HawkSync_RC
             this.listBox_AutoMessages = new System.Windows.Forms.ListBox();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
-            this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -222,7 +223,6 @@ namespace HawkSync_RC
             this.toolStripMenuItem130 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem131 = new System.Windows.Forms.ToolStripMenuItem();
             this.cm_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.playerListMenu_tempBan = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_1Day = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_2Day = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,6 +234,7 @@ namespace HawkSync_RC
             this.StripMenu_2Week = new System.Windows.Forms.ToolStripMenuItem();
             this.StripMenu_1Month = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_permBanPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.playerListMenu_changeTeams = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_spectate = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_Seperator = new System.Windows.Forms.ToolStripSeparator();
@@ -377,7 +378,7 @@ namespace HawkSync_RC
             this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripMenuItem();
@@ -418,7 +419,7 @@ namespace HawkSync_RC
             ((System.ComponentModel.ISupportInitialize)(this.num_minPing)).BeginInit();
             this.gb_misc.SuspendLayout();
             this.gb_GamePlay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_flagReturn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_MaxTeamLives)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_pspTimer)).BeginInit();
             this.gb_FriendlyFire.SuspendLayout();
@@ -1442,7 +1443,7 @@ namespace HawkSync_RC
             // 
             this.gb_GamePlay.Controls.Add(this.cb_Tracers);
             this.gb_GamePlay.Controls.Add(this.label_flagReturnTimer);
-            this.gb_GamePlay.Controls.Add(this.numericUpDown12);
+            this.gb_GamePlay.Controls.Add(this.num_flagReturn);
             this.gb_GamePlay.Controls.Add(this.num_MaxTeamLives);
             this.gb_GamePlay.Controls.Add(this.cb_TeamClays);
             this.gb_GamePlay.Controls.Add(this.label_maxTeamLives);
@@ -1475,13 +1476,13 @@ namespace HawkSync_RC
             this.label_flagReturnTimer.TabIndex = 16;
             this.label_flagReturnTimer.Text = "Flag Return Time";
             // 
-            // numericUpDown12
+            // num_flagReturn
             // 
-            this.numericUpDown12.Location = new System.Drawing.Point(116, 39);
-            this.numericUpDown12.Name = "numericUpDown12";
-            this.numericUpDown12.Size = new System.Drawing.Size(48, 20);
-            this.numericUpDown12.TabIndex = 26;
-            this.numericUpDown12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_flagReturn.Location = new System.Drawing.Point(116, 39);
+            this.num_flagReturn.Name = "num_flagReturn";
+            this.num_flagReturn.Size = new System.Drawing.Size(48, 20);
+            this.num_flagReturn.TabIndex = 26;
+            this.num_flagReturn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // num_MaxTeamLives
             // 
@@ -2522,11 +2523,6 @@ namespace HawkSync_RC
             this.cm_kickPlayer.Size = new System.Drawing.Size(159, 22);
             this.cm_kickPlayer.Text = "Kick Player";
             // 
-            // toolStripSeparator
-            // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(206, 6);
-            // 
             // playerListMenu_tempBan
             // 
             this.playerListMenu_tempBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2546,55 +2542,55 @@ namespace HawkSync_RC
             // StripMenu_1Day
             // 
             this.StripMenu_1Day.Name = "StripMenu_1Day";
-            this.StripMenu_1Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_1Day.Text = "1 Day";
             // 
             // StripMenu_2Day
             // 
             this.StripMenu_2Day.Name = "StripMenu_2Day";
-            this.StripMenu_2Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_2Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_2Day.Text = "2 Days";
             // 
             // StripMenu_3Day
             // 
             this.StripMenu_3Day.Name = "StripMenu_3Day";
-            this.StripMenu_3Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_3Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_3Day.Text = "3 Days";
             // 
             // StripMenu_4Day
             // 
             this.StripMenu_4Day.Name = "StripMenu_4Day";
-            this.StripMenu_4Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_4Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_4Day.Text = "4 Days";
             // 
             // StripMenu_5Day
             // 
             this.StripMenu_5Day.Name = "StripMenu_5Day";
-            this.StripMenu_5Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_5Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_5Day.Text = "5 Days";
             // 
             // StripMenu_6Day
             // 
             this.StripMenu_6Day.Name = "StripMenu_6Day";
-            this.StripMenu_6Day.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_6Day.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_6Day.Text = "6 Days";
             // 
             // StripMenu_1Week
             // 
             this.StripMenu_1Week.Name = "StripMenu_1Week";
-            this.StripMenu_1Week.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Week.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_1Week.Text = "1 Week";
             // 
             // StripMenu_2Week
             // 
             this.StripMenu_2Week.Name = "StripMenu_2Week";
-            this.StripMenu_2Week.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_2Week.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_2Week.Text = "2 Weeks";
             // 
             // StripMenu_1Month
             // 
             this.StripMenu_1Month.Name = "StripMenu_1Month";
-            this.StripMenu_1Month.Size = new System.Drawing.Size(180, 22);
+            this.StripMenu_1Month.Size = new System.Drawing.Size(119, 22);
             this.StripMenu_1Month.Text = "1 Month";
             // 
             // playerListMenu_permBanPlayer
@@ -2604,6 +2600,11 @@ namespace HawkSync_RC
             this.playerListMenu_permBanPlayer.Name = "playerListMenu_permBanPlayer";
             this.playerListMenu_permBanPlayer.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_permBanPlayer.Text = "Perm Ban";
+            // 
+            // toolStripSeparator
+            // 
+            this.toolStripSeparator.Name = "toolStripSeparator";
+            this.toolStripSeparator.Size = new System.Drawing.Size(57, 6);
             // 
             // playerListMenu_changeTeams
             // 
@@ -3452,7 +3453,7 @@ namespace HawkSync_RC
             this.gb_misc.PerformLayout();
             this.gb_GamePlay.ResumeLayout(false);
             this.gb_GamePlay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_flagReturn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_MaxTeamLives)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_pspTimer)).EndInit();
             this.gb_FriendlyFire.ResumeLayout(false);
@@ -3589,7 +3590,7 @@ namespace HawkSync_RC
         private System.Windows.Forms.TabPage tabPage9;
         private System.Windows.Forms.GroupBox gb_GamePlay;
         private System.Windows.Forms.Label label_flagReturnTimer;
-        private System.Windows.Forms.NumericUpDown numericUpDown12;
+        private System.Windows.Forms.NumericUpDown num_flagReturn;
         private System.Windows.Forms.NumericUpDown num_MaxTeamLives;
         private System.Windows.Forms.Label label_maxTeamLives;
         private System.Windows.Forms.NumericUpDown num_pspTimer;

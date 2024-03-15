@@ -138,30 +138,43 @@ namespace HawkSync_RC
             foreach (var warning in _state.Instances[ArrayID].CustomWarnings)
                 listBox_playerWarnMessages.Items.Add(warning);
 
-            // server settings
-            rcT_serverName.Text = _state.Instances[ArrayID].ServerName;
-            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            // Country Codes
             foreach (var countryShortcode in _state.CountryCodes) rcCB_country.Items.Add(countryShortcode);
-            rcCB_country.SelectedItem = _state.Instances[ArrayID].CountryCode;
-            rcNum_maxSlots.Value = _state.Instances[ArrayID].MaxSlots;
-            rcT_serverPassword.Text = _state.Instances[ArrayID].Password;
+
+            rcNum_maxSlots.Minimum = 1;
+            rcNum_maxSlots.Maximum = 50;
             cb_timeLimit.Items.Insert(0, "No Limit");
-            for (var timelimit = 1; timelimit < 60; timelimit++) cb_timeLimit.Items.Add(timelimit);
+            for (var timelimit = 1; timelimit < 61; timelimit++) { cb_timeLimit.Items.Add(timelimit); }
+            cb_respawnTime.Items.Insert(0, "Instant Respawn");
+            for (var respawntime = 1; respawntime < 121; respawntime++) { cb_respawnTime.Items.Add(respawntime); }
+            foreach (var gametype in _state.autoRes.gameTypes)
+            { dropDown_mapSettingsGameType.Items.Add(gametype.Value.Name); }
+            dropDown_mapSettingsGameType.SelectedIndex = 0;
+
+            // server settings
+
+            rcT_serverName.Text = _state.Instances[ArrayID].ServerName;
+            rcT_serverPassword.Text = _state.Instances[ArrayID].Password;
+            rcCB_country.SelectedItem = _state.Instances[ArrayID].CountryCode;
+            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
+            rcNum_maxSlots.Value = _state.Instances[ArrayID].MaxSlots;
             cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            cb_timeLimit.Items.Insert(0, "Instant Respawn");
-            for (var respawntime = 1; respawntime < 121; respawntime++) cb_respawnTime.Items.Add(respawntime);
             cb_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].LoopMaps;
-            richTextBox1.Text = _state.Instances[ArrayID].MOTD;
-            cb_gameDedicated.Checked = Convert.ToBoolean(_state.Instances[ArrayID].Dedicated);
+            num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
+            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
+            cb_gameDedicated.Checked = _state.Instances[ArrayID].Dedicated;
             cb_requireNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
             cb_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
             cb_autoBalance.Checked = _state.Instances[ArrayID].AutoBalance;
+            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
+
+            richTextBox1.Text = _state.Instances[ArrayID].MOTD;
+
+
             text_bluePass.Text = _state.Instances[ArrayID].BluePassword;
             text_redPass.Text = _state.Instances[ArrayID].RedPassword;
-            cb_respawnTime.Items.Insert(0, "Instant Respawn");
-            for (var respawntime = 1; respawntime < 121; respawntime++) cb_respawnTime.Items.Add(respawntime);
-            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
+            
             checkBox40.Checked = _state.Instances[ArrayID].FriendlyFire;
             num_maxFriendKills.Value = _state.Instances[ArrayID].FriendlyFireKills;
             cb_showFriendTags.Checked = _state.Instances[ArrayID].FriendlyTags;
@@ -169,7 +182,7 @@ namespace HawkSync_RC
             cb_Tracers.Checked = _state.Instances[ArrayID].ShowTracers;
             cb_TeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
             cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
-            num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
+            
             num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
             num_scoreKOTH.Value = _state.Instances[ArrayID].KOTHScore;
             num_scoreDM.Value = _state.Instances[ArrayID].GameScore;
@@ -209,9 +222,7 @@ namespace HawkSync_RC
             cbl_weaponSelection.SetItemChecked(12, _state.Instances[ArrayID].WeaponRestrictions.WPN_CLAYMORE);
             cbl_weaponSelection.SetItemChecked(13, _state.Instances[ArrayID].WeaponRestrictions.WPN_AT4);
 
-            foreach (var gametype in _state.autoRes.gameTypes)
-                dropDown_mapSettingsGameType.Items.Add(gametype.Value.Name);
-            dropDown_mapSettingsGameType.SelectedIndex = 0;
+
             selectedMaps = new List<MapList>();
             foreach (var item in _state.Instances[ArrayID].MapList)
             {
@@ -229,6 +240,7 @@ namespace HawkSync_RC
 
             rb_chatAll.Checked = true;
             if (cb_chatPlayerSelect.Items.Count > 0) cb_chatPlayerSelect.Items.Clear();
+
             // All Chat Log
             ChatLogTable.Columns.Add("Date & Time");
             ChatLogTable.Columns.Add("Type");
@@ -1452,14 +1464,14 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating PSP Time.");
             }
 
-            if (numericUpDown12.Value != _state.Instances[ArrayID].FlagReturnTime)
+            if (num_flagReturn.Value != _state.Instances[ArrayID].FlagReturnTime)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateFlagReturnTime" },
                     { "serverID", _state.Instances[ArrayID].Id },
-                    { "FlagReturnTime", Convert.ToInt32(numericUpDown12.Value) }
+                    { "FlagReturnTime", Convert.ToInt32(num_flagReturn.Value) }
                 };
                 var response =
                     JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
@@ -1553,7 +1565,7 @@ namespace HawkSync_RC
             cb_TeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
             cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
             num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
-            numericUpDown12.Value = _state.Instances[ArrayID].FlagReturnTime;
+            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
             num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
             cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
             num_minPing.Value = _state.Instances[ArrayID].MinPingValue;

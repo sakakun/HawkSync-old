@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server_Manager", "BMT_SM\Server_Manager.csproj", "{CBB3EA58-FC06-420E-B6D2-76E6B2E6BF65}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3F013047-F563-4888-A81C-F47A73E32B78} = {3F013047-F563-4888-A81C-F47A73E32B78}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote_Control", "BMT_RC\Remote_Control.csproj", "{3F013047-F563-4888-A81C-F47A73E32B78}"
 EndProject

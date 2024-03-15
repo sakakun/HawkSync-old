@@ -51,12 +51,11 @@ namespace HawkSync_RC
 
             // end fill slot
             // maxkills
-            for (var maxkills = 1; maxkills < 501; maxkills++)
+            for (var maxkills = 0; maxkills < 501; maxkills++)
             {
                 comboBox_maxKills.Items.Add(maxkills);
                 comboBox_flagsScored.Items.Add(maxkills);
             }
-
             //end maxkills
             for (var zonetimer = 1; zonetimer < 61; zonetimer++)
             {
@@ -64,7 +63,11 @@ namespace HawkSync_RC
                 comboBox_timeLimit.Items.Add(zonetimer);
             }
 
-            for (var respawntime = 1; respawntime < 121; respawntime++) comboBox_respawnTime.Items.Add(respawntime);
+            for (var respawntime = 0; respawntime < 121; respawntime++)
+            {
+                comboBox_respawnTime.Items.Add(respawntime);
+            }
+
             textBox_serverName.Text = _state.Instances[ArrayID].ServerName;
             textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
             textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
@@ -74,8 +77,8 @@ namespace HawkSync_RC
             comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
             comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
-            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].MaxKills;
-            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].GameScore;
+            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].GameScore;
+            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].FBScore;
             comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
             comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
             comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
@@ -213,10 +216,10 @@ namespace HawkSync_RC
                 { "CountryCode", textBox_countryCode.Text },
                 { "password", textBox_serverPassword.Text },
                 { "SessionType", comboBox_sessionType.SelectedIndex },
-                { "MaxSlots", Convert.ToInt32(comboBox_maxPlayers.SelectedItem) },
+                { "MaxSlots", Convert.ToInt32(comboBox_maxPlayers.SelectedIndex) },
                 { "StartDelay", comboBox_startDelay.SelectedIndex },
-                { "MaxKills", comboBox_maxKills.SelectedIndex },
-                { "GameScore", comboBox_flagsScored.SelectedIndex },
+                { "GameScore", comboBox_maxKills.SelectedIndex },
+                { "FBScore", comboBox_flagsScored.SelectedIndex },
                 { "ZoneTimer", comboBox_zoneTimer.SelectedIndex },
                 { "RespawnTimer", comboBox_respawnTime.SelectedIndex },
                 { "TimeLimit", comboBox_timeLimit.SelectedIndex },

@@ -760,7 +760,7 @@ namespace HawkSync_SM
                     case "BMTRC.StartInstance":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
-                            reply.Add("Status", RCFunctions.StartInstance(json.serverID, json.ServerName, json.MOTD, json.CountryCode, json.password, json.SessionType, json.MaxSlots, json.StartDelay, json.StartLoopMaps, json.MaxKills, json.GameScore, json.ZoneTimer, json.RespawnTime, json.TimeLimit, json.RequireNovaLogin, json.WindowedMode, json.AllowCustomSkins, json.Dedicated, json.BluePassword, json.RedPassword, json.FriendlyFire, json.FriendlyFireWarning, json.FriendlyTags, json.AutoBalance, json.ShowTracers, json.ShowTeamClays, json.AllowAutoRange, json.MinPing, json.MinPingValue, json.MaxPing, json.MaxPingValue, 0, json.StartList, json.SessionID));
+                            reply.Add("Status", RCFunctions.StartInstance(json.serverID, json.ServerName, json.MOTD, json.CountryCode, json.password, json.SessionType, json.MaxSlots, json.StartDelay, json.StartLoopMaps, json.FBScore, json.GameScore, json.ZoneTimer, json.RespawnTime, json.TimeLimit, json.RequireNovaLogin, json.WindowedMode, json.AllowCustomSkins, json.Dedicated, json.BluePassword, json.RedPassword, json.FriendlyFire, json.FriendlyFireWarning, json.FriendlyTags, json.AutoBalance, json.ShowTracers, json.ShowTeamClays, json.AllowAutoRange, json.MinPing, json.MinPingValue, json.MaxPing, json.MaxPingValue, 0, json.StartList, json.SessionID));
                         }
                         else
                         {

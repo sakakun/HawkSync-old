@@ -1425,25 +1425,25 @@
   <data name="&gt;&gt;label_maxTeamLives.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="numericUpDown5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="num_flagReturn.Location" type="System.Drawing.Point, System.Drawing">
     <value>116, 39</value>
   </data>
-  <data name="numericUpDown5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="num_flagReturn.Size" type="System.Drawing.Size, System.Drawing">
     <value>48, 20</value>
   </data>
-  <data name="numericUpDown5.TabIndex" type="System.Int32, mscorlib">
+  <data name="num_flagReturn.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;numericUpDown5.Name" xml:space="preserve">
-    <value>numericUpDown5</value>
+  <data name="&gt;&gt;num_flagReturn.Name" xml:space="preserve">
+    <value>num_flagReturn</value>
   </data>
-  <data name="&gt;&gt;numericUpDown5.Type" xml:space="preserve">
+  <data name="&gt;&gt;num_flagReturn.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;numericUpDown5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;num_flagReturn.Parent" xml:space="preserve">
     <value>gb_GamePlay</value>
   </data>
-  <data name="&gt;&gt;numericUpDown5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;num_flagReturn.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="label_flagReturnTimer.AutoSize" type="System.Boolean, mscorlib">
@@ -2177,6 +2177,9 @@
   </data>
   <data name="cb_oneShotKills.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="cb_oneShotKills.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="cb_oneShotKills.Location" type="System.Drawing.Point, System.Drawing">
     <value>22, 21</value>
@@ -3167,6 +3170,12 @@
   </data>
   <data name="&gt;&gt;label_ServerPassword.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="smCB_sessionType.Items" xml:space="preserve">
+    <value>NovaWorld</value>
+  </data>
+  <data name="smCB_sessionType.Items1" xml:space="preserve">
+    <value>LAN</value>
   </data>
   <data name="smCB_sessionType.Location" type="System.Drawing.Point, System.Drawing">
     <value>301, 17</value>
@@ -4777,13 +4786,13 @@
     <value>17, 17</value>
   </metadata>
   <data name="toolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="toolStripMenuItem13.Text" xml:space="preserve">
     <value>Disarm Player</value>
   </data>
   <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>146, 22</value>
   </data>
   <data name="toolStripMenuItem14.Text" xml:space="preserve">
     <value>Rearm Player</value>
@@ -4975,7 +4984,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem2.Text" xml:space="preserve">
     <value>1 Day</value>
@@ -5053,7 +5062,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem3.Text" xml:space="preserve">
     <value>2 Days</value>
@@ -5131,7 +5140,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem4.Text" xml:space="preserve">
     <value>3 Days</value>
@@ -5209,7 +5218,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem5.Text" xml:space="preserve">
     <value>4 Days</value>
@@ -5287,7 +5296,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem6.Text" xml:space="preserve">
     <value>5 Days</value>
@@ -5365,7 +5374,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem7.Text" xml:space="preserve">
     <value>6 Days</value>
@@ -5443,7 +5452,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem8.Text" xml:space="preserve">
     <value>1 Week</value>
@@ -5521,7 +5530,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem9.Text" xml:space="preserve">
     <value>2 Weeks</value>
@@ -5599,7 +5608,7 @@
     <value>Custom Reason</value>
   </data>
   <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>119, 22</value>
   </data>
   <data name="toolStripMenuItem10.Text" xml:space="preserve">
     <value>1 Month</value>

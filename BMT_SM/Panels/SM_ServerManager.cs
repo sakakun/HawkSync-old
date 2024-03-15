@@ -349,6 +349,7 @@ namespace HawkSync_SM
                 }
             }
         }
+
         private void minPing_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_minPing.Checked)
@@ -2106,14 +2107,14 @@ namespace HawkSync_SM
                 //serverManagerUpdateMemory.UpdateScoreBoardDelay(_state, ArrayID);
             }
 
-            if ((Convert.ToInt32(numericUpDown5.Value) != _state.Instances[ArrayID].FlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].PSPTakeOverTime))
+            if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].FlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].PSPTakeOverTime))
             {
-                _state.Instances[ArrayID].FlagReturnTime = Convert.ToInt32(numericUpDown5.Value);
+                _state.Instances[ArrayID].FlagReturnTime = Convert.ToInt32(num_flagReturn.Value);
                 _state.Instances[ArrayID].PSPTakeOverTime = Convert.ToInt32(num_pspTimer.Value);
                 serverManagerUpdateMemory.UpdateFlagReturnTime(_state, ArrayID);
                 serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, ArrayID);
                 SQLiteCommand updateFlagReturnTimeCmd = new SQLiteCommand("UPDATE `instances_config` SET `flagreturntime` = @flagreturntime WHERE `profile_id` = @profileid;", db);
-                updateFlagReturnTimeCmd.Parameters.AddWithValue("@flagreturntime", Convert.ToInt32(numericUpDown5.Value));
+                updateFlagReturnTimeCmd.Parameters.AddWithValue("@flagreturntime", Convert.ToInt32(num_flagReturn.Value));
                 updateFlagReturnTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
                 updateFlagReturnTimeCmd.ExecuteNonQuery();
                 updateFlagReturnTimeCmd.Dispose();
@@ -2239,9 +2240,6 @@ namespace HawkSync_SM
                 updateGameScoreCmd.ExecuteNonQuery();
                 updateGameScoreCmd.Dispose();
             }
-
-
-
 
             cmd.Dispose();
             db.Close();
@@ -2462,8 +2460,6 @@ namespace HawkSync_SM
             // setup player functions
             cmdPlayer = new BanPlayerFunction();
 
-
-
             /*
              * Begin playlist
              * 0x02137A54
@@ -2534,8 +2530,7 @@ namespace HawkSync_SM
             country_read.Close();
             conn.Close();
             conn.Dispose();
-            smCB_sessionType.Items.Add("NovaWorld");
-            smCB_sessionType.Items.Add("LAN");
+
             smNum_maxSlots.Minimum = 1;
             smNum_maxSlots.Maximum = 50;
             cb_timeLimit.Items.Insert(0, "No Limit");
@@ -2570,14 +2565,19 @@ namespace HawkSync_SM
             cb_requireNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
             cb_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
             cb_autoBalance.Checked = _state.Instances[ArrayID].AutoBalance;
+            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
+            num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
             richTextBox1.Text = _state.Instances[ArrayID].MOTD;
             cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
+            cb_oneShotKills.Checked = _state.Instances[ArrayID].OneShotKills;
+            cb_destroyBuildings.Checked = _state.Instances[ArrayID].DestroyBuildings;
             num_minPing.Text = _state.Instances[ArrayID].MinPingValue.ToString();
             cb_maxPing.Checked = _state.Instances[ArrayID].MaxPing;
             num_maxPing.Text = _state.Instances[ArrayID].MaxPingValue.ToString();
             cb_friendFireKills.Checked = _state.Instances[ArrayID].FriendlyFire;
             cb_showFriendTags.Checked = _state.Instances[ArrayID].FriendlyTags;
             cb_ffWarning.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
+            num_maxFriendKills.Value = _state.Instances[ArrayID].FriendlyFireKills;
             text_bluePass.Text = _state.Instances[ArrayID].BluePassword;
             text_redPass.Text = _state.Instances[ArrayID].RedPassword;
             cb_Tracers.Checked = _state.Instances[ArrayID].ShowTracers;

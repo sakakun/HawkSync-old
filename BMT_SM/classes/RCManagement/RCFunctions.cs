@@ -11,6 +11,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM.RCClasses
@@ -1330,572 +1331,163 @@ namespace HawkSync_SM.RCClasses
             }
         }
 
-        public RCListenerClass.StatusCodes StartInstance(int InstanceID, string server_name, string motd, string country_code, string server_password, int session_type, int max_slots, int start_delay, bool startLoopMaps, int max_kills, int game_score, int zone_timer, int respawn_time, int time_limit, bool require_novalogic, bool run_windowed, bool allow_custom_skins, bool dedicated, string blue_team_password, string red_team_password, bool friendly_fire, bool friendly_fire_warning, bool friendly_tags, bool auto_balance, bool show_tracers, bool show_team_clays, bool allow_auto_range, bool enable_min_ping, int min_ping, bool enable_max_ping, int max_ping, int game_mod, string startList, string sessionid)
+        public RCListenerClass.StatusCodes StartInstance(int InstanceID, string server_name, string motd, string country_code, string server_password, int session_type, int max_slots, int start_delay, bool startLoopMaps, int FBScore, int game_score, int zone_timer, int respawn_time, int time_limit, bool require_novalogic, bool run_windowed, bool allow_custom_skins, bool dedicated, string blue_team_password, string red_team_password, bool friendly_fire, bool friendly_fire_warning, bool friendly_tags, bool auto_balance, bool show_tracers, bool show_team_clays, bool allow_auto_range, bool enable_min_ping, int min_ping, bool enable_max_ping, int max_ping, int game_mod, string startList, string sessionid)
         {
-            try
+            ServerManagement serverManagerUpdateMemory = new ServerManagement();
+
+            // DB Connection
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            conn.Open();
+
+            // Get Instance Index
+            int InstanceIndex = -1;
+            foreach (var item in _state.Instances)
             {
-                int InstanceIndex = -1;
-                foreach (var item in _state.Instances)
+                if (item.Value.Id == InstanceID)
                 {
-                    if (item.Value.Id == InstanceID)
-                    {
-                        InstanceIndex = item.Key;
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                if (InstanceIndex != -1)
-                {
-                    _state.Instances[InstanceIndex].ServerName = server_name;
-                    _state.Instances[InstanceIndex].MOTD = motd;
-                    _state.Instances[InstanceIndex].CountryCode = country_code;
-                    _state.Instances[InstanceIndex].Password = server_password;
-                    _state.Instances[InstanceIndex].SessionType = session_type;
-                    _state.Instances[InstanceIndex].MaxSlots = max_slots;
-                    _state.Instances[InstanceIndex].StartDelay = start_delay;
-                    _state.Instances[InstanceIndex].LoopMaps = Convert.ToInt32(startLoopMaps);
-                    _state.Instances[InstanceIndex].MaxKills = max_kills;
-                    _state.Instances[InstanceIndex].GameScore = game_score;
-                    _state.Instances[InstanceIndex].ZoneTimer = zone_timer;
-                    _state.Instances[InstanceIndex].RespawnTime = respawn_time;
-                    _state.Instances[InstanceIndex].TimeLimit = time_limit;
-                    _state.Instances[InstanceIndex].RequireNovaLogin = require_novalogic;
-                    _state.Instances[InstanceIndex].WindowedMode = run_windowed;
-                    _state.Instances[InstanceIndex].AllowCustomSkins = allow_custom_skins;
-                    _state.Instances[InstanceIndex].Dedicated = dedicated;
-                    _state.Instances[InstanceIndex].BluePassword = blue_team_password;
-                    _state.Instances[InstanceIndex].RedPassword = red_team_password;
-                    _state.Instances[InstanceIndex].FriendlyFire = friendly_fire;
-                    _state.Instances[InstanceIndex].FriendlyFireWarning = friendly_fire_warning;
-                    _state.Instances[InstanceIndex].FriendlyTags = friendly_tags;
-                    _state.Instances[InstanceIndex].AutoBalance = auto_balance;
-                    _state.Instances[InstanceIndex].ShowTracers = show_tracers;
-                    _state.Instances[InstanceIndex].ShowTeamClays = show_team_clays;
-                    _state.Instances[InstanceIndex].AllowAutoRange = allow_auto_range;
-                    _state.Instances[InstanceIndex].MinPing = enable_min_ping;
-                    _state.Instances[InstanceIndex].MinPingValue = min_ping;
-                    _state.Instances[InstanceIndex].MaxPing = enable_max_ping;
-                    _state.Instances[InstanceIndex].MaxPingValue = max_ping;
-                    SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
-                    conn.Open();
-                    SQLiteCommand update_query = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @servername, `motd` = @motd, `country_code` = @countrycode, `server_password` = @server_password,`session_type` = @sessiontype, `max_slots` = @max_slots, `start_delay` = @start_delay, `loop_maps` = @loop_maps, `max_kills` = @max_kills, `game_score` = @game_score, `zone_timer` = @zone_timer, `respawn_time` = @respawn_time, `time_limit` = @time_limit, `require_novalogic` = @require_novalogic, `windowed_mode` = @run_windowed, `allow_custom_skins` = @allow_custom_skins, `run_dedicated` = @run_dedicated, `game_mod` = @game_mod, `blue_team_password` = @blue_team_password, `red_team_password` = @red_team_password, `friendly_fire` = @friendly_fire, `friendly_fire_warning` = @friendly_fire_warning, `friendly_tags` = @friendly_tags, `auto_balance` = @auto_balance, `show_tracers` = @show_tracers, `show_team_clays` = @show_team_clays, `allow_auto_range` = @allow_auto_range, `enable_min_ping` = @enable_min_ping, `min_ping` = @min_ping, `enable_max_ping` = @enable_max_ping, `max_ping` = @max_ping WHERE `profile_id` = @profile_id", conn);
-                    update_query.Parameters.AddWithValue("@servername", server_name);
-                    update_query.Parameters.AddWithValue("@motd", motd);
-                    update_query.Parameters.AddWithValue("@countrycode", country_code);
-                    update_query.Parameters.AddWithValue("@sessiontype", session_type);
-                    update_query.Parameters.AddWithValue("@server_password", server_password);
-                    update_query.Parameters.AddWithValue("@max_slots", max_slots);
-                    update_query.Parameters.AddWithValue("@start_delay", start_delay);
-                    update_query.Parameters.AddWithValue("@loop_maps", Convert.ToInt32(startLoopMaps));
-                    update_query.Parameters.AddWithValue("@max_kills", max_kills);
-                    update_query.Parameters.AddWithValue("@game_score", game_score);
-                    update_query.Parameters.AddWithValue("@zone_timer", zone_timer);
-                    update_query.Parameters.AddWithValue("@respawn_time", respawn_time);
-                    update_query.Parameters.AddWithValue("@time_limit", time_limit);
-                    update_query.Parameters.AddWithValue("@require_novalogic", Convert.ToInt32(require_novalogic));
-                    update_query.Parameters.AddWithValue("@run_windowed", Convert.ToInt32(run_windowed));
-                    update_query.Parameters.AddWithValue("@allow_custom_skins", Convert.ToInt32(allow_custom_skins));
-                    update_query.Parameters.AddWithValue("@run_dedicated", Convert.ToInt32(dedicated));
-                    update_query.Parameters.AddWithValue("@game_mod", game_mod);
-                    update_query.Parameters.AddWithValue("@blue_team_password", blue_team_password);
-                    update_query.Parameters.AddWithValue("@red_team_password", red_team_password);
-                    update_query.Parameters.AddWithValue("@friendly_fire", Convert.ToInt32(friendly_fire));
-                    update_query.Parameters.AddWithValue("@friendly_fire_warning", Convert.ToInt32(friendly_fire_warning));
-                    update_query.Parameters.AddWithValue("@friendly_tags", Convert.ToInt32(friendly_tags));
-                    update_query.Parameters.AddWithValue("@auto_balance", Convert.ToInt32(auto_balance));
-                    update_query.Parameters.AddWithValue("@show_tracers", Convert.ToInt32(show_tracers));
-                    update_query.Parameters.AddWithValue("@show_team_clays", Convert.ToInt32(show_team_clays));
-                    update_query.Parameters.AddWithValue("@allow_auto_range", Convert.ToInt32(allow_auto_range));
-                    update_query.Parameters.AddWithValue("@enable_min_ping", Convert.ToInt32(enable_min_ping));
-                    update_query.Parameters.AddWithValue("@min_ping", min_ping);
-                    update_query.Parameters.AddWithValue("@enable_max_ping", Convert.ToInt32(enable_max_ping));
-                    update_query.Parameters.AddWithValue("@max_ping", max_ping);
-                    update_query.Parameters.AddWithValue("@profile_id", _state.Instances[InstanceIndex].Id);
-
-                    update_query.ExecuteNonQuery();
-                    update_query.Dispose();
-
-
-                    string file_name = "";
-                    SQLiteCommand command = new SQLiteCommand("SELECT * FROM `instances` WHERE `id` = @profileid;", conn);
-                    command.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
-                    SQLiteDataReader result1 = command.ExecuteReader();
-                    while (result1.Read())
-                    {
-                        switch (result1.GetInt32(result1.GetOrdinal("game_type")))
-                        {
-                            case 0:
-                                file_name = "dfbhd.exe";
-                                break;
-                            case 1:
-                                file_name = "jops.exe";
-                                break;
-                        }
-                    }
-                    command.Dispose();
-                    result1.Close();
-                    result1.Dispose();
-
-                    SQLiteCommand checkPidQuery = new SQLiteCommand("SELECT COUNT(*) FROM `instances_pid` WHERE `profile_id` = @instanceId;", conn);
-                    checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[InstanceIndex].Id);
-                    int checkPid = Convert.ToInt32(checkPidQuery.ExecuteScalar());
-                    checkPidQuery.Dispose();
-
-                    if (checkPid == 0)
-                    {
-                        SQLiteCommand insert_cmd = new SQLiteCommand("INSERT INTO `instances_pid` (`profile_id`, `pid`) VALUES (@instanceid, 0)", conn);
-                        insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].Id);
-                        insert_cmd.ExecuteNonQuery();
-                        insert_cmd.Dispose();
-                    }
-                    string bind_address = _state.Instances[InstanceIndex].BindAddress;
-                    int game_port = _state.Instances[InstanceIndex].GamePort;
-
-                    string autoResPath = Path.Combine(_state.Instances[InstanceIndex].GamePath, "autores.bin");
-
-                    string dfvCFGPath = Path.Combine(_state.Instances[InstanceIndex].GamePath, "dfv.cfg");
-
-                    string text = File.ReadAllText(dfvCFGPath);
-                    text = text.Replace("// DISPLAY", "[Display]");
-                    text = text.Replace("// CONTROLS", "[Controls]");
-                    text = text.Replace("// MULTIPLAYER", "[Multiplayer]");
-                    text = text.Replace("// MAP", "[Map]");
-                    text = text.Replace("// SYSTEM", "[System]");
-
-                    var configFileFromString = new ConfigParser(text,
-                      new ConfigParserSettings
-                      {
-                          MultiLineValues = MultiLineValues.Simple | MultiLineValues.AllowValuelessKeys | MultiLineValues.QuoteDelimitedValues
-                      });
-                    // get string vars
-                    string hw3d_name = configFileFromString.GetValue("Display", "hw3d_name");
-                    string hw3d_guid = configFileFromString.GetValue("Display", "hw3d_guid");
-
-                    // delete autores
-                    if (File.Exists(autoResPath)) File.Delete(autoResPath);
-
-                    List<MapList> selectedMapList = JsonConvert.DeserializeObject<List<MapList>>(startList);
-
-                    _state.Instances[InstanceIndex].MapList = new Dictionary<int, MapList>();
-                    foreach (var map in selectedMapList)
-                    {
-                        _state.Instances[InstanceIndex].MapList.Add(_state.Instances[InstanceIndex].MapList.Count, map);
-                    }
-
-                    SQLiteCommand updateMapList = new SQLiteCommand("UPDATE `instances_config` SET `mapcycle` = @maplist WHERE `profile_id` = @profileid;", conn);
-                    updateMapList.Parameters.AddWithValue("@maplist", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapList));
-                    updateMapList.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
-                    updateMapList.ExecuteNonQuery();
-                    updateMapList.Dispose();
-
-                    MemoryStream ms = new MemoryStream();
-                    int dedicatedSlots = _state.Instances[InstanceIndex].MaxSlots + Convert.ToInt32(_state.Instances[InstanceIndex].Dedicated);
-                    bool loopMaps = true;
-
-                    ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    int gamePlayOptionsInt = serverManagerUpdateMemory.CalulateGameOptions(_state, InstanceIndex);
-
-                    string _miscGraphicSettings = "00 0E 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3F 06 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 10 00 00 00 10 00 00 00 10 00 00 08 00 00 00 01 00 00 00 00 10 00 00 00 00 D0 1E 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 1E 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 03 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 04 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 02 00 00 00 01 00 00 00";
-                    string applicationSettings = "01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00";
-
-                    byte[] autoRestart = Encoding.Default.GetBytes("autorestartV0.0");
-                    byte[] numberOfMapsBytes = BitConverter.GetBytes(128);
-
-                    byte[] graphicsSetup_Name = Encoding.Default.GetBytes(hw3d_name);
-                    byte[] graphicsSetup_GUID = Encoding.Default.GetBytes(hw3d_guid);
-                    byte[] graphicsSetupMisc_Settings = HexConverter.ToByteArray(_miscGraphicSettings.Replace(" ", ""));
-                    byte[] applicationSettingBytes = HexConverter.ToByteArray(applicationSettings.Replace(" ", ""));
-                    byte[] windowedModeBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].WindowedMode));
-                    byte[] ServerNameBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].ServerName);
-                    byte[] countryCodeBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].CountryCode);
-                    byte[] BindAddress = Encoding.Default.GetBytes("0.0.0.0");
-                    byte[] firstMapFile = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].MapList[0].MapFile);
-                    byte[] maxSlotsBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].MaxSlots);
-                    byte[] dedicatedBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].Dedicated));
-                    byte[] GameScoreBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].GameScore);
-                    byte[] StartDelayBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].StartDelay);
-                    byte[] serverPasswordBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].Password);
-                    byte[] redTeamPasswordBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].RedPassword);
-                    byte[] blueTeamPasswordBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].BluePassword);
-                    byte[] gamePlayOptionsBytes = BitConverter.GetBytes(gamePlayOptionsInt);
-                    byte[] loopMapsBytes;
-
-                    if (loopMaps == true)
-                    {
-                        loopMapsBytes = BitConverter.GetBytes(2);
-                    }
-                    else
-                    {
-                        loopMapsBytes = BitConverter.GetBytes(1);
-                    }
-
-                    byte[] gameTypeBytes = BitConverter.GetBytes(_state.autoRes.gameTypes[_state.Instances[InstanceIndex].MapList[0].GameType].DatabaseId);
-                    byte[] timeLimitBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].TimeLimit);
-                    byte[] respawnTimeBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].RespawnTime);
-                    byte[] allowCustomSkinsBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].AllowCustomSkins));
-                    byte[] requireNovaLoginBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].RequireNovaLogin));
-                    byte[] MOTDBytes = Encoding.Default.GetBytes(_state.Instances[InstanceIndex].MOTD);
-                    byte[] sessionTypeBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].SessionType);
-                    byte[] dedicatedSlotsBytes = BitConverter.GetBytes(dedicatedSlots);
-                    byte[] graphicsHeaderSettings = BitConverter.GetBytes(-1);
-                    byte[] graphicsSetting_1 = BitConverter.GetBytes(8);
-                    byte[] startDelayBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].StartDelay);
-                    byte[] minPingValueBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].MinPingValue);
-                    byte[] enableMinPingBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].MinPing));
-                    byte[] maxPingValueBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].MaxPingValue);
-                    byte[] enableMaxPingBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].MaxPing));
-                    byte[] gamePortBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].GamePort);
-                    byte[] flagBallScoreBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].FBScore);
-                    byte[] zoneTimerBytes = BitConverter.GetBytes(_state.Instances[InstanceIndex].ZoneTimer);
-                    byte[] customMapFlagBytes = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceIndex].MapList[0].CustomMap));
-
-                    byte[] mapListPrehandle = BitConverter.GetBytes(10621344);
-                    byte[] finalAppSetup = HexConverter.ToByteArray("00 00 00 00 00 00 00 00 05 00 00 00 00".Replace(" ", ""));
-                    byte[] resolutionSetup = HexConverter.ToByteArray("02 00 00 00 00 01 00 00 00".Replace(" ", ""));
-                    byte[] graphicsPrehandle = HexConverter.ToByteArray("02 00 00 00 01 00 00 00".Replace(" ", ""));
-                    byte[] defaultWeaponSetup = HexConverter.ToByteArray("05 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00".Replace(" ", ""));
-                    byte[] endOfMapCfg = HexConverter.ToByteArray("20 B5 B6 01".Replace(" ", ""));
-                    byte[] endOfMapCfg2 = HexConverter.ToByteArray("53 01 00 00 00 13 00 00 00 13 00 00 00 04 00 00 00".Replace(" ", ""));
-
-
-                    ms.Seek(0, SeekOrigin.Begin);
-                    // autorestart header + Number of Total Maps
-                    ms.Write(autoRestart, 0, autoRestart.Length);
-                    ms.Write(numberOfMapsBytes, 0, numberOfMapsBytes.Length);
-
-                    ms.Seek(0x4D, SeekOrigin.Begin);
-                    ms.Write(firstMapFile, 0, firstMapFile.Length);
-
-                    ms.Seek(0xAF, SeekOrigin.Begin);
-                    ms.Write(customMapFlagBytes, 0, customMapFlagBytes.Length);
-
-                    ms.Seek(0x68F, SeekOrigin.Begin);
-                    ms.Write(resolutionSetup, 0, resolutionSetup.Length);
-
-                    ms.Seek(0x277, SeekOrigin.Begin);
-                    ms.Write(sessionTypeBytes, 0, sessionTypeBytes.Length);
-
-                    ms.Seek(0x1C7, SeekOrigin.Begin);
-                    ms.Write(applicationSettingBytes, 0, applicationSettingBytes.Length);
-
-                    ms.Seek(0x283, SeekOrigin.Begin);
-                    ms.Write(dedicatedSlotsBytes, 0, dedicatedSlotsBytes.Length);
-
-                    ms.Seek(0x28F, SeekOrigin.Begin);
-                    ms.Write(gameTypeBytes, 0, gameTypeBytes.Length);
-
-                    ms.Seek(0x293, SeekOrigin.Begin);
-                    ms.Write(finalAppSetup, 0, finalAppSetup.Length);
-
-                    ms.Seek(0x1347, SeekOrigin.Begin);
-                    ms.Write(graphicsPrehandle, 0, graphicsPrehandle.Length);
-
-                    ms.Seek(0x134F, SeekOrigin.Begin);
-                    ms.Write(graphicsHeaderSettings, 0, graphicsHeaderSettings.Length);
-
-                    ms.Seek(0x1353, SeekOrigin.Begin);
-                    ms.Write(graphicsSetting_1, 0, graphicsSetting_1.Length);
-
-                    ms.Seek(0x1357, SeekOrigin.Begin);
-                    ms.Write(windowedModeBytes, 0, windowedModeBytes.Length);
-
-                    ms.Seek(0x135F, SeekOrigin.Begin);
-                    ms.Write(graphicsSetup_Name, 0, graphicsSetup_Name.Length);
-
-                    ms.Seek(0x137F, SeekOrigin.Begin);
-                    ms.Write(graphicsSetup_GUID, 0, graphicsSetup_GUID.Length);
-                    ms.Write(graphicsSetupMisc_Settings, 0, graphicsSetupMisc_Settings.Length);
-
-                    ms.Seek(0x152F, SeekOrigin.Begin);
-                    ms.Write(serverPasswordBytes, 0, serverPasswordBytes.Length);
-
-                    ms.Seek(0x1562, SeekOrigin.Begin);
-                    ms.Write(redTeamPasswordBytes, 0, redTeamPasswordBytes.Length);
-
-                    ms.Seek(0x1573, SeekOrigin.Begin);
-                    ms.Write(blueTeamPasswordBytes, 0, blueTeamPasswordBytes.Length);
-
-                    ms.Seek(0x151F, SeekOrigin.Begin);
-                    ms.Write(gamePlayOptionsBytes, 0, gamePlayOptionsBytes.Length);
-
-                    ms.Seek(0x15A6, SeekOrigin.Begin);
-                    ms.Write(ServerNameBytes, 0, ServerNameBytes.Length);
-
-                    ms.Seek(0x15C6, SeekOrigin.Begin);
-                    ms.Write(countryCodeBytes, 0, countryCodeBytes.Length);
-
-                    ms.Seek(0x1613, SeekOrigin.Begin);
-                    ms.Write(dedicatedBytes, 0, dedicatedBytes.Length);
-
-                    ms.Seek(0x15EA, SeekOrigin.Begin);
-                    ms.Write(BindAddress, 0, BindAddress.Length);
-
-                    ms.Seek(0x160B, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x161F, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(100), 0, BitConverter.GetBytes(100).Length);
-
-                    ms.Seek(0x162F, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x1633, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(210), 0, BitConverter.GetBytes(210).Length);
-
-                    ms.Seek(0x1637, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x163B, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
-
-                    ms.Seek(0x164B, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x1693, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x1697, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x169B, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(15), 0, BitConverter.GetBytes(15).Length);
-
-                    ms.Seek(0x16B7, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
-
-                    ms.Seek(0x16BB, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x16C7, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x16CB, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
-
-                    ms.Seek(0x16EF, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(4), 0, BitConverter.GetBytes(4).Length);
-
-                    ms.Seek(0x16F4, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x16FC, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x1703, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-                    ms.Seek(0x1707, SeekOrigin.Begin);
-                    ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
-
-
-
-                    ms.Seek(0x1627, SeekOrigin.Begin);
-                    ms.Write(startDelayBytes, 0, startDelayBytes.Length);
-
-                    ms.Seek(0x16F3, SeekOrigin.Begin);
-                    ms.Write(minPingValueBytes, 0, minPingValueBytes.Length);
-
-                    ms.Seek(0x16F7, SeekOrigin.Begin);
-                    ms.Write(enableMinPingBytes, 0, enableMinPingBytes.Length);
-
-                    ms.Seek(0x16FB, SeekOrigin.Begin);
-                    ms.Write(maxPingValueBytes, 0, maxPingValueBytes.Length);
-
-                    ms.Seek(0x16FF, SeekOrigin.Begin);
-                    ms.Write(enableMaxPingBytes, 0, enableMaxPingBytes.Length);
-
-                    ms.Seek(0x160F, SeekOrigin.Begin);
-                    ms.Write(maxSlotsBytes, 0, maxSlotsBytes.Length);
-
-                    ms.Seek(0x16CF, SeekOrigin.Begin);
-                    ms.Write(gamePortBytes, 0, gamePortBytes.Length);
-
-                    ms.Seek(0x16DB, SeekOrigin.Begin);
-                    ms.Write(requireNovaLoginBytes, 0, requireNovaLoginBytes.Length);
-
-                    ms.Seek(0x16D7, SeekOrigin.Begin);
-                    ms.Write(allowCustomSkinsBytes, 0, allowCustomSkinsBytes.Length);
-
-                    ms.Seek(0x170B, SeekOrigin.Begin);
-                    ms.Write(MOTDBytes, 0, MOTDBytes.Length);
-
-                    ms.Seek(0x1623, SeekOrigin.Begin);
-                    ms.Write(flagBallScoreBytes, 0, flagBallScoreBytes.Length);
-
-                    ms.Seek(0x1643, SeekOrigin.Begin);
-                    ms.Write(zoneTimerBytes, 0, zoneTimerBytes.Length);
-
-                    ms.Seek(0x1647, SeekOrigin.Begin);
-                    ms.Write(respawnTimeBytes, 0, respawnTimeBytes.Length);
-
-                    ms.Seek(0x163F, SeekOrigin.Begin);
-                    ms.Write(timeLimitBytes, 0, timeLimitBytes.Length);
-
-                    ms.Seek(0x1DA4, SeekOrigin.Begin);
-                    ms.Write(GameScoreBytes, 0, GameScoreBytes.Length);
-
-                    ms.Seek(0x178B, SeekOrigin.Begin);
-                    ms.Write(defaultWeaponSetup, 0, defaultWeaponSetup.Length);
-
-                    ms.Seek(0x187F, SeekOrigin.Begin);
-                    ms.Write(mapListPrehandle, 0, mapListPrehandle.Length);
-
-                    byte[] endOfMap = HexConverter.ToByteArray("20 B5 B6 01 00 00 00 00 53 01 00 00 00 13 00 00 00 13 00 00 00 04 00 00 00".Replace(" ", ""));
-
-                    foreach (var map in _state.Instances[InstanceIndex].MapList)
-                    {
-                        byte[] mapFile = Encoding.Default.GetBytes(map.Value.MapFile);
-                        ms.Write(mapFile, 0, mapFile.Length);
-
-                        ms.Seek(ms.Position + (0x20F - mapFile.Length), SeekOrigin.Begin);
-                        byte[] mapName = Encoding.Default.GetBytes(map.Value.MapName);
-                        ms.Write(mapName, 0, mapName.Length);
-
-                        ms.Seek(ms.Position + (0x305 - mapName.Length), SeekOrigin.Begin);
-                        ms.Write(endOfMap, 0, endOfMap.Length);
-
-                        ms.Seek(ms.Position + 0x1E3, SeekOrigin.Begin);
-                        byte[] customMap = BitConverter.GetBytes(Convert.ToInt32(map.Value.CustomMap));
-                        ms.Write(customMap, 0, customMap.Length);
-
-                        // prepare for next entry
-                        ms.Seek(ms.Position + 0x1C, SeekOrigin.Begin);
-                    }
-                    for (int i = _state.Instances[InstanceIndex].MapList.Count; i < 128; i++)
-                    {
-                        byte[] mapFile = Encoding.Default.GetBytes("NA.bms");
-                        ms.Write(mapFile, 0, mapFile.Length);
-
-                        ms.Seek(ms.Position + (0x20F - mapFile.Length), SeekOrigin.Begin);
-                        byte[] mapName = Encoding.Default.GetBytes("NA");
-                        ms.Write(mapName, 0, mapName.Length);
-
-                        ms.Seek(ms.Position + (0x305 - mapName.Length), SeekOrigin.Begin);
-                        ms.Write(endOfMap, 0, endOfMap.Length);
-
-                        ms.Seek(ms.Position + 0x1E3, SeekOrigin.Begin);
-                        byte[] customMap = BitConverter.GetBytes(Convert.ToInt32(false));
-                        ms.Write(customMap, 0, customMap.Length);
-
-                        // prepare for next entry
-                        ms.Seek(ms.Position + 0x1C, SeekOrigin.Begin);
-                    }
-
-
-                    BinaryWriter writer = new BinaryWriter(File.Open(autoResPath, FileMode.OpenOrCreate, FileAccess.ReadWrite));
-                    writer.Seek(0, SeekOrigin.Begin);
-                    writer.Write(ms.ToArray());
-                    writer.Close();
-
-                    ProcessStartInfo newInstance = new ProcessStartInfo()
-                    {
-                        Arguments = "/w /serveonly /autorestart",
-                        WorkingDirectory = _state.Instances[InstanceIndex].GamePath,
-                        WindowStyle = ProcessWindowStyle.Minimized,
-                        FileName = Path.Combine(_state.Instances[InstanceIndex].GamePath, file_name)
-                    };
-                    Process startInstance = new Process
-                    {
-                        StartInfo = newInstance
-                    };
-                    startInstance.Start();
-                    _state.Instances[InstanceIndex].PID = startInstance.Id;
-                    SQLiteCommand updatePID = new SQLiteCommand("UPDATE `instances_pid` SET `pid` = @pid WHERE `profile_id` = @profileid;", conn);
-                    updatePID.Parameters.AddWithValue("@pid", _state.Instances[InstanceIndex].PID);
-                    updatePID.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
-                    updatePID.ExecuteNonQuery();
-
-                    _state.Instances[InstanceIndex].ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[InstanceIndex].PID.GetValueOrDefault());
-                    _state.ApplicationProcesses[InstanceIndex] = startInstance;
-                    var baseAddr = 0x400000;
-
-                    int MapListMoveGarbageAddress = baseAddr + 0x5EA7B8;
-                    byte[] CurrentAddressBytes = new byte[4];
-                    int CurrentAddressRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, MapListMoveGarbageAddress, CurrentAddressBytes, CurrentAddressBytes.Length, ref CurrentAddressRead);
-                    int CurrentAddress = BitConverter.ToInt32(CurrentAddressBytes, 0);
-                    int NewAddress = CurrentAddress + 0x350;
-
-                    byte[] NewAddressBytes = BitConverter.GetBytes(NewAddress);
-                    int NewAddressWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, MapListMoveGarbageAddress, NewAddressBytes, NewAddressBytes.Length, ref NewAddressWritten);
-
-                    int mapListLocationPtr = baseAddr + 0x005ED5F8;
-                    byte[] mapListLocationPtrBytes = new byte[4];
-                    int mapListLocationBytesPtrRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListLocationPtr, mapListLocationPtrBytes, mapListLocationPtrBytes.Length, ref mapListLocationBytesPtrRead);
-
-                    int mapListNumberOfMaps = BitConverter.ToInt32(mapListLocationPtrBytes, 0) + 0x4;
-                    byte[] numberOfMaps = BitConverter.GetBytes(_state.Instances[InstanceIndex].MapList.Count);
-                    int numberofMapsWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListNumberOfMaps, numberOfMaps, numberOfMaps.Length, ref numberofMapsWritten);
-
-                    mapListNumberOfMaps += 0x4;
-                    byte[] TotalnumberOfMaps = BitConverter.GetBytes(_state.Instances[InstanceIndex].MapList.Count);
-                    int TotalnumberofMapsWritten = 0;
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, mapListNumberOfMaps, TotalnumberOfMaps, TotalnumberOfMaps.Length, ref TotalnumberofMapsWritten);
-
-                    serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateDestroyBuildings(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateFatBullets(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateFlagReturnTime(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateMaxPing(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateMaxPingValue(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateMaxTeamLives(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateMinPing(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateMinPingValue(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateOneShotKills(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateRespawnTime(_state, InstanceIndex);
-                    serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, InstanceIndex);
-
-
-                    conn.Close();
-                    conn.Dispose();
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
-                    db.Open();
-
-                    SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
-                    newEntryCmd.Parameters.AddWithValue("@sessionid", sessionid);
-                    newEntryCmd.Parameters.AddWithValue("@username", _state.rcClients[sessionid]._username);
-                    newEntryCmd.Parameters.AddWithValue("@action", "StartInstance");
-                    newEntryCmd.Parameters.AddWithValue("@address", _state.rcClients[sessionid].RemoteAddress.ToString());
-                    newEntryCmd.Parameters.AddWithValue("@date", DateTime.Now);
-                    newEntryCmd.ExecuteNonQuery();
-                    newEntryCmd.Dispose();
-                    db.Close();
-                    db.Dispose();
-
-                    if (ProgramConfig.EnableWFB)
-                    {
-                        // Add Firewall Rules
-                        _state.Instances[InstanceIndex].Firewall.AllowTraffic(_state.Instances[InstanceIndex].GameName, _state.Instances[InstanceIndex].GamePath);
-                        _state.Instances[InstanceIndex].Firewall.DenyTraffic(_state.Instances[InstanceIndex].GameName, _state.Instances[InstanceIndex].GamePath, _state.Instances[InstanceIndex].BanList);
-                    }
-
-                    _state.RCLogs.Add(new RCLogs
-                    {
-                        Action = "UpdateFriendlyFireKills",
-                        Address = _state.rcClients[sessionid].RemoteAddress,
-                        Date = DateTime.Now,
-                        SessionID = sessionid,
-                        Username = _state.rcClients[sessionid]._username
-                    });
-                    return RCListenerClass.StatusCodes.SUCCESS;
+                    InstanceIndex = item.Key;
+                    break;
                 }
                 else
                 {
-                    return RCListenerClass.StatusCodes.INVALIDINSTANCE;
+                    continue;
                 }
             }
-            catch
+        
+            // Invalid Instance
+            if (InstanceIndex == -1) {
+                return RCListenerClass.StatusCodes.INVALIDINSTANCE;
+            }
+            
+            //JsonConvert.SerializeObject(selectedMapList)
+            List<MapList> mapList = new List<MapList>();
+            mapList = JsonConvert.DeserializeObject<List<MapList>>(startList);
+
+            // Map List
+            _state.Instances[InstanceIndex].MapList = new Dictionary<int, MapList>();
+            foreach (var map in mapList)
             {
+                _state.Instances[InstanceIndex].MapList.Add(_state.Instances[InstanceIndex].MapList.Count, map);
+            }
+
+            // Starting Server
+            Instance startInstance = new Instance();
+            startInstance = _state.Instances[InstanceIndex];
+
+            // Collect Form Data
+            startInstance.ServerName = server_name;                             // Server Name
+            startInstance.MOTD = motd;                                          // Server MOTD
+            startInstance.CountryCode = country_code;                           // Country Code
+            startInstance.Password = server_password;                           // Server Global Password
+            startInstance.SessionType = session_type;                           // Session Type (0 = Internet, 1 = LAN) - Doesn't work and Form Changed.
+            startInstance.MaxSlots = max_slots + 1;                             // Max Players
+            startInstance.StartDelay = start_delay;                             // Start Delay
+            startInstance.LoopMaps = startLoopMaps ? 1 : 0;                     // Loop Maps
+            startInstance.FBScore = FBScore;                                    // Flag Score
+            startInstance.GameScore = game_score;                               // Game Score
+            startInstance.ZoneTimer = zone_timer;                               // Zone Timer
+            startInstance.RespawnTime = respawn_time;                           // Respawn Time
+            startInstance.TimeLimit = time_limit;                               // Time Limit
+            startInstance.RequireNovaLogin = require_novalogic;                 // Require NovaLogic Login
+            startInstance.Dedicated = dedicated;                                // Run Dedicated
+            startInstance.WindowedMode = run_windowed;                          // Windowed Mode
+            startInstance.AllowCustomSkins = allow_custom_skins;                // Allow Custom Skins
+            startInstance.Mod = game_mod;                                       // Game Mod
+            startInstance.BluePassword = blue_team_password;                    // Blue Team Password
+            startInstance.RedPassword = red_team_password;                      // Red Team Password
+            startInstance.FriendlyFire = friendly_fire;                         // Friendly Fire Flag
+            startInstance.FriendlyFireWarning = friendly_fire_warning;          // Friendly Fire Warning
+            startInstance.FriendlyTags = friendly_tags;                         // Friendly Tags
+            startInstance.AutoBalance = auto_balance;                           // Auto Balance
+            startInstance.ShowTracers = show_tracers;                           // Show Tracers
+            startInstance.ShowTeamClays = show_team_clays;                      // Show Team Clays
+            startInstance.AllowAutoRange = allow_auto_range;                    // Allow Auto Range
+            startInstance.MinPing = enable_min_ping;                            // Enable Min Ping
+            startInstance.MinPingValue = min_ping;                              // Min Ping Value
+            startInstance.MaxPing = enable_max_ping;                            // Enable Max Ping
+            startInstance.MaxPingValue = max_ping;                              // Max Ping Value            
+            startInstance.LastUpdateTime = DateTime.Now;
+            startInstance.NextUpdateTime = DateTime.Now.AddSeconds(5.0);
+
+            // Generate AutoRes.bin
+            if (!(serverManagerUpdateMemory.createAutoRes(startInstance, _state)))
+            {
+                MessageBox.Show("Failed to create AutoRes.bin", "Error");
                 return RCListenerClass.StatusCodes.FAILURE;
             }
+
+            // Start Game
+            // Check for PID in Database, if not found create a record.
+            SQLiteCommand checkPidQuery = new SQLiteCommand("SELECT COUNT(*) FROM `instances_pid` WHERE `profile_id` = @instanceId;", conn);
+            checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[InstanceIndex].Id);
+            int checkPid = Convert.ToInt32(checkPidQuery.ExecuteScalar());
+            checkPidQuery.Dispose();
+
+            if (checkPid == 0)
+            {
+                SQLiteCommand insert_cmd = new SQLiteCommand("INSERT INTO `instances_pid` (`profile_id`, `pid`) VALUES (@instanceid, 0)", conn);
+                insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].Id);
+                insert_cmd.ExecuteNonQuery();
+            }
+
+            serverManagerUpdateMemory.startGame(startInstance, _state, InstanceIndex, conn);
+
+            // Sucess Update Database & Return Instance Array
+            SQLiteCommand update_query = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @servername, `motd` = @motd, `country_code` = @countrycode, `server_password` = @server_password,`session_type` = @sessiontype, `max_slots` = @max_slots, `start_delay` = @start_delay, `loop_maps` = @loop_maps, `game_score` = @game_score, `fbscore` = @flag_scores, `zone_timer` = @zone_timer, `respawn_time` = @respawn_time, `time_limit` = @time_limit, `require_novalogic` = @require_novalogic, `windowed_mode` = @run_windowed, `allow_custom_skins` = @allow_custom_skins, `run_dedicated` = @run_dedicated, `game_mod` = @game_mod, `mapcycle` = @selected_maps, `blue_team_password` = @blue_team_password, `red_team_password` = @red_team_password, `friendly_fire` = @friendly_fire, `friendly_fire_warning` = @friendly_fire_warning, `friendly_tags` = @friendly_tags, `auto_balance` = @auto_balance, `show_tracers` = @show_tracers, `show_team_clays` = @show_team_clays, `allow_auto_range` = @allow_auto_range, `enable_min_ping` = @enable_min_ping, `min_ping` = @min_ping, `enable_max_ping` = @enable_max_ping, `max_ping` = @max_ping, `availablemaps` = @availablemaps WHERE `profile_id` = @profile_id", conn);
+
+            update_query.Parameters.AddWithValue("@servername", startInstance.ServerName);
+            update_query.Parameters.AddWithValue("@motd", startInstance.MOTD);
+            update_query.Parameters.AddWithValue("@countrycode", startInstance.CountryCode);
+            update_query.Parameters.AddWithValue("@sessiontype", startInstance.SessionType);
+            update_query.Parameters.AddWithValue("@server_password", startInstance.Password);
+            update_query.Parameters.AddWithValue("@max_slots", startInstance.MaxSlots);
+            update_query.Parameters.AddWithValue("@start_delay", startInstance.StartDelay);
+            update_query.Parameters.AddWithValue("@loop_maps", startInstance.LoopMaps);
+            update_query.Parameters.AddWithValue("@game_score", startInstance.GameScore);
+            update_query.Parameters.AddWithValue("@flag_scores", startInstance.GameScore);
+            update_query.Parameters.AddWithValue("@zone_timer", startInstance.ZoneTimer);
+            update_query.Parameters.AddWithValue("@respawn_time", startInstance.RespawnTime);
+            update_query.Parameters.AddWithValue("@time_limit", startInstance.TimeLimit);
+            update_query.Parameters.AddWithValue("@require_novalogic", startInstance.RequireNovaLogin ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_windowed", startInstance.WindowedMode ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_custom_skins", startInstance.AllowCustomSkins ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_dedicated", startInstance.Dedicated ? 1 : 0);
+            update_query.Parameters.AddWithValue("@game_mod", startInstance.Mod);
+            update_query.Parameters.AddWithValue("@blue_team_password", startInstance.BluePassword);
+            update_query.Parameters.AddWithValue("@red_team_password", startInstance.RedPassword);
+            update_query.Parameters.AddWithValue("@friendly_fire", startInstance.FriendlyFire);
+            update_query.Parameters.AddWithValue("@friendly_fire_warning", startInstance.FriendlyFireWarning ? 1 : 0);
+            update_query.Parameters.AddWithValue("@friendly_tags", startInstance.FriendlyTags ? 1 : 0);
+            update_query.Parameters.AddWithValue("@auto_balance", startInstance.AutoBalance ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_tracers", startInstance.ShowTracers ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_team_clays", startInstance.ShowTeamClays ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_auto_range", startInstance.AllowAutoRange ? 1 : 0);
+            update_query.Parameters.AddWithValue("@enable_min_ping", startInstance.MinPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@min_ping", startInstance.MinPingValue);
+            update_query.Parameters.AddWithValue("@enable_max_ping", startInstance.MaxPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@max_ping", startInstance.MaxPingValue);
+            update_query.Parameters.AddWithValue("@profile_id", _state.Instances[InstanceIndex].Id);
+
+            update_query.Parameters.AddWithValue("@availablemaps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].availableMaps));
+            update_query.Parameters.AddWithValue("@selected_maps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapList));
+            update_query.ExecuteNonQuery();
+            update_query.Dispose();
+
+
+            conn.Close();
+            conn.Dispose();
+
+            _state.RCLogs.Add(new RCLogs
+            {
+                Action = "UpdateFriendlyFireKills",
+                Address = _state.rcClients[sessionid].RemoteAddress,
+                Date = DateTime.Now,
+                SessionID = sessionid,
+                Username = _state.rcClients[sessionid]._username
+            });
+
+            return RCListenerClass.StatusCodes.SUCCESS;
+
         }
 
         public RCListenerClass.StatusCodes StopInstance(int InstanceID, string sessionid)

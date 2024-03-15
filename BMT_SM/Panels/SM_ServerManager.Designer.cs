@@ -86,7 +86,7 @@ namespace HawkSync_SM
             this.cb_Tracers = new System.Windows.Forms.CheckBox();
             this.num_MaxTeamLives = new System.Windows.Forms.NumericUpDown();
             this.label_maxTeamLives = new System.Windows.Forms.Label();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.num_flagReturn = new System.Windows.Forms.NumericUpDown();
             this.label_flagReturnTimer = new System.Windows.Forms.Label();
             this.num_pspTimer = new System.Windows.Forms.NumericUpDown();
             this.label_PSPtime = new System.Windows.Forms.Label();
@@ -397,7 +397,7 @@ namespace HawkSync_SM
             this.tabPage10.SuspendLayout();
             this.gb_GamePlay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MaxTeamLives)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_flagReturn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_pspTimer)).BeginInit();
             this.groupBox24.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_scoreDM)).BeginInit();
@@ -845,7 +845,7 @@ namespace HawkSync_SM
             this.gb_GamePlay.Controls.Add(this.cb_Tracers);
             this.gb_GamePlay.Controls.Add(this.num_MaxTeamLives);
             this.gb_GamePlay.Controls.Add(this.label_maxTeamLives);
-            this.gb_GamePlay.Controls.Add(this.numericUpDown5);
+            this.gb_GamePlay.Controls.Add(this.num_flagReturn);
             this.gb_GamePlay.Controls.Add(this.label_flagReturnTimer);
             this.gb_GamePlay.Controls.Add(this.num_pspTimer);
             this.gb_GamePlay.Controls.Add(this.label_PSPtime);
@@ -881,10 +881,10 @@ namespace HawkSync_SM
             resources.ApplyResources(this.label_maxTeamLives, "label_maxTeamLives");
             this.label_maxTeamLives.Name = "label_maxTeamLives";
             // 
-            // numericUpDown5
+            // num_flagReturn
             // 
-            resources.ApplyResources(this.numericUpDown5, "numericUpDown5");
-            this.numericUpDown5.Name = "numericUpDown5";
+            resources.ApplyResources(this.num_flagReturn, "num_flagReturn");
+            this.num_flagReturn.Name = "num_flagReturn";
             // 
             // label_flagReturnTimer
             // 
@@ -1367,6 +1367,9 @@ namespace HawkSync_SM
             // 
             this.smCB_sessionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.smCB_sessionType.FormattingEnabled = true;
+            this.smCB_sessionType.Items.AddRange(new object[] {
+            resources.GetString("smCB_sessionType.Items"),
+            resources.GetString("smCB_sessionType.Items1")});
             resources.ApplyResources(this.smCB_sessionType, "smCB_sessionType");
             this.smCB_sessionType.Name = "smCB_sessionType";
             // 
@@ -3011,7 +3014,7 @@ namespace HawkSync_SM
             this.gb_GamePlay.ResumeLayout(false);
             this.gb_GamePlay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_MaxTeamLives)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_flagReturn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_pspTimer)).EndInit();
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
@@ -3163,7 +3166,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.CheckBox cb_Tracers;
         private System.Windows.Forms.NumericUpDown num_MaxTeamLives;
         private System.Windows.Forms.Label label_maxTeamLives;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown num_flagReturn;
         private System.Windows.Forms.Label label_flagReturnTimer;
         private System.Windows.Forms.NumericUpDown num_pspTimer;
         private System.Windows.Forms.Label label_PSPtime;

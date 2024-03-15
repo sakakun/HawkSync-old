@@ -1,11 +1,15 @@
 ﻿using HawkSync_SM.classes.ChatManagement;
+using Salaros.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM
 {
@@ -23,6 +27,9 @@ namespace HawkSync_SM
         static extern int SetWindowText(IntPtr hWnd, string text);
         [DllImport("user32.dll")]
         static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool WriteProcessMemory(int hProcess, int lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesWritten);
 
         const int PROCESS_WM_READ = 0x0010;
         const int PROCESS_VM_WRITE = 0x0020;
@@ -563,7 +570,7 @@ namespace HawkSync_SM
         }
         public void GamePlayOptions(AppState _state, int InstanceID)
         {
-            int gameOptions = CalulateGameOptions(_state, InstanceID);
+            int gameOptions = CalulateGameOptions(_state.Instances[InstanceID]);
             byte[] gameOptionsBytes = BitConverter.GetBytes(gameOptions);
             var baseAddr = 0x400000;
 
@@ -580,15 +587,15 @@ namespace HawkSync_SM
             int GamePlayOptionsOneWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, gameOptionsBytes, gameOptionsBytes.Length, ref GamePlayOptionsOneWritten);
         }
-        public int CalulateGameOptions(AppState _state, int instanceID)
+        public int CalulateGameOptions(Instance theInstance)
         {
-            bool autoBalance = _state.Instances[instanceID].AutoBalance;
-            bool friendlyFire = _state.Instances[instanceID].FriendlyFire;
-            bool friendlyTags = _state.Instances[instanceID].FriendlyTags;
-            bool friendlyFireWarning = _state.Instances[instanceID].FriendlyFireWarning;
-            bool showTracers = _state.Instances[instanceID].ShowTracers;
-            bool showTeamClays = _state.Instances[instanceID].ShowTeamClays;
-            bool allowAutoRange = _state.Instances[instanceID].AllowAutoRange;
+            bool autoBalance = theInstance.AutoBalance;
+            bool friendlyFire = theInstance.FriendlyFire;
+            bool friendlyTags = theInstance.FriendlyTags;
+            bool friendlyFireWarning = theInstance.FriendlyFireWarning;
+            bool showTracers = theInstance.ShowTracers;
+            bool showTeamClays = theInstance.ShowTeamClays;
+            bool allowAutoRange = theInstance.AllowAutoRange;
             if (autoBalance == true && friendlyFire == false && friendlyTags == false && friendlyFireWarning == false && showTracers == false && showTeamClays == false && allowAutoRange == false)
             {
                 return 15883;
@@ -1601,6 +1608,7 @@ namespace HawkSync_SM
         }
         public void ChangeGameScore(ref AppState _state, int ArrayID)
         {
+            // This changes the score needed to win on the next map played.
             int nextGameScore = 0;
             var baseAddr = 0x400000;
             var startingPtr1 = 0;
@@ -1861,6 +1869,471 @@ namespace HawkSync_SM
             int instanceStatus = BitConverter.ToInt32(statusLocation, 0);
 
             return (InstanceStatus)instanceStatus;
+        }
+        public bool createAutoRes(Instance startInstance, AppState _state)
+        {
+
+            try 
+            {
+                string autoResPath = Path.Combine(startInstance.GamePath, "autores.bin");
+                string dfvCFGPath = Path.Combine(startInstance.GamePath, "dfv.cfg");
+
+                string text = File.ReadAllText(dfvCFGPath);
+                text = text.Replace("// DISPLAY", "[Display]");
+                text = text.Replace("// CONTROLS", "[Controls]");
+                text = text.Replace("// MULTIPLAYER", "[Multiplayer]");
+                text = text.Replace("// MAP", "[Map]");
+                text = text.Replace("// SYSTEM", "[System]");
+
+                var configFileFromString = new ConfigParser(text,
+                  new ConfigParserSettings
+                  {
+                      MultiLineValues = MultiLineValues.Simple | MultiLineValues.AllowValuelessKeys | MultiLineValues.QuoteDelimitedValues
+                  });
+                // get string vars
+                string hw3d_name = configFileFromString.GetValue("Display", "hw3d_name");
+                string hw3d_guid = configFileFromString.GetValue("Display", "hw3d_guid");
+
+                // delete existing autores file if it exists
+                if (File.Exists(autoResPath))
+                {
+                    File.Delete(autoResPath);
+                }
+                MemoryStream ms = new MemoryStream();
+                int dedicatedSlots = startInstance.MaxSlots + Convert.ToInt32(startInstance.Dedicated);
+                bool loopMaps = true;
+
+                int gamePlayOptionsInt = CalulateGameOptions(startInstance);
+
+                string _miscGraphicSettings = "00 0E 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 CD CC 4C 3F 06 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 10 00 00 00 10 00 00 00 10 00 00 08 00 00 00 01 00 00 00 00 10 00 00 00 00 D0 1E 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 1E 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 02 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 03 00 00 00 02 00 00 00 00 00 00 00 03 00 00 00 03 00 00 00 02 00 00 00 04 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 C0 00 00 00 02 00 00 00 01 00 00 00";
+                string applicationSettings = "01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 00 00 00 00";
+
+                byte[] autoRestart = Encoding.Default.GetBytes("autorestartV0.0");
+                byte[] numberOfMapsBytes = BitConverter.GetBytes(128);
+
+                byte[] graphicsSetup_Name = Encoding.Default.GetBytes(hw3d_name);
+                byte[] graphicsSetup_GUID = Encoding.Default.GetBytes(hw3d_guid);
+                byte[] graphicsSetupMisc_Settings = HexConverter.ToByteArray(_miscGraphicSettings.Replace(" ", ""));
+                byte[] applicationSettingBytes = HexConverter.ToByteArray(applicationSettings.Replace(" ", ""));
+                byte[] windowedModeBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.WindowedMode));
+                byte[] ServerNameBytes = Encoding.Default.GetBytes(startInstance.ServerName);
+                byte[] countryCodeBytes = Encoding.Default.GetBytes(startInstance.CountryCode);
+                byte[] BindAddress = Encoding.Default.GetBytes(startInstance.BindAddress);
+                byte[] firstMapFile = Encoding.Default.GetBytes(startInstance.MapList[0].MapFile);
+                byte[] maxSlotsBytes = BitConverter.GetBytes(startInstance.MaxSlots);
+                byte[] dedicatedBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.Dedicated));
+                byte[] GameScoreBytes = BitConverter.GetBytes(startInstance.GameScore);
+                byte[] StartDelayBytes = BitConverter.GetBytes(startInstance.StartDelay);
+                byte[] serverPasswordBytes = Encoding.Default.GetBytes(startInstance.Password);
+                byte[] redTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.RedPassword);
+                byte[] blueTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.BluePassword);
+                byte[] gamePlayOptionsBytes = BitConverter.GetBytes(gamePlayOptionsInt);
+                byte[] loopMapsBytes;
+
+                if (loopMaps == true)
+                {
+                    loopMapsBytes = BitConverter.GetBytes(2);
+                }
+                else
+                {
+                    loopMapsBytes = BitConverter.GetBytes(1);
+                }
+
+                byte[] gameTypeBytes = BitConverter.GetBytes(_state.autoRes.gameTypes[startInstance.MapList[0].GameType].DatabaseId);
+                byte[] timeLimitBytes = BitConverter.GetBytes(startInstance.TimeLimit);
+                byte[] respawnTimeBytes = BitConverter.GetBytes(startInstance.RespawnTime);
+                byte[] allowCustomSkinsBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.AllowCustomSkins));
+                byte[] requireNovaLoginBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.RequireNovaLogin));
+                byte[] MOTDBytes = Encoding.Default.GetBytes(startInstance.MOTD);
+                byte[] sessionTypeBytes = BitConverter.GetBytes(startInstance.SessionType);
+                byte[] dedicatedSlotsBytes = BitConverter.GetBytes(dedicatedSlots);
+                byte[] graphicsHeaderSettings = BitConverter.GetBytes(-1);
+                byte[] graphicsSetting_1 = BitConverter.GetBytes(8);
+                byte[] startDelayBytes = BitConverter.GetBytes(startInstance.StartDelay);
+                byte[] minPingValueBytes = BitConverter.GetBytes(startInstance.MinPingValue);
+                byte[] enableMinPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MinPing));
+                byte[] maxPingValueBytes = BitConverter.GetBytes(startInstance.MaxPingValue);
+                byte[] enableMaxPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MaxPing));
+                byte[] gamePortBytes = BitConverter.GetBytes(startInstance.GamePort);
+                byte[] flagBallScoreBytes = BitConverter.GetBytes(startInstance.FBScore);
+                byte[] zoneTimerBytes = BitConverter.GetBytes(startInstance.ZoneTimer);
+                byte[] customMapFlagBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MapList[0].CustomMap));
+
+                byte[] mapListPrehandle = BitConverter.GetBytes(10621344);
+                byte[] finalAppSetup = HexConverter.ToByteArray("00 00 00 00 00 00 00 00 05 00 00 00 00".Replace(" ", ""));
+                byte[] resolutionSetup = HexConverter.ToByteArray("02 00 00 00 00 01 00 00 00".Replace(" ", ""));
+                byte[] graphicsPrehandle = HexConverter.ToByteArray("02 00 00 00 01 00 00 00".Replace(" ", ""));
+                byte[] defaultWeaponSetup = HexConverter.ToByteArray("05 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00 01 00 00 00".Replace(" ", ""));
+                byte[] endOfMapCfg = HexConverter.ToByteArray("20 B5 B6 01".Replace(" ", ""));
+                byte[] endOfMapCfg2 = HexConverter.ToByteArray("53 01 00 00 00 13 00 00 00 13 00 00 00 04 00 00 00".Replace(" ", ""));
+
+
+                ms.Seek(0, SeekOrigin.Begin);
+                // autorestart header + Number of Total Maps
+                ms.Write(autoRestart, 0, autoRestart.Length);
+                ms.Write(numberOfMapsBytes, 0, numberOfMapsBytes.Length);
+
+                ms.Seek(0x4D, SeekOrigin.Begin);
+                ms.Write(firstMapFile, 0, firstMapFile.Length);
+
+                ms.Seek(0xAF, SeekOrigin.Begin);
+                ms.Write(customMapFlagBytes, 0, customMapFlagBytes.Length);
+
+                ms.Seek(0x68F, SeekOrigin.Begin);
+                ms.Write(resolutionSetup, 0, resolutionSetup.Length);
+
+                ms.Seek(0x277, SeekOrigin.Begin);
+                ms.Write(sessionTypeBytes, 0, sessionTypeBytes.Length);
+
+                ms.Seek(0x1C7, SeekOrigin.Begin);
+                ms.Write(applicationSettingBytes, 0, applicationSettingBytes.Length);
+
+                ms.Seek(0x283, SeekOrigin.Begin);
+                ms.Write(dedicatedSlotsBytes, 0, dedicatedSlotsBytes.Length);
+
+                ms.Seek(0x28F, SeekOrigin.Begin);
+                ms.Write(gameTypeBytes, 0, gameTypeBytes.Length);
+
+                ms.Seek(0x293, SeekOrigin.Begin);
+                ms.Write(finalAppSetup, 0, finalAppSetup.Length);
+
+                ms.Seek(0x1347, SeekOrigin.Begin);
+                ms.Write(graphicsPrehandle, 0, graphicsPrehandle.Length);
+
+                ms.Seek(0x134F, SeekOrigin.Begin);
+                ms.Write(graphicsHeaderSettings, 0, graphicsHeaderSettings.Length);
+
+                ms.Seek(0x1353, SeekOrigin.Begin);
+                ms.Write(graphicsSetting_1, 0, graphicsSetting_1.Length);
+
+                ms.Seek(0x1357, SeekOrigin.Begin);
+                ms.Write(windowedModeBytes, 0, windowedModeBytes.Length);
+
+                ms.Seek(0x135F, SeekOrigin.Begin);
+                ms.Write(graphicsSetup_Name, 0, graphicsSetup_Name.Length);
+
+                ms.Seek(0x137F, SeekOrigin.Begin);
+                ms.Write(graphicsSetup_GUID, 0, graphicsSetup_GUID.Length);
+                ms.Write(graphicsSetupMisc_Settings, 0, graphicsSetupMisc_Settings.Length);
+
+                ms.Seek(0x152F, SeekOrigin.Begin);
+                ms.Write(serverPasswordBytes, 0, serverPasswordBytes.Length);
+
+                ms.Seek(0x1562, SeekOrigin.Begin);
+                ms.Write(redTeamPasswordBytes, 0, redTeamPasswordBytes.Length);
+
+                ms.Seek(0x1573, SeekOrigin.Begin);
+                ms.Write(blueTeamPasswordBytes, 0, blueTeamPasswordBytes.Length);
+
+                ms.Seek(0x151F, SeekOrigin.Begin);
+                ms.Write(gamePlayOptionsBytes, 0, gamePlayOptionsBytes.Length);
+
+                ms.Seek(0x15A6, SeekOrigin.Begin);
+                ms.Write(ServerNameBytes, 0, ServerNameBytes.Length);
+
+                ms.Seek(0x15C6, SeekOrigin.Begin);
+                ms.Write(countryCodeBytes, 0, countryCodeBytes.Length);
+
+                ms.Seek(0x1613, SeekOrigin.Begin);
+                ms.Write(dedicatedBytes, 0, dedicatedBytes.Length);
+
+                ms.Seek(0x15EA, SeekOrigin.Begin);
+                ms.Write(BindAddress, 0, BindAddress.Length);
+
+                ms.Seek(0x160B, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x161F, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(100), 0, BitConverter.GetBytes(100).Length);
+
+                ms.Seek(0x162F, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1633, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(210), 0, BitConverter.GetBytes(210).Length);
+
+                ms.Seek(0x1637, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x163B, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
+
+                ms.Seek(0x164B, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1693, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1697, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x169B, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(15), 0, BitConverter.GetBytes(15).Length);
+
+                ms.Seek(0x16B7, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
+
+                ms.Seek(0x16BB, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x16C7, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x16CB, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(2), 0, BitConverter.GetBytes(2).Length);
+
+                ms.Seek(0x16EF, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(4), 0, BitConverter.GetBytes(4).Length);
+
+                ms.Seek(0x16F4, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x16FC, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1703, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1707, SeekOrigin.Begin);
+                ms.Write(BitConverter.GetBytes(1), 0, BitConverter.GetBytes(1).Length);
+
+                ms.Seek(0x1627, SeekOrigin.Begin);
+                ms.Write(startDelayBytes, 0, startDelayBytes.Length);
+
+                ms.Seek(0x16F3, SeekOrigin.Begin);
+                ms.Write(minPingValueBytes, 0, minPingValueBytes.Length);
+
+                ms.Seek(0x16F7, SeekOrigin.Begin);
+                ms.Write(enableMinPingBytes, 0, enableMinPingBytes.Length);
+
+                ms.Seek(0x16FB, SeekOrigin.Begin);
+                ms.Write(maxPingValueBytes, 0, maxPingValueBytes.Length);
+
+                ms.Seek(0x16FF, SeekOrigin.Begin);
+                ms.Write(enableMaxPingBytes, 0, enableMaxPingBytes.Length);
+
+                ms.Seek(0x160F, SeekOrigin.Begin);
+                ms.Write(maxSlotsBytes, 0, maxSlotsBytes.Length);
+
+                ms.Seek(0x16CF, SeekOrigin.Begin);
+                ms.Write(gamePortBytes, 0, gamePortBytes.Length);
+
+                ms.Seek(0x16DB, SeekOrigin.Begin);
+                ms.Write(requireNovaLoginBytes, 0, requireNovaLoginBytes.Length);
+
+                ms.Seek(0x16D7, SeekOrigin.Begin);
+                ms.Write(allowCustomSkinsBytes, 0, allowCustomSkinsBytes.Length);
+
+                ms.Seek(0x170B, SeekOrigin.Begin);
+                ms.Write(MOTDBytes, 0, MOTDBytes.Length);
+
+                ms.Seek(0x1623, SeekOrigin.Begin);
+                ms.Write(flagBallScoreBytes, 0, flagBallScoreBytes.Length);
+
+                ms.Seek(0x1643, SeekOrigin.Begin);
+                ms.Write(zoneTimerBytes, 0, zoneTimerBytes.Length);
+
+                ms.Seek(0x1647, SeekOrigin.Begin);
+                ms.Write(respawnTimeBytes, 0, respawnTimeBytes.Length);
+
+                ms.Seek(0x163F, SeekOrigin.Begin);
+                ms.Write(timeLimitBytes, 0, timeLimitBytes.Length);
+
+                ms.Seek(0x1DA4, SeekOrigin.Begin);
+                ms.Write(GameScoreBytes, 0, GameScoreBytes.Length);
+
+                ms.Seek(0x178B, SeekOrigin.Begin);
+                ms.Write(defaultWeaponSetup, 0, defaultWeaponSetup.Length);
+
+                ms.Seek(0x187F, SeekOrigin.Begin);
+                ms.Write(mapListPrehandle, 0, mapListPrehandle.Length);
+
+                byte[] endOfMap = HexConverter.ToByteArray("20 B5 B6 01 00 00 00 00 53 01 00 00 00 13 00 00 00 13 00 00 00 04 00 00 00".Replace(" ", ""));
+
+                foreach (var map in startInstance.MapList)
+                {
+                    byte[] mapFile = Encoding.Default.GetBytes(map.Value.MapFile);
+                    ms.Write(mapFile, 0, mapFile.Length);
+
+                    ms.Seek(ms.Position + (0x20F - mapFile.Length), SeekOrigin.Begin);
+                    byte[] mapName = Encoding.Default.GetBytes(map.Value.MapName);
+                    ms.Write(mapName, 0, mapName.Length);
+
+                    ms.Seek(ms.Position + (0x305 - mapName.Length), SeekOrigin.Begin);
+                    ms.Write(endOfMap, 0, endOfMap.Length);
+
+                    ms.Seek(ms.Position + 0x1E3, SeekOrigin.Begin);
+                    byte[] customMap = BitConverter.GetBytes(Convert.ToInt32(map.Value.CustomMap));
+                    ms.Write(customMap, 0, customMap.Length);
+
+                    // prepare for next entry
+                    ms.Seek(ms.Position + 0x1C, SeekOrigin.Begin);
+                }
+
+                for (int i = startInstance.MapList.Count; i < 128; i++)
+                {
+                    byte[] mapFile = Encoding.Default.GetBytes("NA.bms");
+                    ms.Write(mapFile, 0, mapFile.Length);
+
+                    ms.Seek(ms.Position + (0x20F - mapFile.Length), SeekOrigin.Begin);
+                    byte[] mapName = Encoding.Default.GetBytes("NA");
+                    ms.Write(mapName, 0, mapName.Length);
+
+                    ms.Seek(ms.Position + (0x305 - mapName.Length), SeekOrigin.Begin);
+                    ms.Write(endOfMap, 0, endOfMap.Length);
+
+                    ms.Seek(ms.Position + 0x1E3, SeekOrigin.Begin);
+                    byte[] customMap = BitConverter.GetBytes(Convert.ToInt32(false));
+                    ms.Write(customMap, 0, customMap.Length);
+
+                    // prepare for next entry
+                    ms.Seek(ms.Position + 0x1C, SeekOrigin.Begin);
+                }
+
+                BinaryWriter writer = new BinaryWriter(File.Open(autoResPath, FileMode.OpenOrCreate, FileAccess.ReadWrite));
+                writer.Seek(0, SeekOrigin.Begin);
+                writer.Write(ms.ToArray());
+                writer.Close();
+
+                Thread.Sleep(1000); // sleep 100ms to allow flushing the file to complete
+
+                return true;
+
+            } 
+            catch (Exception e)
+            {
+                _state.eventLog.WriteEntry("Error creating autores.bin file: " + e.ToString(), EventLogEntryType.Error);
+                return false;
+            }
+
+            _state.eventLog.WriteEntry("Someting went wrong creating the autores.bin file. Try Catch Skipped.");
+            return false;
+
+        }
+    
+        public bool startGame(Instance startInstance, AppState _state, int ArrayID, SQLiteConnection conn)
+        {
+            // Variable to be moved to the function that will need it.
+            string file_name = startInstance.GameType == 0 ? "dfbhd.exe" : "jops.exe";
+
+            try
+            {
+                // Start Game
+                Process process;
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(startInstance.GamePath, file_name),
+                    WorkingDirectory = startInstance.GamePath,
+                    Arguments = "/w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
+                    WindowStyle = ProcessWindowStyle.Minimized
+                };
+                process = Process.Start(startInfo);
+
+                List<int> currentPIDs = new List<int>();
+                foreach (var instance in _state.Instances)
+                {
+                    if (instance.Value.PID != 0)
+                    {
+                        currentPIDs.Add(instance.Value.PID.GetValueOrDefault());
+                    }
+                }
+                Process[] processes = Process.GetProcessesByName("dfbhd");
+                foreach (var activeProcess in processes)
+                {
+                    if (!currentPIDs.Contains(activeProcess.Id) && activeProcess.StartTime > DateTime.Now.AddMinutes(-1))
+                    {
+                        activeProcess.MaxWorkingSet = new IntPtr(0x7fffffff);
+                        startInstance.PID = activeProcess.Id;
+                        _state.ApplicationProcesses[ArrayID] = activeProcess;
+                    }
+                }
+
+                string pid_update_db = "UPDATE instances_pid SET pid = " + _state.ApplicationProcesses[ArrayID].Id + " WHERE profile_id = " + startInstance.Id + ";";
+                SQLiteCommand pid_update = new SQLiteCommand(pid_update_db, conn);
+                pid_update.ExecuteNonQuery();
+                pid_update.Dispose();
+            }
+            catch (Exception e)
+            {
+                _state.eventLog.WriteEntry("Error starting game: " + e.ToString(), EventLogEntryType.Error);
+                return false;
+            }
+
+            // Game Didn't Crash Yay!  Dump Data to the State
+            _state.Instances[ArrayID] = startInstance;
+            _state.Instances[ArrayID].gameCrashCounter = 0;
+
+            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
+            _state.Instances[ArrayID].ProcessHandle = processHandle;
+            var baseAddr = 0x400000;
+
+            Thread.Sleep(1500);
+
+            SetWindowText(_state.ApplicationProcesses[ArrayID].MainWindowHandle, $"{_state.Instances[ArrayID].GameName}");
+            if (_state.Instances[ArrayID].HostName != "Host")
+            {
+                int buffer = 0;
+                byte[] PointerAddr = new byte[4];
+                var Pointer = baseAddr + 0x005ED600;
+                ReadProcessMemory((int)processHandle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
+                int buffer2 = 0;
+                byte[] Hostname = Encoding.Default.GetBytes(_state.Instances[ArrayID].HostName + "\0");
+                var Address2HostName = BitConverter.ToInt32(PointerAddr, 0);
+                WriteProcessMemory((int)processHandle, (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
+            }
+
+            // map list fix... I hope...
+            int MapListMoveGarbageAddress = baseAddr + 0x5EA7B8;
+            byte[] CurrentAddressBytes = new byte[4];
+            int CurrentAddressRead = 0;
+            ReadProcessMemory((int)processHandle, MapListMoveGarbageAddress, CurrentAddressBytes, CurrentAddressBytes.Length, ref CurrentAddressRead);
+            int CurrentAddress = BitConverter.ToInt32(CurrentAddressBytes, 0);
+            int NewAddress = CurrentAddress + 0x350;
+
+            byte[] NewAddressBytes = BitConverter.GetBytes(NewAddress);
+            int NewAddressWritten = 0;
+            WriteProcessMemory((int)processHandle, MapListMoveGarbageAddress, NewAddressBytes, NewAddressBytes.Length, ref NewAddressWritten);
+
+            int mapListLocationPtr = baseAddr + 0x005ED5F8;
+            byte[] mapListLocationPtrBytes = new byte[4];
+            int mapListLocationBytesPtrRead = 0;
+            ReadProcessMemory((int)processHandle, mapListLocationPtr, mapListLocationPtrBytes, mapListLocationPtrBytes.Length, ref mapListLocationBytesPtrRead);
+
+            int mapListNumberOfMaps = BitConverter.ToInt32(mapListLocationPtrBytes, 0) + 0x4;
+            byte[] numberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapList.Count);
+            int numberofMapsWritten = 0;
+            WriteProcessMemory((int)processHandle, mapListNumberOfMaps, numberOfMaps, numberOfMaps.Length, ref numberofMapsWritten);
+
+            mapListNumberOfMaps += 0x4;
+            byte[] TotalnumberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapList.Count);
+            int TotalnumberofMapsWritten = 0;
+            WriteProcessMemory((int)processHandle, mapListNumberOfMaps, TotalnumberOfMaps, TotalnumberOfMaps.Length, ref TotalnumberofMapsWritten);
+
+
+            UpdateAllowCustomSkins(_state, ArrayID);
+            UpdateDestroyBuildings(_state, ArrayID);
+            UpdateFatBullets(_state, ArrayID);
+            UpdateFlagReturnTime(_state, ArrayID);
+            UpdateMaxPing(_state, ArrayID);
+            UpdateMaxPingValue(_state, ArrayID);
+            UpdateMaxTeamLives(_state, ArrayID);
+            UpdateMinPing(_state, ArrayID);
+            UpdateMinPingValue(_state, ArrayID);
+            UpdateOneShotKills(_state, ArrayID);
+            UpdatePSPTakeOverTime(_state, ArrayID);
+            UpdateRequireNovaLogin(_state, ArrayID);
+            UpdateRespawnTime(_state, ArrayID);
+            UpdateWeaponRestrictions(_state, ArrayID);
+            _state.Instances[ArrayID].AutoMessages.NextMessage = DateTime.Now.AddMinutes(1.0);
+
+            if (ProgramConfig.EnableWFB)
+            {
+                // Add Firewall Rules
+                _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
+                _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
+            }
+
+            return true;
         }
     }
 }

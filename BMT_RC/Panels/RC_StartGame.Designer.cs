@@ -626,8 +626,6 @@
             this.comboBox_gameMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_gameMod.Enabled = false;
             this.comboBox_gameMod.FormattingEnabled = true;
-            this.comboBox_gameMod.Items.AddRange(new object[] {
-            "None (not supported)"});
             this.comboBox_gameMod.Location = new System.Drawing.Point(131, 139);
             this.comboBox_gameMod.Name = "comboBox_gameMod";
             this.comboBox_gameMod.Size = new System.Drawing.Size(98, 21);
