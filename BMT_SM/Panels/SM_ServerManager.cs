@@ -2165,9 +2165,9 @@ namespace HawkSync_SM
             }
             if (num_scoreKOTH.Value != _state.Instances[ArrayID].KOTHScore)
             {
-                _state.Instances[ArrayID].KOTHScore = Convert.ToInt32(num_scoreKOTH.Value);
-                SQLiteCommand updateKOTHScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `kothscore` = @kothscore WHERE `profile_id` = @profileid;", db);
-                updateKOTHScoreCmd.Parameters.AddWithValue("@kothscore", _state.Instances[ArrayID].FBScore);
+                _state.Instances[ArrayID].ZoneTimer = Convert.ToInt32(num_scoreKOTH.Value);
+                SQLiteCommand updateKOTHScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
+                updateKOTHScoreCmd.Parameters.AddWithValue("@zoneTimer", _state.Instances[ArrayID].ZoneTimer);
                 updateKOTHScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
                 updateKOTHScoreCmd.ExecuteNonQuery();
                 updateKOTHScoreCmd.Dispose();
@@ -2715,7 +2715,7 @@ namespace HawkSync_SM
             num_vpnAbuseLevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
 
             num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
-            num_scoreKOTH.Value = _state.Instances[ArrayID].KOTHScore;
+            num_scoreKOTH.Value = _state.Instances[ArrayID].ZoneTimer;
             num_scoreDM.Value = _state.Instances[ArrayID].GameScore;
             endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].ScoreBoardDelay;
 
@@ -3255,11 +3255,6 @@ namespace HawkSync_SM
         private void toolStripMenuItem144_Click(object sender, EventArgs e)
         {
             text_newAutoMessage.Text += " $(LowestExp)";
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            // save plugin settings
         }
 
         private void dataGridView5_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

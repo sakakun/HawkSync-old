@@ -238,7 +238,7 @@ namespace HawkSync_SM
             startInstance.StartDelay = Convert.ToInt32(comboBox_startDelay.SelectedIndex);  // Start Delay
             startInstance.LoopMaps = checkBox_loopMaps.Checked ? 1 : 0;                     // Loop Maps
             startInstance.FBScore = comboBox_flagsScored.SelectedIndex;                     // Flag Score
-            startInstance.GameScore = comboBox_maxKills.SelectedIndex;                      // Game Score
+            startInstance.GameScore = comboBox_gameScore.SelectedIndex;                     // Game Score
             startInstance.ZoneTimer = comboBox_zoneTimer.SelectedIndex;                     // Zone Timer
             startInstance.RespawnTime = comboBox_respawnTime.SelectedIndex;                 // Respawn Time
             startInstance.TimeLimit = comboBox_timeLimit.SelectedIndex;                     // Time Limit
@@ -298,7 +298,7 @@ namespace HawkSync_SM
             update_query.Parameters.AddWithValue("@start_delay", startInstance.StartDelay);
             update_query.Parameters.AddWithValue("@loop_maps", startInstance.LoopMaps);
             update_query.Parameters.AddWithValue("@game_score", startInstance.GameScore);
-            update_query.Parameters.AddWithValue("@flag_scores", startInstance.GameScore);
+            update_query.Parameters.AddWithValue("@flag_scores", startInstance.FBScore);
             update_query.Parameters.AddWithValue("@zone_timer", startInstance.ZoneTimer);
             update_query.Parameters.AddWithValue("@respawn_time", startInstance.RespawnTime);
             update_query.Parameters.AddWithValue("@time_limit", startInstance.TimeLimit);
@@ -397,17 +397,19 @@ namespace HawkSync_SM
             // maxkills
             for (int maxkills = 0; maxkills < 501; maxkills++)
             {
-                comboBox_maxKills.Items.Add(maxkills);
+                comboBox_gameScore.Items.Add(maxkills);
                 comboBox_flagsScored.Items.Add(maxkills);
             }
             //end maxkills
             comboBox_timeLimit.Items.Insert(0, "No Limit");
+            comboBox_zoneTimer.Items.Insert(0, 0);
             for (int timelimit = 1; timelimit < 61; timelimit++)
             {
                 comboBox_timeLimit.Items.Add(timelimit);
                 comboBox_zoneTimer.Items.Add(timelimit);
             }
-            for (int respawntime = 0; respawntime < 121; respawntime++)
+            comboBox_respawnTime.Items.Insert(0, "Instant Respawn");
+            for (int respawntime = 1; respawntime < 121; respawntime++)
             {
                 comboBox_respawnTime.Items.Add(respawntime);
             }
@@ -438,8 +440,8 @@ namespace HawkSync_SM
             comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
             comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
             checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
-            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].MaxKills;
-            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].GameScore;
+            comboBox_gameScore.SelectedIndex = _state.Instances[ArrayID].GameScore;
+            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].FBScore;
             comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
             comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
             comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;

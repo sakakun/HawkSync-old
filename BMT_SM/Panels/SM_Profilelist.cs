@@ -679,10 +679,7 @@ namespace HawkSync_SM
                             _state.ChatHandlerTimer.Add(instanceId, new Timer { Enabled = true, Interval = 1 });
                             _state.ChatHandlerTimer[instanceId].Tick += (sender, e) =>
                             {
-                                if (_state.Instances[instanceId].Status != InstanceStatus.OFFLINE && _state.Instances[instanceId].Status != InstanceStatus.LOADINGMAP)
-                                {
-                                    //event_getChatLogs(instanceId);
-                                }
+                                event_getChatLogs(instanceId);
                             };
 
                             // Set PID if not null

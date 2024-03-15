@@ -1119,25 +1119,25 @@
   <data name="&gt;&gt;label_maxKills.ZOrder" xml:space="preserve">
     <value>35</value>
   </data>
-  <data name="comboBox_maxKills.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="comboBox_gameScore.Location" type="System.Drawing.Point, System.Drawing">
     <value>274, 166</value>
   </data>
-  <data name="comboBox_maxKills.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="comboBox_gameScore.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 21</value>
   </data>
-  <data name="comboBox_maxKills.TabIndex" type="System.Int32, mscorlib">
+  <data name="comboBox_gameScore.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
-  <data name="&gt;&gt;comboBox_maxKills.Name" xml:space="preserve">
-    <value>comboBox_maxKills</value>
+  <data name="&gt;&gt;comboBox_gameScore.Name" xml:space="preserve">
+    <value>comboBox_gameScore</value>
   </data>
-  <data name="&gt;&gt;comboBox_maxKills.Type" xml:space="preserve">
+  <data name="&gt;&gt;comboBox_gameScore.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comboBox_maxKills.Parent" xml:space="preserve">
+  <data name="&gt;&gt;comboBox_gameScore.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;comboBox_maxKills.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;comboBox_gameScore.ZOrder" xml:space="preserve">
     <value>36</value>
   </data>
   <data name="label_flagsScored.AutoSize" type="System.Boolean, mscorlib">

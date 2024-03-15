@@ -69,7 +69,7 @@ namespace HawkSync_SM
             this.textBox_countryCode = new System.Windows.Forms.TextBox();
             this.label_timeLimit = new System.Windows.Forms.Label();
             this.label_maxKills = new System.Windows.Forms.Label();
-            this.comboBox_maxKills = new System.Windows.Forms.ComboBox();
+            this.comboBox_gameScore = new System.Windows.Forms.ComboBox();
             this.label_flagsScored = new System.Windows.Forms.Label();
             this.comboBox_sessionType = new System.Windows.Forms.ComboBox();
             this.label_sessionType = new System.Windows.Forms.Label();
@@ -167,7 +167,7 @@ namespace HawkSync_SM
             this.groupBox1.Controls.Add(this.textBox_countryCode);
             this.groupBox1.Controls.Add(this.label_timeLimit);
             this.groupBox1.Controls.Add(this.label_maxKills);
-            this.groupBox1.Controls.Add(this.comboBox_maxKills);
+            this.groupBox1.Controls.Add(this.comboBox_gameScore);
             this.groupBox1.Controls.Add(this.label_flagsScored);
             this.groupBox1.Controls.Add(this.comboBox_sessionType);
             this.groupBox1.Controls.Add(this.label_sessionType);
@@ -391,12 +391,12 @@ namespace HawkSync_SM
             resources.ApplyResources(this.label_maxKills, "label_maxKills");
             this.label_maxKills.Name = "label_maxKills";
             // 
-            // comboBox_maxKills
+            // comboBox_gameScore
             // 
-            this.comboBox_maxKills.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_maxKills.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBox_maxKills, "comboBox_maxKills");
-            this.comboBox_maxKills.Name = "comboBox_maxKills";
+            this.comboBox_gameScore.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_gameScore.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox_gameScore, "comboBox_gameScore");
+            this.comboBox_gameScore.Name = "comboBox_gameScore";
             // 
             // label_flagsScored
             // 
@@ -671,7 +671,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.Label label_serverName;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label_maxKills;
-        private System.Windows.Forms.ComboBox comboBox_maxKills;
+        private System.Windows.Forms.ComboBox comboBox_gameScore;
         private System.Windows.Forms.Label label_loopMaps;
         private System.Windows.Forms.CheckBox checkBox_loopMaps;
         private System.Windows.Forms.Label label_startDelay;
