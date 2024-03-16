@@ -14,6 +14,8 @@ namespace HawkSync_SM
 
         public void AllowTraffic(string gameName, string serverFilePath)
         {
+            serverFilePath = serverFilePath + "\\dfbhd.exe";
+
             DeleteFirewallRules(gameName, "Allow");
             string ruleName = RulePrefix + gameName + "-Allow Traffic";
             string script = $"New-NetFirewallRule -DisplayName \"'{ruleName}'\" -Direction Inbound -Action Allow -Program \"{serverFilePath}\"";
@@ -22,6 +24,8 @@ namespace HawkSync_SM
 
         public void DenyTraffic(string gameName, string serverFilePath, List<ob_playerBanList> bannedIPs)
         {
+            serverFilePath = serverFilePath + "\\dfbhd.exe";
+
             if (!bannedIPs.SequenceEqual(this.bannedIPs))
             {
                 this.bannedIPs.Clear();

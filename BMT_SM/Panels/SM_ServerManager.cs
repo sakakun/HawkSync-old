@@ -1792,10 +1792,8 @@ namespace HawkSync_SM
                 updateCountryCode.Dispose();
             }
 
+            // Doesn't Work, can only be set on server start.
             /*
-             * update server password
-             * Need to find where the password field is being held
-             */
             if (smT_serverPassword.Text != _state.Instances[ArrayID].Password)
             {
                 int oldPw = _state.Instances[ArrayID].Password.Length;
@@ -1806,12 +1804,10 @@ namespace HawkSync_SM
                 updateServerPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
                 updateServerPasswordCmd.ExecuteNonQuery();
                 updateServerPasswordCmd.Dispose();
-            }
+            }*/
 
+            // Doesn't Work, can only be set on server start? 
             /*
-             * update Session Type
-             * Need to find where the SessionType field is being held
-             */
             if (smCB_sessionType.SelectedIndex != _state.Instances[ArrayID].SessionType)
             {
                 _state.Instances[ArrayID].SessionType = smCB_sessionType.SelectedIndex;
@@ -1821,11 +1817,10 @@ namespace HawkSync_SM
                 updateSessionTypeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
                 updateSessionTypeCmd.ExecuteNonQuery();
                 updateSessionTypeCmd.Dispose();
-            }
+            }*/
 
             /*
              * update Max Slots
-             * Need to find where the MaxSlots field is being held
              */
             if (Convert.ToInt32(smNum_maxSlots.Value) != _state.Instances[ArrayID].MaxSlots)
             {
@@ -2101,12 +2096,6 @@ namespace HawkSync_SM
                 MessageBox.Show("Red Team Password will be applied on the next map!");
             }
 
-            if (endOfMapTimer_TrackBar.Value != _state.Instances[ArrayID].ScoreBoardDelay)
-            {
-                _state.Instances[ArrayID].ScoreBoardDelay = endOfMapTimer_TrackBar.Value;
-                //serverManagerUpdateMemory.UpdateScoreBoardDelay(_state, ArrayID);
-            }
-
             if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].FlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].PSPTakeOverTime))
             {
                 _state.Instances[ArrayID].FlagReturnTime = Convert.ToInt32(num_flagReturn.Value);
@@ -2163,7 +2152,7 @@ namespace HawkSync_SM
                 updateFBScoreCmd.ExecuteNonQuery();
                 updateFBScoreCmd.Dispose();
             }
-            if (num_scoreKOTH.Value != _state.Instances[ArrayID].KOTHScore)
+            if (num_scoreKOTH.Value != _state.Instances[ArrayID].ZoneTimer)
             {
                 _state.Instances[ArrayID].ZoneTimer = Convert.ToInt32(num_scoreKOTH.Value);
                 SQLiteCommand updateKOTHScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);

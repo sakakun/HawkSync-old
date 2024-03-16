@@ -184,7 +184,7 @@ namespace HawkSync_RC
             cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
             
             num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
-            num_scoreKOTH.Value = _state.Instances[ArrayID].KOTHScore;
+            num_scoreKOTH.Value = _state.Instances[ArrayID].ZoneTimer;
             num_scoreDM.Value = _state.Instances[ArrayID].GameScore;
             num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
             cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
@@ -1004,6 +1004,7 @@ namespace HawkSync_RC
             }
 
             // server password
+            /*
             if (rcT_serverPassword.Text != _state.Instances[ArrayID].Password)
             {
                 var request = new Dictionary<string, dynamic>
@@ -1021,8 +1022,9 @@ namespace HawkSync_RC
                 else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
                     updateList.Add("An error occurred while updating Country Code.");
             }
-
+            */
             // session type
+            /*
             if (rcCB_sessionType.SelectedIndex != _state.Instances[ArrayID].SessionType)
             {
                 var request = new Dictionary<string, dynamic>
@@ -1040,7 +1042,7 @@ namespace HawkSync_RC
                 else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
                     updateList.Add("An error occurred while updating Session Type.");
             }
-
+            */
             // max slots
             if (Convert.ToInt32(rcNum_maxSlots.Value) != _state.Instances[ArrayID].MaxSlots)
             {
@@ -1055,9 +1057,9 @@ namespace HawkSync_RC
                     JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
                         Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
-                    updateList.Add("Session Type has been updated.");
+                    updateList.Add("Max Player Slots Updated.");
                 else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
-                    updateList.Add("An error occurred while updating Session Type.");
+                    updateList.Add("An error occurred while updating Max Player Slots.");
             }
 
             // time limit
@@ -1112,9 +1114,9 @@ namespace HawkSync_RC
                     JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
                         Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
-                    updateList.Add("Start Delay has been updated.");
+                    updateList.Add("Replay Maps has been updated.");
                 else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
-                    updateList.Add("An error occurred while updating Start Delay.");
+                    updateList.Add("An error occurred while updating Replay Maps setting.");
             }
 
             // Respawn Time
@@ -1249,7 +1251,7 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Flag Ball Score.");
             }
 
-            if (Convert.ToInt32(num_scoreKOTH.Value) != _state.Instances[ArrayID].KOTHScore)
+            if (Convert.ToInt32(num_scoreKOTH.Value) != _state.Instances[ArrayID].ZoneTimer)
             {
                 var request = new Dictionary<string, dynamic>
                 {

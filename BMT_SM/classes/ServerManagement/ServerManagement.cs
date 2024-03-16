@@ -596,6 +596,7 @@ namespace HawkSync_SM
             bool showTracers = theInstance.ShowTracers;
             bool showTeamClays = theInstance.ShowTeamClays;
             bool allowAutoRange = theInstance.AllowAutoRange;
+
             if (autoBalance == true && friendlyFire == false && friendlyTags == false && friendlyFireWarning == false && showTracers == false && showTeamClays == false && allowAutoRange == false)
             {
                 return 15883;

@@ -2230,12 +2230,12 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].KOTHScore = kOTHScore;
+                    _state.Instances[InstanceIndex].ZoneTimer = kOTHScore;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
-                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `kothscore` = @kothscore WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@kothscore", _state.Instances[InstanceIndex].KOTHScore);
+                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
+                    updateDB.Parameters.AddWithValue("@zoneTimer", _state.Instances[InstanceIndex].ZoneTimer);
                     updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
