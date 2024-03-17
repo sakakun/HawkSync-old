@@ -116,7 +116,6 @@ namespace HawkSync_SM
             ChatLogMessages.Dispose();
             ChatLogMessages = new BindingListView<ob_PlayerChatLog>(_state.Instances[ArrayID].ChatLog);
             data_chatViewer.DataSource = ChatLogMessages;
-            Console.WriteLine("Chatlog updated!" + JsonConvert.SerializeObject(_state.Instances[ArrayID].ChatLog));
         }
         private void UpdatePlayerCounter()
         {
