@@ -736,8 +736,6 @@ namespace HawkSync_SM
                             _state.Instances.Add(_state.Instances.Count, instance);
                             //_state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
 
-                            // Start chat handler timer
-                            _state.ChatHandlerTimer[instanceId].Start();
                         }
                     }
                 }
@@ -1084,7 +1082,6 @@ namespace HawkSync_SM
                 DataRow instance = table_profileList.Rows[id];
                 try
                 {
-                    _state.ChatHandlerTimer[id].Stop();
                     Ticker.Stop();
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
