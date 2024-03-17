@@ -1,4 +1,5 @@
 ﻿using HawkSync_SM.classes;
+using HawkSync_SM.classes.SupportClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -132,8 +133,20 @@ namespace HawkSync_SM
 
             // check for DB database
             bool fileExist = File.Exists(dbPath);
-            //if (fileExist && Debugger.IsAttached) { File.Delete(dbPath); fileExist = false; }
             if (!fileExist) { File.WriteAllBytes(dbPath, HawkSync_SM.Properties.Resources.settings); }
+            else
+            {
+                File.WriteAllBytes(dbPath + "_check", HawkSync_SM.Properties.Resources.settings);
+                SQLiteDatabaseUpdater dbUpdater = new SQLiteDatabaseUpdater(dbPath, dbPath + "_check");
+                if (dbUpdater.RunUpdater())
+                {
+                    File.Delete(dbPath + "_check");
+                } else
+                {
+                    Environment.Exit(0);
+                }
+            }
+
 
             // Default Hard Coded Settings
             ProgramConfig.DBConfig = "Data Source=" + dbPath + ";Version=3;";
