@@ -133,6 +133,9 @@ namespace HawkSync_SM
 
             // check for DB database
             bool fileExist = File.Exists(dbPath);
+            // debug mode
+            // if (fileExist && Debugger.IsAttached) { File.Delete(dbPath); fileExist = false; }
+            // database upgrade check
             if (!fileExist) { File.WriteAllBytes(dbPath, HawkSync_SM.Properties.Resources.settings); }
             else
             {

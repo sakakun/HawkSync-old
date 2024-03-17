@@ -46,10 +46,14 @@ namespace HawkSync_SM.classes.SupportClasses
                         {
                             MessageBox.Show("Database update failed. Unable to restore to previous version.", "Database Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        return false;
                     }
+                } else
+                {
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         public bool BackupDatabase()
@@ -96,7 +100,7 @@ namespace HawkSync_SM.classes.SupportClasses
 
         private int GetDatabaseVersion(string filePath)
         {
-            int version = 0;
+            string versionString = string.Empty;
             using (SQLiteConnection connection = new SQLiteConnection($"Data Source={filePath};Version=3;"))
             {
                 connection.Open();
@@ -105,10 +109,11 @@ namespace HawkSync_SM.classes.SupportClasses
                 {
                     if (reader.Read())
                     {
-                        version = reader.GetInt32(0);
+                        versionString = reader.GetString(0);
                     }
                 }
             }
+            int version = Convert.ToInt32(versionString);
             return version;
         }
 
