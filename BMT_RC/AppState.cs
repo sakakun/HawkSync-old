@@ -11,7 +11,6 @@ namespace HawkSync_RC
             IPQualityScore = new Dictionary<int, ipqualityscore>();
             CountryCodes = new List<string>();
             autoRes = new autoRestart();
-            ChatLogs = new Dictionary<int, ChatLogs>();
             SystemInfo = new SystemInfoClass();
             ftpPort = 0;
         }
@@ -21,7 +20,6 @@ namespace HawkSync_RC
         public UserCodes UserCodes { get; set; }
         public List<string> CountryCodes { get; set; }
         public autoRestart autoRes { get; set; }
-        public Dictionary<int, ChatLogs> ChatLogs { get; set; }
         public SystemInfoClass SystemInfo { get; set; }
         public int ftpPort { get; set; }
     }

@@ -796,7 +796,6 @@ namespace HawkSync_SM
                         {
                             reply.Add("Status", RCListenerClass.StatusCodes.SUCCESS);
                             reply.Add("Instances", Crypt.Base64Encode(JsonConvert.SerializeObject(RCFunctions.GetInstances(json.SessionID))));
-                            reply.Add("ChatLogs", Crypt.Base64Encode(JsonConvert.SerializeObject(_state.ChatLogs)));
                             _state.rcClients[json.SessionID].expires = DateTime.Now.AddHours(1).ToString();
                         }
                         else

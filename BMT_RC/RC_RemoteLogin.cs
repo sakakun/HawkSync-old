@@ -68,16 +68,13 @@ namespace HawkSync_RC
                             var RCInstancesReply = new RCInstances
                             {
                                 Status = (OpenClass.Status)instancesReply["Status"],
-                                Instances = JsonConvert.DeserializeObject<Dictionary<int, Instance>>(
-                                    Crypt.Base64Decode(instancesReply["Instances"])),
-                                ChatLogs = JsonConvert.DeserializeObject<Dictionary<int, ChatLogs>>(
-                                    Crypt.Base64Decode(instancesReply["ChatLogs"]))
+                                Instances = JsonConvert.DeserializeObject<Dictionary<int, Instance>>(Crypt.Base64Decode(instancesReply["Instances"]))
                             };
                             if (RCInstancesReply.Status == OpenClass.Status.SUCCESS)
                             {
                                 _state.Instances = RCInstancesReply.Instances;
-                                _state.ChatLogs = RCInstancesReply.ChatLogs;
                             }
+                            Console.WriteLine("Instances: " + JsonConvert.SerializeObject(_state.Instances));
                         }
                         catch (Exception)
                         {
@@ -364,15 +361,11 @@ namespace HawkSync_RC
                         var RCInstancesReply = new RCInstances
                         {
                             Status = (OpenClass.Status)instancesReply["Status"],
-                            Instances = JsonConvert.DeserializeObject<Dictionary<int, Instance>>(
-                                Crypt.Base64Decode(instancesReply["Instances"])),
-                            ChatLogs = JsonConvert.DeserializeObject<Dictionary<int, ChatLogs>>(
-                                Crypt.Base64Decode(instancesReply["ChatLogs"]))
+                            Instances = JsonConvert.DeserializeObject<Dictionary<int, Instance>>(Crypt.Base64Decode(instancesReply["Instances"]))
                         };
                         if (RCInstancesReply.Status == OpenClass.Status.SUCCESS)
                         {
                             _state.Instances = RCInstancesReply.Instances;
-                            _state.ChatLogs = RCInstancesReply.ChatLogs;
                             _ticker.Enabled = true;
                             _ticker.Start();
                             btn_connectServer.Text = "Disconnect";

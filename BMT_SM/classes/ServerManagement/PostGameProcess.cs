@@ -1,5 +1,7 @@
 ﻿using HawkSync_SM.classes.StatManagement;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SQLite;
 using System.Runtime.InteropServices;
 
@@ -41,10 +43,10 @@ namespace HawkSync_SM
         SQLiteConnection _connection;
 
         AppState _state;
-        ob_ChatLogs _chatLogs;
+        List<ob_PlayerChatLog> _chatLogs;
         int ArrayID = 0;
 
-        public PostGameProcess(AppState state, int instanceid, ob_ChatLogs chatlogs)
+        public PostGameProcess(AppState state, int instanceid, List<ob_PlayerChatLog> chatlogs)
         {
             ArrayID = instanceid;
 
@@ -69,7 +71,7 @@ namespace HawkSync_SM
 
         private void InsertChatLogs()
         {
-            foreach (var message in _chatLogs.Messages)
+            foreach (var message in _chatLogs)
             {
                 var query = @"INSERT INTO `chatlog` (`id`, `profile_id`, `name`, `msg`, `team`, `datesent`)" +
                             " VALUES (NULL, @ProfileId, @Name, @Msg, @Team, @DateSent);";

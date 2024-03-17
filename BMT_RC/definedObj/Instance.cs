@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace HawkSync_RC.classes
 {
@@ -7,6 +8,7 @@ namespace HawkSync_RC.classes
     {
         public int Id { get; set; }
         public int DataTableColumnId { get; set; }
+        public List<PlayerChatLog> ChatLog { get; set; }
         public string GamePath { get; set; }
         public int GameType { get; set; }
         public int? PID { get; set; }

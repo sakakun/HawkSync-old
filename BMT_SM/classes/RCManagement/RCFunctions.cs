@@ -65,7 +65,9 @@ namespace HawkSync_SM.RCClasses
                 }
                 else
                 {
-                    RCInstancesConfig.Add(item.Key, new Instance
+                    RCInstancesConfig.Add(item.Key, _state.Instances[item.Key]);
+
+                    /* RCInstancesConfig.Add(item.Key, new Instance
                     {
                         AllowAutoRange = item.Value.AllowAutoRange,
                         AllowCustomSkins = item.Value.AllowCustomSkins,
@@ -78,6 +80,7 @@ namespace HawkSync_SM.RCClasses
                         BanList = item.Value.BanList,
                         BindAddress = item.Value.BindAddress,
                         BluePassword = item.Value.BluePassword,
+                        ChatLog = item.Value.ChatLog,
                         ChangeTeamList = item.Value.ChangeTeamList,
                         CountryCode = item.Value.CountryCode,
                         CustomWarnings = item.Value.CustomWarnings,
@@ -144,7 +147,7 @@ namespace HawkSync_SM.RCClasses
                         VPNWhiteList = item.Value.VPNWhiteList,
                         WeaponRestrictions = item.Value.WeaponRestrictions,
                         ZoneTimer = item.Value.ZoneTimer,
-                    });
+                    });*/
                 }
             }
             return RCInstancesConfig;

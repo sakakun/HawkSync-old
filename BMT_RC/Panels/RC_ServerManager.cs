@@ -246,7 +246,7 @@ namespace HawkSync_RC
             ChatLogTable.Columns.Add("Type");
             ChatLogTable.Columns.Add("Player Name");
             ChatLogTable.Columns.Add("Message");
-            ChatLogMessages = new BindingListView<PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
+            ChatLogMessages = new BindingListView<PlayerChatLog>(_state.Instances[ArrayID].ChatLog);
             data_chatViewer.DataSource = ChatLogMessages;
             data_chatViewer.Columns["dateSent"].Width = 100;
             data_chatViewer.Columns["msgType"].Width = 40;
@@ -580,7 +580,7 @@ namespace HawkSync_RC
 
         private void UpdateChatLogs()
         {
-            ChatLogMessages.DataSource = _state.ChatLogs[ArrayID].Messages;
+            data_chatViewer.DataSource = _state.Instances[ArrayID].ChatLog;
         }
 
         private void UpdateCurrentMap()

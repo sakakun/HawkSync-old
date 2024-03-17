@@ -87,7 +87,7 @@ namespace HawkSync_SM
 
         private void ServerManagerTimer_Tick(object sender, EventArgs e)
         {
-            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
+            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;           
         }
 
         private void CustomWarningMenu(object sender, EventArgs e)
@@ -107,10 +107,17 @@ namespace HawkSync_SM
             UpdatePlayerlist();
             UpdatePlayerCounter();
             UpdateBanList();
+            UpdateChatLogs();
             //UpdateChatlogDisplay();
             //UpdateChatlogColors();
         }
-
+        private void UpdateChatLogs()
+        {
+            ChatLogMessages.Dispose();
+            ChatLogMessages = new BindingListView<ob_PlayerChatLog>(_state.Instances[ArrayID].ChatLog);
+            data_chatViewer.DataSource = ChatLogMessages;
+            Console.WriteLine("Chatlog updated!" + JsonConvert.SerializeObject(_state.Instances[ArrayID].ChatLog));
+        }
         private void UpdatePlayerCounter()
         {
             group_currentPlayers.Text = "Current Players: " + _state.Instances[ArrayID].PlayerList.Count.ToString();
@@ -152,86 +159,6 @@ namespace HawkSync_SM
             {
                 this.Close();
                 return;
-            }
-        }
-
-        private void UpdateChatlogColors()
-        {
-            for (int i = 0; i < ChatLogTable.Rows.Count; i++)
-            {
-                DataRow dr = ChatLogTable.Rows[i];
-                string dateTime = dr["Date & Time"].ToString();
-                string playerName = dr["Player Name"].ToString();
-                ob_playerList.Teams team = ob_playerList.Teams.TEAM_SPEC;
-
-                foreach (var item in _state.ChatLogs[ArrayID].Messages)
-                {
-                    string searchPlayer = item.PlayerName;
-                    string searchDateTime = item.dateSent.ToString();
-                    if (searchPlayer == playerName && searchDateTime == dateTime)
-                    {
-                        if (item.msgType == "Team")
-                        {
-                            if (item.team == String.Empty)
-                            {
-                                foreach (var player in _state.Instances[ArrayID].PlayerList)
-                                {
-                                    if (player.Value.name == playerName)
-                                    {
-                                        team = (ob_playerList.Teams)Enum.Parse(typeof(ob_playerList.Teams), player.Value.team.ToString());
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                team = (ob_playerList.Teams)Enum.Parse(typeof(ob_playerList.Teams), item.team);
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                switch (team)
-                {
-                    case ob_playerList.Teams.TEAM_GREEN:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Green;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Green;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Green;
-                        break;
-                    case ob_playerList.Teams.TEAM_BLUE:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Blue;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Blue;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Blue;
-                        break;
-                    case ob_playerList.Teams.TEAM_RED:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Red;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Red;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Red;
-                        break;
-                    case ob_playerList.Teams.TEAM_YELLOW:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Yellow;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Yellow;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Yellow;
-                        break;
-                    case ob_playerList.Teams.TEAM_PURPLE:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.Purple;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.Purple;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.Purple;
-                        break;
-                    case ob_playerList.Teams.TEAM_SPEC:
-                        data_chatViewer.Rows[i].Cells[0].Style.BackColor = Color.White;
-                        data_chatViewer.Rows[i].Cells[1].Style.BackColor = Color.White;
-                        data_chatViewer.Rows[i].Cells[2].Style.BackColor = Color.White;
-                        break;
-                }
-            }
-        }
-
-        private void UpdateChatlogDisplay()
-        {
-            if (_state.ChatLogs[ArrayID].Messages.Count > 0)
-            {
-                //....// to do...
             }
         }
 
@@ -2627,7 +2554,7 @@ namespace HawkSync_SM
             ChatLogTable.Columns.Add("Type", typeof(string));
             ChatLogTable.Columns.Add("Player Name", typeof(string));
             ChatLogTable.Columns.Add("Message", typeof(string));
-            ChatLogMessages = new BindingListView<ob_PlayerChatLog>(_state.ChatLogs[ArrayID].Messages);
+            ChatLogMessages = new BindingListView<ob_PlayerChatLog>(_state.Instances[ArrayID].ChatLog);
             data_chatViewer.DataSource = ChatLogMessages;
             data_chatViewer.Columns["dateSent"].Width = 100;
             data_chatViewer.Columns["msgType"].Width = 40;

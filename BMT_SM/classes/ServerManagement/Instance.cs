@@ -1,7 +1,9 @@
-﻿using HawkSync_SM.classes;
+﻿using HawkSync_SM;
+using HawkSync_SM.classes;
 using HawkSync_SM.classes.StatManagement;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -11,6 +13,7 @@ namespace HawkSync_SM
     {
         public int Id { get; set; }
         public int DataTableColumnId { get; set; }
+        public List<ob_PlayerChatLog> ChatLog { get; set; } = new List<ob_PlayerChatLog>();
         public string GamePath { get; set; }
         public int GameType { get; set; }
         public int? PID { get; set; }

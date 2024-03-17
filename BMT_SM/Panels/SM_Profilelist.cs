@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using HawkSync_SM.classes.StatManagement;
 using WatsonTcp;
 using Timer = System.Windows.Forms.Timer;
+using System.ComponentModel;
 
 namespace HawkSync_SM
 {
@@ -327,6 +328,7 @@ namespace HawkSync_SM
                                 var PID = instance.PID.GetValueOrDefault();
                                 if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
                                 {
+                                    event_getChatLogs(ref _state, rowId);
                                     // set process name incase the PID changes...
                                     serverManagement.SetNovaID(ref _state, rowId);
                                     //SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
@@ -396,11 +398,10 @@ namespace HawkSync_SM
                                             {
                                                 log.Info("Instance " + rowId + " is running the Loading Process Handler.");
                                             }
-                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, _state.ChatLogs[rowId]);
+                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, instance.ChatLog);
                                             postGameProcess.Run();
-                                            
-                                            _state.ChatLogs[rowId].Messages.Clear();
-                                            _state.ChatLogs[rowId].CurrentIndex = 0;
+
+                                            instance.ChatLog.Clear();
                                         }
                                         instance.collectPlayerStats = true;
                                         instance.IsRunningScoringGameProcesses = false;
@@ -592,6 +593,7 @@ namespace HawkSync_SM
                             {
                                 // Assigning properties...
                                 Id = result.GetInt32(result.GetOrdinal("id")),
+                                ChatLog = new List<ob_PlayerChatLog>(),
                                 GamePath = result.GetString(result.GetOrdinal("gamepath")),
                                 GameType = result.GetInt32(result.GetOrdinal("game_type")),
                                 GameName = result.GetString(result.GetOrdinal("name")),
@@ -676,11 +678,13 @@ namespace HawkSync_SM
                             int instanceId = _state.Instances.Count;
 
                             // Add Timer for chat handling
+                            /*
                             _state.ChatHandlerTimer.Add(instanceId, new Timer { Enabled = true, Interval = 1 });
                             _state.ChatHandlerTimer[instanceId].Tick += (sender, e) =>
                             {
-                                event_getChatLogs(instanceId);
+                                
                             };
+                            */
 
                             // Set PID if not null
                             if (!result.IsDBNull(result.GetOrdinal("pid")))
@@ -880,7 +884,6 @@ namespace HawkSync_SM
                     WarnLevel = warnLevelRead.GetInt32(warnLevelRead.GetOrdinal("warnlevel")),
                     IPInformation = ipManagement.cache_loadIPQuality(item.Value.Id, hawkSyncDB)
                 });
-                _state.ChatLogs[item.Key] = new ob_ChatLogs();
                 warnLevelRead.Close();
                 warnLevelRead.Dispose();
                 serverManagement.SetHostnames(item.Value);
@@ -1101,7 +1104,6 @@ namespace HawkSync_SM
                         command.ExecuteNonQuery();
 
                         _state.Instances.Remove(id);
-                        _state.ChatLogs.Remove(id);
                         _state.IPQualityCache.Remove(id);
                         table_profileList.Rows.Remove(instance);
 
@@ -1219,103 +1221,109 @@ namespace HawkSync_SM
             //}
         }
 
-        private void event_getChatLogs(int profileid)
+        private void event_getChatLogs(ref AppState _state, int profileid)
         {
-            //0x80
-            if (_state.Instances[profileid].Status == InstanceStatus.OFFLINE || _state.Instances[profileid].Status == InstanceStatus.LOADINGMAP)
+            
+            try
             {
-                return;
-            }
-
-            string[] chatMessage = serverManagement.GetLastChatMessage(ref _state, profileid);
-            int ChatLogAddr;
-            int.TryParse(chatMessage[0], out ChatLogAddr);
-            string LastMessage = chatMessage[1];
-            string msgTypeBytes = chatMessage[2];
-
-            // Check for valid next chat message
-            if (LastMessage == "")
-            {
-                return;
-            }
-            var chatLog = _state.ChatLogs[profileid];
-            var nextIndex = chatLog.CurrentIndex + 1;
-            string PlayerName = string.Empty;
-            string PlayerMessage = string.Empty;
-            int msgStart = LastMessage.IndexOf(':');
-
-            foreach (var pop in LastMessage)
-            {
-                if (pop == ':')
+                //0x80
+                if (_state.Instances[profileid].Status == InstanceStatus.OFFLINE || _state.Instances[profileid].Status == InstanceStatus.LOADINGMAP)
                 {
-                    break;
-                }
-                else
-                {
-                    PlayerName += pop;
-                }
-            }
-
-            for (int i = msgStart + 3; i < LastMessage.Length; i++)
-            {
-                PlayerMessage += LastMessage[i];
-            }
-
-            if (chatLog.Messages.Count != 0)
-            {
-                string LastPlayerName = chatLog.Messages[chatLog.Messages.Count - 1].PlayerName;
-                string LastPlayerMsg = chatLog.Messages[chatLog.Messages.Count - 1].msg;
-                if (LastPlayerName == PlayerName && LastPlayerMsg == PlayerMessage)
-                {
-                    return; // since we haven't gotten any new messages, return.
-                }
-            }
-
-            string msgTypeString;
-            switch (msgTypeBytes)
-            {
-                case "00FFFFFF":
-                    //host
-                    msgTypeString = "Server";
-                    serverManagement.CountDownKiller(ref _state, profileid, ChatLogAddr);
-                    break;
-                case "FFC0A0FF":
-                    //global
-                    msgTypeString = "Global";
-                    break;
-                case "00FF00FF":
-                    //teamchat
-                    msgTypeString = "Team";
-                    break;
-                default:
-                    msgTypeString = "Unknown";
-                    break;
-            }
-
-            int teamNum = 3;
-
-            foreach (var item in _state.Instances[profileid].PlayerList)
-            {
-                if (item.Value.name == PlayerName)
-                {
-                    teamNum = _state.Instances[profileid].PlayerList[item.Key].slot;
-                    break;
+                    return;
                 }
 
-            }
+                string[] chatMessage = serverManagement.GetLastChatMessage(ref _state, profileid);
+                int ChatLogAddr;
+                int.TryParse(chatMessage[0], out ChatLogAddr);
+                string LastMessage = chatMessage[1];
+                string msgTypeBytes = chatMessage[2];
 
-            string[] teamNames = new string[] { "Self", "Blue", "Red", "Host" };
+                // Check for valid next chat message
+                if (LastMessage == "")
+                {
+                    return;
+                }
+                var chatLog = _state.Instances[profileid].ChatLog;
+                var nextIndex = chatLog.Count;
+                string PlayerName = string.Empty;
+                string PlayerMessage = string.Empty;
+                int msgStart = LastMessage.IndexOf(':');
 
-            _state.ChatLogs[profileid].Messages.Add(new ob_PlayerChatLog
+                foreach (var pop in LastMessage)
+                {
+                    if (pop == ':')
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        PlayerName += pop;
+                    }
+                }
+
+                for (int i = msgStart + 3; i < LastMessage.Length; i++)
+                {
+                    PlayerMessage += LastMessage[i];
+                }
+
+                if (chatLog.Count != 0)
+                {
+                    string LastPlayerName = chatLog[chatLog.Count - 1].PlayerName;
+                    string LastPlayerMsg = chatLog[chatLog.Count - 1].msg;
+                    if (LastPlayerName == PlayerName && LastPlayerMsg == PlayerMessage)
+                    {
+                        return; // since we haven't gotten any new messages, return.
+                    }
+                }
+
+                string msgTypeString;
+                switch (msgTypeBytes)
+                {
+                    case "00FFFFFF":
+                        //host
+                        msgTypeString = "Server";
+                        serverManagement.CountDownKiller(ref _state, profileid, ChatLogAddr);
+                        break;
+                    case "FFC0A0FF":
+                        //global
+                        msgTypeString = "Global";
+                        break;
+                    case "00FF00FF":
+                        //teamchat
+                        msgTypeString = "Team";
+                        break;
+                    default:
+                        msgTypeString = "Unknown";
+                        break;
+                }
+
+                int teamNum = 3;
+
+                foreach (var item in _state.Instances[profileid].PlayerList)
+                {
+                    if (item.Value.name == PlayerName)
+                    {
+                        teamNum = _state.Instances[profileid].PlayerList[item.Key].slot;
+                        break;
+                    }
+
+                }
+
+                string[] teamNames = new string[] { "Self", "Blue", "Red", "Host" };
+
+                _state.Instances[profileid].ChatLog.Add(new ob_PlayerChatLog
+                {
+                    PlayerName = PlayerName,
+                    msg = PlayerMessage,
+                    msgType = msgTypeString,
+                    team = teamNames[teamNum],
+                    dateSent = DateTime.Now
+                });
+
+            } catch (Exception ex)
             {
-                PlayerName = PlayerName,
-                msg = PlayerMessage,
-                msgType = msgTypeString,
-                team = teamNames[teamNum],
-                dateSent = DateTime.Now
-            });
-
-            chatLog.CurrentIndex = nextIndex;
+                Console.WriteLine(JsonConvert.SerializeObject(ex));
+            }            
 
         }
         /*
