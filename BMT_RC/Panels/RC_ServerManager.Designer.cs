@@ -2848,81 +2848,92 @@ namespace HawkSync_RC
             // toolStripMenuItem153
             // 
             this.toolStripMenuItem153.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem154,
+            this.toolStripMenuItem155,
+            this.toolStripMenuItem156,
+            this.toolStripMenuItem157,
+            this.toolStripMenuItem158,
+            this.toolStripMenuItem159,
+            this.toolStripMenuItem160,
+            this.toolStripMenuItem161,
+            this.toolStripMenuItem162,
+            this.toolStripMenuItem163,
+            this.toolStripSeparator14,
+            this.toolStripTextBox15});
             this.toolStripMenuItem153.Name = "toolStripMenuItem153";
             this.toolStripMenuItem153.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem153.Text = "2 Days";
+            this.toolStripMenuItem153.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem154
             // 
             this.toolStripMenuItem154.Name = "toolStripMenuItem154";
             this.toolStripMenuItem154.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem154.Text = "Abusive";
+            this.toolStripMenuItem154.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem155
             // 
             this.toolStripMenuItem155.Name = "toolStripMenuItem155";
             this.toolStripMenuItem155.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem155.Text = "Racism";
+            this.toolStripMenuItem155.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem156
             // 
             this.toolStripMenuItem156.Name = "toolStripMenuItem156";
             this.toolStripMenuItem156.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem156.Text = "General cheating/exploits";
+            this.toolStripMenuItem156.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem157
             // 
             this.toolStripMenuItem157.Name = "toolStripMenuItem157";
             this.toolStripMenuItem157.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem157.Text = "Wall Hacking";
+            this.toolStripMenuItem157.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem158
             // 
             this.toolStripMenuItem158.Name = "toolStripMenuItem158";
             this.toolStripMenuItem158.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem158.Text = "Aimbot";
+            this.toolStripMenuItem158.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem159
             // 
             this.toolStripMenuItem159.Name = "toolStripMenuItem159";
             this.toolStripMenuItem159.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem159.Text = "Speed Hacking";
+            this.toolStripMenuItem159.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem160
             // 
             this.toolStripMenuItem160.Name = "toolStripMenuItem160";
             this.toolStripMenuItem160.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem160.Text = "Admin Disrespect";
+            this.toolStripMenuItem160.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem161
             // 
             this.toolStripMenuItem161.Name = "toolStripMenuItem161";
             this.toolStripMenuItem161.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem161.Text = "Camping";
+            this.toolStripMenuItem161.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem162
             // 
             this.toolStripMenuItem162.Name = "toolStripMenuItem162";
             this.toolStripMenuItem162.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem162.Text = "Team Killing";
+            this.toolStripMenuItem162.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem163
             // 
             this.toolStripMenuItem163.Name = "toolStripMenuItem163";
             this.toolStripMenuItem163.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem163.Text = "Breaking Server Rules";
+            this.toolStripMenuItem163.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator14
             // 
@@ -2935,85 +2946,97 @@ namespace HawkSync_RC
             this.toolStripTextBox15.Name = "toolStripTextBox15";
             this.toolStripTextBox15.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox15.Text = "Custom Reason";
+            this.toolStripTextBox15.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem164
             // 
             this.toolStripMenuItem164.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem165,
+            this.toolStripMenuItem166,
+            this.toolStripMenuItem167,
+            this.toolStripMenuItem168,
+            this.toolStripMenuItem169,
+            this.toolStripMenuItem170,
+            this.toolStripMenuItem171,
+            this.toolStripMenuItem172,
+            this.toolStripMenuItem173,
+            this.toolStripMenuItem174,
+            this.toolStripSeparator15,
+            this.toolStripTextBox16});
             this.toolStripMenuItem164.Name = "toolStripMenuItem164";
             this.toolStripMenuItem164.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem164.Text = "3 Days";
+            this.toolStripMenuItem164.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem165
             // 
             this.toolStripMenuItem165.Name = "toolStripMenuItem165";
             this.toolStripMenuItem165.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem165.Text = "Abusive";
+            this.toolStripMenuItem165.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem166
             // 
             this.toolStripMenuItem166.Name = "toolStripMenuItem166";
             this.toolStripMenuItem166.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem166.Text = "Racism";
+            this.toolStripMenuItem166.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem167
             // 
             this.toolStripMenuItem167.Name = "toolStripMenuItem167";
             this.toolStripMenuItem167.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem167.Text = "General cheating/exploits";
+            this.toolStripMenuItem167.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem168
             // 
             this.toolStripMenuItem168.Name = "toolStripMenuItem168";
             this.toolStripMenuItem168.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem168.Text = "Wall Hacking";
+            this.toolStripMenuItem168.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem169
             // 
             this.toolStripMenuItem169.Name = "toolStripMenuItem169";
             this.toolStripMenuItem169.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem169.Text = "Aimbot";
+            this.toolStripMenuItem169.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem170
             // 
             this.toolStripMenuItem170.Name = "toolStripMenuItem170";
             this.toolStripMenuItem170.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem170.Text = "Speed Hacking";
+            this.toolStripMenuItem170.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem171
             // 
             this.toolStripMenuItem171.Name = "toolStripMenuItem171";
             this.toolStripMenuItem171.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem171.Text = "Admin Disrespect";
+            this.toolStripMenuItem171.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem172
             // 
             this.toolStripMenuItem172.Name = "toolStripMenuItem172";
             this.toolStripMenuItem172.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem172.Text = "Camping";
+            this.toolStripMenuItem172.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem173
             // 
             this.toolStripMenuItem173.Name = "toolStripMenuItem173";
             this.toolStripMenuItem173.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem173.Text = "Team Killing";
+            this.toolStripMenuItem173.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem174
             // 
             this.toolStripMenuItem174.Name = "toolStripMenuItem174";
             this.toolStripMenuItem174.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem174.Text = "Breaking Server Rules";
+            this.toolStripMenuItem174.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator15
             // 
@@ -3026,85 +3049,97 @@ namespace HawkSync_RC
             this.toolStripTextBox16.Name = "toolStripTextBox16";
             this.toolStripTextBox16.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox16.Text = "Custom Reason";
+            this.toolStripTextBox16.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem175
             // 
             this.toolStripMenuItem175.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem176,
+            this.toolStripMenuItem177,
+            this.toolStripMenuItem178,
+            this.toolStripMenuItem179,
+            this.toolStripMenuItem180,
+            this.toolStripMenuItem181,
+            this.toolStripMenuItem182,
+            this.toolStripMenuItem183,
+            this.toolStripMenuItem184,
+            this.toolStripMenuItem185,
+            this.toolStripSeparator16,
+            this.toolStripTextBox17});
             this.toolStripMenuItem175.Name = "toolStripMenuItem175";
             this.toolStripMenuItem175.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem175.Text = "4 Days";
+            this.toolStripMenuItem175.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem176
             // 
             this.toolStripMenuItem176.Name = "toolStripMenuItem176";
             this.toolStripMenuItem176.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem176.Text = "Abusive";
+            this.toolStripMenuItem176.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem177
             // 
             this.toolStripMenuItem177.Name = "toolStripMenuItem177";
             this.toolStripMenuItem177.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem177.Text = "Racism";
+            this.toolStripMenuItem177.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem178
             // 
             this.toolStripMenuItem178.Name = "toolStripMenuItem178";
             this.toolStripMenuItem178.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem178.Text = "General cheating/exploits";
+            this.toolStripMenuItem178.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem179
             // 
             this.toolStripMenuItem179.Name = "toolStripMenuItem179";
             this.toolStripMenuItem179.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem179.Text = "Wall Hacking";
+            this.toolStripMenuItem179.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem180
             // 
             this.toolStripMenuItem180.Name = "toolStripMenuItem180";
             this.toolStripMenuItem180.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem180.Text = "Aimbot";
+            this.toolStripMenuItem180.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem181
             // 
             this.toolStripMenuItem181.Name = "toolStripMenuItem181";
             this.toolStripMenuItem181.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem181.Text = "Speed Hacking";
+            this.toolStripMenuItem181.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem182
             // 
             this.toolStripMenuItem182.Name = "toolStripMenuItem182";
             this.toolStripMenuItem182.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem182.Text = "Admin Disrespect";
+            this.toolStripMenuItem182.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem183
             // 
             this.toolStripMenuItem183.Name = "toolStripMenuItem183";
             this.toolStripMenuItem183.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem183.Text = "Camping";
+            this.toolStripMenuItem183.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem184
             // 
             this.toolStripMenuItem184.Name = "toolStripMenuItem184";
             this.toolStripMenuItem184.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem184.Text = "Team Killing";
+            this.toolStripMenuItem184.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem185
             // 
             this.toolStripMenuItem185.Name = "toolStripMenuItem185";
             this.toolStripMenuItem185.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem185.Text = "Breaking Server Rules";
+            this.toolStripMenuItem185.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator16
             // 
@@ -3117,85 +3152,97 @@ namespace HawkSync_RC
             this.toolStripTextBox17.Name = "toolStripTextBox17";
             this.toolStripTextBox17.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox17.Text = "Custom Reason";
+            this.toolStripTextBox17.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem186
             // 
             this.toolStripMenuItem186.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem187,
+            this.toolStripMenuItem188,
+            this.toolStripMenuItem189,
+            this.toolStripMenuItem190,
+            this.toolStripMenuItem191,
+            this.toolStripMenuItem192,
+            this.toolStripMenuItem193,
+            this.toolStripMenuItem194,
+            this.toolStripMenuItem195,
+            this.toolStripMenuItem196,
+            this.toolStripSeparator17,
+            this.toolStripTextBox18});
             this.toolStripMenuItem186.Name = "toolStripMenuItem186";
             this.toolStripMenuItem186.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem186.Text = "5 Days";
+            this.toolStripMenuItem186.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem187
             // 
             this.toolStripMenuItem187.Name = "toolStripMenuItem187";
             this.toolStripMenuItem187.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem187.Text = "Abusive";
+            this.toolStripMenuItem187.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem188
             // 
             this.toolStripMenuItem188.Name = "toolStripMenuItem188";
             this.toolStripMenuItem188.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem188.Text = "Racism";
+            this.toolStripMenuItem188.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem189
             // 
             this.toolStripMenuItem189.Name = "toolStripMenuItem189";
             this.toolStripMenuItem189.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem189.Text = "General cheating/exploits";
+            this.toolStripMenuItem189.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem190
             // 
             this.toolStripMenuItem190.Name = "toolStripMenuItem190";
             this.toolStripMenuItem190.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem190.Text = "Wall Hacking";
+            this.toolStripMenuItem190.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem191
             // 
             this.toolStripMenuItem191.Name = "toolStripMenuItem191";
             this.toolStripMenuItem191.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem191.Text = "Aimbot";
+            this.toolStripMenuItem191.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem192
             // 
             this.toolStripMenuItem192.Name = "toolStripMenuItem192";
             this.toolStripMenuItem192.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem192.Text = "Speed hacking";
+            this.toolStripMenuItem192.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem193
             // 
             this.toolStripMenuItem193.Name = "toolStripMenuItem193";
             this.toolStripMenuItem193.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem193.Text = "Admin Disrespect";
+            this.toolStripMenuItem193.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem194
             // 
             this.toolStripMenuItem194.Name = "toolStripMenuItem194";
             this.toolStripMenuItem194.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem194.Text = "Camping";
+            this.toolStripMenuItem194.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem195
             // 
             this.toolStripMenuItem195.Name = "toolStripMenuItem195";
             this.toolStripMenuItem195.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem195.Text = "Team Killing";
+            this.toolStripMenuItem195.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem196
             // 
             this.toolStripMenuItem196.Name = "toolStripMenuItem196";
             this.toolStripMenuItem196.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem196.Text = "Breaking Server Rules";
+            this.toolStripMenuItem196.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator17
             // 
@@ -3208,22 +3255,23 @@ namespace HawkSync_RC
             this.toolStripTextBox18.Name = "toolStripTextBox18";
             this.toolStripTextBox18.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox18.Text = "Custom Reason";
+            this.toolStripTextBox18.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem197
             // 
             this.toolStripMenuItem197.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem198,
+            this.toolStripMenuItem199,
+            this.toolStripMenuItem200,
+            this.toolStripMenuItem201,
+            this.toolStripMenuItem202,
+            this.toolStripMenuItem203,
+            this.toolStripMenuItem204,
+            this.toolStripMenuItem205,
+            this.toolStripMenuItem206,
+            this.toolStripMenuItem207,
+            this.toolStripSeparator18,
+            this.toolStripTextBox19});
             this.toolStripMenuItem197.Name = "toolStripMenuItem197";
             this.toolStripMenuItem197.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem197.Text = "6 Days";
@@ -3233,60 +3281,70 @@ namespace HawkSync_RC
             this.toolStripMenuItem198.Name = "toolStripMenuItem198";
             this.toolStripMenuItem198.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem198.Text = "Abusive";
+            this.toolStripMenuItem198.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem199
             // 
             this.toolStripMenuItem199.Name = "toolStripMenuItem199";
             this.toolStripMenuItem199.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem199.Text = "Racism";
+            this.toolStripMenuItem199.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem200
             // 
             this.toolStripMenuItem200.Name = "toolStripMenuItem200";
             this.toolStripMenuItem200.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem200.Text = "General cheating/exploits";
+            this.toolStripMenuItem200.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem201
             // 
             this.toolStripMenuItem201.Name = "toolStripMenuItem201";
             this.toolStripMenuItem201.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem201.Text = "Wall Hacking";
+            this.toolStripMenuItem201.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem202
             // 
             this.toolStripMenuItem202.Name = "toolStripMenuItem202";
             this.toolStripMenuItem202.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem202.Text = "Aimbot";
+            this.toolStripMenuItem202.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem203
             // 
             this.toolStripMenuItem203.Name = "toolStripMenuItem203";
             this.toolStripMenuItem203.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem203.Text = "Speed Hacking";
+            this.toolStripMenuItem203.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem204
             // 
             this.toolStripMenuItem204.Name = "toolStripMenuItem204";
             this.toolStripMenuItem204.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem204.Text = "Admin Disrespect";
+            this.toolStripMenuItem204.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem205
             // 
             this.toolStripMenuItem205.Name = "toolStripMenuItem205";
             this.toolStripMenuItem205.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem205.Text = "Camping";
+            this.toolStripMenuItem205.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem206
             // 
             this.toolStripMenuItem206.Name = "toolStripMenuItem206";
             this.toolStripMenuItem206.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem206.Text = "Team Killing";
+            this.toolStripMenuItem206.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem207
             // 
             this.toolStripMenuItem207.Name = "toolStripMenuItem207";
             this.toolStripMenuItem207.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem207.Text = "Breaking Server Rules";
+            this.toolStripMenuItem207.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator18
             // 
@@ -3299,22 +3357,23 @@ namespace HawkSync_RC
             this.toolStripTextBox19.Name = "toolStripTextBox19";
             this.toolStripTextBox19.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox19.Text = "Custom Reason";
+            this.toolStripTextBox19.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem208
             // 
             this.toolStripMenuItem208.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem209,
+            this.toolStripMenuItem210,
+            this.toolStripMenuItem211,
+            this.toolStripMenuItem212,
+            this.toolStripMenuItem213,
+            this.toolStripMenuItem214,
+            this.toolStripMenuItem215,
+            this.toolStripMenuItem216,
+            this.toolStripMenuItem217,
+            this.toolStripMenuItem218,
+            this.toolStripSeparator19,
+            this.toolStripTextBox20});
             this.toolStripMenuItem208.Name = "toolStripMenuItem208";
             this.toolStripMenuItem208.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem208.Text = "1 Week";
@@ -3324,60 +3383,70 @@ namespace HawkSync_RC
             this.toolStripMenuItem209.Name = "toolStripMenuItem209";
             this.toolStripMenuItem209.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem209.Text = "Abusive";
+            this.toolStripMenuItem209.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem210
             // 
             this.toolStripMenuItem210.Name = "toolStripMenuItem210";
             this.toolStripMenuItem210.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem210.Text = "Racism";
+            this.toolStripMenuItem210.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem211
             // 
             this.toolStripMenuItem211.Name = "toolStripMenuItem211";
             this.toolStripMenuItem211.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem211.Text = "General cheating/exploits";
+            this.toolStripMenuItem211.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem212
             // 
             this.toolStripMenuItem212.Name = "toolStripMenuItem212";
             this.toolStripMenuItem212.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem212.Text = "Wall Hacking";
+            this.toolStripMenuItem212.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem213
             // 
             this.toolStripMenuItem213.Name = "toolStripMenuItem213";
             this.toolStripMenuItem213.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem213.Text = "Aimbot";
+            this.toolStripMenuItem213.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem214
             // 
             this.toolStripMenuItem214.Name = "toolStripMenuItem214";
             this.toolStripMenuItem214.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem214.Text = "Speed Hacking";
+            this.toolStripMenuItem214.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem215
             // 
             this.toolStripMenuItem215.Name = "toolStripMenuItem215";
             this.toolStripMenuItem215.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem215.Text = "Admin Disrespect";
+            this.toolStripMenuItem215.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem216
             // 
             this.toolStripMenuItem216.Name = "toolStripMenuItem216";
             this.toolStripMenuItem216.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem216.Text = "Camping";
+            this.toolStripMenuItem216.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem217
             // 
             this.toolStripMenuItem217.Name = "toolStripMenuItem217";
             this.toolStripMenuItem217.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem217.Text = "Team Killing";
+            this.toolStripMenuItem217.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem218
             // 
             this.toolStripMenuItem218.Name = "toolStripMenuItem218";
             this.toolStripMenuItem218.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem218.Text = "Breaking Server Rules";
+            this.toolStripMenuItem218.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator19
             // 
@@ -3390,90 +3459,103 @@ namespace HawkSync_RC
             this.toolStripTextBox20.Name = "toolStripTextBox20";
             this.toolStripTextBox20.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox20.Text = "Custom Reason";
+            this.toolStripTextBox20.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem219
             // 
             this.toolStripMenuItem219.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem220,
+            this.toolStripMenuItem221,
+            this.toolStripMenuItem222,
+            this.toolStripMenuItem223,
+            this.toolStripMenuItem224,
+            this.toolStripMenuItem225,
+            this.toolStripMenuItem226,
+            this.toolStripMenuItem227,
+            this.toolStripMenuItem228,
+            this.toolStripMenuItem229,
+            this.toolStripSeparator20,
+            this.toolStripTextBox21});
             this.toolStripMenuItem219.Name = "toolStripMenuItem219";
             this.toolStripMenuItem219.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem219.Text = "2 Weeks";
+
             // 
             // toolStripMenuItem220
             // 
             this.toolStripMenuItem220.Name = "toolStripMenuItem220";
             this.toolStripMenuItem220.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem220.Text = "Abusive";
+            this.toolStripMenuItem220.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem221
             // 
             this.toolStripMenuItem221.Name = "toolStripMenuItem221";
             this.toolStripMenuItem221.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem221.Text = "Racism";
+            this.toolStripMenuItem221.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem222
             // 
             this.toolStripMenuItem222.Name = "toolStripMenuItem222";
             this.toolStripMenuItem222.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem222.Text = "General cheating/exploits";
+            this.toolStripMenuItem222.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem223
             // 
             this.toolStripMenuItem223.Name = "toolStripMenuItem223";
             this.toolStripMenuItem223.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem223.Text = "Wall Hacking";
+            this.toolStripMenuItem223.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem224
             // 
             this.toolStripMenuItem224.Name = "toolStripMenuItem224";
             this.toolStripMenuItem224.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem224.Text = "Aimbot";
+            this.toolStripMenuItem224.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem225
             // 
             this.toolStripMenuItem225.Name = "toolStripMenuItem225";
             this.toolStripMenuItem225.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem225.Text = "Speed Hacking";
+            this.toolStripMenuItem225.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem226
             // 
             this.toolStripMenuItem226.Name = "toolStripMenuItem226";
             this.toolStripMenuItem226.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem226.Text = "Admin Disrespect";
+            this.toolStripMenuItem226.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem227
             // 
             this.toolStripMenuItem227.Name = "toolStripMenuItem227";
             this.toolStripMenuItem227.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem227.Text = "Camping";
+            this.toolStripMenuItem227.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem228
             // 
             this.toolStripMenuItem228.Name = "toolStripMenuItem228";
             this.toolStripMenuItem228.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem228.Text = "Team Killing";
+            this.toolStripMenuItem228.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem229
             // 
             this.toolStripMenuItem229.Name = "toolStripMenuItem229";
             this.toolStripMenuItem229.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem229.Text = "Breaking Server Rules";
+            this.toolStripMenuItem229.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator20
             // 
             this.toolStripSeparator20.Name = "toolStripSeparator20";
             this.toolStripSeparator20.Size = new System.Drawing.Size(206, 6);
+            this.toolStripSeparator20.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripTextBox21
             // 
@@ -3481,22 +3563,23 @@ namespace HawkSync_RC
             this.toolStripTextBox21.Name = "toolStripTextBox21";
             this.toolStripTextBox21.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox21.Text = "Custom Reason";
+            this.toolStripTextBox21.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // toolStripMenuItem230
             // 
             this.toolStripMenuItem230.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem143,
-            this.toolStripMenuItem144,
-            this.toolStripMenuItem145,
-            this.toolStripMenuItem146,
-            this.toolStripMenuItem147,
-            this.toolStripMenuItem148,
-            this.toolStripMenuItem149,
-            this.toolStripMenuItem150,
-            this.toolStripMenuItem151,
-            this.toolStripMenuItem152,
-            this.toolStripSeparator13,
-            this.toolStripTextBox14});
+            this.toolStripMenuItem231,
+            this.toolStripMenuItem232,
+            this.toolStripMenuItem233,
+            this.toolStripMenuItem234,
+            this.toolStripMenuItem235,
+            this.toolStripMenuItem236,
+            this.toolStripMenuItem237,
+            this.toolStripMenuItem238,
+            this.toolStripMenuItem239,
+            this.toolStripMenuItem240,
+            this.toolStripSeparator21,
+            this.toolStripTextBox22});
             this.toolStripMenuItem230.Name = "toolStripMenuItem230";
             this.toolStripMenuItem230.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem230.Text = "1 Month";
@@ -3506,60 +3589,70 @@ namespace HawkSync_RC
             this.toolStripMenuItem231.Name = "toolStripMenuItem231";
             this.toolStripMenuItem231.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem231.Text = "Abusive";
+            this.toolStripMenuItem231.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem232
             // 
             this.toolStripMenuItem232.Name = "toolStripMenuItem232";
             this.toolStripMenuItem232.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem232.Text = "Racism";
+            this.toolStripMenuItem232.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem233
             // 
             this.toolStripMenuItem233.Name = "toolStripMenuItem233";
             this.toolStripMenuItem233.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem233.Text = "General cheating/exploits";
+            this.toolStripMenuItem233.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem234
             // 
             this.toolStripMenuItem234.Name = "toolStripMenuItem234";
             this.toolStripMenuItem234.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem234.Text = "Wall Hacking";
+            this.toolStripMenuItem234.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem235
             // 
             this.toolStripMenuItem235.Name = "toolStripMenuItem235";
             this.toolStripMenuItem235.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem235.Text = "Aimbot";
+            this.toolStripMenuItem235.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem236
             // 
             this.toolStripMenuItem236.Name = "toolStripMenuItem236";
             this.toolStripMenuItem236.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem236.Text = "Speed Hacking";
+            this.toolStripMenuItem236.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem237
             // 
             this.toolStripMenuItem237.Name = "toolStripMenuItem237";
             this.toolStripMenuItem237.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem237.Text = "Admin Disrespect";
+            this.toolStripMenuItem237.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem238
             // 
             this.toolStripMenuItem238.Name = "toolStripMenuItem238";
             this.toolStripMenuItem238.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem238.Text = "Camping";
+            this.toolStripMenuItem238.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem239
             // 
             this.toolStripMenuItem239.Name = "toolStripMenuItem239";
             this.toolStripMenuItem239.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem239.Text = "Team Killing";
+            this.toolStripMenuItem239.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripMenuItem240
             // 
             this.toolStripMenuItem240.Name = "toolStripMenuItem240";
             this.toolStripMenuItem240.Size = new System.Drawing.Size(209, 22);
             this.toolStripMenuItem240.Text = "Breaking Server Rules";
+            this.toolStripMenuItem240.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
             // toolStripSeparator21
             // 
@@ -3572,6 +3665,7 @@ namespace HawkSync_RC
             this.toolStripTextBox22.Name = "toolStripTextBox22";
             this.toolStripTextBox22.Size = new System.Drawing.Size(100, 23);
             this.toolStripTextBox22.Text = "Custom Reason";
+            this.toolStripTextBox22.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
             // 
             // cm_permBan
             // 

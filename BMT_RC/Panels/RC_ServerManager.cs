@@ -662,23 +662,7 @@ namespace HawkSync_RC
                     // Player is still in the BanList, update time remaining if necessary
                     if (expires != "Permanent")
                     {
-                        var remainingDays = (DateTime.Parse(expires) - DateTime.Now).TotalDays;
-                        if (remainingDays <= 0)
-                        {
-                            row["Time Remaining"] = "Expired";
-                        }
-                        else if (remainingDays > 2)
-                        {
-                            row["Time Remaining"] = $"{(int)remainingDays} Days";
-                        }
-                        else if (remainingDays > 1.5)
-                        {
-                            row["Time Remaining"] = "2 Days";
-                        }
-                        else
-                        {
-                            row["Time Remaining"] = "Today";
-                        }
+                        row["Time Remaining"] = expires;
                     }
                 }
 
@@ -694,7 +678,7 @@ namespace HawkSync_RC
                     var newRow = bannedTable.NewRow();
                     newRow["Name"] = bannedPlayer.player;
                     newRow["IP Address"] = bannedPlayer.ipaddress;
-                    newRow["Time Remaining"] = bannedPlayer.expires == "-1" ? "Permanent" : "Today"; // or any initial value
+                    newRow["Time Remaining"] = bannedPlayer.expires == "-1" ? "Permanent" : DateTime.Parse(bannedPlayer.expires).ToString(); // or any initial value
 
                     bannedTable.Rows.Add(newRow);
                 }

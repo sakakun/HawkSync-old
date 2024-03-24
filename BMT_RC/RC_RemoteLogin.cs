@@ -74,7 +74,6 @@ namespace HawkSync_RC
                             {
                                 _state.Instances = RCInstancesReply.Instances;
                             }
-                            Console.WriteLine("Instances: " + JsonConvert.SerializeObject(_state.Instances));
                         }
                         catch (Exception)
                         {
