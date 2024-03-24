@@ -460,9 +460,9 @@
   <Import Project="..\packages\Microsoft.AspNetCore.Server.IIS.2.2.6\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets" Condition="Exists('..\packages\Microsoft.AspNetCore.Server.IIS.2.2.6\build\netstandard2.0\Microsoft.AspNetCore.Server.IIS.targets')" />
   <Import Project="..\packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.1\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets" Condition="Exists('..\packages\Microsoft.AspNetCore.Server.IISIntegration.2.2.1\build\netstandard2.0\Microsoft.AspNetCore.Server.IISIntegration.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>del /q /s Y:\HawkSync\BMT_SM\$(OutDir)*.*</PreBuildEvent>
+    <PreBuildEvent>REM del /q /s Y:\HawkSync\BMT_SM\$(OutDir)*.*</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /e /y Z:\HawkSync\BMT_SM\$(OutDir)*.* Y:\HawkSync\BMT_SM\$(OutDir)</PostBuildEvent>
+    <PostBuildEvent>REM xcopy /s /e /y Z:\HawkSync\BMT_SM\$(OutDir)*.* Y:\HawkSync\BMT_SM\$(OutDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>

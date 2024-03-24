@@ -214,28 +214,159 @@ namespace HawkSync_RC
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.playerList_contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_playerArmDisarm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem133 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_playerWarn = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_playerKill = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem36 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem76 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem129 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem130 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem131 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cm_kickPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListMenu_tempBan = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_1Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_2Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_3Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_4Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_5Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_6Day = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_1Week = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_2Week = new System.Windows.Forms.ToolStripMenuItem();
-            this.StripMenu_1Month = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerListMenu_permBanPlayer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox12 = new System.Windows.Forms.ToolStripTextBox();
+            this.cm_tempBan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem142 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem143 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem144 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem145 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem146 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem147 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem148 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem149 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem150 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem151 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem152 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox14 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem153 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem154 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem155 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem156 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem157 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem158 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem159 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem160 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem161 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem162 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem163 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox15 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem164 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem165 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem166 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem167 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem168 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem169 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem170 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem171 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem172 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem173 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem174 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox16 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem175 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem176 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem177 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem178 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem179 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem180 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem181 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem182 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem183 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem184 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem185 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox17 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem186 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem187 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem188 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem189 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem190 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem191 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem192 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem193 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem194 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem195 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem196 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox18 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem197 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem198 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem199 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem200 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem201 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem202 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem203 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem204 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem205 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem206 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem207 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox19 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem208 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem209 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem210 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem211 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem212 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem213 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem214 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem215 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem216 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem217 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem218 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox20 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem219 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem220 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem221 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem222 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem223 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem224 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem225 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem226 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem227 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem228 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem229 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox21 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripMenuItem230 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem231 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem232 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem233 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem234 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem235 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem236 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem237 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem238 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem239 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem240 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox22 = new System.Windows.Forms.ToolStripTextBox();
+            this.cm_permBan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem132 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem133 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem134 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem135 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem136 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem137 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem138 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem139 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem140 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem141 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTextBox13 = new System.Windows.Forms.ToolStripTextBox();
             this.playerListMenu_changeTeams = new System.Windows.Forms.ToolStripMenuItem();
+            this.cm_playerFunCMD = new System.Windows.Forms.ToolStripMenuItem();
+            this.sub_activeGodMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.sub_deactivateGodMode = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_spectate = new System.Windows.Forms.ToolStripMenuItem();
             this.playerListMenu_Seperator = new System.Windows.Forms.ToolStripSeparator();
             this.actionReason_Abusive = new System.Windows.Forms.ToolStripMenuItem();
@@ -2446,26 +2577,26 @@ namespace HawkSync_RC
             // playerList_contextMenu
             // 
             this.playerList_contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem12,
-            this.toolStripMenuItem133,
-            this.toolStripMenuItem76,
-            this.toolStripMenuItem129,
+            this.cm_playerArmDisarm,
+            this.cm_playerWarn,
+            this.cm_playerKill,
             this.cm_kickPlayer,
-            this.playerListMenu_tempBan,
-            this.playerListMenu_permBanPlayer,
+            this.cm_tempBan,
+            this.cm_permBan,
             this.playerListMenu_changeTeams,
+            this.cm_playerFunCMD,
             this.playerListMenu_spectate});
             this.playerList_contextMenu.Name = "playerList_contextMenu";
-            this.playerList_contextMenu.Size = new System.Drawing.Size(160, 202);
+            this.playerList_contextMenu.Size = new System.Drawing.Size(181, 224);
             // 
-            // toolStripMenuItem12
+            // cm_playerArmDisarm
             // 
-            this.toolStripMenuItem12.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cm_playerArmDisarm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem13,
             this.toolStripMenuItem14});
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItem12.Text = "Arm/Disarm";
+            this.cm_playerArmDisarm.Name = "cm_playerArmDisarm";
+            this.cm_playerArmDisarm.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerArmDisarm.Text = "Arm/Disarm";
             // 
             // toolStripMenuItem13
             // 
@@ -2481,142 +2612,1103 @@ namespace HawkSync_RC
             this.toolStripMenuItem14.Text = "Rearm Player";
             this.toolStripMenuItem14.Click += new System.EventHandler(this.playerListAction_clickRearm);
             // 
-            // toolStripMenuItem133
+            // cm_playerWarn
             // 
-            this.toolStripMenuItem133.Name = "toolStripMenuItem133";
-            this.toolStripMenuItem133.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItem133.Text = "Warn Player";
+            this.cm_playerWarn.Name = "cm_playerWarn";
+            this.cm_playerWarn.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerWarn.Text = "Warn Player";
+            // 
+            // cm_playerKill
+            // 
+            this.cm_playerKill.Name = "cm_playerKill";
+            this.cm_playerKill.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerKill.Text = "Kill Player";
+            this.cm_playerKill.Click += new System.EventHandler(this.playerListAction_clickKill);
+            // 
+            // cm_kickPlayer
+            // 
+            this.cm_kickPlayer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem11,
+            this.toolStripMenuItem12,
+            this.toolStripMenuItem16,
+            this.toolStripMenuItem35,
+            this.toolStripMenuItem36,
+            this.toolStripMenuItem76,
+            this.toolStripMenuItem129,
+            this.toolStripMenuItem130,
+            this.toolStripMenuItem131,
+            this.toolStripSeparator1,
+            this.toolStripTextBox12});
+            this.cm_kickPlayer.Name = "cm_kickPlayer";
+            this.cm_kickPlayer.Size = new System.Drawing.Size(180, 22);
+            this.cm_kickPlayer.Text = "Kick Player";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem1.Text = "Abusive";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.cm_clickKickPlayer);
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem11.Text = "Racism";
+            this.toolStripMenuItem11.Click += new System.EventHandler(this.cm_clickKickPlayer);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem12.Text = "General cheating/exploits";
+            this.toolStripMenuItem12.Click += new System.EventHandler(this.cm_clickKickPlayer);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem16.Text = "Wall Hacking";
+            this.toolStripMenuItem16.Click += new System.EventHandler(this.cm_clickKickPlayer);
+            // 
+            // toolStripMenuItem35
+            // 
+            this.toolStripMenuItem35.Name = "toolStripMenuItem35";
+            this.toolStripMenuItem35.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem35.Text = "Aimbot";
+            this.toolStripMenuItem35.Click += new System.EventHandler(this.cm_clickKickPlayer);
+            // 
+            // toolStripMenuItem36
+            // 
+            this.toolStripMenuItem36.Name = "toolStripMenuItem36";
+            this.toolStripMenuItem36.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem36.Text = "Speed Hacking";
+            this.toolStripMenuItem36.Click += new System.EventHandler(this.cm_clickKickPlayer);
             // 
             // toolStripMenuItem76
             // 
             this.toolStripMenuItem76.Name = "toolStripMenuItem76";
-            this.toolStripMenuItem76.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItem76.Text = "Kill Player";
-            this.toolStripMenuItem76.Click += new System.EventHandler(this.playerListAction_clickKill);
+            this.toolStripMenuItem76.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem76.Text = "Admin Disrespect";
+            this.toolStripMenuItem76.Click += new System.EventHandler(this.cm_clickKickPlayer);
             // 
             // toolStripMenuItem129
             // 
-            this.toolStripMenuItem129.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem130,
-            this.toolStripMenuItem131});
             this.toolStripMenuItem129.Name = "toolStripMenuItem129";
-            this.toolStripMenuItem129.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItem129.Text = "Fun Commands";
+            this.toolStripMenuItem129.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem129.Text = "Camping";
+            this.toolStripMenuItem129.Click += new System.EventHandler(this.cm_clickKickPlayer);
             // 
             // toolStripMenuItem130
             // 
             this.toolStripMenuItem130.Name = "toolStripMenuItem130";
-            this.toolStripMenuItem130.Size = new System.Drawing.Size(188, 22);
-            this.toolStripMenuItem130.Text = "Activate God Mode";
-            this.toolStripMenuItem130.Click += new System.EventHandler(this.playerList_actionActivateGodMode);
+            this.toolStripMenuItem130.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem130.Text = "Team Killing";
+            this.toolStripMenuItem130.Click += new System.EventHandler(this.cm_clickKickPlayer);
             // 
             // toolStripMenuItem131
             // 
             this.toolStripMenuItem131.Name = "toolStripMenuItem131";
-            this.toolStripMenuItem131.Size = new System.Drawing.Size(188, 22);
-            this.toolStripMenuItem131.Text = "Deactivate God Mode";
-            this.toolStripMenuItem131.Click += new System.EventHandler(this.playerList_actionDeactivateGodMode);
+            this.toolStripMenuItem131.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem131.Text = "Breaking Server Rules";
+            this.toolStripMenuItem131.Click += new System.EventHandler(this.cm_clickKickPlayer);
             // 
-            // cm_kickPlayer
+            // toolStripSeparator1
             // 
-            this.cm_kickPlayer.Name = "cm_kickPlayer";
-            this.cm_kickPlayer.Size = new System.Drawing.Size(159, 22);
-            this.cm_kickPlayer.Text = "Kick Player";
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(206, 6);
             // 
-            // playerListMenu_tempBan
+            // toolStripTextBox12
             // 
-            this.playerListMenu_tempBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StripMenu_1Day,
-            this.StripMenu_2Day,
-            this.StripMenu_3Day,
-            this.StripMenu_4Day,
-            this.StripMenu_5Day,
-            this.StripMenu_6Day,
-            this.StripMenu_1Week,
-            this.StripMenu_2Week,
-            this.StripMenu_1Month});
-            this.playerListMenu_tempBan.Name = "playerListMenu_tempBan";
-            this.playerListMenu_tempBan.Size = new System.Drawing.Size(159, 22);
-            this.playerListMenu_tempBan.Text = "Temp Ban";
+            this.toolStripTextBox12.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox12.Name = "toolStripTextBox12";
+            this.toolStripTextBox12.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox12.Text = "Custom Reason";
+            this.toolStripTextBox12.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickKickPlayerEnter);
             // 
-            // StripMenu_1Day
+            // cm_tempBan
             // 
-            this.StripMenu_1Day.Name = "StripMenu_1Day";
-            this.StripMenu_1Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_1Day.Text = "1 Day";
+            this.cm_tempBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem142,
+            this.toolStripMenuItem153,
+            this.toolStripMenuItem164,
+            this.toolStripMenuItem175,
+            this.toolStripMenuItem186,
+            this.toolStripMenuItem197,
+            this.toolStripMenuItem208,
+            this.toolStripMenuItem219,
+            this.toolStripMenuItem230});
+            this.cm_tempBan.Name = "cm_tempBan";
+            this.cm_tempBan.Size = new System.Drawing.Size(180, 22);
+            this.cm_tempBan.Text = "Temp Ban";
             // 
-            // StripMenu_2Day
+            // toolStripMenuItem142
             // 
-            this.StripMenu_2Day.Name = "StripMenu_2Day";
-            this.StripMenu_2Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_2Day.Text = "2 Days";
+            this.toolStripMenuItem142.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem142.Name = "toolStripMenuItem142";
+            this.toolStripMenuItem142.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem142.Text = "1 Day";
             // 
-            // StripMenu_3Day
+            // toolStripMenuItem143
             // 
-            this.StripMenu_3Day.Name = "StripMenu_3Day";
-            this.StripMenu_3Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_3Day.Text = "3 Days";
+            this.toolStripMenuItem143.Name = "toolStripMenuItem143";
+            this.toolStripMenuItem143.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem143.Text = "Abusive";
+            this.toolStripMenuItem143.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_4Day
+            // toolStripMenuItem144
             // 
-            this.StripMenu_4Day.Name = "StripMenu_4Day";
-            this.StripMenu_4Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_4Day.Text = "4 Days";
+            this.toolStripMenuItem144.Name = "toolStripMenuItem144";
+            this.toolStripMenuItem144.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem144.Text = "Racism";
+            this.toolStripMenuItem144.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_5Day
+            // toolStripMenuItem145
             // 
-            this.StripMenu_5Day.Name = "StripMenu_5Day";
-            this.StripMenu_5Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_5Day.Text = "5 Days";
+            this.toolStripMenuItem145.Name = "toolStripMenuItem145";
+            this.toolStripMenuItem145.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem145.Text = "General cheating/exploits";
+            this.toolStripMenuItem145.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_6Day
+            // toolStripMenuItem146
             // 
-            this.StripMenu_6Day.Name = "StripMenu_6Day";
-            this.StripMenu_6Day.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_6Day.Text = "6 Days";
+            this.toolStripMenuItem146.Name = "toolStripMenuItem146";
+            this.toolStripMenuItem146.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem146.Text = "Wall Hacking";
+            this.toolStripMenuItem146.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_1Week
+            // toolStripMenuItem147
             // 
-            this.StripMenu_1Week.Name = "StripMenu_1Week";
-            this.StripMenu_1Week.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_1Week.Text = "1 Week";
+            this.toolStripMenuItem147.Name = "toolStripMenuItem147";
+            this.toolStripMenuItem147.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem147.Text = "Aimbot";
+            this.toolStripMenuItem147.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_2Week
+            // toolStripMenuItem148
             // 
-            this.StripMenu_2Week.Name = "StripMenu_2Week";
-            this.StripMenu_2Week.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_2Week.Text = "2 Weeks";
+            this.toolStripMenuItem148.Name = "toolStripMenuItem148";
+            this.toolStripMenuItem148.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem148.Text = "Speed Hacking";
+            this.toolStripMenuItem148.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // StripMenu_1Month
+            // toolStripMenuItem149
             // 
-            this.StripMenu_1Month.Name = "StripMenu_1Month";
-            this.StripMenu_1Month.Size = new System.Drawing.Size(119, 22);
-            this.StripMenu_1Month.Text = "1 Month";
+            this.toolStripMenuItem149.Name = "toolStripMenuItem149";
+            this.toolStripMenuItem149.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem149.Text = "Admin Disrespect";
+            this.toolStripMenuItem149.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // playerListMenu_permBanPlayer
+            // toolStripMenuItem150
             // 
-            this.playerListMenu_permBanPlayer.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator});
-            this.playerListMenu_permBanPlayer.Name = "playerListMenu_permBanPlayer";
-            this.playerListMenu_permBanPlayer.Size = new System.Drawing.Size(159, 22);
-            this.playerListMenu_permBanPlayer.Text = "Perm Ban";
+            this.toolStripMenuItem150.Name = "toolStripMenuItem150";
+            this.toolStripMenuItem150.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem150.Text = "Camping";
+            this.toolStripMenuItem150.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
-            // toolStripSeparator
+            // toolStripMenuItem151
             // 
-            this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(57, 6);
+            this.toolStripMenuItem151.Name = "toolStripMenuItem151";
+            this.toolStripMenuItem151.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem151.Text = "Team Killing";
+            this.toolStripMenuItem151.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
+            // 
+            // toolStripMenuItem152
+            // 
+            this.toolStripMenuItem152.Name = "toolStripMenuItem152";
+            this.toolStripMenuItem152.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem152.Text = "Breaking Server Rules";
+            this.toolStripMenuItem152.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
+            // 
+            // toolStripSeparator13
+            // 
+            this.toolStripSeparator13.Name = "toolStripSeparator13";
+            this.toolStripSeparator13.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox14
+            // 
+            this.toolStripTextBox14.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox14.Name = "toolStripTextBox14";
+            this.toolStripTextBox14.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox14.Text = "Custom Reason";
+            this.toolStripTextBox14.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickTempBanPlayerEnter);
+            // 
+            // toolStripMenuItem153
+            // 
+            this.toolStripMenuItem153.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem153.Name = "toolStripMenuItem153";
+            this.toolStripMenuItem153.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem153.Text = "2 Days";
+            // 
+            // toolStripMenuItem154
+            // 
+            this.toolStripMenuItem154.Name = "toolStripMenuItem154";
+            this.toolStripMenuItem154.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem154.Text = "Abusive";
+            // 
+            // toolStripMenuItem155
+            // 
+            this.toolStripMenuItem155.Name = "toolStripMenuItem155";
+            this.toolStripMenuItem155.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem155.Text = "Racism";
+            // 
+            // toolStripMenuItem156
+            // 
+            this.toolStripMenuItem156.Name = "toolStripMenuItem156";
+            this.toolStripMenuItem156.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem156.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem157
+            // 
+            this.toolStripMenuItem157.Name = "toolStripMenuItem157";
+            this.toolStripMenuItem157.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem157.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem158
+            // 
+            this.toolStripMenuItem158.Name = "toolStripMenuItem158";
+            this.toolStripMenuItem158.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem158.Text = "Aimbot";
+            // 
+            // toolStripMenuItem159
+            // 
+            this.toolStripMenuItem159.Name = "toolStripMenuItem159";
+            this.toolStripMenuItem159.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem159.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem160
+            // 
+            this.toolStripMenuItem160.Name = "toolStripMenuItem160";
+            this.toolStripMenuItem160.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem160.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem161
+            // 
+            this.toolStripMenuItem161.Name = "toolStripMenuItem161";
+            this.toolStripMenuItem161.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem161.Text = "Camping";
+            // 
+            // toolStripMenuItem162
+            // 
+            this.toolStripMenuItem162.Name = "toolStripMenuItem162";
+            this.toolStripMenuItem162.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem162.Text = "Team Killing";
+            // 
+            // toolStripMenuItem163
+            // 
+            this.toolStripMenuItem163.Name = "toolStripMenuItem163";
+            this.toolStripMenuItem163.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem163.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox15
+            // 
+            this.toolStripTextBox15.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox15.Name = "toolStripTextBox15";
+            this.toolStripTextBox15.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox15.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem164
+            // 
+            this.toolStripMenuItem164.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem164.Name = "toolStripMenuItem164";
+            this.toolStripMenuItem164.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem164.Text = "3 Days";
+            // 
+            // toolStripMenuItem165
+            // 
+            this.toolStripMenuItem165.Name = "toolStripMenuItem165";
+            this.toolStripMenuItem165.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem165.Text = "Abusive";
+            // 
+            // toolStripMenuItem166
+            // 
+            this.toolStripMenuItem166.Name = "toolStripMenuItem166";
+            this.toolStripMenuItem166.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem166.Text = "Racism";
+            // 
+            // toolStripMenuItem167
+            // 
+            this.toolStripMenuItem167.Name = "toolStripMenuItem167";
+            this.toolStripMenuItem167.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem167.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem168
+            // 
+            this.toolStripMenuItem168.Name = "toolStripMenuItem168";
+            this.toolStripMenuItem168.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem168.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem169
+            // 
+            this.toolStripMenuItem169.Name = "toolStripMenuItem169";
+            this.toolStripMenuItem169.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem169.Text = "Aimbot";
+            // 
+            // toolStripMenuItem170
+            // 
+            this.toolStripMenuItem170.Name = "toolStripMenuItem170";
+            this.toolStripMenuItem170.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem170.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem171
+            // 
+            this.toolStripMenuItem171.Name = "toolStripMenuItem171";
+            this.toolStripMenuItem171.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem171.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem172
+            // 
+            this.toolStripMenuItem172.Name = "toolStripMenuItem172";
+            this.toolStripMenuItem172.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem172.Text = "Camping";
+            // 
+            // toolStripMenuItem173
+            // 
+            this.toolStripMenuItem173.Name = "toolStripMenuItem173";
+            this.toolStripMenuItem173.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem173.Text = "Team Killing";
+            // 
+            // toolStripMenuItem174
+            // 
+            this.toolStripMenuItem174.Name = "toolStripMenuItem174";
+            this.toolStripMenuItem174.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem174.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox16
+            // 
+            this.toolStripTextBox16.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox16.Name = "toolStripTextBox16";
+            this.toolStripTextBox16.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox16.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem175
+            // 
+            this.toolStripMenuItem175.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem175.Name = "toolStripMenuItem175";
+            this.toolStripMenuItem175.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem175.Text = "4 Days";
+            // 
+            // toolStripMenuItem176
+            // 
+            this.toolStripMenuItem176.Name = "toolStripMenuItem176";
+            this.toolStripMenuItem176.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem176.Text = "Abusive";
+            // 
+            // toolStripMenuItem177
+            // 
+            this.toolStripMenuItem177.Name = "toolStripMenuItem177";
+            this.toolStripMenuItem177.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem177.Text = "Racism";
+            // 
+            // toolStripMenuItem178
+            // 
+            this.toolStripMenuItem178.Name = "toolStripMenuItem178";
+            this.toolStripMenuItem178.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem178.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem179
+            // 
+            this.toolStripMenuItem179.Name = "toolStripMenuItem179";
+            this.toolStripMenuItem179.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem179.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem180
+            // 
+            this.toolStripMenuItem180.Name = "toolStripMenuItem180";
+            this.toolStripMenuItem180.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem180.Text = "Aimbot";
+            // 
+            // toolStripMenuItem181
+            // 
+            this.toolStripMenuItem181.Name = "toolStripMenuItem181";
+            this.toolStripMenuItem181.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem181.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem182
+            // 
+            this.toolStripMenuItem182.Name = "toolStripMenuItem182";
+            this.toolStripMenuItem182.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem182.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem183
+            // 
+            this.toolStripMenuItem183.Name = "toolStripMenuItem183";
+            this.toolStripMenuItem183.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem183.Text = "Camping";
+            // 
+            // toolStripMenuItem184
+            // 
+            this.toolStripMenuItem184.Name = "toolStripMenuItem184";
+            this.toolStripMenuItem184.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem184.Text = "Team Killing";
+            // 
+            // toolStripMenuItem185
+            // 
+            this.toolStripMenuItem185.Name = "toolStripMenuItem185";
+            this.toolStripMenuItem185.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem185.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator16
+            // 
+            this.toolStripSeparator16.Name = "toolStripSeparator16";
+            this.toolStripSeparator16.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox17
+            // 
+            this.toolStripTextBox17.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox17.Name = "toolStripTextBox17";
+            this.toolStripTextBox17.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox17.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem186
+            // 
+            this.toolStripMenuItem186.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem186.Name = "toolStripMenuItem186";
+            this.toolStripMenuItem186.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem186.Text = "5 Days";
+            // 
+            // toolStripMenuItem187
+            // 
+            this.toolStripMenuItem187.Name = "toolStripMenuItem187";
+            this.toolStripMenuItem187.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem187.Text = "Abusive";
+            // 
+            // toolStripMenuItem188
+            // 
+            this.toolStripMenuItem188.Name = "toolStripMenuItem188";
+            this.toolStripMenuItem188.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem188.Text = "Racism";
+            // 
+            // toolStripMenuItem189
+            // 
+            this.toolStripMenuItem189.Name = "toolStripMenuItem189";
+            this.toolStripMenuItem189.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem189.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem190
+            // 
+            this.toolStripMenuItem190.Name = "toolStripMenuItem190";
+            this.toolStripMenuItem190.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem190.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem191
+            // 
+            this.toolStripMenuItem191.Name = "toolStripMenuItem191";
+            this.toolStripMenuItem191.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem191.Text = "Aimbot";
+            // 
+            // toolStripMenuItem192
+            // 
+            this.toolStripMenuItem192.Name = "toolStripMenuItem192";
+            this.toolStripMenuItem192.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem192.Text = "Speed hacking";
+            // 
+            // toolStripMenuItem193
+            // 
+            this.toolStripMenuItem193.Name = "toolStripMenuItem193";
+            this.toolStripMenuItem193.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem193.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem194
+            // 
+            this.toolStripMenuItem194.Name = "toolStripMenuItem194";
+            this.toolStripMenuItem194.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem194.Text = "Camping";
+            // 
+            // toolStripMenuItem195
+            // 
+            this.toolStripMenuItem195.Name = "toolStripMenuItem195";
+            this.toolStripMenuItem195.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem195.Text = "Team Killing";
+            // 
+            // toolStripMenuItem196
+            // 
+            this.toolStripMenuItem196.Name = "toolStripMenuItem196";
+            this.toolStripMenuItem196.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem196.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator17
+            // 
+            this.toolStripSeparator17.Name = "toolStripSeparator17";
+            this.toolStripSeparator17.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox18
+            // 
+            this.toolStripTextBox18.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox18.Name = "toolStripTextBox18";
+            this.toolStripTextBox18.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox18.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem197
+            // 
+            this.toolStripMenuItem197.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem197.Name = "toolStripMenuItem197";
+            this.toolStripMenuItem197.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem197.Text = "6 Days";
+            // 
+            // toolStripMenuItem198
+            // 
+            this.toolStripMenuItem198.Name = "toolStripMenuItem198";
+            this.toolStripMenuItem198.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem198.Text = "Abusive";
+            // 
+            // toolStripMenuItem199
+            // 
+            this.toolStripMenuItem199.Name = "toolStripMenuItem199";
+            this.toolStripMenuItem199.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem199.Text = "Racism";
+            // 
+            // toolStripMenuItem200
+            // 
+            this.toolStripMenuItem200.Name = "toolStripMenuItem200";
+            this.toolStripMenuItem200.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem200.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem201
+            // 
+            this.toolStripMenuItem201.Name = "toolStripMenuItem201";
+            this.toolStripMenuItem201.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem201.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem202
+            // 
+            this.toolStripMenuItem202.Name = "toolStripMenuItem202";
+            this.toolStripMenuItem202.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem202.Text = "Aimbot";
+            // 
+            // toolStripMenuItem203
+            // 
+            this.toolStripMenuItem203.Name = "toolStripMenuItem203";
+            this.toolStripMenuItem203.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem203.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem204
+            // 
+            this.toolStripMenuItem204.Name = "toolStripMenuItem204";
+            this.toolStripMenuItem204.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem204.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem205
+            // 
+            this.toolStripMenuItem205.Name = "toolStripMenuItem205";
+            this.toolStripMenuItem205.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem205.Text = "Camping";
+            // 
+            // toolStripMenuItem206
+            // 
+            this.toolStripMenuItem206.Name = "toolStripMenuItem206";
+            this.toolStripMenuItem206.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem206.Text = "Team Killing";
+            // 
+            // toolStripMenuItem207
+            // 
+            this.toolStripMenuItem207.Name = "toolStripMenuItem207";
+            this.toolStripMenuItem207.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem207.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox19
+            // 
+            this.toolStripTextBox19.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox19.Name = "toolStripTextBox19";
+            this.toolStripTextBox19.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox19.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem208
+            // 
+            this.toolStripMenuItem208.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem208.Name = "toolStripMenuItem208";
+            this.toolStripMenuItem208.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem208.Text = "1 Week";
+            // 
+            // toolStripMenuItem209
+            // 
+            this.toolStripMenuItem209.Name = "toolStripMenuItem209";
+            this.toolStripMenuItem209.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem209.Text = "Abusive";
+            // 
+            // toolStripMenuItem210
+            // 
+            this.toolStripMenuItem210.Name = "toolStripMenuItem210";
+            this.toolStripMenuItem210.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem210.Text = "Racism";
+            // 
+            // toolStripMenuItem211
+            // 
+            this.toolStripMenuItem211.Name = "toolStripMenuItem211";
+            this.toolStripMenuItem211.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem211.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem212
+            // 
+            this.toolStripMenuItem212.Name = "toolStripMenuItem212";
+            this.toolStripMenuItem212.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem212.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem213
+            // 
+            this.toolStripMenuItem213.Name = "toolStripMenuItem213";
+            this.toolStripMenuItem213.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem213.Text = "Aimbot";
+            // 
+            // toolStripMenuItem214
+            // 
+            this.toolStripMenuItem214.Name = "toolStripMenuItem214";
+            this.toolStripMenuItem214.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem214.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem215
+            // 
+            this.toolStripMenuItem215.Name = "toolStripMenuItem215";
+            this.toolStripMenuItem215.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem215.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem216
+            // 
+            this.toolStripMenuItem216.Name = "toolStripMenuItem216";
+            this.toolStripMenuItem216.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem216.Text = "Camping";
+            // 
+            // toolStripMenuItem217
+            // 
+            this.toolStripMenuItem217.Name = "toolStripMenuItem217";
+            this.toolStripMenuItem217.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem217.Text = "Team Killing";
+            // 
+            // toolStripMenuItem218
+            // 
+            this.toolStripMenuItem218.Name = "toolStripMenuItem218";
+            this.toolStripMenuItem218.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem218.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            this.toolStripSeparator19.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox20
+            // 
+            this.toolStripTextBox20.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox20.Name = "toolStripTextBox20";
+            this.toolStripTextBox20.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox20.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem219
+            // 
+            this.toolStripMenuItem219.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem219.Name = "toolStripMenuItem219";
+            this.toolStripMenuItem219.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem219.Text = "2 Weeks";
+            // 
+            // toolStripMenuItem220
+            // 
+            this.toolStripMenuItem220.Name = "toolStripMenuItem220";
+            this.toolStripMenuItem220.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem220.Text = "Abusive";
+            // 
+            // toolStripMenuItem221
+            // 
+            this.toolStripMenuItem221.Name = "toolStripMenuItem221";
+            this.toolStripMenuItem221.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem221.Text = "Racism";
+            // 
+            // toolStripMenuItem222
+            // 
+            this.toolStripMenuItem222.Name = "toolStripMenuItem222";
+            this.toolStripMenuItem222.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem222.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem223
+            // 
+            this.toolStripMenuItem223.Name = "toolStripMenuItem223";
+            this.toolStripMenuItem223.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem223.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem224
+            // 
+            this.toolStripMenuItem224.Name = "toolStripMenuItem224";
+            this.toolStripMenuItem224.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem224.Text = "Aimbot";
+            // 
+            // toolStripMenuItem225
+            // 
+            this.toolStripMenuItem225.Name = "toolStripMenuItem225";
+            this.toolStripMenuItem225.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem225.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem226
+            // 
+            this.toolStripMenuItem226.Name = "toolStripMenuItem226";
+            this.toolStripMenuItem226.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem226.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem227
+            // 
+            this.toolStripMenuItem227.Name = "toolStripMenuItem227";
+            this.toolStripMenuItem227.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem227.Text = "Camping";
+            // 
+            // toolStripMenuItem228
+            // 
+            this.toolStripMenuItem228.Name = "toolStripMenuItem228";
+            this.toolStripMenuItem228.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem228.Text = "Team Killing";
+            // 
+            // toolStripMenuItem229
+            // 
+            this.toolStripMenuItem229.Name = "toolStripMenuItem229";
+            this.toolStripMenuItem229.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem229.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox21
+            // 
+            this.toolStripTextBox21.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox21.Name = "toolStripTextBox21";
+            this.toolStripTextBox21.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox21.Text = "Custom Reason";
+            // 
+            // toolStripMenuItem230
+            // 
+            this.toolStripMenuItem230.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem143,
+            this.toolStripMenuItem144,
+            this.toolStripMenuItem145,
+            this.toolStripMenuItem146,
+            this.toolStripMenuItem147,
+            this.toolStripMenuItem148,
+            this.toolStripMenuItem149,
+            this.toolStripMenuItem150,
+            this.toolStripMenuItem151,
+            this.toolStripMenuItem152,
+            this.toolStripSeparator13,
+            this.toolStripTextBox14});
+            this.toolStripMenuItem230.Name = "toolStripMenuItem230";
+            this.toolStripMenuItem230.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem230.Text = "1 Month";
+            // 
+            // toolStripMenuItem231
+            // 
+            this.toolStripMenuItem231.Name = "toolStripMenuItem231";
+            this.toolStripMenuItem231.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem231.Text = "Abusive";
+            // 
+            // toolStripMenuItem232
+            // 
+            this.toolStripMenuItem232.Name = "toolStripMenuItem232";
+            this.toolStripMenuItem232.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem232.Text = "Racism";
+            // 
+            // toolStripMenuItem233
+            // 
+            this.toolStripMenuItem233.Name = "toolStripMenuItem233";
+            this.toolStripMenuItem233.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem233.Text = "General cheating/exploits";
+            // 
+            // toolStripMenuItem234
+            // 
+            this.toolStripMenuItem234.Name = "toolStripMenuItem234";
+            this.toolStripMenuItem234.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem234.Text = "Wall Hacking";
+            // 
+            // toolStripMenuItem235
+            // 
+            this.toolStripMenuItem235.Name = "toolStripMenuItem235";
+            this.toolStripMenuItem235.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem235.Text = "Aimbot";
+            // 
+            // toolStripMenuItem236
+            // 
+            this.toolStripMenuItem236.Name = "toolStripMenuItem236";
+            this.toolStripMenuItem236.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem236.Text = "Speed Hacking";
+            // 
+            // toolStripMenuItem237
+            // 
+            this.toolStripMenuItem237.Name = "toolStripMenuItem237";
+            this.toolStripMenuItem237.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem237.Text = "Admin Disrespect";
+            // 
+            // toolStripMenuItem238
+            // 
+            this.toolStripMenuItem238.Name = "toolStripMenuItem238";
+            this.toolStripMenuItem238.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem238.Text = "Camping";
+            // 
+            // toolStripMenuItem239
+            // 
+            this.toolStripMenuItem239.Name = "toolStripMenuItem239";
+            this.toolStripMenuItem239.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem239.Text = "Team Killing";
+            // 
+            // toolStripMenuItem240
+            // 
+            this.toolStripMenuItem240.Name = "toolStripMenuItem240";
+            this.toolStripMenuItem240.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem240.Text = "Breaking Server Rules";
+            // 
+            // toolStripSeparator21
+            // 
+            this.toolStripSeparator21.Name = "toolStripSeparator21";
+            this.toolStripSeparator21.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox22
+            // 
+            this.toolStripTextBox22.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox22.Name = "toolStripTextBox22";
+            this.toolStripTextBox22.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox22.Text = "Custom Reason";
+            // 
+            // cm_permBan
+            // 
+            this.cm_permBan.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem132,
+            this.toolStripMenuItem133,
+            this.toolStripMenuItem134,
+            this.toolStripMenuItem135,
+            this.toolStripMenuItem136,
+            this.toolStripMenuItem137,
+            this.toolStripMenuItem138,
+            this.toolStripMenuItem139,
+            this.toolStripMenuItem140,
+            this.toolStripMenuItem141,
+            this.toolStripSeparator12,
+            this.toolStripTextBox13});
+            this.cm_permBan.Name = "cm_permBan";
+            this.cm_permBan.Size = new System.Drawing.Size(180, 22);
+            this.cm_permBan.Text = "Perm Ban";
+            // 
+            // toolStripMenuItem132
+            // 
+            this.toolStripMenuItem132.Name = "toolStripMenuItem132";
+            this.toolStripMenuItem132.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem132.Text = "Abusive";
+            this.toolStripMenuItem132.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem133
+            // 
+            this.toolStripMenuItem133.Name = "toolStripMenuItem133";
+            this.toolStripMenuItem133.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem133.Text = "Racism";
+            this.toolStripMenuItem133.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem134
+            // 
+            this.toolStripMenuItem134.Name = "toolStripMenuItem134";
+            this.toolStripMenuItem134.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem134.Text = "General cheating/exploits";
+            this.toolStripMenuItem134.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem135
+            // 
+            this.toolStripMenuItem135.Name = "toolStripMenuItem135";
+            this.toolStripMenuItem135.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem135.Text = "Wall Hacking";
+            this.toolStripMenuItem135.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem136
+            // 
+            this.toolStripMenuItem136.Name = "toolStripMenuItem136";
+            this.toolStripMenuItem136.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem136.Text = "Aimbot";
+            this.toolStripMenuItem136.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem137
+            // 
+            this.toolStripMenuItem137.Name = "toolStripMenuItem137";
+            this.toolStripMenuItem137.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem137.Text = "Speed Hacking";
+            this.toolStripMenuItem137.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem138
+            // 
+            this.toolStripMenuItem138.Name = "toolStripMenuItem138";
+            this.toolStripMenuItem138.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem138.Text = "Admin Disrespect";
+            this.toolStripMenuItem138.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem139
+            // 
+            this.toolStripMenuItem139.Name = "toolStripMenuItem139";
+            this.toolStripMenuItem139.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem139.Text = "Camping";
+            this.toolStripMenuItem139.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem140
+            // 
+            this.toolStripMenuItem140.Name = "toolStripMenuItem140";
+            this.toolStripMenuItem140.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem140.Text = "Team Killing";
+            this.toolStripMenuItem140.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripMenuItem141
+            // 
+            this.toolStripMenuItem141.Name = "toolStripMenuItem141";
+            this.toolStripMenuItem141.Size = new System.Drawing.Size(209, 22);
+            this.toolStripMenuItem141.Text = "Breaking Server Rules";
+            this.toolStripMenuItem141.Click += new System.EventHandler(this.cm_clickPermBanPlayer);
+            // 
+            // toolStripSeparator12
+            // 
+            this.toolStripSeparator12.Name = "toolStripSeparator12";
+            this.toolStripSeparator12.Size = new System.Drawing.Size(206, 6);
+            // 
+            // toolStripTextBox13
+            // 
+            this.toolStripTextBox13.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.toolStripTextBox13.Name = "toolStripTextBox13";
+            this.toolStripTextBox13.Size = new System.Drawing.Size(100, 23);
+            this.toolStripTextBox13.Text = "Custom Reason";
+            this.toolStripTextBox13.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cm_clickPermBanPlayerEnter);
             // 
             // playerListMenu_changeTeams
             // 
             this.playerListMenu_changeTeams.Name = "playerListMenu_changeTeams";
-            this.playerListMenu_changeTeams.Size = new System.Drawing.Size(159, 22);
+            this.playerListMenu_changeTeams.Size = new System.Drawing.Size(180, 22);
             this.playerListMenu_changeTeams.Text = "Change Team";
             this.playerListMenu_changeTeams.Click += new System.EventHandler(this.playerListAction_clickChangeTeams);
+            // 
+            // cm_playerFunCMD
+            // 
+            this.cm_playerFunCMD.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sub_activeGodMode,
+            this.sub_deactivateGodMode});
+            this.cm_playerFunCMD.Name = "cm_playerFunCMD";
+            this.cm_playerFunCMD.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerFunCMD.Text = "Fun Commands";
+            // 
+            // sub_activeGodMode
+            // 
+            this.sub_activeGodMode.Name = "sub_activeGodMode";
+            this.sub_activeGodMode.Size = new System.Drawing.Size(188, 22);
+            this.sub_activeGodMode.Text = "Activate God Mode";
+            this.sub_activeGodMode.Click += new System.EventHandler(this.playerList_actionActivateGodMode);
+            // 
+            // sub_deactivateGodMode
+            // 
+            this.sub_deactivateGodMode.Name = "sub_deactivateGodMode";
+            this.sub_deactivateGodMode.Size = new System.Drawing.Size(188, 22);
+            this.sub_deactivateGodMode.Text = "Deactivate God Mode";
+            this.sub_deactivateGodMode.Click += new System.EventHandler(this.playerList_actionDeactivateGodMode);
             // 
             // playerListMenu_spectate
             // 
             this.playerListMenu_spectate.Name = "playerListMenu_spectate";
-            this.playerListMenu_spectate.Size = new System.Drawing.Size(159, 22);
+            this.playerListMenu_spectate.Size = new System.Drawing.Size(180, 22);
             this.playerListMenu_spectate.Text = "Spectate";
             this.playerListMenu_spectate.Click += new System.EventHandler(this.actionSpectate_click);
             // 
@@ -3663,23 +4755,14 @@ namespace HawkSync_RC
         private System.Windows.Forms.Button btn_addAutoMsg;
         private System.Windows.Forms.ListBox listBox_AutoMessages;
         private System.Windows.Forms.ContextMenuStrip playerList_contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_2Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_3Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_4Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_5Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_6Day;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Week;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_2Week;
-        private System.Windows.Forms.ToolStripMenuItem StripMenu_1Month;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem cm_playerArmDisarm;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem13;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem133;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem76;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem129;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem130;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem131;
+        private System.Windows.Forms.ToolStripMenuItem cm_playerWarn;
+        private System.Windows.Forms.ToolStripMenuItem cm_playerKill;
+        private System.Windows.Forms.ToolStripMenuItem cm_playerFunCMD;
+        private System.Windows.Forms.ToolStripMenuItem sub_activeGodMode;
+        private System.Windows.Forms.ToolStripMenuItem sub_deactivateGodMode;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Abusive;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Racism;
         private System.Windows.Forms.ToolStripMenuItem actionReason_Cheating;
@@ -3692,7 +4775,6 @@ namespace HawkSync_RC
         private System.Windows.Forms.ToolStripMenuItem actionReason_Rules;
         private System.Windows.Forms.ToolStripSeparator playerListMenu_Seperator;
         private System.Windows.Forms.ToolStripTextBox actionReason_Custom;
-        private System.Windows.Forms.ToolStripMenuItem playerListMenu_tempBan;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem37;
@@ -3810,7 +4892,6 @@ namespace HawkSync_RC
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem125;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox11;
-        private System.Windows.Forms.ToolStripMenuItem playerListMenu_permBanPlayer;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem26;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
@@ -3862,7 +4943,6 @@ namespace HawkSync_RC
         private RadioButton rb_chatPlayerHist;
         private RadioButton rb_chatRedTeam;
         private RadioButton rb_chatBlueTeam;
-        private ToolStripMenuItem cm_kickPlayer;
         private ToolStripMenuItem toolStripMenuItem18;
         private ToolStripMenuItem toolStripMenuItem19;
         private ToolStripMenuItem toolStripMenuItem20;
@@ -3873,7 +4953,150 @@ namespace HawkSync_RC
         private ToolStripMenuItem toolStripMenuItem126;
         private ToolStripMenuItem toolStripMenuItem127;
         private ToolStripMenuItem toolStripMenuItem128;
-        private ToolStripSeparator toolStripSeparator;
         private ToolStripTextBox toolStripTextBox2;
+        private ToolStripMenuItem cm_kickPlayer;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem11;
+        private ToolStripMenuItem toolStripMenuItem12;
+        private ToolStripMenuItem toolStripMenuItem16;
+        private ToolStripMenuItem toolStripMenuItem35;
+        private ToolStripMenuItem toolStripMenuItem36;
+        private ToolStripMenuItem toolStripMenuItem76;
+        private ToolStripMenuItem toolStripMenuItem129;
+        private ToolStripMenuItem toolStripMenuItem130;
+        private ToolStripMenuItem toolStripMenuItem131;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripTextBox toolStripTextBox12;
+        private ToolStripMenuItem cm_permBan;
+        private ToolStripMenuItem toolStripMenuItem132;
+        private ToolStripMenuItem toolStripMenuItem133;
+        private ToolStripMenuItem toolStripMenuItem134;
+        private ToolStripMenuItem toolStripMenuItem135;
+        private ToolStripMenuItem toolStripMenuItem136;
+        private ToolStripMenuItem toolStripMenuItem137;
+        private ToolStripMenuItem toolStripMenuItem138;
+        private ToolStripMenuItem toolStripMenuItem139;
+        private ToolStripMenuItem toolStripMenuItem140;
+        private ToolStripMenuItem toolStripMenuItem141;
+        private ToolStripSeparator toolStripSeparator12;
+        private ToolStripTextBox toolStripTextBox13;
+        private ToolStripMenuItem cm_tempBan;
+        private ToolStripMenuItem toolStripMenuItem142;
+        private ToolStripMenuItem toolStripMenuItem143;
+        private ToolStripMenuItem toolStripMenuItem144;
+        private ToolStripMenuItem toolStripMenuItem145;
+        private ToolStripMenuItem toolStripMenuItem146;
+        private ToolStripMenuItem toolStripMenuItem147;
+        private ToolStripMenuItem toolStripMenuItem148;
+        private ToolStripMenuItem toolStripMenuItem149;
+        private ToolStripMenuItem toolStripMenuItem150;
+        private ToolStripMenuItem toolStripMenuItem151;
+        private ToolStripMenuItem toolStripMenuItem152;
+        private ToolStripSeparator toolStripSeparator13;
+        private ToolStripTextBox toolStripTextBox14;
+        private ToolStripMenuItem toolStripMenuItem153;
+        private ToolStripMenuItem toolStripMenuItem154;
+        private ToolStripMenuItem toolStripMenuItem155;
+        private ToolStripMenuItem toolStripMenuItem156;
+        private ToolStripMenuItem toolStripMenuItem157;
+        private ToolStripMenuItem toolStripMenuItem158;
+        private ToolStripMenuItem toolStripMenuItem159;
+        private ToolStripMenuItem toolStripMenuItem160;
+        private ToolStripMenuItem toolStripMenuItem161;
+        private ToolStripMenuItem toolStripMenuItem162;
+        private ToolStripMenuItem toolStripMenuItem163;
+        private ToolStripSeparator toolStripSeparator14;
+        private ToolStripTextBox toolStripTextBox15;
+        private ToolStripMenuItem toolStripMenuItem164;
+        private ToolStripMenuItem toolStripMenuItem165;
+        private ToolStripMenuItem toolStripMenuItem166;
+        private ToolStripMenuItem toolStripMenuItem167;
+        private ToolStripMenuItem toolStripMenuItem168;
+        private ToolStripMenuItem toolStripMenuItem169;
+        private ToolStripMenuItem toolStripMenuItem170;
+        private ToolStripMenuItem toolStripMenuItem171;
+        private ToolStripMenuItem toolStripMenuItem172;
+        private ToolStripMenuItem toolStripMenuItem173;
+        private ToolStripMenuItem toolStripMenuItem174;
+        private ToolStripSeparator toolStripSeparator15;
+        private ToolStripTextBox toolStripTextBox16;
+        private ToolStripMenuItem toolStripMenuItem175;
+        private ToolStripMenuItem toolStripMenuItem176;
+        private ToolStripMenuItem toolStripMenuItem177;
+        private ToolStripMenuItem toolStripMenuItem178;
+        private ToolStripMenuItem toolStripMenuItem179;
+        private ToolStripMenuItem toolStripMenuItem180;
+        private ToolStripMenuItem toolStripMenuItem181;
+        private ToolStripMenuItem toolStripMenuItem182;
+        private ToolStripMenuItem toolStripMenuItem183;
+        private ToolStripMenuItem toolStripMenuItem184;
+        private ToolStripMenuItem toolStripMenuItem185;
+        private ToolStripSeparator toolStripSeparator16;
+        private ToolStripTextBox toolStripTextBox17;
+        private ToolStripMenuItem toolStripMenuItem186;
+        private ToolStripMenuItem toolStripMenuItem187;
+        private ToolStripMenuItem toolStripMenuItem188;
+        private ToolStripMenuItem toolStripMenuItem189;
+        private ToolStripMenuItem toolStripMenuItem190;
+        private ToolStripMenuItem toolStripMenuItem191;
+        private ToolStripMenuItem toolStripMenuItem192;
+        private ToolStripMenuItem toolStripMenuItem193;
+        private ToolStripMenuItem toolStripMenuItem194;
+        private ToolStripMenuItem toolStripMenuItem195;
+        private ToolStripMenuItem toolStripMenuItem196;
+        private ToolStripSeparator toolStripSeparator17;
+        private ToolStripTextBox toolStripTextBox18;
+        private ToolStripMenuItem toolStripMenuItem197;
+        private ToolStripMenuItem toolStripMenuItem198;
+        private ToolStripMenuItem toolStripMenuItem199;
+        private ToolStripMenuItem toolStripMenuItem200;
+        private ToolStripMenuItem toolStripMenuItem201;
+        private ToolStripMenuItem toolStripMenuItem202;
+        private ToolStripMenuItem toolStripMenuItem203;
+        private ToolStripMenuItem toolStripMenuItem204;
+        private ToolStripMenuItem toolStripMenuItem205;
+        private ToolStripMenuItem toolStripMenuItem206;
+        private ToolStripMenuItem toolStripMenuItem207;
+        private ToolStripSeparator toolStripSeparator18;
+        private ToolStripTextBox toolStripTextBox19;
+        private ToolStripMenuItem toolStripMenuItem208;
+        private ToolStripMenuItem toolStripMenuItem209;
+        private ToolStripMenuItem toolStripMenuItem210;
+        private ToolStripMenuItem toolStripMenuItem211;
+        private ToolStripMenuItem toolStripMenuItem212;
+        private ToolStripMenuItem toolStripMenuItem213;
+        private ToolStripMenuItem toolStripMenuItem214;
+        private ToolStripMenuItem toolStripMenuItem215;
+        private ToolStripMenuItem toolStripMenuItem216;
+        private ToolStripMenuItem toolStripMenuItem217;
+        private ToolStripMenuItem toolStripMenuItem218;
+        private ToolStripSeparator toolStripSeparator19;
+        private ToolStripTextBox toolStripTextBox20;
+        private ToolStripMenuItem toolStripMenuItem219;
+        private ToolStripMenuItem toolStripMenuItem220;
+        private ToolStripMenuItem toolStripMenuItem221;
+        private ToolStripMenuItem toolStripMenuItem222;
+        private ToolStripMenuItem toolStripMenuItem223;
+        private ToolStripMenuItem toolStripMenuItem224;
+        private ToolStripMenuItem toolStripMenuItem225;
+        private ToolStripMenuItem toolStripMenuItem226;
+        private ToolStripMenuItem toolStripMenuItem227;
+        private ToolStripMenuItem toolStripMenuItem228;
+        private ToolStripMenuItem toolStripMenuItem229;
+        private ToolStripSeparator toolStripSeparator20;
+        private ToolStripTextBox toolStripTextBox21;
+        private ToolStripMenuItem toolStripMenuItem230;
+        private ToolStripMenuItem toolStripMenuItem231;
+        private ToolStripMenuItem toolStripMenuItem232;
+        private ToolStripMenuItem toolStripMenuItem233;
+        private ToolStripMenuItem toolStripMenuItem234;
+        private ToolStripMenuItem toolStripMenuItem235;
+        private ToolStripMenuItem toolStripMenuItem236;
+        private ToolStripMenuItem toolStripMenuItem237;
+        private ToolStripMenuItem toolStripMenuItem238;
+        private ToolStripMenuItem toolStripMenuItem239;
+        private ToolStripMenuItem toolStripMenuItem240;
+        private ToolStripSeparator toolStripSeparator21;
+        private ToolStripTextBox toolStripTextBox22;
     }
 }

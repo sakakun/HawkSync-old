@@ -517,27 +517,27 @@ namespace HawkSync_RC
         {
             if (_state.Instances[ArrayID].CustomWarnings.Count == 0)
             {
-                toolStripMenuItem133.DropDownItems.Clear();
+                cm_playerWarn.DropDownItems.Clear();
                 return; // do nothing since there are no custom warnings
             }
 
-            var warningList = toolStripMenuItem133.DropDownItems;
-            if (_state.Instances[ArrayID].CustomWarnings.Count == toolStripMenuItem133.DropDownItems.Count)
+            var warningList = cm_playerWarn.DropDownItems;
+            if (_state.Instances[ArrayID].CustomWarnings.Count == cm_playerWarn.DropDownItems.Count)
             {
                 var index = 0;
                 foreach (var warning in _state.Instances[ArrayID].CustomWarnings)
                 {
-                    toolStripMenuItem133.DropDownItems[index].Text = warning;
+                    cm_playerWarn.DropDownItems[index].Text = warning;
                     index++;
                 }
             }
-            else if (_state.Instances[ArrayID].CustomWarnings.Count > toolStripMenuItem133.DropDownItems.Count)
+            else if (_state.Instances[ArrayID].CustomWarnings.Count > cm_playerWarn.DropDownItems.Count)
             {
                 foreach (var warningItem in _state.Instances[ArrayID].CustomWarnings)
                 {
                     var found = false;
                     var newIndex = 0;
-                    foreach (ToolStripItem item in toolStripMenuItem133.DropDownItems)
+                    foreach (ToolStripItem item in cm_playerWarn.DropDownItems)
                     {
                         if (warningItem == item.Text)
                         {
@@ -550,13 +550,13 @@ namespace HawkSync_RC
 
                     if (found)
                         continue;
-                    toolStripMenuItem133.DropDownItems.Add(warningItem, null, SendPlayerWarning);
+                    cm_playerWarn.DropDownItems.Add(warningItem, null, SendPlayerWarning);
                 }
             }
-            else if (_state.Instances[ArrayID].CustomWarnings.Count < toolStripMenuItem133.DropDownItems.Count)
+            else if (_state.Instances[ArrayID].CustomWarnings.Count < cm_playerWarn.DropDownItems.Count)
             {
                 var removeList = new List<int>();
-                foreach (ToolStripItem warningMenuItem in toolStripMenuItem133.DropDownItems)
+                foreach (ToolStripItem warningMenuItem in cm_playerWarn.DropDownItems)
                 {
                     var index = 0;
                     var foundWarning = false;
@@ -574,7 +574,7 @@ namespace HawkSync_RC
                     if (foundWarning == false) removeList.Add(index);
                 }
 
-                foreach (var i in removeList) toolStripMenuItem133.DropDownItems.RemoveAt(i);
+                foreach (var i in removeList) cm_playerWarn.DropDownItems.RemoveAt(i);
             }
         }
 
@@ -1725,7 +1725,7 @@ namespace HawkSync_RC
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                     MessageBox.Show("Player has been disarmed!", "Success");
                 else
-                    MessageBox.Show("BMTTV reported an error. Please try again later.");
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
             else
             {
@@ -1752,7 +1752,7 @@ namespace HawkSync_RC
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                     MessageBox.Show("Player has been Armed!", "Success");
                 else
-                    MessageBox.Show("BMTTV reported an error. Please try again later.");
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
             else
             {
@@ -1783,7 +1783,7 @@ namespace HawkSync_RC
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                     MessageBox.Show("Player has been killed!", "Success");
                 else
-                    MessageBox.Show("BMTTV reported an error. Please try again later.");
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
         }
 
@@ -1804,7 +1804,7 @@ namespace HawkSync_RC
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 MessageBox.Show("Player will be switched after the current map.", "Success");
             else
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void textBox_banSearch_changed(object sender, EventArgs e)
@@ -1879,7 +1879,7 @@ namespace HawkSync_RC
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 MessageBox.Show("Command sent!", "Success");
             else
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void mapAction_clickUpdateActiveMaps(object sender, EventArgs e)
@@ -1899,7 +1899,7 @@ namespace HawkSync_RC
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 MessageBox.Show("Map List Updated!", "Success");
             else
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void mapAction_clickPlayMapNext(object sender, EventArgs e)
@@ -1930,7 +1930,7 @@ namespace HawkSync_RC
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 MessageBox.Show("Command sent!", "Success");
             else
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void mapAction_clickShuffleMaps(object sender, EventArgs e)
@@ -2048,7 +2048,7 @@ namespace HawkSync_RC
             }
             else
             {
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
         }
 
@@ -2072,7 +2072,7 @@ namespace HawkSync_RC
             }
             else
             {
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
         }
 
@@ -2091,7 +2091,7 @@ namespace HawkSync_RC
                     Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 return;
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void banList_clickRemove(object sender, EventArgs e)
@@ -2119,7 +2119,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void vpn_changeWarnLevel(object sender, EventArgs e)
@@ -2137,7 +2137,7 @@ namespace HawkSync_RC
                     Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 return;
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void vpn_changeDisallowVPN(object sender, EventArgs e)
@@ -2155,7 +2155,7 @@ namespace HawkSync_RC
                     Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 return;
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void banList_addEntry(object sender, EventArgs e)
@@ -2244,7 +2244,7 @@ namespace HawkSync_RC
                     return;
                 }
 
-                MessageBox.Show("BMTTV reported an error. Please try again later.");
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
             }
             else
             {
@@ -2278,7 +2278,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void playerList_actionDeactivateGodMode(object sender, EventArgs e)
@@ -2307,7 +2307,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void chat_SendMsg(object sender, EventArgs e)
@@ -2601,7 +2601,7 @@ namespace HawkSync_RC
                     Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
             if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 return;
-            MessageBox.Show("BMTTV reported an error. Please try again later.");
+            MessageBox.Show("HawkSync reported an error. Please try again later.");
         }
 
         private void autoMessage_clickMoveUp(object sender, KeyEventArgs e)
@@ -2648,6 +2648,277 @@ namespace HawkSync_RC
                 group_vpnSettings.Enabled = false;
                 group_vpnWhitelist.Enabled = false;
                 MessageBox.Show("VPN Checking is not enabled on this server.\n", "Error");
+            }
+        }
+
+        private void cm_clickKickPlayer(object sender, EventArgs e)
+        {
+            var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+            string kickReason = string.Empty;
+            if (sender is ToolStripMenuItem clickedItem)
+            {
+                kickReason = clickedItem.Text;
+            }
+            var kickplayer =
+                MessageBox.Show(
+                    "Are you sure you want to kick player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                    " ?", "Important! Kicking for " + kickReason + "...", MessageBoxButtons.YesNo);
+            if (kickplayer == DialogResult.Yes)
+            {
+                var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.KickPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", kickReason }
+                };
+                var response =
+                    JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                        Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                    MessageBox.Show("Player has been kicked!", "Success");
+                else
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
+            }
+        }
+
+        private void cm_clickKickPlayerEnter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                // kick player - custom reason
+                var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+                string customReason = toolStripTextBox12.Text;
+
+                var kickplayer =
+                MessageBox.Show(
+                    "Are you sure you want to kick player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                    " ?", "Important! Kicking for " + customReason + "...", MessageBoxButtons.YesNo);
+                if (kickplayer == DialogResult.Yes)
+                {
+                    var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.KickPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", customReason }
+                };
+                    var response =
+                        JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                            Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                    if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                        MessageBox.Show("Player has been kicked!", "Success");
+                    else
+                        MessageBox.Show("HawkSync reported an error. Please try again later.");
+                }
+
+                toolStripTextBox12.Text = string.Empty;
+            }
+        }
+        private void cm_clickPermBanPlayer(object sender, EventArgs e)
+        {
+            var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+            string banReason = string.Empty;
+            if (sender is ToolStripMenuItem clickedItem)
+            {
+                banReason = clickedItem.Text;
+            }
+            var banPlayer =
+                MessageBox.Show(
+                    "Are you sure you want to ban player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                    " ?", "Important! Perma Ban for " + banReason + "...", MessageBoxButtons.YesNo);
+            if (banPlayer == DialogResult.Yes)
+            {
+                var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.BanPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", banReason },
+                    { "expires", "-1" }
+                };
+                var response =
+                    JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                        Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                    MessageBox.Show("Player has been banned!", "Success");
+                else
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
+            }
+        }
+
+        private void cm_clickPermBanPlayerEnter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                // kick player - custom reason
+                var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+                string customReason = toolStripTextBox13.Text;
+
+                var banPlayer =
+                MessageBox.Show(
+                    "Are you sure you want to ban player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                    " ?", "Important! Perma Ban for " + customReason + "...", MessageBoxButtons.YesNo);
+                if (banPlayer == DialogResult.Yes)
+                {
+                    var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.BanPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", customReason },
+                    { "expires", "-1" }
+                };
+                    var response =
+                        JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                            Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                    if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                        MessageBox.Show("Player has been banned!", "Success");
+                    else
+                        MessageBox.Show("HawkSync reported an error. Please try again later.");
+                }
+
+                toolStripTextBox13.Text = string.Empty;
+            }
+        }
+
+        private void cm_clickTempBanPlayer(object sender, EventArgs e)
+        {
+            var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+            string banExpires = string.Empty;
+            string banReason = string.Empty;
+            int days = 0;
+
+            if (sender is ToolStripMenuItem clickedItem)
+            {
+                banReason = clickedItem.Text;
+                if (clickedItem.OwnerItem != null)
+                {
+                    banExpires = clickedItem.OwnerItem.Text;
+                    // Extract the numeric portion of the parent item text
+                    string[] parts = banExpires.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string durationInt = parts[0]; // Extracting the numeric portion
+                    string durationType = parts[1]; // Extracting the duration type
+
+                    switch (durationType)
+                    {
+                        case "Week":
+                        case "Weeks":
+                            days = Convert.ToInt32(durationInt) * 7;
+                            break;
+                        case "Day":
+                        case "Days":
+                            days = Convert.ToInt32(durationInt) * 1;
+                            break;
+                        case "Month":
+                            days = Convert.ToInt32(durationInt) * 30;
+                            break;
+                        default:
+                            // Handle any other cases here
+                            break;
+                    }
+                }
+            }
+
+            banExpires = DateTime.Now.AddDays(days).ToString();
+
+            var banPlayer =
+                MessageBox.Show(
+                    "Are you sure you want to ban player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                    " ?", "Important! Temp Ban for " + banReason + "...", MessageBoxButtons.YesNo);
+            if (banPlayer == DialogResult.Yes)
+            {
+                var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.BanPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", banReason },
+                    { "expires", banExpires }
+                };
+                var response =
+                    JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                        Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                    MessageBox.Show("Player has been banned!", "Success");
+                else
+                    MessageBox.Show("HawkSync reported an error. Please try again later.");
+            }
+
+        }
+
+        private void cm_clickTempBanPlayerEnter(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+
+                var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
+                string banExpires = string.Empty;
+                string banReason = string.Empty;
+                int days = 0;
+
+                if (sender is ToolStripTextBox clickedItem)
+                {
+                    banReason = clickedItem.Text;
+                    if (clickedItem.OwnerItem != null)
+                    {
+                        banExpires = clickedItem.OwnerItem.Text;
+                        // Extract the numeric portion of the parent item text
+                        string[] parts = banExpires.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        string durationInt = parts[0]; // Extracting the numeric portion
+                        string durationType = parts[1]; // Extracting the duration type
+
+                        switch (durationType)
+                        {
+                            case "Week":
+                            case "Weeks":
+                                days = Convert.ToInt32(durationInt) * 7;
+                                break;
+                            case "Day":
+                            case "Days":
+                                days = Convert.ToInt32(durationInt) * 1;
+                                break;
+                            case "Month":
+                                days = Convert.ToInt32(durationInt) * 30;
+                                break;
+                            default:
+                                // Handle any other cases here
+                                break;
+                        }
+                    }
+                }
+
+                banExpires = DateTime.Now.AddDays(days).ToString();
+
+                var banPlayer =
+                    MessageBox.Show(
+                        "Are you sure you want to ban player: " + _state.Instances[ArrayID].PlayerList[selectedPlayerSlot].name +
+                        " ?", "Important! Temp Ban for " + banReason + "...", MessageBoxButtons.YesNo);
+                if (banPlayer == DialogResult.Yes)
+                {
+                    var request = new Dictionary<string, dynamic>
+                {
+                    { "action", "BMTRC.BanPlayer" },
+                    { "SessionID", RCSetup.SessionID },
+                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "slot", selectedPlayerSlot },
+                    { "banReason", banReason },
+                    { "expires", banExpires }
+                };
+                    var response =
+                        JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                            Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+                    if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                        MessageBox.Show("Player has been banned!", "Success");
+                    else
+                        MessageBox.Show("HawkSync reported an error. Please try again later.");
+                }
+
             }
         }
 

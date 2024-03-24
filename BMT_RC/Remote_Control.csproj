@@ -339,9 +339,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /e /y Z:\HawkSync\BMT_RC\$(OutDir)*.* Y:\HawkSync\BMT_RC\$(OutDir)</PostBuildEvent>
+    <PostBuildEvent>REM xcopy /s /e /y Z:\HawkSync\BMT_RC\$(OutDir)*.* Y:\HawkSync\BMT_RC\$(OutDir)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del /q /s Y:\HawkSync\BMT_RC\$(OutDir)*.*</PreBuildEvent>
+    <PreBuildEvent>REM del /q /s Y:\HawkSync\BMT_RC\$(OutDir)*.*</PreBuildEvent>
   </PropertyGroup>
 </Project>
