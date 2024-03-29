@@ -15,7 +15,7 @@ namespace HawkSync_SM.classes.Plugins.pl_VoteMaps
                var starterPtr = baseAddr + 0x00062D10;
                byte[] ChatLogPtr = new byte[4];
                int ChatLogPtrRead = 0;
-               ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
+               ReadProcessMemory((int)_state.Instances[profileid].instanceProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
 
                // get last message sent...
                int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
@@ -53,7 +53,7 @@ namespace HawkSync_SM.classes.Plugins.pl_VoteMaps
                        }
                        return;
                    }
-                   else if (_state.Instances[profileid].Status == InstanceStatus.SCORING)
+                   else if (_state.Instances[profileid].instanceStatus == InstanceStatus.SCORING)
                    {
                        if (_state.Instances[profileid].VoteMapStandBy == true)
                        {
@@ -86,7 +86,7 @@ namespace HawkSync_SM.classes.Plugins.pl_VoteMaps
                        _state.Instances[profileid].VoteMapStandBy = false;
                    }
                    // HOOK: VoteMap
-                   if (PlayerMessage == "!skip" && msgTypeString != "Server" && PlayerName != _state.Instances[profileid].HostName)
+                   if (PlayerMessage == "!skip" && msgTypeString != "Server" && PlayerName != _state.Instances[profileid].gameHostName)
                    {
                        bool found = false;
                        foreach (var item in _state.Instances[profileid].VoteMapsTally)
@@ -129,7 +129,7 @@ namespace HawkSync_SM.classes.Plugins.pl_VoteMaps
                            var starterPtr1 = baseAddr + 0x00062D10;
                            byte[] ChatLogPtr1 = new byte[4];
                            int ChatLogPtrRead1 = 0;
-                           ReadProcessMemory((int)_state.Instances[profileid].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead1);
+                           ReadProcessMemory((int)_state.Instances[profileid].instanceProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead1);
 
                            int ChatLogAddr1 = BitConverter.ToInt32(ChatLogPtr, 0);
                            byte[] countDownKiller = BitConverter.GetBytes(0);
@@ -166,7 +166,7 @@ namespace HawkSync_SM.classes.Plugins.pl_VoteMaps
                                    PostMessage(_state.ApplicationProcesses[profileid].MainWindowHandle, WM_KEYUP, GlobalChat, 0);
                                    Thread.Sleep(100);
                                    int bytesWritten2 = 0;
-                                   byte[] buffer2 = Encoding.Default.GetBytes($"Vote Success! - Skipping Map...\0"); // '\0' marks the end of string
+                                   byte[] buffer2 = Encoding.Default.GetBytes($"Vote Success! - Skipping infoCurrentMapName...\0"); // '\0' marks the end of string
                                    MemoryProcessor.Write(_state.Instances[profileid], 0x00879A14, buffer2, buffer2.Length, ref bytesWritten2);
                                    Thread.Sleep(100);
                                    PostMessage(_state.ApplicationProcesses[profileid].MainWindowHandle, WM_KEYDOWN, VK_ENTER, 0);

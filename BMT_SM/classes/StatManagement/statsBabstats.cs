@@ -39,12 +39,12 @@ namespace HawkSync_SM.classes.StatManagement
 
     }
 
-    public class BabstatsTimerStorage
+    public class BabstatsTimer
     {
         public DateTime updateTimeStamp = DateTime.Now;
         public DateTime reportTimeStamp = DateTime.Now;
 
-        public BabstatsTimerStorage()
+        public BabstatsTimer()
         {
             updateTimeStamp = DateTime.Now;
             reportTimeStamp = DateTime.Now;
@@ -327,7 +327,7 @@ namespace HawkSync_SM.classes.StatManagement
 
         private string line_ServerID()
         {
-            string line = $"ServerID {_state.Instances[_instanceID].WebStatsId}\n";
+            string line = $"ServerID {_state.Instances[_instanceID].WebStatsProfileID}\n";
             return line;
         }
 
@@ -337,25 +337,25 @@ namespace HawkSync_SM.classes.StatManagement
              * Game #2__&__#3__&__#4__&__#5__&__#6__&__#7__&__#8__&__#9__&__#10
              * #2  = Game Timer
                #3  = DateTime (Y-m-d H:i:s)
-               #4  = GameType (See GameType Ref)
-               #5  = Is Dedicated (0=No,1=Yes)
+               #4  = profileServerType (See profileServerType Ref)
+               #5  = Is gameDedicated (0=No,1=Yes)
                #6  = Server Name 
-               #7  = Map Name
+               #7  = infoCurrentMapName Name
                #8  = Maxplayers
                #9  = Numplayers
-               #10 = Mod (See Reference Numbers)
+               #10 = profileGameMod (See Reference Numbers)
              */
-            int timer = _state.Instances[_instanceID].TimeLimit - _state.Instances[_instanceID].TimeRemaining;
+            int timer = _state.Instances[_instanceID].gameTimeLimit - _state.Instances[_instanceID].infoMapTimeRemaining;
             string date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            int gameMapType = _state.Instances[_instanceID].gameMapType;
-            int dedicated = Convert.ToInt32(_state.Instances[_instanceID].Dedicated);
-            string serverName = _state.Instances[_instanceID].ServerName;
-            string mapName = _state.Instances[_instanceID].CurrentMap.MapName;
-            int maxPlayers = _state.Instances[_instanceID].MaxSlots;
+            int gameMapType = _state.Instances[_instanceID].infoMapGameType;
+            int dedicated = Convert.ToInt32(_state.Instances[_instanceID].gameDedicated);
+            string serverName = _state.Instances[_instanceID].gameServerName;
+            string mapName = _state.Instances[_instanceID].infoCurrentMap.MapName;
+            int maxPlayers = _state.Instances[_instanceID].gameMaxSlots;
             int numPlayers = _state.Instances[_instanceID].PlayerList.Count;
 
             string winner = (update ? "" : $"&__{getTeamWinner(_state, _instanceID)}__");
-            bool TeamSabre = _state.Instances[_instanceID].GameType == 0 && File.Exists(_state.Instances[_instanceID].GamePath + "\\EXP1.pff");
+            bool TeamSabre = _state.Instances[_instanceID].profileServerType == 0 && File.Exists(_state.Instances[_instanceID].profileServerPath + "\\EXP1.pff");
             int mod = TeamSabre ? 8 : 7;
 
             string line = $"Game {timer}__&__{date}__&__{gameMapType}__&__{dedicated}__&__{serverName}__&__{mapName}__&__{maxPlayers}__&__{numPlayers}__{winner}&__{mod}\n";
@@ -364,11 +364,11 @@ namespace HawkSync_SM.classes.StatManagement
 
         public int getTeamWinner(AppState state, int instanceID)
         {
-            int gameType = _state.Instances[_instanceID].GameType;
-            scoreManagement previousScores = _state.Instances[_instanceID].currentScores;
+            int gameType = _state.Instances[_instanceID].infoMapGameType;
+            scoreManagement previousScores = _state.Instances[_instanceID].infoCurrentScores;
             scoreManagement currentScores = (new ServerManagement()).GetCurrentGameScores(ref state, instanceID);
 
-            // if GameType 0, then return 0
+            // if profileServerType 0, then return 0
             if (gameType == 0){ return 0; }
             if (currentScores.blueScore > previousScores.blueScore) { return 1; } 
             if (currentScores.redScore > previousScores.redScore) { return 2; }
@@ -379,7 +379,7 @@ namespace HawkSync_SM.classes.StatManagement
         {
             string playerLines = "";
 
-            foreach (var player in _state.Instances[instanceID].playerStats)
+            foreach (var player in _state.Instances[instanceID].PlayerStats)
             {
 
                 ob_playerList stats = player.Value.PlayerData;
@@ -416,7 +416,7 @@ namespace HawkSync_SM.classes.StatManagement
                 playerLines += $"Player {stats.name}__&__{stats.address}\n";
                 playerLines += $"PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}\n";
 
-                foreach( var weapon in _state.Instances[instanceID].playerWeaponStats[player.Value.PlayerId].WeaponStatsList)
+                foreach( var weapon in _state.Instances[instanceID].PlayerWeaponStats[player.Value.PlayerId].WeaponStatsList)
                 {
                     playerLines += $"Weapon {weapon.weaponid} {(int)weapon.timer} {weapon.kills} {weapon.shotsfired}\n";
                 };
@@ -432,7 +432,7 @@ namespace HawkSync_SM.classes.StatManagement
         {
             initBabstats(state, instanceID);
             // Generate data to send to Babstats Server via POST.
-            // This is for End of Map data
+            // This is for End of infoCurrentMapName data
             string ServerLine = line_ServerID();
             string GameLine = line_GameInfo();
             // generate the data to send to babstats
@@ -440,7 +440,7 @@ namespace HawkSync_SM.classes.StatManagement
 
             Dictionary<string, string> dataArray = new Dictionary<string, string>
             {
-                { "serverid", _state.Instances[instanceID].WebStatsId },
+                { "serverid", _state.Instances[instanceID].WebStatsProfileID },
                 { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines) },
                 { "bmt", "1" }
             };
@@ -488,7 +488,7 @@ namespace HawkSync_SM.classes.StatManagement
 
             Dictionary<string, string> dataArray = new Dictionary<string, string>
             {
-                { "serverid", _state.Instances[instanceID].WebStatsId },
+                { "serverid", _state.Instances[instanceID].WebStatsProfileID },
                 { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines+"End\n") },
                 { "bmt", "1" }
             };
@@ -528,6 +528,7 @@ namespace HawkSync_SM.classes.StatManagement
         public async void requestBabstatsReportData(AppState state, int instanceID)
         {
             // status_report
+            
         }
 
     }

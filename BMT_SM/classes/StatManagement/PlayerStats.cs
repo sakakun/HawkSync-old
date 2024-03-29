@@ -61,21 +61,21 @@ namespace HawkSync_SM.classes.StatManagement
             try
             {
 
-                if (!_state.Instances[instanceID].playerStats.ContainsKey(playerId))
+                if (!_state.Instances[instanceID].PlayerStats.ContainsKey(playerId))
                 {
-                    _state.Instances[instanceID].playerStats[playerId] = currentStats;
+                    _state.Instances[instanceID].PlayerStats[playerId] = currentStats;
                     WeaponStats.RecordWeaponStats(_state, instanceID, playerId, weaponID, currentStats.PlayerData.kills, currentStats.PlayerData.totalshots, 0);
                 
                 } else
                 {
-                    PlayerStats oldStats = _state.Instances[instanceID].playerStats[playerId];
+                    PlayerStats oldStats = _state.Instances[instanceID].PlayerStats[playerId];
                     int diffKills = currentStats.PlayerData.kills - oldStats.PlayerData.kills;
                     int diffShotsFired = currentStats.PlayerData.totalshots - oldStats.PlayerData.totalshots;
-                    double diffTimer = ((currentTime - _state.Instances[instanceID].playerStats[playerId].LastSeen).TotalSeconds);
+                    double diffTimer = ((currentTime - _state.Instances[instanceID].PlayerStats[playerId].LastSeen).TotalSeconds);
                     WeaponStats.RecordWeaponStats(_state, instanceID, playerId, weaponID, diffKills, diffShotsFired, diffTimer);
 
-                    firstSeen = _state.Instances[instanceID].playerStats[playerId].FirstSeen;
-                    _state.Instances[instanceID].playerStats[playerId] = currentStats;
+                    firstSeen = _state.Instances[instanceID].PlayerStats[playerId].FirstSeen;
+                    _state.Instances[instanceID].PlayerStats[playerId] = currentStats;
                 }
 
                 currentStats.FirstSeen = firstSeen; // fix the first seen time stamp
@@ -127,14 +127,14 @@ namespace HawkSync_SM.classes.StatManagement
         public static void RecordWeaponStats(AppState _state, int instanceID, string playerId, int weaponId, int kills, int shotsFired, double timer)
         {
             // Check if the player already has a weapon currentStats record
-            if (!_state.Instances[instanceID].playerWeaponStats.ContainsKey(playerId))
+            if (!_state.Instances[instanceID].PlayerWeaponStats.ContainsKey(playerId))
             {
-                _state.Instances[instanceID].playerWeaponStats[playerId] = new PlayerWeaponStats(playerId);
+                _state.Instances[instanceID].PlayerWeaponStats[playerId] = new PlayerWeaponStats(playerId);
             }
 
-            List<InternalWeaponStats> weaponStats = _state.Instances[instanceID].playerWeaponStats[playerId].WeaponStatsList;
+            List<InternalWeaponStats> weaponStats = _state.Instances[instanceID].PlayerWeaponStats[playerId].WeaponStatsList;
 
-            //Console.WriteLine(JsonConvert.SerializeObject(_state.Instances[instanceID].playerWeaponStats[playerId]));
+            //Console.WriteLine(JsonConvert.SerializeObject(_state.Instances[instanceID].PlayerWeaponStats[playerId]));
 
             // Check if the weapon ID exists in the weaponStats list
             InternalWeaponStats weaponStatsEntry = weaponStats.FirstOrDefault(ws => ws.weaponid == weaponId);

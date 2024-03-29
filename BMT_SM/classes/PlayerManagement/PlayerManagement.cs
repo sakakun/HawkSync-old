@@ -111,17 +111,17 @@ namespace HawkSync_SM
             foreach (var inst in _state.Instances)
             {
                 Instance instance = inst.Value;
-                int InstanceID = instance.Id;
+                int InstanceID = instance.instanceID;
                 try
                 {
-                    foreach (var ban in instance.BanList)
+                    foreach (var ban in instance.PlayerListBans)
                     {
                         // remove if it's expired, even if the player isn't on the server...
                         if (ban.expires != "-1" && ban.expires != null)
                         {
                             if (DateTime.Compare(DateTime.Parse(ban.expires), DateTime.Now) < 0)
                             {
-                                _state.Instances[inst.Key].BanList.Remove(ban);
+                                _state.Instances[inst.Key].PlayerListBans.Remove(ban);
                                 // remove from SQLiteDB
                                 SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                                 db.Open();

@@ -72,19 +72,19 @@ namespace HawkSync_SM
         private void UpdateGameScores()
         {
             var baseAddr = 0x400000;
-            if (_state.Instances[ArrayID].nextMapGameType == 0 || _state.Instances[ArrayID].nextMapGameType == 1 || _state.Instances[ArrayID].nextMapGameType == 8)
+            if (_state.Instances[ArrayID].infoNextMapGameType == 0 || _state.Instances[ArrayID].infoNextMapGameType == 1 || _state.Instances[ArrayID].infoNextMapGameType == 8)
             {
                 var gameScore1 = baseAddr + 0x5F21AC;
                 var gameScore2 = baseAddr + 0x6034B8;
                 int gameScore = 0;
-                switch (_state.Instances[ArrayID].nextMapGameType)
+                switch (_state.Instances[ArrayID].infoNextMapGameType)
                 {
                     case 0:
                     case 1:
-                        gameScore = _state.Instances[ArrayID].GameScore; // DM + TDM
+                        gameScore = _state.Instances[ArrayID].gameScoreKills; // DM + TDM
                         break;
                     case 8:
-                        gameScore = _state.Instances[ArrayID].FBScore; // Flagball
+                        gameScore = _state.Instances[ArrayID].gameScoreFlags; // Flagball
                         break;
                     default:
                         gameScore = 19; // set default just in case if NOTHING gets set from the instance.
@@ -93,29 +93,29 @@ namespace HawkSync_SM
                 byte[] gameScoreBytes = BitConverter.GetBytes(gameScore);
                 int gameScore1Written = 0;
                 int gameScore2Written = 0;
-                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, gameScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
-                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, gameScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, gameScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, gameScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
             }
-            else if (_state.Instances[ArrayID].nextMapGameType == 3 || _state.Instances[ArrayID].nextMapGameType == 4)
+            else if (_state.Instances[ArrayID].infoNextMapGameType == 3 || _state.Instances[ArrayID].infoNextMapGameType == 4)
             {
-                int kothScore = _state.Instances[ArrayID].KOTHScore; // KOTH + TKOTH
+                int kothScore = _state.Instances[ArrayID].gameScoreZoneTime; // KOTH + TKOTH
                 byte[] gameScoreBytes = BitConverter.GetBytes(kothScore);
                 var kothScore1 = baseAddr + 0x5F21B8;
                 var kothScore2 = baseAddr + 0x6344B4;
                 int gameScore1Written = 0;
                 int gameScore2Written = 0;
-                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, kothScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
-                WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, kothScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, kothScore1, gameScoreBytes, gameScoreBytes.Length, ref gameScore1Written);
+                WriteProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, kothScore2, gameScoreBytes, gameScoreBytes.Length, ref gameScore2Written);
             }
         }
 
         private void OverrideScoreBoard()
         {
-            _state.Instances[ArrayID].ScoreboardTimer = new Timer();
-            _state.Instances[ArrayID].ScoreboardTimer.Tick += ScoreboardTimer_Tick;
-            _state.Instances[ArrayID].ScoreboardTimer.Interval = _state.Instances[ArrayID].ScoreBoardDelay * 1000;
-            _state.Instances[ArrayID].ScoreboardTimer.Enabled = true;
-            _state.Instances[ArrayID].ScoreboardTimer.Start();
+            _state.Instances[ArrayID].infoTimerScoreboard = new Timer();
+            _state.Instances[ArrayID].infoTimerScoreboard.Tick += ScoreboardTimer_Tick;
+            _state.Instances[ArrayID].infoTimerScoreboard.Interval = _state.Instances[ArrayID].gameScoreBoardDelay * 1000;
+            _state.Instances[ArrayID].infoTimerScoreboard.Enabled = true;
+            _state.Instances[ArrayID].infoTimerScoreboard.Start();
         }
 
         private void ScoreboardTimer_Tick(object sender, EventArgs e)
@@ -124,18 +124,18 @@ namespace HawkSync_SM
             var instanceTimer = baseAddr + 0x5DAE00;
             byte[] endTimerBytes = BitConverter.GetBytes(1);
             int bytesWritten = 0;
-            WriteProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, instanceTimer, endTimerBytes, endTimerBytes.Length, ref bytesWritten);
-            _state.Instances[ArrayID].ScoreboardTimer.Stop();
+            WriteProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, instanceTimer, endTimerBytes, endTimerBytes.Length, ref bytesWritten);
+            _state.Instances[ArrayID].infoTimerScoreboard.Stop();
         }
 
         private void IncrementMapCounter()
         {
-            _state.Instances[ArrayID].mapCounter++;
+            _state.Instances[ArrayID].infoMapCycleIndex++;
         }
 
         private void ChangeGameType()
         {
-            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
+            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
             var baseAddr = 0x400000;
             var startingPtr = baseAddr + 0x005ED5F8;
 
@@ -148,7 +148,7 @@ namespace HawkSync_SM
             int CurrentMapIndexBytesRead = 0;
             ReadProcessMemory((int)processHandle, Ptr2, CurrentMapIndexBytes, CurrentMapIndexBytes.Length, ref CurrentMapIndexBytesRead);
             int currentMapIndex = BitConverter.ToInt32(CurrentMapIndexBytes, 0);
-            if (currentMapIndex + 1 >= _state.Instances[ArrayID].MapList.Count || !_state.Instances[ArrayID].MapList.ContainsKey(currentMapIndex + 1))
+            if (currentMapIndex + 1 >= _state.Instances[ArrayID].MapListCurrent.Count || !_state.Instances[ArrayID].MapListCurrent.ContainsKey(currentMapIndex + 1))
             {
                 currentMapIndex = 0;
             }
@@ -158,23 +158,23 @@ namespace HawkSync_SM
             }
             try
             {
-                int nextMapType = _state.autoRes.gameTypes[_state.Instances[ArrayID].MapList[currentMapIndex].GameType].DatabaseId;
+                int nextMapType = _state.autoRes.gameTypes[_state.Instances[ArrayID].MapListCurrent[currentMapIndex].GameType].DatabaseId;
 
                 bool isNextMapTeamMap = _state.autoRes.IsMapTeamBased(nextMapType);
-                bool isCurrentMapTeamMap = _state.autoRes.IsMapTeamBased(_state.Instances[ArrayID].gameMapType);
+                bool isCurrentMapTeamMap = _state.autoRes.IsMapTeamBased(_state.Instances[ArrayID].infoMapGameType);
 
                 // TDM -> DM
                 if (isNextMapTeamMap == false && isCurrentMapTeamMap == true)
                 {
                     foreach (var playerObj in _state.Instances[ArrayID].PlayerList)
                     {
-                        _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
+                        _state.Instances[ArrayID].TeamListPrevious.Add(new ob_playerPreviousTeam
                         {
                             slotNum = playerObj.Value.slot,
                             Team = (ob_playerList.Teams)playerObj.Value.team
                         });
 
-                        _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                        _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                         {
                             slotNum = playerObj.Value.slot,
                             Team = playerObj.Value.slot + 5
@@ -184,11 +184,11 @@ namespace HawkSync_SM
                 // DM -> TDM
                 else if (isNextMapTeamMap == true && isCurrentMapTeamMap == false)
                 {
-                    foreach (var playerObj in _state.Instances[ArrayID].previousTeams)
+                    foreach (var playerObj in _state.Instances[ArrayID].TeamListPrevious)
                     {
                         if (_state.Instances[ArrayID].PlayerList.ContainsKey(playerObj.slotNum))
                         {
-                            _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                            _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                             {
                                 slotNum = playerObj.slotNum,
                                 Team = (int)playerObj.Team
@@ -198,7 +198,7 @@ namespace HawkSync_SM
                     foreach (var player in _state.Instances[ArrayID].PlayerList)
                     {
                         bool found = false;
-                        foreach (var previousPlayer in _state.Instances[ArrayID].previousTeams)
+                        foreach (var previousPlayer in _state.Instances[ArrayID].TeamListPrevious)
                         {
                             if (player.Value.slot == previousPlayer.slotNum)
                             {
@@ -210,7 +210,7 @@ namespace HawkSync_SM
                         {
                             int blueteam = 0;
                             int redteam = 0;
-                            foreach (var playerTeam in _state.Instances[ArrayID].previousTeams)
+                            foreach (var playerTeam in _state.Instances[ArrayID].TeamListPrevious)
                             {
                                 if (playerTeam.Team == ob_playerList.Teams.TEAM_BLUE)
                                 {
@@ -223,12 +223,12 @@ namespace HawkSync_SM
                             }
                             if (blueteam > redteam)
                             {
-                                _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                                _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                                 {
                                     slotNum = player.Value.slot,
                                     Team = (int)ob_playerList.Teams.TEAM_RED
                                 });
-                                _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
+                                _state.Instances[ArrayID].TeamListPrevious.Add(new ob_playerPreviousTeam
                                 {
                                     slotNum = player.Value.slot,
                                     Team = ob_playerList.Teams.TEAM_RED
@@ -236,12 +236,12 @@ namespace HawkSync_SM
                             }
                             else if (blueteam < redteam)
                             {
-                                _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                                _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                                 {
                                     slotNum = player.Value.slot,
                                     Team = (int)ob_playerList.Teams.TEAM_BLUE
                                 });
-                                _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
+                                _state.Instances[ArrayID].TeamListPrevious.Add(new ob_playerPreviousTeam
                                 {
                                     slotNum = player.Value.slot,
                                     Team = ob_playerList.Teams.TEAM_BLUE
@@ -253,12 +253,12 @@ namespace HawkSync_SM
                                 int rnd = rand.Next(1, 2);
                                 if (rnd == 1)
                                 {
-                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                                    _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                                     {
                                         slotNum = player.Value.slot,
                                         Team = (int)ob_playerList.Teams.TEAM_BLUE
                                     });
-                                    _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
+                                    _state.Instances[ArrayID].TeamListPrevious.Add(new ob_playerPreviousTeam
                                     {
                                         slotNum = player.Value.slot,
                                         Team = ob_playerList.Teams.TEAM_BLUE
@@ -266,12 +266,12 @@ namespace HawkSync_SM
                                 }
                                 else if (rnd == 2)
                                 {
-                                    _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+                                    _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
                                     {
                                         slotNum = player.Value.slot,
                                         Team = (int)ob_playerList.Teams.TEAM_RED
                                     });
-                                    _state.Instances[ArrayID].previousTeams.Add(new ob_playerPreviousTeam
+                                    _state.Instances[ArrayID].TeamListPrevious.Add(new ob_playerPreviousTeam
                                     {
                                         slotNum = player.Value.slot,
                                         Team = ob_playerList.Teams.TEAM_RED
@@ -280,18 +280,18 @@ namespace HawkSync_SM
                             }
                         }
                     }
-                    _state.Instances[ArrayID].previousTeams.Clear();
+                    _state.Instances[ArrayID].TeamListPrevious.Clear();
                 }
                 var CurrentGameTypeAddr = baseAddr + 0x5F21A4;
                 byte[] nextMaptypeBytes = BitConverter.GetBytes(nextMapType);
                 int nextMaptypeBytesWrite = 0;
                 WriteProcessMemory((int)processHandle, CurrentGameTypeAddr, nextMaptypeBytes, nextMaptypeBytes.Length, ref nextMaptypeBytesWrite);
                 CloseHandle(processHandle);
-                _state.Instances[ArrayID].nextMapGameType = nextMapType;
+                _state.Instances[ArrayID].infoNextMapGameType = nextMapType;
             }
             catch (Exception ex)
             {
-                _state.eventLog.WriteEntry("Something went wrong with ScoringProcessHandler: " + ex + "\nInstance: " + ArrayID + "\n\nCurrent MapIndex: " + currentMapIndex + "\nCurrent GameType: " + _state.Instances[ArrayID].MapList[currentMapIndex].GameType + "\n\nSend this to Staff Members: " + Crypt.Base64Encode(JsonConvert.SerializeObject(_state.Instances[ArrayID].MapList)), System.Diagnostics.EventLogEntryType.Error);
+                _state.eventLog.WriteEntry("Something went wrong with ScoringProcessHandler: " + ex + "\nInstance: " + ArrayID + "\n\nCurrent MapIndex: " + currentMapIndex + "\nCurrent profileServerType: " + _state.Instances[ArrayID].MapListCurrent[currentMapIndex].GameType + "\n\nSend this to Staff Members: " + Crypt.Base64Encode(JsonConvert.SerializeObject(_state.Instances[ArrayID].MapListCurrent)), System.Diagnostics.EventLogEntryType.Error);
                 throw new Exception("Something went wrong with ScoringProcessHandler: " + ex + " Instance: " + ArrayID);
             }
         }

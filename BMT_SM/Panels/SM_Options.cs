@@ -23,22 +23,22 @@ namespace HawkSync_SM
             _state = state;
 
             modTable = new DataTable();
-            modTable.Columns.Add("Expansion / Mod Name");
+            modTable.Columns.Add("Expansion / profileGameMod Name");
             modTable.Columns.Add("Game");
             modTable.Columns.Add("Args");
             modTable.Columns.Add("PFF File");
-            modTable.Columns.Add("Mod Icon", typeof(byte[]));
+            modTable.Columns.Add("profileGameMod Icon", typeof(byte[]));
             dataGridView1.DataSource = modTable;
-            dataGridView1.Columns["Expansion / Mod Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns["Expansion / Mod Name"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["Expansion / profileGameMod Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["Expansion / profileGameMod Name"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["Game"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns["Game"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["Args"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns["Args"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridView1.Columns["PFF File"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns["PFF File"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridView1.Columns["Mod Icon"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridView1.Columns["Mod Icon"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridView1.Columns["profileGameMod Icon"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridView1.Columns["profileGameMod Icon"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             chbox_enableRemote.Checked = ProgramConfig.RCEnabled;
             num_remotePort.Value = ProgramConfig.RCPort;
@@ -149,7 +149,7 @@ namespace HawkSync_SM
             for (int i = 0; i < _state.Mods.Count; i++)
             {
                 DataRow newRow = modTable.NewRow();
-                newRow["Expansion / Mod Name"] = _state.Mods[i].ModName;
+                newRow["Expansion / profileGameMod Name"] = _state.Mods[i].ModName;
                 switch (_state.Mods[i].Game)
                 {
                     case 1:
@@ -161,7 +161,7 @@ namespace HawkSync_SM
                 }
                 newRow["Args"] = _state.Mods[i].ExeArgs;
                 newRow["PFF File"] = _state.Mods[i].Pff;
-                newRow["Mod Icon"] = _state.Mods[i].ModIcon;
+                newRow["profileGameMod Icon"] = _state.Mods[i].ModIcon;
                 modTable.Rows.Add(newRow);
             }
         }

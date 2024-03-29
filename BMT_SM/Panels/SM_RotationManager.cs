@@ -39,9 +39,9 @@ namespace HawkSync_SM
             drop_gameTypes.SelectedIndex = 0;
             list_savedMapRotation.Items.Add("New Rotation");
 
-            if (_state.Instances[ArrayID].savedmaprotations != null)
+            if (_state.Instances[ArrayID].MapListRotationDB != null)
             {
-                foreach (var savedMapCycle in _state.Instances[ArrayID].savedmaprotations)
+                foreach (var savedMapCycle in _state.Instances[ArrayID].MapListRotationDB)
                 {
                     list_savedMapRotation.Items.Add(savedMapCycle.Description);
                 }
@@ -64,7 +64,7 @@ namespace HawkSync_SM
                     break;
                 }
             }
-            foreach (var map in _state.Instances[ArrayID].availableMaps)
+            foreach (var map in _state.Instances[ArrayID].MapListAvailable)
             {
                 bool found = false;
                 foreach (var gametype in map.Value.GameTypes)
@@ -144,7 +144,7 @@ namespace HawkSync_SM
             if (list_savedMapRotation.SelectedIndex == 0)
             {
                 SQLiteCommand numChkCmd = new SQLiteCommand("SELECT COUNT(*) FROM `instances_map_rotations` WHERE `profile_id` = @profileid;", db);
-                numChkCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                numChkCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 int numChk = Convert.ToInt32(numChkCmd.ExecuteScalar());
                 numChkCmd.Dispose();
                 int nextID = -1;
@@ -155,7 +155,7 @@ namespace HawkSync_SM
                 else
                 {
                     SQLiteCommand numCmd = new SQLiteCommand("SELECT `rotation_id` FROM `instances_map_rotations` WHERE `profile_id` = @profileid ORDER BY `rotation_id` DESC;", db);
-                    numCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                    numCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                     nextID = Convert.ToInt32(numCmd.ExecuteScalar());
                     numCmd.Dispose();
                     nextID++;
@@ -166,13 +166,13 @@ namespace HawkSync_SM
                 }
                 SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `instances_map_rotations` (`rotation_id`, `profile_id`, `description`, `mapcycle`) VALUES (@entryid, @profileid, @description, @mapcycle);", db);
                 cmd.Parameters.AddWithValue("@entryid", nextID);
-                cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 cmd.Parameters.AddWithValue("@description", text_RotationDesc.Text);
                 cmd.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(selectedMaps));
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
 
-                _state.Instances[ArrayID].savedmaprotations.Add(new savedmaprotations
+                _state.Instances[ArrayID].MapListRotationDB.Add(new savedmaprotations
                 {
                     Description = text_RotationDesc.Text,
                     RotationID = nextID,
@@ -201,11 +201,11 @@ namespace HawkSync_SM
                 SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_map_rotations` SET `description` = @description, `mapcycle` = @mapcycle WHERE `rotation_id` = @rotationID;", db);
                 cmd.Parameters.AddWithValue("@description", text_RotationDesc.Text);
                 cmd.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(selectedMaps));
-                cmd.Parameters.AddWithValue("@rotationID", _state.Instances[ArrayID].savedmaprotations[selectedCycle].RotationID);
+                cmd.Parameters.AddWithValue("@rotationID", _state.Instances[ArrayID].MapListRotationDB[selectedCycle].RotationID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
-                _state.Instances[ArrayID].savedmaprotations[selectedCycle].mapcycle = selectedMaps;
-                _state.Instances[ArrayID].savedmaprotations[selectedCycle].Description = text_RotationDesc.Text;
+                _state.Instances[ArrayID].MapListRotationDB[selectedCycle].mapcycle = selectedMaps;
+                _state.Instances[ArrayID].MapListRotationDB[selectedCycle].Description = text_RotationDesc.Text;
                 selectedMaps = new List<MapList>();
             }
             db.Close();
@@ -237,15 +237,15 @@ namespace HawkSync_SM
                 }
                 int selectedCycle = list_savedMapRotation.SelectedIndex;
                 selectedCycle--;
-                if (_state.Instances[ArrayID].savedmaprotations[selectedCycle].mapcycle.Count != 0)
+                if (_state.Instances[ArrayID].MapListRotationDB[selectedCycle].mapcycle.Count != 0)
                 {
-                    foreach (var mapCycle in _state.Instances[ArrayID].savedmaprotations[selectedCycle].mapcycle)
+                    foreach (var mapCycle in _state.Instances[ArrayID].MapListRotationDB[selectedCycle].mapcycle)
                     {
                         list_selectedRotation.Items.Add("|" + mapCycle.GameType + "| " + mapCycle.MapName + " <" + mapCycle.MapFile + ">");
                     }
                 }
-                text_RotationDesc.Text = _state.Instances[ArrayID].savedmaprotations[selectedCycle].Description;
-                selectedMaps = _state.Instances[ArrayID].savedmaprotations[selectedCycle].mapcycle;
+                text_RotationDesc.Text = _state.Instances[ArrayID].MapListRotationDB[selectedCycle].Description;
+                selectedMaps = _state.Instances[ArrayID].MapListRotationDB[selectedCycle].mapcycle;
             }
             label10.Text = list_selectedRotation.Items.Count.ToString() + " / 128";
         }
@@ -265,11 +265,11 @@ namespace HawkSync_SM
             int memoryLoc = selectedCycle - 1;
             if (ProgramConfig.ApplicationDebug)
             {
-                log.Info("Removing Rotation: " + _state.Instances[ArrayID].savedmaprotations[memoryLoc].RotationID);
+                log.Info("Removing Rotation: " + _state.Instances[ArrayID].MapListRotationDB[memoryLoc].RotationID);
             }
-            cmd.Parameters.AddWithValue("@rotationid", _state.Instances[ArrayID].savedmaprotations[memoryLoc].RotationID);
+            cmd.Parameters.AddWithValue("@rotationid", _state.Instances[ArrayID].MapListRotationDB[memoryLoc].RotationID);
             cmd.ExecuteNonQuery();
-            _state.Instances[ArrayID].savedmaprotations.RemoveAt(memoryLoc);
+            _state.Instances[ArrayID].MapListRotationDB.RemoveAt(memoryLoc);
             list_savedMapRotation.Items.RemoveAt(selectedCycle);
             list_selectedRotation.Items.Clear();
             list_availableMaps.ClearSelected();
@@ -296,7 +296,7 @@ namespace HawkSync_SM
             else if (text_RotationDesc.Text == "New Entry" && list_savedMapRotation.SelectedIndex != 0)
             {
                 int selectedCycle = list_savedMapRotation.SelectedIndex;
-                text_RotationDesc.Text = _state.Instances[ArrayID].savedmaprotations[selectedCycle].Description;
+                text_RotationDesc.Text = _state.Instances[ArrayID].MapListRotationDB[selectedCycle].Description;
             }
         }
 
@@ -309,7 +309,7 @@ namespace HawkSync_SM
             else if ((text_RotationDesc.Text == "") || (string.IsNullOrEmpty(text_RotationDesc.Text) == true) || (string.IsNullOrWhiteSpace(text_RotationDesc.Text) == true) && list_savedMapRotation.SelectedIndex != 0)
             {
                 int selectedCycle = list_savedMapRotation.SelectedIndex;
-                text_RotationDesc.Text = _state.Instances[ArrayID].savedmaprotations[selectedCycle].Description;
+                text_RotationDesc.Text = _state.Instances[ArrayID].MapListRotationDB[selectedCycle].Description;
             }
         }
         private void MoveMessage(int direction)

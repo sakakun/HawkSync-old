@@ -22,21 +22,21 @@ namespace HawkSync_SM
 
         public static bool Write(Instance _instance, int addr, byte[] buffer, int bufferSize, ref int bytesWritten)
         {
-            bool status = WriteProcessMemory((int)_instance.ProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
+            bool status = WriteProcessMemory((int)_instance.instanceProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
             if (status == false)
             {
-                _instance.ProcessHandle = IntPtr.Zero;
-                _instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _instance.PID.GetValueOrDefault());
-                WriteProcessMemory((int)_instance.ProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
+                _instance.instanceProcessHandle = IntPtr.Zero;
+                _instance.instanceProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _instance.instanceAttachedPID.GetValueOrDefault());
+                WriteProcessMemory((int)_instance.instanceProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
             }
             byte[] errorCheck = new byte[bufferSize];
             int byteRead = 0;
-            ReadProcessMemory((int)_instance.ProcessHandle, addr, errorCheck, bufferSize, ref byteRead);
+            ReadProcessMemory((int)_instance.instanceProcessHandle, addr, errorCheck, bufferSize, ref byteRead);
             if (errorCheck.SequenceEqual(buffer) == false || errorCheck.Length == 0 || byteRead == 0)
             {
-                _instance.ProcessHandle = IntPtr.Zero;
-                _instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _instance.PID.GetValueOrDefault());
-                WriteProcessMemory((int)_instance.ProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
+                _instance.instanceProcessHandle = IntPtr.Zero;
+                _instance.instanceProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _instance.instanceAttachedPID.GetValueOrDefault());
+                WriteProcessMemory((int)_instance.instanceProcessHandle, addr, buffer, bufferSize, ref bytesWritten);
             }
             return status;
         }

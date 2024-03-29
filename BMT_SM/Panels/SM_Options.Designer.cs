@@ -288,7 +288,7 @@ namespace HawkSync_SM
             this.groupBox3.Size = new System.Drawing.Size(761, 100);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Add New Exp/Mod";
+            this.groupBox3.Text = "Add New Exp/profileGameMod";
             // 
             // comboBox1
             // 
@@ -329,7 +329,7 @@ namespace HawkSync_SM
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Mod Icon:";
+            this.label5.Text = "profileGameMod Icon:";
             // 
             // textBox5
             // 
@@ -391,7 +391,7 @@ namespace HawkSync_SM
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Mod Name:";
+            this.label1.Text = "profileGameMod Name:";
             // 
             // textBox2
             // 

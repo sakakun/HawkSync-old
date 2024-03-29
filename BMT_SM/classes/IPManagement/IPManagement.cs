@@ -151,7 +151,7 @@ namespace HawkSync_SM
         public void Check4VPN(ref AppState _state, int ArrayID)
         {
             // This will confirm if the Global VPN checking is allowed and if the instance has it enabled.
-            if (!_state.Instances[ArrayID].enableVPNCheck || !ProgramConfig.EnableVPNCheck)
+            if (!_state.Instances[ArrayID].vpnCheckEnabled || !ProgramConfig.EnableVPNCheck)
                 return;
 
             foreach (var playerData in _state.Instances[ArrayID].PlayerList)
@@ -168,7 +168,7 @@ namespace HawkSync_SM
                         ipInfo.address = playerData.Value.address;
                         ipInfo.NextCheck = DateTime.Now.AddDays(25);
                         _state.IPQualityCache[ArrayID].IPInformation.Add(ipInfo);
-                        InsertOrUpdateIPQualityCache(_state.Instances[ArrayID].Id, ipInfo);
+                        InsertOrUpdateIPQualityCache(_state.Instances[ArrayID].instanceID, ipInfo);
                     }
                     else if (DateTime.Compare(ipInfo.NextCheck, DateTime.Now) < 0)
                     {
@@ -181,10 +181,10 @@ namespace HawkSync_SM
 
                     if (ipInfo.fraud_score >= _state.IPQualityCache[ArrayID].WarnLevel && ipInfo.active_vpn)
                     {
-                        bool isBanned = _state.Instances[ArrayID].BanList.Any(ban => ban.ipaddress == ipInfo.address);
+                        bool isBanned = _state.Instances[ArrayID].PlayerListBans.Any(ban => ban.ipaddress == ipInfo.address);
                         if (!isBanned)
                         {
-                            _state.Instances[ArrayID].BanList.Add(new ob_playerBanList
+                            _state.Instances[ArrayID].PlayerListBans.Add(new ob_playerBanList
                             {
                                 ipaddress = playerData.Value.address,
                                 player = playerData.Value.name,
@@ -203,7 +203,7 @@ namespace HawkSync_SM
                 }
                 catch (Exception e)
                 {
-                    _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                    _state.eventLog.WriteEntry("HawkSync TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
                     return;
                 }
             }
@@ -274,7 +274,7 @@ namespace HawkSync_SM
                 cmd.Parameters.AddWithValue("@request_id", ipInfo.request_id);
                 cmd.Parameters.AddWithValue("@NextCheck", ipInfo.NextCheck);
                 cmd.Parameters.AddWithValue("@id", ipInfo.id);
-                cmd.Parameters.AddWithValue("@profileid", state.Instances[arrayID].Id);
+                cmd.Parameters.AddWithValue("@profileid", state.Instances[arrayID].instanceID);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -282,8 +282,8 @@ namespace HawkSync_SM
         public void CheckBans(ref AppState _state, int profileid, int pid)
         {
             var currentPlayers = _state.Instances[profileid].PlayerList;
-            var currentBans = _state.Instances[profileid].BanList;
-            var numPlayers = _state.Instances[profileid].NumPlayers;
+            var currentBans = _state.Instances[profileid].PlayerListBans;
+            var numPlayers = _state.Instances[profileid].infoNumPlayers;
 
             if (numPlayers <= 0) return;
 
@@ -322,7 +322,7 @@ namespace HawkSync_SM
                                 Thread.Sleep(100);
 
                                 if (onlyKick)
-                                    _state.Instances[profileid].BanList.Remove(ban);
+                                    _state.Instances[profileid].PlayerListBans.Remove(ban);
 
                                 if (!onlyKick && ban.newBan)
                                     ban.newBan = false;

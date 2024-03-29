@@ -75,7 +75,7 @@ namespace HawkSync_SM
                 SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                 conn.Open();
                 SQLiteCommand clearmaps = new SQLiteCommand($"UPDATE `instances_config` SET `mapcycle` = '[]' WHERE `profile_id` = @profileid;", conn);
-                clearmaps.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                clearmaps.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 clearmaps.ExecuteNonQuery();
                 clearmaps.Dispose();
                 conn.Close();
@@ -83,7 +83,7 @@ namespace HawkSync_SM
             }
             else if (listBox2.Items.Count == 128)
             {
-                MessageBox.Show("Due to limitations set by NovaLogic,\nwhen starting a server you are only allowed to choose 128 maps.\nYou can add more maps, after the server has been started\nby using the Server Manager.", "Map List Error");
+                MessageBox.Show("Due to limitations set by NovaLogic,\nwhen starting a server you are only allowed to choose 128 maps.\nYou can add more maps, after the server has been started\nby using the Server Manager.", "infoCurrentMapName List Error");
             }
             else
             {
@@ -188,7 +188,7 @@ namespace HawkSync_SM
             // Condense Variable Collection, prefer to place it right into the instance array.
             // Generate AutoRes.bin
             // Start Server
-            // Attach PID to Instance
+            // Attach instanceAttachedPID to Instance
             // Update Database with new settings.
             // Pass Instance Array back to main state.           
 
@@ -218,10 +218,10 @@ namespace HawkSync_SM
                 return;
             }
 
-            _state.Instances[ArrayID].MapList = new Dictionary<int, MapList>();
+            _state.Instances[ArrayID].MapListCurrent = new Dictionary<int, MapList>();
             foreach (var map in selectedMapList)
             {
-                _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, map);
+                _state.Instances[ArrayID].MapListCurrent.Add(_state.Instances[ArrayID].MapListCurrent.Count, map);
             }
 
             // Temporary Instance
@@ -229,39 +229,39 @@ namespace HawkSync_SM
             startInstance = _state.Instances[ArrayID];
 
             // Collect Form Data
-            startInstance.ServerName = textBox_serverName.Text;                             // Server Name
-            startInstance.MOTD = textBox_MOTD.Text;                                         // Server MOTD
-            startInstance.CountryCode = textBox_countryCode.Text;                           // Country Code
-            startInstance.Password = textBox_serverPassword.Text;                           // Server Global Password
-            startInstance.SessionType = comboBox_sessionType.SelectedIndex;                 // Session Type (0 = Internet, 1 = LAN) - Doesn't work and Form Changed.
-            startInstance.MaxSlots = Convert.ToInt32(comboBox_maxPlayers.SelectedIndex + 1);// Max Players
-            startInstance.StartDelay = Convert.ToInt32(comboBox_startDelay.SelectedIndex);  // Start Delay
-            startInstance.LoopMaps = checkBox_loopMaps.Checked ? 1 : 0;                     // Loop Maps
-            startInstance.FBScore = comboBox_flagsScored.SelectedIndex;                     // Flag Score
-            startInstance.GameScore = comboBox_gameScore.SelectedIndex;                     // Game Score
-            startInstance.ZoneTimer = comboBox_zoneTimer.SelectedIndex;                     // Zone Timer
-            startInstance.RespawnTime = comboBox_respawnTime.SelectedIndex;                 // Respawn Time
-            startInstance.TimeLimit = comboBox_timeLimit.SelectedIndex;                     // Time Limit
-            startInstance.RequireNovaLogin = checkBox_reqNova.Checked;                      // Require NovaLogic Login
-            startInstance.Dedicated = checkBox_runDedicated.Checked;                        // Run Dedicated
-            startInstance.WindowedMode = checkBox_windowMode.Checked;                       // Windowed Mode
-            startInstance.AllowCustomSkins = checkBox_customSkin.Checked;                   // Allow Custom Skins
-            startInstance.Mod = comboBox_gameMod.SelectedIndex;                             // Game Mod
-            startInstance.BluePassword = textBox_passBlue.Text;                             // Blue Team Password
-            startInstance.RedPassword = textBox_passRed.Text;                               // Red Team Password
-            startInstance.FriendlyFire = checkBox_ffire.Checked;                            // Friendly Fire Flag
-            startInstance.FriendlyFireWarning = checkBox_ffireWarn.Checked;                 // Friendly Fire Warning
-            startInstance.FriendlyTags = checkBox_ftags.Checked;                            // Friendly Tags
-            startInstance.AutoBalance = checkBox_autoBal.Checked;                           // Auto Balance
-            startInstance.ShowTracers = checkBox_showTrace.Checked;                         // Show Tracers
-            startInstance.ShowTeamClays = checkBox_showTeamClays.Checked;                   // Show Team Clays
-            startInstance.AllowAutoRange = checkBox_autoRange.Checked;                      // Allow Auto Range
-            startInstance.MinPing = checkBox_minPing.Checked;                               // Enable Min Ping
-            startInstance.MinPingValue = Convert.ToInt32(textBox_minPing.Text);             // Min Ping Value
-            startInstance.MaxPing = checkBox_maxPing.Checked;                               // Enable Max Ping
-            startInstance.MaxPingValue = Convert.ToInt32(textBox_maxPing.Text);             // Max Ping Value            
-            startInstance.LastUpdateTime = DateTime.Now;
-            startInstance.NextUpdateTime = DateTime.Now.AddSeconds(5.0);
+            startInstance.gameServerName = textBox_serverName.Text;                             // Server Name
+            startInstance.gameMOTD = textBox_MOTD.Text;                                         // Server gameMOTD
+            startInstance.gameCountryCode = textBox_countryCode.Text;                           // Country Code
+            startInstance.gamePasswordLobby = textBox_serverPassword.Text;                           // Server Global gamePasswordLobby
+            startInstance.gameSessionType = comboBox_sessionType.SelectedIndex;                 // Session Type (0 = Internet, 1 = LAN) - Doesn't work and Form Changed.
+            startInstance.gameMaxSlots = Convert.ToInt32(comboBox_maxPlayers.SelectedIndex + 1);// Max Players
+            startInstance.gameStartDelay = Convert.ToInt32(comboBox_startDelay.SelectedIndex);  // Start Delay
+            startInstance.gameLoopMaps = checkBox_loopMaps.Checked ? 1 : 0;                     // Loop Maps
+            startInstance.gameScoreFlags = comboBox_flagsScored.SelectedIndex;                     // Flag Score
+            startInstance.gameScoreKills = comboBox_gameScore.SelectedIndex;                     // Game Score
+            startInstance.gameScoreZoneTime = comboBox_zoneTimer.SelectedIndex;                     // Zone Timer
+            startInstance.gameRespawnTime = comboBox_respawnTime.SelectedIndex;                 // Respawn Time
+            startInstance.gameTimeLimit = comboBox_timeLimit.SelectedIndex;                     // Time Limit
+            startInstance.gameRequireNova = checkBox_reqNova.Checked;                      // Require NovaLogic Login
+            startInstance.gameDedicated = checkBox_runDedicated.Checked;                        // Run gameDedicated
+            startInstance.gameWindowedMode = checkBox_windowMode.Checked;                       // Windowed Mode
+            startInstance.gameCustomSkins = checkBox_customSkin.Checked;                   // Allow Custom Skins
+            startInstance.profileGameMod = comboBox_gameMod.SelectedIndex;                             // Game profileGameMod
+            startInstance.gamePasswordBlue = textBox_passBlue.Text;                             // Blue Team gamePasswordLobby
+            startInstance.gamePasswordRed = textBox_passRed.Text;                               // Red Team gamePasswordLobby
+            startInstance.gameOptionFF = checkBox_ffire.Checked;                            // Friendly Fire Flag
+            startInstance.gameOptionFFWarn = checkBox_ffireWarn.Checked;                 // Friendly Fire Warning
+            startInstance.gameOptionFriendlyTags = checkBox_ftags.Checked;                            // Friendly Tags
+            startInstance.gameOptionAutoBalance = checkBox_autoBal.Checked;                           // Auto Balance
+            startInstance.gameOptionShowTracers = checkBox_showTrace.Checked;                         // Show Tracers
+            startInstance.gameShowTeamClays = checkBox_showTeamClays.Checked;                   // Show Team Clays
+            startInstance.gameOptionAutoRange = checkBox_autoRange.Checked;                      // Allow Auto Range
+            startInstance.gameMinPing = checkBox_minPing.Checked;                               // Enable Min Ping
+            startInstance.gameMinPingValue = Convert.ToInt32(textBox_minPing.Text);             // Min Ping Value
+            startInstance.gameMaxPing = checkBox_maxPing.Checked;                               // Enable Max Ping
+            startInstance.gameMaxPingValue = Convert.ToInt32(textBox_maxPing.Text);             // Max Ping Value            
+            startInstance.instanceLastUpdateTime = DateTime.Now;
+            startInstance.instanceNextUpdateTime = DateTime.Now.AddSeconds(5.0);
             
             // Generate AutoRes.bin
             if(!(serverManagerUpdateMemory.createAutoRes(startInstance, _state)))
@@ -271,16 +271,16 @@ namespace HawkSync_SM
             }
 
             // Start Game
-            // Check for PID in Database, if not found create a record.
+            // Check for instanceAttachedPID in Database, if not found create a record.
             SQLiteCommand checkPidQuery = new SQLiteCommand("SELECT COUNT(*) FROM `instances_pid` WHERE `profile_id` = @instanceId;", conn);
-            checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[ArrayID].Id);
+            checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[ArrayID].instanceID);
             int checkPid = Convert.ToInt32(checkPidQuery.ExecuteScalar());
             checkPidQuery.Dispose();
 
             if (checkPid == 0)
             {
                 SQLiteCommand insert_cmd = new SQLiteCommand("INSERT INTO `instances_pid` (`profile_id`, `pid`) VALUES (@instanceid, 0)", conn);
-                insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].Id);
+                insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].instanceID);
                 insert_cmd.ExecuteNonQuery();
             }
 
@@ -289,40 +289,40 @@ namespace HawkSync_SM
             // Sucess Update Database & Return Instance Array
             SQLiteCommand update_query = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @servername, `motd` = @motd, `country_code` = @countrycode, `server_password` = @server_password,`session_type` = @sessiontype, `max_slots` = @max_slots, `start_delay` = @start_delay, `loop_maps` = @loop_maps, `game_score` = @game_score, `fbscore` = @flag_scores, `zone_timer` = @zone_timer, `respawn_time` = @respawn_time, `time_limit` = @time_limit, `require_novalogic` = @require_novalogic, `windowed_mode` = @run_windowed, `allow_custom_skins` = @allow_custom_skins, `run_dedicated` = @run_dedicated, `game_mod` = @game_mod, `mapcycle` = @selected_maps, `blue_team_password` = @blue_team_password, `red_team_password` = @red_team_password, `friendly_fire` = @friendly_fire, `friendly_fire_warning` = @friendly_fire_warning, `friendly_tags` = @friendly_tags, `auto_balance` = @auto_balance, `show_tracers` = @show_tracers, `show_team_clays` = @show_team_clays, `allow_auto_range` = @allow_auto_range, `enable_min_ping` = @enable_min_ping, `min_ping` = @min_ping, `enable_max_ping` = @enable_max_ping, `max_ping` = @max_ping, `availablemaps` = @availablemaps WHERE `profile_id` = @profile_id", conn);
 
-            update_query.Parameters.AddWithValue("@servername", startInstance.ServerName);
-            update_query.Parameters.AddWithValue("@motd", startInstance.MOTD);
-            update_query.Parameters.AddWithValue("@countrycode", startInstance.CountryCode);
-            update_query.Parameters.AddWithValue("@sessiontype", startInstance.SessionType);
-            update_query.Parameters.AddWithValue("@server_password", startInstance.Password);
-            update_query.Parameters.AddWithValue("@max_slots", startInstance.MaxSlots);
-            update_query.Parameters.AddWithValue("@start_delay", startInstance.StartDelay);
-            update_query.Parameters.AddWithValue("@loop_maps", startInstance.LoopMaps);
-            update_query.Parameters.AddWithValue("@game_score", startInstance.GameScore);
-            update_query.Parameters.AddWithValue("@flag_scores", startInstance.FBScore);
-            update_query.Parameters.AddWithValue("@zone_timer", startInstance.ZoneTimer);
-            update_query.Parameters.AddWithValue("@respawn_time", startInstance.RespawnTime);
-            update_query.Parameters.AddWithValue("@time_limit", startInstance.TimeLimit);
-            update_query.Parameters.AddWithValue("@require_novalogic", startInstance.RequireNovaLogin ? 1 : 0);
-            update_query.Parameters.AddWithValue("@run_windowed", startInstance.WindowedMode ? 1 : 0);
-            update_query.Parameters.AddWithValue("@allow_custom_skins", startInstance.AllowCustomSkins ? 1 : 0);
-            update_query.Parameters.AddWithValue("@run_dedicated", startInstance.Dedicated ? 1 : 0);
-            update_query.Parameters.AddWithValue("@game_mod", startInstance.Mod);
-            update_query.Parameters.AddWithValue("@blue_team_password", startInstance.BluePassword);
-            update_query.Parameters.AddWithValue("@red_team_password", startInstance.RedPassword);
-            update_query.Parameters.AddWithValue("@friendly_fire", startInstance.FriendlyFire);
-            update_query.Parameters.AddWithValue("@friendly_fire_warning", startInstance.FriendlyFireWarning ? 1 : 0);
-            update_query.Parameters.AddWithValue("@friendly_tags", startInstance.FriendlyTags ? 1 : 0);
-            update_query.Parameters.AddWithValue("@auto_balance", startInstance.AutoBalance ? 1 : 0);
-            update_query.Parameters.AddWithValue("@show_tracers", startInstance.ShowTracers ? 1 : 0);
-            update_query.Parameters.AddWithValue("@show_team_clays", startInstance.ShowTeamClays ? 1 : 0);
-            update_query.Parameters.AddWithValue("@allow_auto_range", startInstance.AllowAutoRange ? 1 : 0);
-            update_query.Parameters.AddWithValue("@enable_min_ping", startInstance.MinPing ? 1 : 0);
-            update_query.Parameters.AddWithValue("@min_ping", startInstance.MinPingValue);
-            update_query.Parameters.AddWithValue("@enable_max_ping", startInstance.MaxPing ? 1 : 0);
-            update_query.Parameters.AddWithValue("@max_ping", startInstance.MaxPingValue);
-            update_query.Parameters.AddWithValue("@profile_id", _state.Instances[ArrayID].Id);
-            update_query.Parameters.AddWithValue("@availablemaps", JsonConvert.SerializeObject(_state.Instances[ArrayID].availableMaps));
-            update_query.Parameters.AddWithValue("@selected_maps", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapList));
+            update_query.Parameters.AddWithValue("@servername", startInstance.gameServerName);
+            update_query.Parameters.AddWithValue("@motd", startInstance.gameMOTD);
+            update_query.Parameters.AddWithValue("@countrycode", startInstance.gameCountryCode);
+            update_query.Parameters.AddWithValue("@sessiontype", startInstance.gameSessionType);
+            update_query.Parameters.AddWithValue("@server_password", startInstance.gamePasswordLobby);
+            update_query.Parameters.AddWithValue("@max_slots", startInstance.gameMaxSlots);
+            update_query.Parameters.AddWithValue("@start_delay", startInstance.gameStartDelay);
+            update_query.Parameters.AddWithValue("@loop_maps", startInstance.gameLoopMaps);
+            update_query.Parameters.AddWithValue("@game_score", startInstance.gameScoreKills);
+            update_query.Parameters.AddWithValue("@flag_scores", startInstance.gameScoreFlags);
+            update_query.Parameters.AddWithValue("@zone_timer", startInstance.gameScoreZoneTime);
+            update_query.Parameters.AddWithValue("@respawn_time", startInstance.gameRespawnTime);
+            update_query.Parameters.AddWithValue("@time_limit", startInstance.gameTimeLimit);
+            update_query.Parameters.AddWithValue("@require_novalogic", startInstance.gameRequireNova ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_windowed", startInstance.gameWindowedMode ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_custom_skins", startInstance.gameCustomSkins ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_dedicated", startInstance.gameDedicated ? 1 : 0);
+            update_query.Parameters.AddWithValue("@game_mod", startInstance.profileGameMod);
+            update_query.Parameters.AddWithValue("@blue_team_password", startInstance.gamePasswordBlue);
+            update_query.Parameters.AddWithValue("@red_team_password", startInstance.gamePasswordRed);
+            update_query.Parameters.AddWithValue("@friendly_fire", startInstance.gameOptionFF);
+            update_query.Parameters.AddWithValue("@friendly_fire_warning", startInstance.gameOptionFFWarn ? 1 : 0);
+            update_query.Parameters.AddWithValue("@friendly_tags", startInstance.gameOptionFriendlyTags ? 1 : 0);
+            update_query.Parameters.AddWithValue("@auto_balance", startInstance.gameOptionAutoBalance ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_tracers", startInstance.gameOptionShowTracers ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_team_clays", startInstance.gameShowTeamClays ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_auto_range", startInstance.gameOptionAutoRange ? 1 : 0);
+            update_query.Parameters.AddWithValue("@enable_min_ping", startInstance.gameMinPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@min_ping", startInstance.gameMinPingValue);
+            update_query.Parameters.AddWithValue("@enable_max_ping", startInstance.gameMaxPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@max_ping", startInstance.gameMaxPingValue);
+            update_query.Parameters.AddWithValue("@profile_id", _state.Instances[ArrayID].instanceID);
+            update_query.Parameters.AddWithValue("@availablemaps", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapListAvailable));
+            update_query.Parameters.AddWithValue("@selected_maps", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapListCurrent));
             update_query.ExecuteNonQuery();
             update_query.Dispose();
 
@@ -381,7 +381,7 @@ namespace HawkSync_SM
 
             (new AvailMaps()).checkAvailableMaps(_state, ArrayID);
 
-            availableMaps = _state.Instances[ArrayID].availableMaps;
+            availableMaps = _state.Instances[ArrayID].MapListAvailable;
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -431,58 +431,58 @@ namespace HawkSync_SM
                     }
                 }
             }
-            textBox_serverName.Text = _state.Instances[ArrayID].ServerName;
-            textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
-            textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
-            textBox_serverPassword.Text = _state.Instances[ArrayID].Password;
+            textBox_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            textBox_MOTD.Text = _state.Instances[ArrayID].gameMOTD;
+            textBox_countryCode.Text = _state.Instances[ArrayID].gameCountryCode;
+            textBox_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
             comboBox_sessionType.SelectedIndex = 0;
             comboBox_sessionType.Enabled = false;
-            comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
-            comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
-            comboBox_gameScore.SelectedIndex = _state.Instances[ArrayID].GameScore;
-            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].FBScore;
-            comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
-            comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            checkBox_reqNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            checkBox_windowMode.Checked = _state.Instances[ArrayID].WindowedMode;
-            checkBox_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            checkBox_runDedicated.Checked = _state.Instances[ArrayID].Dedicated;
-            textBox_passBlue.Text = _state.Instances[ArrayID].BluePassword;
-            textBox_passRed.Text = _state.Instances[ArrayID].RedPassword;
-            checkBox_ffire.Checked = _state.Instances[ArrayID].FriendlyFire;
-            checkBox_ffireWarn.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            checkBox_ftags.Checked = _state.Instances[ArrayID].FriendlyTags;
-            checkBox_autoBal.Checked = _state.Instances[ArrayID].AutoBalance;
-            checkBox_showTrace.Checked = _state.Instances[ArrayID].ShowTracers;
-            checkBox_showTeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            checkBox_autoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
+            comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].gameMaxSlots;
+            comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].gameLoopMaps);
+            comboBox_gameScore.SelectedIndex = _state.Instances[ArrayID].gameScoreKills;
+            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].gameScoreFlags;
+            comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].gameScoreZoneTime;
+            comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            checkBox_reqNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            checkBox_windowMode.Checked = _state.Instances[ArrayID].gameWindowedMode;
+            checkBox_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            checkBox_runDedicated.Checked = _state.Instances[ArrayID].gameDedicated;
+            textBox_passBlue.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            textBox_passRed.Text = _state.Instances[ArrayID].gamePasswordRed;
+            checkBox_ffire.Checked = _state.Instances[ArrayID].gameOptionFF;
+            checkBox_ffireWarn.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            checkBox_ftags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            checkBox_autoBal.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            checkBox_showTrace.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            checkBox_showTeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            checkBox_autoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
             selectedMapList = new List<MapList>();
-            switch (_state.Instances[ArrayID].MinPing)
+            switch (_state.Instances[ArrayID].gameMinPing)
             {
                 case false:
                     checkBox_minPing.Checked = false;
                     textBox_minPing.Text = "0";
                     break;
                 case true:
-                    textBox_minPing.Text = Convert.ToString(_state.Instances[ArrayID].MinPingValue);
+                    textBox_minPing.Text = Convert.ToString(_state.Instances[ArrayID].gameMinPingValue);
                     checkBox_minPing.Checked = true;
                     break;
             }
-            switch (_state.Instances[ArrayID].MaxPing)
+            switch (_state.Instances[ArrayID].gameMaxPing)
             {
                 case false:
                     checkBox_maxPing.Checked = false;
                     textBox_maxPing.Text = "0";
                     break;
                 case true:
-                    textBox_maxPing.Text = Convert.ToString(_state.Instances[ArrayID].MaxPingValue);
+                    textBox_maxPing.Text = Convert.ToString(_state.Instances[ArrayID].gameMaxPingValue);
                     checkBox_maxPing.Checked = true;
                     break;
             }
 
-            foreach (var map in _state.Instances[ArrayID].MapList)
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
             {
                 listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " " + "<" + map.Value.MapFile + ">");
                 label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
@@ -491,7 +491,7 @@ namespace HawkSync_SM
             db.Close();
             db.Dispose();
 
-            foreach (var map in _state.Instances[ArrayID].MapList)
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
             {
                 selectedMapList.Add(map.Value);
             }
@@ -506,7 +506,7 @@ namespace HawkSync_SM
             }
             foreach (var modPack in _state.Mods)
             {
-                if (File.Exists(Path.Combine(_state.Instances[ArrayID].GamePath, modPack.Value.Pff)))
+                if (File.Exists(Path.Combine(_state.Instances[ArrayID].profileServerPath, modPack.Value.Pff)))
                 {
                     detectedMods.Add(modPack.Value.Id);
                     comboBox_gameMod.Items.Add(modPack.Value.ModName);
@@ -521,13 +521,13 @@ namespace HawkSync_SM
             if (SM_PopupLoadRotation._mapList.Count > 0)
             {
                 listBox2.Items.Clear();
-                foreach (var map in _state.Instances[ArrayID].MapList)
+                foreach (var map in _state.Instances[ArrayID].MapListCurrent)
                 {
                     listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" + map.Value.MapFile + ">");
                 }
                 selectedMapList = new List<MapList>();
                 selectedMapList = SM_PopupLoadRotation._mapList;
-                label_mapCount.Text = _state.Instances[ArrayID].MapList.Count + " / 128";
+                label_mapCount.Text = _state.Instances[ArrayID].MapListCurrent.Count + " / 128";
             }
         }
 

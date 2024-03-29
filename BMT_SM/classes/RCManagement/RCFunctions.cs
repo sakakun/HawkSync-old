@@ -69,84 +69,84 @@ namespace HawkSync_SM.RCClasses
 
                     /* RCInstancesConfig.Add(item.Key, new Instance
                     {
-                        AllowAutoRange = item.Value.AllowAutoRange,
-                        AllowCustomSkins = item.Value.AllowCustomSkins,
-                        anti_stat_padding = item.Value.anti_stat_padding,
-                        anti_stat_padding_min_minutes = item.Value.anti_stat_padding_min_minutes,
-                        anti_stat_padding_min_players = item.Value.anti_stat_padding_min_players,
-                        AutoBalance = item.Value.AutoBalance,
+                        gameOptionAutoRange = item.Value.gameOptionAutoRange,
+                        gameCustomSkins = item.Value.gameCustomSkins,
+                        WebStatsASPEnabled = item.Value.WebStatsASPEnabled,
+                        WebStatsASPMinMinutes = item.Value.WebStatsASPMinMinutes,
+                        WebStatsASPMinPlayers = item.Value.WebStatsASPMinPlayers,
+                        gameOptionAutoBalance = item.Value.gameOptionAutoBalance,
                         AutoMessages = item.Value.AutoMessages,
-                        availableMaps = item.Value.availableMaps,
-                        BanList = item.Value.BanList,
-                        BindAddress = item.Value.BindAddress,
-                        BluePassword = item.Value.BluePassword,
+                        MapListAvailable = item.Value.MapListAvailable,
+                        PlayerListBans = item.Value.PlayerListBans,
+                        profileBindIP = item.Value.profileBindIP,
+                        gamePasswordBlue = item.Value.gamePasswordBlue,
                         ChatLog = item.Value.ChatLog,
-                        ChangeTeamList = item.Value.ChangeTeamList,
-                        CountryCode = item.Value.CountryCode,
+                        TeamListChange = item.Value.TeamListChange,
+                        gameCountryCode = item.Value.gameCountryCode,
                         CustomWarnings = item.Value.CustomWarnings,
-                        Dedicated = item.Value.Dedicated,
-                        DestroyBuildings = item.Value.DestroyBuildings,
-                        DisarmPlayers = item.Value.DisarmPlayers,
-                        enableVPNCheck = item.Value.enableVPNCheck,
-                        EnableWebStats = item.Value.EnableWebStats,
-                        FatBullets = item.Value.FatBullets,
-                        FBScore = item.Value.FBScore,
-                        FlagReturnTime = item.Value.FlagReturnTime,
-                        FriendlyFire = item.Value.FriendlyFire,
-                        FriendlyFireKills = item.Value.FriendlyFireKills,
-                        FriendlyFireWarning = item.Value.FriendlyFireWarning,
-                        FriendlyTags = item.Value.FriendlyTags,
-                        gameMapType = item.Value.gameMapType,
-                        GameName = item.Value.GameName,
-                        GameScore = item.Value.GameScore,
-                        GameType = item.Value.GameType,
+                        gameDedicated = item.Value.gameDedicated,
+                        gameDestroyBuildings = item.Value.gameDestroyBuildings,
+                        PlayerListDisarm = item.Value.PlayerListDisarm,
+                        vpnCheckEnabled = item.Value.vpnCheckEnabled,
+                        WebStatsEnabled = item.Value.WebStatsEnabled,
+                        gameFatBullets = item.Value.gameFatBullets,
+                        gameScoreFlags = item.Value.gameScoreFlags,
+                        gameFlagReturnTime = item.Value.gameFlagReturnTime,
+                        gameOptionFF = item.Value.gameOptionFF,
+                        gameFriendlyFireKills = item.Value.gameFriendlyFireKills,
+                        gameOptionFFWarn = item.Value.gameOptionFFWarn,
+                        gameOptionFriendlyTags = item.Value.gameOptionFriendlyTags,
+                        infoMapGameType = item.Value.infoMapGameType,
+                        profileName = item.Value.profileName,
+                        gameScoreKills = item.Value.gameScoreKills,
+                        profileServerType = item.Value.profileServerType,
                         GameTypeName = item.Value.GameTypeName,
-                        GodModeList = item.Value.GodModeList,
-                        HostName = item.Value.HostName,
-                        Id = item.Value.Id,
+                        PlayerListGodMod = item.Value.PlayerListGodMod,
+                        gameHostName = item.Value.gameHostName,
+                        instanceID = item.Value.instanceID,
                         IPWhiteList = item.Value.IPWhiteList,
-                        KOTHScore = item.Value.KOTHScore,
-                        LoopMaps = item.Value.LoopMaps,
-                        Map = item.Value.Map,
-                        mapCounter = item.Value.mapCounter,
-                        mapIndex = item.Value.mapIndex,
-                        MapList = item.Value.MapList,
-                        mapListCount = item.Value.mapListCount,
+                        gameScoreZoneTime = item.Value.gameScoreZoneTime,
+                        gameLoopMaps = item.Value.gameLoopMaps,
+                        infoCurrentMapName = item.Value.infoCurrentMapName,
+                        infoMapCycleIndex = item.Value.infoMapCycleIndex,
+                        infoCurrentMapIndex = item.Value.infoCurrentMapIndex,
+                        MapListCurrent = item.Value.MapListCurrent,
+                        infoCounterMaps = item.Value.infoCounterMaps,
                         MaxKills = item.Value.MaxKills,
-                        MaxPing = item.Value.MaxPing,
-                        MaxPingValue = item.Value.MaxPingValue,
-                        MaxSlots = item.Value.MaxSlots,
-                        MaxTeamLives = item.Value.MaxTeamLives,
-                        MinPing = item.Value.MinPing,
-                        MinPingValue = item.Value.MinPingValue,
-                        misc_left_leaning = item.Value.misc_left_leaning,
-                        misc_show_ranks = item.Value.misc_show_ranks,
-                        Mod = item.Value.Mod,
-                        MOTD = item.Value.MOTD,
-                        NumPlayers = item.Value.NumPlayers,
-                        OneShotKills = item.Value.OneShotKills,
-                        Password = item.Value.Password,
+                        gameMaxPing = item.Value.gameMaxPing,
+                        gameMaxPingValue = item.Value.gameMaxPingValue,
+                        gameMaxSlots = item.Value.gameMaxSlots,
+                        gameMaxTeamLives = item.Value.gameMaxTeamLives,
+                        gameMinPing = item.Value.gameMinPing,
+                        gameMinPingValue = item.Value.gameMinPingValue,
+                        gameAllowLeftLeaning = item.Value.gameAllowLeftLeaning,
+                        WebStatsAnnouncements = item.Value.WebStatsAnnouncements,
+                        profileGameMod = item.Value.profileGameMod,
+                        gameMOTD = item.Value.gameMOTD,
+                        infoNumPlayers = item.Value.infoNumPlayers,
+                        gameOneShotKills = item.Value.gameOneShotKills,
+                        gamePasswordLobby = item.Value.gamePasswordLobby,
                         PlayerList = item.Value.PlayerList,
                         Plugins = item.Value.Plugins,
-                        PSPTakeOverTime = item.Value.PSPTakeOverTime,
-                        RedPassword = item.Value.RedPassword,
-                        RequireNovaLogin = item.Value.RequireNovaLogin,
-                        RespawnTime = item.Value.RespawnTime,
+                        gamePSPTOTimer = item.Value.gamePSPTOTimer,
+                        gamePasswordRed = item.Value.gamePasswordRed,
+                        gameRequireNova = item.Value.gameRequireNova,
+                        gameRespawnTime = item.Value.gameRespawnTime,
                         RoleRestrictions = item.Value.RoleRestrictions,
-                        savedmaprotations = item.Value.savedmaprotations,
-                        ServerName = item.Value.ServerName,
-                        ScoreBoardDelay = item.Value.ScoreBoardDelay,
-                        SessionType = item.Value.SessionType,
-                        ShowTeamClays = item.Value.ShowTeamClays,
-                        ShowTracers = item.Value.ShowTracers,
+                        MapListRotationDB = item.Value.MapListRotationDB,
+                        gameServerName = item.Value.gameServerName,
+                        gameScoreBoardDelay = item.Value.gameScoreBoardDelay,
+                        gameSessionType = item.Value.gameSessionType,
+                        gameShowTeamClays = item.Value.gameShowTeamClays,
+                        gameOptionShowTracers = item.Value.gameOptionShowTracers,
                         Slots = item.Value.Slots,
-                        StartDelay = item.Value.StartDelay,
-                        Status = item.Value.Status,
-                        TimeLimit = item.Value.TimeLimit,
-                        TimeRemaining = item.Value.TimeRemaining,
-                        VPNWhiteList = item.Value.VPNWhiteList,
+                        gameStartDelay = item.Value.gameStartDelay,
+                        instanceStatus = item.Value.instanceStatus,
+                        gameTimeLimit = item.Value.gameTimeLimit,
+                        infoMapTimeRemaining = item.Value.infoMapTimeRemaining,
+                        IPWhiteList = item.Value.IPWhiteList,
                         WeaponRestrictions = item.Value.WeaponRestrictions,
-                        ZoneTimer = item.Value.ZoneTimer,
+                        gameScoreZoneTime = item.Value.gameScoreZoneTime,
                     });*/
                 }
             }
@@ -157,7 +157,7 @@ namespace HawkSync_SM.RCClasses
             int InstanceIndex = -1;
             foreach (var item in _state.Instances)
             {
-                if (item.Value.Id == InstanceID)
+                if (item.Value.instanceID == InstanceID)
                 {
                     InstanceIndex = item.Key;
                     break;
@@ -182,7 +182,7 @@ namespace HawkSync_SM.RCClasses
             int InstanceIndex = -1;
             foreach (var item in _state.Instances)
             {
-                if (item.Value.Id == InstanceID)
+                if (item.Value.instanceID == InstanceID)
                 {
                     InstanceIndex = item.Key;
                     break;
@@ -199,7 +199,7 @@ namespace HawkSync_SM.RCClasses
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `instanceid` = @instanceid AND `message` = @message;", db);
-                    cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].Id);
+                    cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].instanceID);
                     cmd.Parameters.AddWithValue("@message", _state.Instances[InstanceIndex].CustomWarnings[messageid]);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
@@ -243,7 +243,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -303,7 +303,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -386,7 +386,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -440,7 +440,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -494,7 +494,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -536,7 +536,7 @@ namespace HawkSync_SM.RCClasses
                         "INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);",
                         db);
                     query.Parameters.AddWithValue("@newid", NextID);
-                    query.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    query.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     query.Parameters.AddWithValue("@playername", playerName);
                     query.Parameters.AddWithValue("@playerip", ipaddress);
                     query.Parameters.AddWithValue("@date", DateTime.Now);
@@ -547,7 +547,7 @@ namespace HawkSync_SM.RCClasses
                     query.ExecuteNonQuery();
                     query.Dispose();
 
-                    _state.Instances[InstanceIndex].BanList.Add(new ob_playerBanList
+                    _state.Instances[InstanceIndex].PlayerListBans.Add(new ob_playerBanList
                     {
                         expires = expiresDate,
                         id = (int)db.LastInsertRowId,
@@ -607,7 +607,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -640,7 +640,7 @@ namespace HawkSync_SM.RCClasses
                         SessionID = sessionid,
                         Username = _state.rcClients[sessionid]._username
                     });
-                    _state.Instances[InstanceIndex].DisarmPlayers.Add(slot);
+                    _state.Instances[InstanceIndex].PlayerListDisarm.Add(slot);
                     return RCListenerClass.StatusCodes.SUCCESS;
                 }
                 else
@@ -661,7 +661,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -673,7 +673,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    Process process = Process.GetProcessById((int)_state.Instances[InstanceIndex].PID.GetValueOrDefault());
+                    Process process = Process.GetProcessById((int)_state.Instances[InstanceIndex].instanceAttachedPID.GetValueOrDefault());
                     IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
                     int buffer = 0;
@@ -748,7 +748,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -764,7 +764,7 @@ namespace HawkSync_SM.RCClasses
                     SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                     conn.Open();
                     SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
-                    automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     automessages.Parameters.AddWithValue("@messages", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].AutoMessages.messages));
                     automessages.ExecuteNonQuery();
                     conn.Close();
@@ -811,7 +811,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -828,7 +828,7 @@ namespace HawkSync_SM.RCClasses
                         SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                         conn.Open();
                         SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 1 WHERE `profile_id` = @profileid;", conn);
-                        automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                        automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                         automessages.ExecuteNonQuery();
                         automessages.Dispose();
                         conn.Close();
@@ -864,7 +864,7 @@ namespace HawkSync_SM.RCClasses
                         SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                         conn.Open();
                         SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 0 WHERE `profile_id` = @profileid;", conn);
-                        automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                        automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                         automessages.ExecuteNonQuery();
                         automessages.Dispose();
                         conn.Close();
@@ -913,7 +913,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -948,7 +948,7 @@ namespace HawkSync_SM.RCClasses
                             SessionID = sessionid,
                             Username = _state.rcClients[sessionid]._username
                         });
-                        _state.Instances[InstanceIndex].GodModeList.Add(slotNum);
+                        _state.Instances[InstanceIndex].PlayerListGodMod.Add(slotNum);
                         return RCListenerClass.StatusCodes.SUCCESS;
                     }
                     else
@@ -974,7 +974,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -989,14 +989,14 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateMapCycle(_state, InstanceIndex);
                     Thread.Sleep(1000);
-                    _state.Instances[InstanceIndex].previousMapList = new Dictionary<int, MapList>();
-                    foreach (var mapEntry in _state.Instances[InstanceIndex].MapList)
+                    _state.Instances[InstanceIndex].MapListPrevious = new Dictionary<int, MapList>();
+                    foreach (var mapEntry in _state.Instances[InstanceIndex].MapListCurrent)
                     {
-                        _state.Instances[InstanceIndex].previousMapList.Add(_state.Instances[InstanceIndex].previousMapList.Count, mapEntry.Value);
+                        _state.Instances[InstanceIndex].MapListPrevious.Add(_state.Instances[InstanceIndex].MapListPrevious.Count, mapEntry.Value);
                     }
 
-                    _state.Instances[InstanceIndex].MapList = new Dictionary<int, MapList>();
-                    // convert dictionary to List<MapList>
+                    _state.Instances[InstanceIndex].MapListCurrent = new Dictionary<int, MapList>();
+                    // convert dictionary to List<MapListCurrent>
                     List<MapList> mapCycleList = new List<MapList>();
                     foreach (var item in mapCycle)
                     {
@@ -1005,15 +1005,15 @@ namespace HawkSync_SM.RCClasses
 
                     foreach (var map in mapCycleList)
                     {
-                        _state.Instances[InstanceIndex].MapList.Add(_state.Instances[InstanceIndex].MapList.Count, map);
+                        _state.Instances[InstanceIndex].MapListCurrent.Add(_state.Instances[InstanceIndex].MapListCurrent.Count, map);
                     }
                     serverManagerUpdateMemory.UpdateMapCycle2(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `mapcycle` = @mapcycle WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapList));
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapListCurrent));
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1062,7 +1062,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1076,21 +1076,21 @@ namespace HawkSync_SM.RCClasses
                 {
                     int colorbuffer_written = 0;
                     byte[] colorcode;
-                    Process process = Process.GetProcessById(_state.Instances[InstanceIndex].PID.GetValueOrDefault());
+                    Process process = Process.GetProcessById(_state.Instances[InstanceIndex].instanceAttachedPID.GetValueOrDefault());
                     IntPtr h = process.MainWindowHandle;
                     switch (MsgLocation)
                     {
                         case 1:
                             colorcode = HexConverter.ToByteArray("6A 04".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                         case 2:
                             colorcode = HexConverter.ToByteArray("6A 05".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                         default:
                             colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                            WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
+                            WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
                             break;
                     }
                     // post message
@@ -1100,7 +1100,7 @@ namespace HawkSync_SM.RCClasses
                     int bytesWritten = 0;
                     byte[] buffer;
                     buffer = Encoding.Default.GetBytes($"{Msg}\0"); // '\0' marks the end of string
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
                     Thread.Sleep(50);
                     PostMessage(h, (ushort)WM_KEYDOWN, (ushort)VK_ENTER, 0);
                     PostMessage(h, (ushort)WM_KEYUP, (ushort)VK_ENTER, 0);
@@ -1109,7 +1109,7 @@ namespace HawkSync_SM.RCClasses
                     Thread.Sleep(50);
                     int revert_colorbuffer = 0;
                     byte[] revert_colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                    WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
+                    WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
                     process.Dispose();
 
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1154,7 +1154,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1167,14 +1167,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].RespawnTime = respawnTime;
+                    _state.Instances[InstanceIndex].gameRespawnTime = respawnTime;
                     serverManagerUpdateMemory.UpdateRespawnTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `respawn_time` = @respawntime WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@respawntime", _state.Instances[InstanceIndex].RespawnTime);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@respawntime", _state.Instances[InstanceIndex].gameRespawnTime);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1217,7 +1217,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1230,14 +1230,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].FlagReturnTime = flagReturnTime;
+                    _state.Instances[InstanceIndex].gameFlagReturnTime = flagReturnTime;
                     serverManagerUpdateMemory.UpdateFlagReturnTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `flagreturntime` = @flagreturntime WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@flagreturntime", _state.Instances[InstanceIndex].FlagReturnTime);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@flagreturntime", _state.Instances[InstanceIndex].gameFlagReturnTime);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1279,7 +1279,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1292,14 +1292,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].FriendlyFireKills = friendlyFireKills;
+                    _state.Instances[InstanceIndex].gameFriendlyFireKills = friendlyFireKills;
                     serverManagerUpdateMemory.UpdateFriendlyFireKills(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `friendly_fire_kills` = @friendly_fire_kills WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@friendly_fire_kills", _state.Instances[InstanceIndex].FriendlyFireKills);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@friendly_fire_kills", _state.Instances[InstanceIndex].gameFriendlyFireKills);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1346,7 +1346,7 @@ namespace HawkSync_SM.RCClasses
             int InstanceIndex = -1;
             foreach (var item in _state.Instances)
             {
-                if (item.Value.Id == InstanceID)
+                if (item.Value.instanceID == InstanceID)
                 {
                     InstanceIndex = item.Key;
                     break;
@@ -1366,11 +1366,11 @@ namespace HawkSync_SM.RCClasses
             List<MapList> mapList = new List<MapList>();
             mapList = JsonConvert.DeserializeObject<List<MapList>>(startList);
 
-            // Map List
-            _state.Instances[InstanceIndex].MapList = new Dictionary<int, MapList>();
+            // infoCurrentMapName List
+            _state.Instances[InstanceIndex].MapListCurrent = new Dictionary<int, MapList>();
             foreach (var map in mapList)
             {
-                _state.Instances[InstanceIndex].MapList.Add(_state.Instances[InstanceIndex].MapList.Count, map);
+                _state.Instances[InstanceIndex].MapListCurrent.Add(_state.Instances[InstanceIndex].MapListCurrent.Count, map);
             }
 
             // Starting Server
@@ -1378,39 +1378,39 @@ namespace HawkSync_SM.RCClasses
             startInstance = _state.Instances[InstanceIndex];
 
             // Collect Form Data
-            startInstance.ServerName = server_name;                             // Server Name
-            startInstance.MOTD = motd;                                          // Server MOTD
-            startInstance.CountryCode = country_code;                           // Country Code
-            startInstance.Password = server_password;                           // Server Global Password
-            startInstance.SessionType = session_type;                           // Session Type (0 = Internet, 1 = LAN) - Doesn't work and Form Changed.
-            startInstance.MaxSlots = max_slots + 1;                             // Max Players
-            startInstance.StartDelay = start_delay;                             // Start Delay
-            startInstance.LoopMaps = startLoopMaps ? 1 : 0;                     // Loop Maps
-            startInstance.FBScore = FBScore;                                    // Flag Score
-            startInstance.GameScore = game_score;                               // Game Score
-            startInstance.ZoneTimer = zone_timer;                               // Zone Timer
-            startInstance.RespawnTime = respawn_time;                           // Respawn Time
-            startInstance.TimeLimit = time_limit;                               // Time Limit
-            startInstance.RequireNovaLogin = require_novalogic;                 // Require NovaLogic Login
-            startInstance.Dedicated = dedicated;                                // Run Dedicated
-            startInstance.WindowedMode = run_windowed;                          // Windowed Mode
-            startInstance.AllowCustomSkins = allow_custom_skins;                // Allow Custom Skins
-            startInstance.Mod = game_mod;                                       // Game Mod
-            startInstance.BluePassword = blue_team_password;                    // Blue Team Password
-            startInstance.RedPassword = red_team_password;                      // Red Team Password
-            startInstance.FriendlyFire = friendly_fire;                         // Friendly Fire Flag
-            startInstance.FriendlyFireWarning = friendly_fire_warning;          // Friendly Fire Warning
-            startInstance.FriendlyTags = friendly_tags;                         // Friendly Tags
-            startInstance.AutoBalance = auto_balance;                           // Auto Balance
-            startInstance.ShowTracers = show_tracers;                           // Show Tracers
-            startInstance.ShowTeamClays = show_team_clays;                      // Show Team Clays
-            startInstance.AllowAutoRange = allow_auto_range;                    // Allow Auto Range
-            startInstance.MinPing = enable_min_ping;                            // Enable Min Ping
-            startInstance.MinPingValue = min_ping;                              // Min Ping Value
-            startInstance.MaxPing = enable_max_ping;                            // Enable Max Ping
-            startInstance.MaxPingValue = max_ping;                              // Max Ping Value            
-            startInstance.LastUpdateTime = DateTime.Now;
-            startInstance.NextUpdateTime = DateTime.Now.AddSeconds(5.0);
+            startInstance.gameServerName = server_name;                             // Server Name
+            startInstance.gameMOTD = motd;                                          // Server gameMOTD
+            startInstance.gameCountryCode = country_code;                           // Country Code
+            startInstance.gamePasswordLobby = server_password;                           // Server Global gamePasswordLobby
+            startInstance.gameSessionType = session_type;                           // Session Type (0 = Internet, 1 = LAN) - Doesn't work and Form Changed.
+            startInstance.gameMaxSlots = max_slots + 1;                             // Max Players
+            startInstance.gameStartDelay = start_delay;                             // Start Delay
+            startInstance.gameLoopMaps = startLoopMaps ? 1 : 0;                     // Loop Maps
+            startInstance.gameScoreFlags = FBScore;                                    // Flag Score
+            startInstance.gameScoreKills = game_score;                               // Game Score
+            startInstance.gameScoreZoneTime = zone_timer;                               // Zone Timer
+            startInstance.gameRespawnTime = respawn_time;                           // Respawn Time
+            startInstance.gameTimeLimit = time_limit;                               // Time Limit
+            startInstance.gameRequireNova = require_novalogic;                 // Require NovaLogic Login
+            startInstance.gameDedicated = dedicated;                                // Run gameDedicated
+            startInstance.gameWindowedMode = run_windowed;                          // Windowed Mode
+            startInstance.gameCustomSkins = allow_custom_skins;                // Allow Custom Skins
+            startInstance.profileGameMod = game_mod;                                       // Game profileGameMod
+            startInstance.gamePasswordBlue = blue_team_password;                    // Blue Team gamePasswordLobby
+            startInstance.gamePasswordRed = red_team_password;                      // Red Team gamePasswordLobby
+            startInstance.gameOptionFF = friendly_fire;                         // Friendly Fire Flag
+            startInstance.gameOptionFFWarn = friendly_fire_warning;          // Friendly Fire Warning
+            startInstance.gameOptionFriendlyTags = friendly_tags;                         // Friendly Tags
+            startInstance.gameOptionAutoBalance = auto_balance;                           // Auto Balance
+            startInstance.gameOptionShowTracers = show_tracers;                           // Show Tracers
+            startInstance.gameShowTeamClays = show_team_clays;                      // Show Team Clays
+            startInstance.gameOptionAutoRange = allow_auto_range;                    // Allow Auto Range
+            startInstance.gameMinPing = enable_min_ping;                            // Enable Min Ping
+            startInstance.gameMinPingValue = min_ping;                              // Min Ping Value
+            startInstance.gameMaxPing = enable_max_ping;                            // Enable Max Ping
+            startInstance.gameMaxPingValue = max_ping;                              // Max Ping Value            
+            startInstance.instanceLastUpdateTime = DateTime.Now;
+            startInstance.instanceNextUpdateTime = DateTime.Now.AddSeconds(5.0);
 
             // Generate AutoRes.bin
             if (!(serverManagerUpdateMemory.createAutoRes(startInstance, _state)))
@@ -1420,16 +1420,16 @@ namespace HawkSync_SM.RCClasses
             }
 
             // Start Game
-            // Check for PID in Database, if not found create a record.
+            // Check for instanceAttachedPID in Database, if not found create a record.
             SQLiteCommand checkPidQuery = new SQLiteCommand("SELECT COUNT(*) FROM `instances_pid` WHERE `profile_id` = @instanceId;", conn);
-            checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[InstanceIndex].Id);
+            checkPidQuery.Parameters.AddWithValue("@instanceId", _state.Instances[InstanceIndex].instanceID);
             int checkPid = Convert.ToInt32(checkPidQuery.ExecuteScalar());
             checkPidQuery.Dispose();
 
             if (checkPid == 0)
             {
                 SQLiteCommand insert_cmd = new SQLiteCommand("INSERT INTO `instances_pid` (`profile_id`, `pid`) VALUES (@instanceid, 0)", conn);
-                insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].Id);
+                insert_cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].instanceID);
                 insert_cmd.ExecuteNonQuery();
             }
 
@@ -1438,41 +1438,41 @@ namespace HawkSync_SM.RCClasses
             // Sucess Update Database & Return Instance Array
             SQLiteCommand update_query = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @servername, `motd` = @motd, `country_code` = @countrycode, `server_password` = @server_password,`session_type` = @sessiontype, `max_slots` = @max_slots, `start_delay` = @start_delay, `loop_maps` = @loop_maps, `game_score` = @game_score, `fbscore` = @flag_scores, `zone_timer` = @zone_timer, `respawn_time` = @respawn_time, `time_limit` = @time_limit, `require_novalogic` = @require_novalogic, `windowed_mode` = @run_windowed, `allow_custom_skins` = @allow_custom_skins, `run_dedicated` = @run_dedicated, `game_mod` = @game_mod, `mapcycle` = @selected_maps, `blue_team_password` = @blue_team_password, `red_team_password` = @red_team_password, `friendly_fire` = @friendly_fire, `friendly_fire_warning` = @friendly_fire_warning, `friendly_tags` = @friendly_tags, `auto_balance` = @auto_balance, `show_tracers` = @show_tracers, `show_team_clays` = @show_team_clays, `allow_auto_range` = @allow_auto_range, `enable_min_ping` = @enable_min_ping, `min_ping` = @min_ping, `enable_max_ping` = @enable_max_ping, `max_ping` = @max_ping, `availablemaps` = @availablemaps WHERE `profile_id` = @profile_id", conn);
 
-            update_query.Parameters.AddWithValue("@servername", startInstance.ServerName);
-            update_query.Parameters.AddWithValue("@motd", startInstance.MOTD);
-            update_query.Parameters.AddWithValue("@countrycode", startInstance.CountryCode);
-            update_query.Parameters.AddWithValue("@sessiontype", startInstance.SessionType);
-            update_query.Parameters.AddWithValue("@server_password", startInstance.Password);
-            update_query.Parameters.AddWithValue("@max_slots", startInstance.MaxSlots);
-            update_query.Parameters.AddWithValue("@start_delay", startInstance.StartDelay);
-            update_query.Parameters.AddWithValue("@loop_maps", startInstance.LoopMaps);
-            update_query.Parameters.AddWithValue("@game_score", startInstance.GameScore);
-            update_query.Parameters.AddWithValue("@flag_scores", startInstance.GameScore);
-            update_query.Parameters.AddWithValue("@zone_timer", startInstance.ZoneTimer);
-            update_query.Parameters.AddWithValue("@respawn_time", startInstance.RespawnTime);
-            update_query.Parameters.AddWithValue("@time_limit", startInstance.TimeLimit);
-            update_query.Parameters.AddWithValue("@require_novalogic", startInstance.RequireNovaLogin ? 1 : 0);
-            update_query.Parameters.AddWithValue("@run_windowed", startInstance.WindowedMode ? 1 : 0);
-            update_query.Parameters.AddWithValue("@allow_custom_skins", startInstance.AllowCustomSkins ? 1 : 0);
-            update_query.Parameters.AddWithValue("@run_dedicated", startInstance.Dedicated ? 1 : 0);
-            update_query.Parameters.AddWithValue("@game_mod", startInstance.Mod);
-            update_query.Parameters.AddWithValue("@blue_team_password", startInstance.BluePassword);
-            update_query.Parameters.AddWithValue("@red_team_password", startInstance.RedPassword);
-            update_query.Parameters.AddWithValue("@friendly_fire", startInstance.FriendlyFire);
-            update_query.Parameters.AddWithValue("@friendly_fire_warning", startInstance.FriendlyFireWarning ? 1 : 0);
-            update_query.Parameters.AddWithValue("@friendly_tags", startInstance.FriendlyTags ? 1 : 0);
-            update_query.Parameters.AddWithValue("@auto_balance", startInstance.AutoBalance ? 1 : 0);
-            update_query.Parameters.AddWithValue("@show_tracers", startInstance.ShowTracers ? 1 : 0);
-            update_query.Parameters.AddWithValue("@show_team_clays", startInstance.ShowTeamClays ? 1 : 0);
-            update_query.Parameters.AddWithValue("@allow_auto_range", startInstance.AllowAutoRange ? 1 : 0);
-            update_query.Parameters.AddWithValue("@enable_min_ping", startInstance.MinPing ? 1 : 0);
-            update_query.Parameters.AddWithValue("@min_ping", startInstance.MinPingValue);
-            update_query.Parameters.AddWithValue("@enable_max_ping", startInstance.MaxPing ? 1 : 0);
-            update_query.Parameters.AddWithValue("@max_ping", startInstance.MaxPingValue);
-            update_query.Parameters.AddWithValue("@profile_id", _state.Instances[InstanceIndex].Id);
+            update_query.Parameters.AddWithValue("@servername", startInstance.gameServerName);
+            update_query.Parameters.AddWithValue("@motd", startInstance.gameMOTD);
+            update_query.Parameters.AddWithValue("@countrycode", startInstance.gameCountryCode);
+            update_query.Parameters.AddWithValue("@sessiontype", startInstance.gameSessionType);
+            update_query.Parameters.AddWithValue("@server_password", startInstance.gamePasswordLobby);
+            update_query.Parameters.AddWithValue("@max_slots", startInstance.gameMaxSlots);
+            update_query.Parameters.AddWithValue("@start_delay", startInstance.gameStartDelay);
+            update_query.Parameters.AddWithValue("@loop_maps", startInstance.gameLoopMaps);
+            update_query.Parameters.AddWithValue("@game_score", startInstance.gameScoreKills);
+            update_query.Parameters.AddWithValue("@flag_scores", startInstance.gameScoreKills);
+            update_query.Parameters.AddWithValue("@zone_timer", startInstance.gameScoreZoneTime);
+            update_query.Parameters.AddWithValue("@respawn_time", startInstance.gameRespawnTime);
+            update_query.Parameters.AddWithValue("@time_limit", startInstance.gameTimeLimit);
+            update_query.Parameters.AddWithValue("@require_novalogic", startInstance.gameRequireNova ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_windowed", startInstance.gameWindowedMode ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_custom_skins", startInstance.gameCustomSkins ? 1 : 0);
+            update_query.Parameters.AddWithValue("@run_dedicated", startInstance.gameDedicated ? 1 : 0);
+            update_query.Parameters.AddWithValue("@game_mod", startInstance.profileGameMod);
+            update_query.Parameters.AddWithValue("@blue_team_password", startInstance.gamePasswordBlue);
+            update_query.Parameters.AddWithValue("@red_team_password", startInstance.gamePasswordRed);
+            update_query.Parameters.AddWithValue("@friendly_fire", startInstance.gameOptionFF);
+            update_query.Parameters.AddWithValue("@friendly_fire_warning", startInstance.gameOptionFFWarn ? 1 : 0);
+            update_query.Parameters.AddWithValue("@friendly_tags", startInstance.gameOptionFriendlyTags ? 1 : 0);
+            update_query.Parameters.AddWithValue("@auto_balance", startInstance.gameOptionAutoBalance ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_tracers", startInstance.gameOptionShowTracers ? 1 : 0);
+            update_query.Parameters.AddWithValue("@show_team_clays", startInstance.gameShowTeamClays ? 1 : 0);
+            update_query.Parameters.AddWithValue("@allow_auto_range", startInstance.gameOptionAutoRange ? 1 : 0);
+            update_query.Parameters.AddWithValue("@enable_min_ping", startInstance.gameMinPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@min_ping", startInstance.gameMinPingValue);
+            update_query.Parameters.AddWithValue("@enable_max_ping", startInstance.gameMaxPing ? 1 : 0);
+            update_query.Parameters.AddWithValue("@max_ping", startInstance.gameMaxPingValue);
+            update_query.Parameters.AddWithValue("@profile_id", _state.Instances[InstanceIndex].instanceID);
 
-            update_query.Parameters.AddWithValue("@availablemaps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].availableMaps));
-            update_query.Parameters.AddWithValue("@selected_maps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapList));
+            update_query.Parameters.AddWithValue("@availablemaps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapListAvailable));
+            update_query.Parameters.AddWithValue("@selected_maps", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].MapListCurrent));
             update_query.ExecuteNonQuery();
             update_query.Dispose();
 
@@ -1500,7 +1500,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1513,8 +1513,8 @@ namespace HawkSync_SM.RCClasses
                 _state.ApplicationProcesses[InstanceIndex].Kill();
 
                 // Call Regardless
-                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].GameName, "Allow");
-                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].GameName, "Deny");
+                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].profileName, "Allow");
+                _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].profileName, "Deny");
 
                 SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                 db.Open();
@@ -1552,7 +1552,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1564,13 +1564,13 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].ScoreBoardDelay = scoreboardDelay;
+                    _state.Instances[InstanceIndex].gameScoreBoardDelay = scoreboardDelay;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `scoreboard_override` = @scoreboard_override WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@scoreboard_override", _state.Instances[InstanceIndex].ScoreBoardDelay);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@scoreboard_override", _state.Instances[InstanceIndex].gameScoreBoardDelay);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1612,7 +1612,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1625,14 +1625,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].MaxTeamLives = maxTeamLives;
+                    _state.Instances[InstanceIndex].gameMaxTeamLives = maxTeamLives;
                     serverManagerUpdateMemory.UpdateMaxTeamLives(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
-                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `max_team_lives` = @MaxTeamLives WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@MaxTeamLives", _state.Instances[InstanceIndex].MaxTeamLives);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `max_team_lives` = @gameMaxTeamLives WHERE `profile_id` = @profileid;", db);
+                    updateDB.Parameters.AddWithValue("@gameMaxTeamLives", _state.Instances[InstanceIndex].gameMaxTeamLives);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1674,7 +1674,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1687,14 +1687,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].PSPTakeOverTime = pSPTime;
+                    _state.Instances[InstanceIndex].gamePSPTOTimer = pSPTime;
                     serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
-                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `psptakeover` = @PSPTakeOverTime WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@PSPTakeOverTime", _state.Instances[InstanceIndex].PSPTakeOverTime);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `psptakeover` = @gamePSPTOTimer WHERE `profile_id` = @profileid;", db);
+                    updateDB.Parameters.AddWithValue("@gamePSPTOTimer", _state.Instances[InstanceIndex].gamePSPTOTimer);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1736,7 +1736,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1749,14 +1749,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].AllowCustomSkins = allowCustomSkins;
+                    _state.Instances[InstanceIndex].gameCustomSkins = allowCustomSkins;
                     serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `allow_custom_skins` = @allow_custom_skins WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@allow_custom_skins", _state.Instances[InstanceIndex].AllowCustomSkins);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@allow_custom_skins", _state.Instances[InstanceIndex].gameCustomSkins);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1798,7 +1798,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1811,15 +1811,15 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    int oldPw = _state.Instances[InstanceIndex].BluePassword.Length;
-                    _state.Instances[InstanceIndex].BluePassword = bluePassword;
+                    int oldPw = _state.Instances[InstanceIndex].gamePasswordBlue.Length;
+                    _state.Instances[InstanceIndex].gamePasswordBlue = bluePassword;
                     serverManagerUpdateMemory.UpdateBluePassword(_state, InstanceIndex, oldPw);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `blue_team_password` = @blue_team_password WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@blue_team_password", _state.Instances[InstanceIndex].BluePassword);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@blue_team_password", _state.Instances[InstanceIndex].gamePasswordBlue);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -1862,7 +1862,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -1905,7 +1905,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2058,7 +2058,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2100,7 +2100,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2112,14 +2112,14 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].FBScore = fBScore;
+                    _state.Instances[InstanceIndex].gameScoreFlags = fBScore;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `fbscore` = @fbscore WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@fbscore", _state.Instances[InstanceIndex].FBScore);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@fbscore", _state.Instances[InstanceIndex].gameScoreFlags);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2161,7 +2161,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2173,13 +2173,13 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].GameScore = gameScore;
+                    _state.Instances[InstanceIndex].gameScoreKills = gameScore;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `game_score` = @game_score WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@game_score", _state.Instances[InstanceIndex].GameScore);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@game_score", _state.Instances[InstanceIndex].gameScoreKills);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2221,7 +2221,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2233,13 +2233,13 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].ZoneTimer = kOTHScore;
+                    _state.Instances[InstanceIndex].gameScoreZoneTime = kOTHScore;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@zoneTimer", _state.Instances[InstanceIndex].ZoneTimer);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@zoneTimer", _state.Instances[InstanceIndex].gameScoreZoneTime);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2281,7 +2281,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2293,16 +2293,16 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].MaxPing = enablePing;
-                    _state.Instances[InstanceIndex].MaxPingValue = pingValue;
+                    _state.Instances[InstanceIndex].gameMaxPing = enablePing;
+                    _state.Instances[InstanceIndex].gameMaxPingValue = pingValue;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `enable_max_ping` = @enableMaxPing, `max_ping` = @maxPingValue WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@enableMaxPing", Convert.ToInt32(_state.Instances[InstanceIndex].MaxPing));
-                    updateDB.Parameters.AddWithValue("@maxPingValue", (int)_state.Instances[InstanceIndex].MaxPingValue);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@enableMaxPing", Convert.ToInt32(_state.Instances[InstanceIndex].gameMaxPing));
+                    updateDB.Parameters.AddWithValue("@maxPingValue", (int)_state.Instances[InstanceIndex].gameMaxPingValue);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2344,7 +2344,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2374,7 +2374,7 @@ namespace HawkSync_SM.RCClasses
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `weaponrestrictions` = @weaponrestrictions WHERE `profile_id` = @profileid;", db);
                     updateDB.Parameters.AddWithValue("@weaponrestrictions", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].WeaponRestrictions));
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2408,7 +2408,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2420,16 +2420,16 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].MinPing = enablePing;
-                    _state.Instances[InstanceIndex].MinPingValue = pingValue;
+                    _state.Instances[InstanceIndex].gameMinPing = enablePing;
+                    _state.Instances[InstanceIndex].gameMinPingValue = pingValue;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `enable_min_ping` = @enableMinPing, `min_ping` = @minPingValue WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@enableMinPing", Convert.ToInt32(_state.Instances[InstanceIndex].MinPing));
-                    updateDB.Parameters.AddWithValue("@minPingValue", _state.Instances[InstanceIndex].MinPingValue);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@enableMinPing", Convert.ToInt32(_state.Instances[InstanceIndex].gameMinPing));
+                    updateDB.Parameters.AddWithValue("@minPingValue", _state.Instances[InstanceIndex].gameMinPingValue);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2472,7 +2472,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2485,27 +2485,27 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].FriendlyFire = friendlyFire;
-                    _state.Instances[InstanceIndex].FriendlyTags = friendlyTags;
-                    _state.Instances[InstanceIndex].ShowTeamClays = showTeamClays;
-                    _state.Instances[InstanceIndex].AutoBalance = autoBalance;
-                    _state.Instances[InstanceIndex].FriendlyFireWarning = friendlyFireWarning;
-                    _state.Instances[InstanceIndex].ShowTracers = showTracers;
-                    _state.Instances[InstanceIndex].AllowAutoRange = allowAutoRange;
+                    _state.Instances[InstanceIndex].gameOptionFF = friendlyFire;
+                    _state.Instances[InstanceIndex].gameOptionFriendlyTags = friendlyTags;
+                    _state.Instances[InstanceIndex].gameShowTeamClays = showTeamClays;
+                    _state.Instances[InstanceIndex].gameOptionAutoBalance = autoBalance;
+                    _state.Instances[InstanceIndex].gameOptionFFWarn = friendlyFireWarning;
+                    _state.Instances[InstanceIndex].gameOptionShowTracers = showTracers;
+                    _state.Instances[InstanceIndex].gameOptionAutoRange = allowAutoRange;
                     serverManagerUpdateMemory.GamePlayOptions(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `friendly_fire` = @friendlyfire, `friendly_tags` = @friendlytags, `show_team_clays` = @showTeamClays, `auto_balance` = @autoBalance, `friendly_fire_warning` = @friendlyFireWarning, `show_tracers` = @showTracers, `allow_auto_range` = @allowAutoRange WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@friendlyfire", Convert.ToInt32(_state.Instances[InstanceIndex].FriendlyFire));
-                    updateDB.Parameters.AddWithValue("@friendlytags", Convert.ToInt32(_state.Instances[InstanceIndex].FriendlyTags));
-                    updateDB.Parameters.AddWithValue("@showTeamClays", Convert.ToInt32(_state.Instances[InstanceIndex].ShowTeamClays));
-                    updateDB.Parameters.AddWithValue("@autoBalance", Convert.ToInt32(_state.Instances[InstanceIndex].AutoBalance));
-                    updateDB.Parameters.AddWithValue("@friendlyFireWarning", Convert.ToInt32(_state.Instances[InstanceIndex].FriendlyFireWarning));
-                    updateDB.Parameters.AddWithValue("@showTracers", Convert.ToInt32(_state.Instances[InstanceIndex].ShowTracers));
-                    updateDB.Parameters.AddWithValue("@allowAutoRange", Convert.ToInt32(_state.Instances[InstanceIndex].AllowAutoRange));
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@friendlyfire", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionFF));
+                    updateDB.Parameters.AddWithValue("@friendlytags", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionFriendlyTags));
+                    updateDB.Parameters.AddWithValue("@showTeamClays", Convert.ToInt32(_state.Instances[InstanceIndex].gameShowTeamClays));
+                    updateDB.Parameters.AddWithValue("@autoBalance", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionAutoBalance));
+                    updateDB.Parameters.AddWithValue("@friendlyFireWarning", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionFFWarn));
+                    updateDB.Parameters.AddWithValue("@showTracers", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionShowTracers));
+                    updateDB.Parameters.AddWithValue("@allowAutoRange", Convert.ToInt32(_state.Instances[InstanceIndex].gameOptionAutoRange));
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2547,7 +2547,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2560,15 +2560,15 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    int oldPw = _state.Instances[InstanceIndex].RedPassword.Length;
-                    _state.Instances[InstanceIndex].RedPassword = redPassword;
+                    int oldPw = _state.Instances[InstanceIndex].gamePasswordRed.Length;
+                    _state.Instances[InstanceIndex].gamePasswordRed = redPassword;
                     serverManagerUpdateMemory.UpdateRedPassword(_state, InstanceIndex, oldPw);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `red_team_password` = @redPassword WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@redPassword", _state.Instances[InstanceIndex].RedPassword);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@redPassword", _state.Instances[InstanceIndex].gamePasswordRed);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2610,7 +2610,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2623,14 +2623,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].MOTD = MOTD;
+                    _state.Instances[InstanceIndex].gameMOTD = MOTD;
                     serverManagerUpdateMemory.UpdateMOTD(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `motd` = @motd WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@motd", _state.Instances[InstanceIndex].MOTD);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@motd", _state.Instances[InstanceIndex].gameMOTD);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2672,7 +2672,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2685,14 +2685,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].RequireNovaLogin = requireNovaLogin;
+                    _state.Instances[InstanceIndex].gameRequireNova = requireNovaLogin;
                     serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `require_nova` = @requireNova WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@requireNova", Convert.ToInt32(_state.Instances[InstanceIndex].RequireNovaLogin));
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@requireNova", Convert.ToInt32(_state.Instances[InstanceIndex].gameRequireNova));
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2735,7 +2735,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2748,14 +2748,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].LoopMaps = loopMaps;
+                    _state.Instances[InstanceIndex].gameLoopMaps = loopMaps;
                     serverManagerUpdateMemory.UpdateLoopMaps(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `loop_maps` = @loopMaps WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@loopMaps", _state.Instances[InstanceIndex].LoopMaps);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@loopMaps", _state.Instances[InstanceIndex].gameLoopMaps);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2797,7 +2797,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2810,14 +2810,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].StartDelay = startDelay;
+                    _state.Instances[InstanceIndex].gameStartDelay = startDelay;
                     serverManagerUpdateMemory.UpdateStartDelay(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `start_delay` = @startDelay WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@startDelay", _state.Instances[InstanceIndex].StartDelay);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@startDelay", _state.Instances[InstanceIndex].gameStartDelay);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2859,7 +2859,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2872,14 +2872,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].TimeLimit = timeLimit;
+                    _state.Instances[InstanceIndex].gameTimeLimit = timeLimit;
                     serverManagerUpdateMemory.UpdateTimeLimit(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `time_limit` = @timeLimit WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@timeLimit", _state.Instances[InstanceIndex].TimeLimit);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@timeLimit", _state.Instances[InstanceIndex].gameTimeLimit);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2921,7 +2921,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2934,14 +2934,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].SessionType = sessionType;
+                    _state.Instances[InstanceIndex].gameSessionType = sessionType;
                     serverManagerUpdateMemory.UpdateSessionType(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `session_type` = @sessionType WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@sessionType", _state.Instances[InstanceIndex].SessionType);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@sessionType", _state.Instances[InstanceIndex].gameSessionType);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -2983,7 +2983,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -2996,14 +2996,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].Password = password;
+                    _state.Instances[InstanceIndex].gamePasswordLobby = password;
                     serverManagerUpdateMemory.UpdateServerPassword(_state, InstanceIndex, password.Length);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `server_password` = @serverPassword WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@serverPassword", _state.Instances[InstanceIndex].Password);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@serverPassword", _state.Instances[InstanceIndex].gamePasswordLobby);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -3045,7 +3045,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3058,14 +3058,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].CountryCode = countryCode;
+                    _state.Instances[InstanceIndex].gameCountryCode = countryCode;
                     serverManagerUpdateMemory.UpdateCountryCode(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `country_code` = @countryCode WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@countryCode", _state.Instances[InstanceIndex].CountryCode);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@countryCode", _state.Instances[InstanceIndex].gameCountryCode);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -3107,7 +3107,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3120,14 +3120,14 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
-                    _state.Instances[InstanceIndex].ServerName = serverName;
+                    _state.Instances[InstanceIndex].gameServerName = serverName;
                     serverManagerUpdateMemory.UpdateServerName(_state, InstanceIndex);
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @serverName WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@serverName", _state.Instances[InstanceIndex].ServerName);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@serverName", _state.Instances[InstanceIndex].gameServerName);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -3169,7 +3169,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3181,20 +3181,20 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    if (_state.Instances[InstanceIndex].GodModeList.Contains(slotNum))
+                    if (_state.Instances[InstanceIndex].PlayerListGodMod.Contains(slotNum))
                     {
-                        _state.Instances[InstanceIndex].GodModeList.Remove(slotNum);
+                        _state.Instances[InstanceIndex].PlayerListGodMod.Remove(slotNum);
                         int buffer = 0;
                         byte[] PointerAddr9 = new byte[4];
                         var baseAddr = 0x400000;
                         var Pointer = baseAddr + 0x005ED600;
 
                         // read the playerlist memory address from the game...
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                         var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                         byte[] playerListStartingLocationByteArray = new byte[4];
                         int playerListStartingLocationBuffer = 0;
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                         int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                         for (int i = 1; i < slotNum; i++)
@@ -3203,7 +3203,7 @@ namespace HawkSync_SM.RCClasses
                         }
                         byte[] playerObjectLocationBytes = new byte[4];
                         int playerObjectLocationRead = 0;
-                        ReadProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
+                        ReadProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
                         int playerObjectLocation = BitConverter.ToInt32(playerObjectLocationBytes, 0);
 
                         byte[] setPlayerHealth = BitConverter.GetBytes(100); //set god mode health
@@ -3212,8 +3212,8 @@ namespace HawkSync_SM.RCClasses
                         byte[] setDamageBy = BitConverter.GetBytes(0);
                         int setDamageByWrite = 0;
 
-                        WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
-                        WriteProcessMemory((int)_state.Instances[InstanceIndex].ProcessHandle, playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
+                        WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
+                        WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
 
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();
@@ -3271,7 +3271,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3285,7 +3285,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     if (IPAddress.TryParse(address, out IPAddress PlayerIP))
                     {
-                        _state.Instances[InstanceIndex].VPNWhiteList.Add(_state.Instances[InstanceIndex].VPNWhiteList.Count, new ob_ipWhitelist
+                        _state.Instances[InstanceIndex].IPWhiteList.Add(_state.Instances[InstanceIndex].IPWhiteList.Count, new ob_ipWhitelist
                         {
                             Description = description,
                             IPAddress = PlayerIP.ToString()
@@ -3293,7 +3293,7 @@ namespace HawkSync_SM.RCClasses
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();
                         SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
-                        cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                        cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                         cmd.Parameters.AddWithValue("@description", description);
                         cmd.Parameters.AddWithValue("@PublicIP", PlayerIP.ToString());
                         cmd.ExecuteNonQuery();
@@ -3342,7 +3342,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3357,9 +3357,9 @@ namespace HawkSync_SM.RCClasses
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
-                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `enableVPNCheck` = @enableVPNCheck WHERE `profile_id` = @profileid;", db);
-                    updateDB.Parameters.AddWithValue("@enableVPNCheck", Convert.ToInt32(_state.Instances[InstanceIndex].enableVPNCheck));
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `vpnCheckEnabled` = @vpnCheckEnabled WHERE `profile_id` = @profileid;", db);
+                    updateDB.Parameters.AddWithValue("@vpnCheckEnabled", Convert.ToInt32(_state.Instances[InstanceIndex].vpnCheckEnabled));
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -3381,7 +3381,7 @@ namespace HawkSync_SM.RCClasses
                         SessionID = sessionid,
                         Username = _state.rcClients[sessionid]._username
                     });
-                    _state.Instances[InstanceIndex].enableVPNCheck = DisallowVPN;
+                    _state.Instances[InstanceIndex].vpnCheckEnabled = DisallowVPN;
                     return RCListenerClass.StatusCodes.SUCCESS;
                 }
                 else
@@ -3402,7 +3402,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3419,7 +3419,7 @@ namespace HawkSync_SM.RCClasses
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `warnlevel` = @warnLevel WHERE `profile_id` = @profileid;", db);
                     updateDB.Parameters.AddWithValue("@warnLevel", _state.IPQualityCache[InstanceIndex].WarnLevel);
-                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    updateDB.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     updateDB.ExecuteNonQuery();
                     updateDB.Dispose();
 
@@ -3462,7 +3462,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3475,9 +3475,9 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     int playerIndex = -1;
-                    for (int i = 0; i < _state.Instances[InstanceIndex].BanList.Count; i++)
+                    for (int i = 0; i < _state.Instances[InstanceIndex].PlayerListBans.Count; i++)
                     {
-                        if (_state.Instances[InstanceIndex].BanList[i].ipaddress == playerIP && _state.Instances[InstanceIndex].BanList[i].player == playerName)
+                        if (_state.Instances[InstanceIndex].PlayerListBans[i].ipaddress == playerIP && _state.Instances[InstanceIndex].PlayerListBans[i].player == playerName)
                         {
                             playerIndex = i;
                             break;
@@ -3492,8 +3492,8 @@ namespace HawkSync_SM.RCClasses
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();
                         SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
-                        cmd.Parameters.AddWithValue("@banid", _state.Instances[InstanceIndex].BanList[playerIndex].id);
-                        cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                        cmd.Parameters.AddWithValue("@banid", _state.Instances[InstanceIndex].PlayerListBans[playerIndex].id);
+                        cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                         cmd.ExecuteNonQuery();
                         cmd.Dispose();
 
@@ -3515,7 +3515,7 @@ namespace HawkSync_SM.RCClasses
                             SessionID = sessionid,
                             Username = _state.rcClients[sessionid]._username
                         });
-                        _state.Instances[InstanceIndex].BanList.RemoveAt(playerIndex);
+                        _state.Instances[InstanceIndex].PlayerListBans.RemoveAt(playerIndex);
                         return RCListenerClass.StatusCodes.SUCCESS;
                     }
                 }
@@ -3537,7 +3537,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3554,7 +3554,7 @@ namespace HawkSync_SM.RCClasses
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `auto_msg_interval` = @value WHERE `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@value", interval);
-                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
@@ -3596,7 +3596,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3612,7 +3612,7 @@ namespace HawkSync_SM.RCClasses
                     SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
                     conn.Open();
                     SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
-                    automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     automessages.Parameters.AddWithValue("@messages", JsonConvert.SerializeObject(_state.Instances[InstanceIndex].AutoMessages.messages));
                     automessages.ExecuteNonQuery();
 
@@ -3655,7 +3655,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3669,7 +3669,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateNextMap(_state, InstanceIndex, slot);
-                    _state.Instances[InstanceIndex].mapListCount = _state.Instances[InstanceIndex].MapList.Count;
+                    _state.Instances[InstanceIndex].infoCounterMaps = _state.Instances[InstanceIndex].MapListCurrent.Count;
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
 
@@ -3711,7 +3711,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3723,21 +3723,21 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    if (_state.Instances[InstanceIndex].Status == InstanceStatus.LOADINGMAP)
+                    if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.LOADINGMAP)
                     {
                         return RCListenerClass.StatusCodes.FAILURE;
                     }
-                    else if (_state.Instances[InstanceIndex].Status == InstanceStatus.OFFLINE)
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.OFFLINE)
                     {
                         return RCListenerClass.StatusCodes.FAILURE;
                     }
-                    else if (_state.Instances[InstanceIndex].Status == InstanceStatus.SCORING)
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.SCORING)
                     {
                         return RCListenerClass.StatusCodes.FAILURE;
                     }
-                    else if (_state.Instances[InstanceIndex].Status == InstanceStatus.STARTDELAY || _state.Instances[InstanceIndex].Status == InstanceStatus.ONLINE)
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.STARTDELAY || _state.Instances[InstanceIndex].instanceStatus == InstanceStatus.ONLINE)
                     {
-                        Process process = Process.GetProcessById(_state.Instances[InstanceIndex].PID.GetValueOrDefault());
+                        Process process = Process.GetProcessById(_state.Instances[InstanceIndex].instanceAttachedPID.GetValueOrDefault());
                         IntPtr h = process.MainWindowHandle;
                         IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
@@ -3801,7 +3801,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3847,7 +3847,7 @@ namespace HawkSync_SM.RCClasses
                         Username = _state.rcClients[sessionid]._username
                     });
 
-                    _state.Instances[InstanceIndex].ChangeTeamList.Add(new ob_playerChangeTeamList
+                    _state.Instances[InstanceIndex].TeamListChange.Add(new ob_playerChangeTeamList
                     {
                         slotNum = slotNum,
                         Team = (int)switchTeam
@@ -3872,7 +3872,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3885,8 +3885,8 @@ namespace HawkSync_SM.RCClasses
 
                 if (InstanceIndex != -1)
                 {
-                    _state.Instances[InstanceIndex].DisarmPlayers.Remove(slotNum);
-                    Process process = Process.GetProcessById((int)_state.Instances[InstanceIndex].PID.GetValueOrDefault());
+                    _state.Instances[InstanceIndex].PlayerListDisarm.Remove(slotNum);
+                    Process process = Process.GetProcessById((int)_state.Instances[InstanceIndex].instanceAttachedPID.GetValueOrDefault());
                     IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
                     int buffer = 0;
@@ -3954,7 +3954,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -3967,7 +3967,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     List<CustomMap> customMaps = new List<CustomMap>();
-                    DirectoryInfo d = new DirectoryInfo(_state.Instances[InstanceIndex].GamePath);
+                    DirectoryInfo d = new DirectoryInfo(_state.Instances[InstanceIndex].profileServerPath);
                     List<int> numbers = new List<int>() { 128, 64, 32, 16, 8, 4, 2, 1 };
                     List<string> badMapList = new List<string>();
 
@@ -3977,7 +3977,7 @@ namespace HawkSync_SM.RCClasses
                         using (BinaryReader binaryReader = new BinaryReader(fsSourceDDS))
                         {
                             var map = new CustomMap();
-                            string first_line = File.ReadLines(_state.Instances[InstanceIndex].GamePath + "\\" + file.Name, Encoding.Default).First().ToString();
+                            string first_line = File.ReadLines(_state.Instances[InstanceIndex].profileServerPath + "\\" + file.Name, Encoding.Default).First().ToString();
                             first_line = first_line.Replace("", "|").Replace("\0\0\0", "|");
                             string[] first_line_arr = first_line.Split("|".ToCharArray());
                             var first_line_list = new List<string>();
@@ -4088,10 +4088,10 @@ namespace HawkSync_SM.RCClasses
                             MapFile = customMap.FileName
                         });
                     }
-                    /*List<MapList> avalMapsList = new List<MapList>();
+                    /*List<MapListCurrent> avalMapsList = new List<MapListCurrent>();
                     foreach (var map in avalMapsDic)
                     {
-                        avalMapsList.Add(new MapList
+                        avalMapsList.Add(new MapListCurrent
                         {
                             CustomMap = map.Value.CustomMap,
                             GameTypes = map.Value.GameTypes,
@@ -4102,12 +4102,12 @@ namespace HawkSync_SM.RCClasses
                     SQLiteCommand update_avalMapsQuery = new SQLiteCommand("UPDATE `instances_config` SET `availablemaps` = @availablemaps WHERE `profile_id` = @profileid;", db);
                     string test = JsonConvert.SerializeObject(avalMapsDic);
                     update_avalMapsQuery.Parameters.AddWithValue("@availablemaps", test);
-                    update_avalMapsQuery.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    update_avalMapsQuery.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     update_avalMapsQuery.ExecuteNonQuery();
                     update_avalMapsQuery.Dispose();
 
-                    _state.Instances[InstanceIndex].availableMaps = new Dictionary<int, MapList>();
-                    _state.Instances[InstanceIndex].availableMaps = avalMapsDic;
+                    _state.Instances[InstanceIndex].MapListAvailable = new Dictionary<int, MapList>();
+                    _state.Instances[InstanceIndex].MapListAvailable = avalMapsDic;
 
                     db.Close();
                     db.Dispose();
@@ -4134,7 +4134,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == InstanceID)
+                    if (item.Value.instanceID == InstanceID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -4150,14 +4150,14 @@ namespace HawkSync_SM.RCClasses
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `rotation_id` = @id AND `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@id", RotationID);
-                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                     db.Close();
                     db.Dispose();
                     // find key from saved rotations
                     savedmaprotations selectedRotation = null;
-                    foreach (var item in _state.Instances[InstanceIndex].savedmaprotations)
+                    foreach (var item in _state.Instances[InstanceIndex].MapListRotationDB)
                     {
                         if (item.RotationID == RotationID)
                         {
@@ -4167,7 +4167,7 @@ namespace HawkSync_SM.RCClasses
                     }
                     if (selectedRotation != null)
                     {
-                        _state.Instances[InstanceIndex].savedmaprotations.Remove(selectedRotation);
+                        _state.Instances[InstanceIndex].MapListRotationDB.Remove(selectedRotation);
                         return RCListenerClass.StatusCodes.SUCCESS;
                     }
                     else
@@ -4193,7 +4193,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == serverID)
+                    if (item.Value.instanceID == serverID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -4209,12 +4209,12 @@ namespace HawkSync_SM.RCClasses
                     db.Open();
 
                     SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `instances_map_rotations` (`rotation_id`, `profile_id`, `description`, `mapcycle`) VALUES (NULL, @profileid, @rotationDescription, @rotation);", db);
-                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     cmd.Parameters.AddWithValue("@rotationDescription", rotationDescription);
                     cmd.Parameters.AddWithValue("@rotation", rotation);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
-                    _state.Instances[InstanceIndex].savedmaprotations.Add(new savedmaprotations
+                    _state.Instances[InstanceIndex].MapListRotationDB.Add(new savedmaprotations
                     {
                         Description = rotationDescription,
                         mapcycle = JsonConvert.DeserializeObject<List<MapList>>(rotation),
@@ -4243,7 +4243,7 @@ namespace HawkSync_SM.RCClasses
                 int InstanceIndex = -1;
                 foreach (var item in _state.Instances)
                 {
-                    if (item.Value.Id == serverID)
+                    if (item.Value.instanceID == serverID)
                     {
                         InstanceIndex = item.Key;
                         break;
@@ -4260,14 +4260,14 @@ namespace HawkSync_SM.RCClasses
                     SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_map_rotations` SET `description` = @description, `mapcycle` = @mapcycle WHERE `rotation_id` = @rotationid AND `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@description", description);
                     cmd.Parameters.AddWithValue("@mapcycle", rotation);
-                    cmd.Parameters.AddWithValue("@rotationid", _state.Instances[InstanceIndex].savedmaprotations[rotationId].RotationID);
-                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].Id);
+                    cmd.Parameters.AddWithValue("@rotationid", _state.Instances[InstanceIndex].MapListRotationDB[rotationId].RotationID);
+                    cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
                     db.Close();
                     db.Dispose();
-                    _state.Instances[InstanceIndex].savedmaprotations[rotationId].Description = description;
-                    _state.Instances[InstanceIndex].savedmaprotations[rotationId].mapcycle = JsonConvert.DeserializeObject<List<MapList>>(rotation);
+                    _state.Instances[InstanceIndex].MapListRotationDB[rotationId].Description = description;
+                    _state.Instances[InstanceIndex].MapListRotationDB[rotationId].mapcycle = JsonConvert.DeserializeObject<List<MapList>>(rotation);
                     return RCListenerClass.StatusCodes.SUCCESS;
                 }
                 else
@@ -4326,7 +4326,7 @@ namespace HawkSync_SM.RCClasses
                 foreach (var item in userPermissions.InstancePermissions) {
                     foreach (var instance in _state.Instances)
                     {
-                        if (instance.Value.Id == item.Key)
+                        if (instance.Value.instanceID == item.Key)
                         {
                             serverKey = instance.Key;
                             break;

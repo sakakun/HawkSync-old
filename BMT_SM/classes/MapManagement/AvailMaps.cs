@@ -19,9 +19,9 @@ namespace HawkSync_SM.classes.MapManagement
         {
 
             // Clear the Current Available List Just in Case...
-            _state.Instances[ArrayID].availableMaps.Clear();
+            _state.Instances[ArrayID].MapListAvailable.Clear();
 
-            DirectoryInfo d = new DirectoryInfo(_state.Instances[ArrayID].GamePath);
+            DirectoryInfo d = new DirectoryInfo(_state.Instances[ArrayID].profileServerPath);
             List<int> numbers = new List<int>() { 128, 64, 32, 16, 8, 4, 2, 1 };
 
             List<string> badMapsList = new List<string>();
@@ -35,11 +35,11 @@ namespace HawkSync_SM.classes.MapManagement
                     string first_line = string.Empty;
                     try
                     {
-                        first_line = File.ReadLines(_state.Instances[ArrayID].GamePath + "\\" + file.Name, Encoding.Default).First().ToString();
+                        first_line = File.ReadLines(_state.Instances[ArrayID].profileServerPath + "\\" + file.Name, Encoding.Default).First().ToString();
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("File Name: " + file.Name + "\n" + "Reason: " + e.Message, "Skipping Map File");
+                        MessageBox.Show("File Name: " + file.Name + "\n" + "Reason: " + e.Message, "Skipping infoCurrentMapName File");
                         continue;
                     }
 
@@ -152,7 +152,7 @@ namespace HawkSync_SM.classes.MapManagement
                 });
             }
 
-            _state.Instances[ArrayID].availableMaps = availableMaps;
+            _state.Instances[ArrayID].MapListAvailable = availableMaps;
 
             db.Close();
             db.Dispose();
@@ -164,7 +164,7 @@ namespace HawkSync_SM.classes.MapManagement
                 {
                     badMaps += map + "\n";
                 }
-                MessageBox.Show("Could not read map title from:\n" + badMaps + "\nThis could due to a non-converted, or a corrupted file.", "Map List Error");
+                MessageBox.Show("Could not read map title from:\n" + badMaps + "\nThis could due to a non-converted, or a corrupted file.", "infoCurrentMapName List Error");
             }
 
         }

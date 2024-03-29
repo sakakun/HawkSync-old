@@ -91,7 +91,7 @@ namespace HawkSync_SM
             {
                 foreach (var instance in _state.Instances)
                 {
-                    comboBox1.Items.Add(instance.Value.GameName);
+                    comboBox1.Items.Add(instance.Value.profileName);
                 }
                 comboBox1.SelectedIndex = 0;
             }
@@ -908,8 +908,8 @@ namespace HawkSync_SM
                 foreach (var profile in _state.Instances)
                 {
                     DataRow newRow = profileAccess.NewRow();
-                    newRow["ID"] = profile.Value.Id;
-                    newRow["Profile Name"] = profile.Value.GameName;
+                    newRow["ID"] = profile.Value.instanceID;
+                    newRow["Profile Name"] = profile.Value.profileName;
                     profileAccess.Rows.Add(newRow);
                 }
             }
@@ -920,8 +920,8 @@ namespace HawkSync_SM
                     if (profile.Value.Access == true)
                     {
                         DataRow newRow = profileAccess.NewRow();
-                        newRow["ID"] = _state.Instances[profile.Key].Id;
-                        newRow["Profile Name"] = _state.Instances[profile.Key].GameName;
+                        newRow["ID"] = _state.Instances[profile.Key].instanceID;
+                        newRow["Profile Name"] = _state.Instances[profile.Key].profileName;
                         profileAccess.Rows.Add(newRow);
                     }
                 }
@@ -985,7 +985,7 @@ namespace HawkSync_SM
                 comboBox1.Items.Clear();
                 foreach (var item in primaryUserPermissions)
                 {
-                    comboBox1.Items.Add(_state.Instances[item.Key].GameName);
+                    comboBox1.Items.Add(_state.Instances[item.Key].profileName);
                 }
                 comboBox1.SelectedIndex = 0;
             }

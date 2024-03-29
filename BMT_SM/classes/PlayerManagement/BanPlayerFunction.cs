@@ -12,10 +12,10 @@ namespace HawkSync_SM
                 if (banLimit == "-1")
                 {
                     // perm ban
-                    _instances.BanList.Add(new ob_playerBanList
+                    _instances.PlayerListBans.Add(new ob_playerBanList
                     {
                         expires = banLimit,
-                        id = _instances.BanList.Count,
+                        id = _instances.PlayerListBans.Count,
                         ipaddress = _instances.PlayerList[slotNum].address,
                         lastseen = DateTime.Now,
                         newBan = true,
@@ -35,7 +35,7 @@ namespace HawkSync_SM
                     lastID_query.Dispose();
                     SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
                     query.Parameters.AddWithValue("@newid", NextID);
-                    query.Parameters.AddWithValue("@profileid", _instances.Id);
+                    query.Parameters.AddWithValue("@profileid", _instances.instanceID);
                     query.Parameters.AddWithValue("@playername", _instances.PlayerList[slotNum].name);
                     query.Parameters.AddWithValue("@playerip", _instances.PlayerList[slotNum].address);
                     query.Parameters.AddWithValue("@dateadded", DateTime.Now);
@@ -55,7 +55,7 @@ namespace HawkSync_SM
                     SQLiteCommand lastID_query = new SQLiteCommand("SELECT `id` FROM `playerbans` ORDER BY `id` DESC LIMIT 1;", db);
                     int NextID = Convert.ToInt32(lastID_query.ExecuteScalar());
                     NextID++; // +1 for the NEXT ID
-                    _instances.BanList.Add(new ob_playerBanList
+                    _instances.PlayerListBans.Add(new ob_playerBanList
                     {
                         expires = DateTime.Parse(banLimit).ToString(),
                         id = NextID,
@@ -72,7 +72,7 @@ namespace HawkSync_SM
                     });
                     SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (@newid, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
                     query.Parameters.AddWithValue("@newid", NextID);
-                    query.Parameters.AddWithValue("@profileid", _instances.Id);
+                    query.Parameters.AddWithValue("@profileid", _instances.instanceID);
                     query.Parameters.AddWithValue("@playername", _instances.PlayerList[slotNum].name);
                     query.Parameters.AddWithValue("@playerip", _instances.PlayerList[slotNum].address);
                     query.Parameters.AddWithValue("@date", DateTime.Now);
@@ -88,10 +88,10 @@ namespace HawkSync_SM
             }
             else
             {
-                _instances.BanList.Add(new ob_playerBanList
+                _instances.PlayerListBans.Add(new ob_playerBanList
                 {
                     expires = DateTime.Parse(banLimit).ToString(),
-                    id = _instances.BanList.Count,
+                    id = _instances.PlayerListBans.Count,
                     ipaddress = _instances.PlayerList[slotNum].address,
                     lastseen = DateTime.Now,
                     newBan = true,

@@ -75,7 +75,7 @@ namespace HawkSync_SM
             _state = state;
 
             // set ID to global form...
-            Profile_ID = _state.Instances[id].Id;
+            Profile_ID = _state.Instances[id].instanceID;
             ArrayID = id;
             ServerManagerTimer = new Timer
             {
@@ -87,7 +87,7 @@ namespace HawkSync_SM
 
         private void ServerManagerTimer_Tick(object sender, EventArgs e)
         {
-            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
+            label_currentMapPlaying.Text = _state.Instances[ArrayID].infoCurrentMapName;
         }
 
         private void CustomWarningMenu(object sender, EventArgs e)
@@ -124,13 +124,13 @@ namespace HawkSync_SM
 
         private void UpdateBanList()
         {
-            if (_state.Instances[ArrayID].BanList.Count == 0)
+            if (_state.Instances[ArrayID].PlayerListBans.Count == 0)
             {
                 return;
             }
             else
             {
-                foreach (var ban in _state.Instances[ArrayID].BanList)
+                foreach (var ban in _state.Instances[ArrayID].PlayerListBans)
                 {
                     DataRow[] displayedBans = bannedPlayersTable.Select("`Name` = '" + ban.player + "' AND `IP Address` = '" + ban.ipaddress + "'");
                     if (displayedBans.Length == 0)
@@ -154,7 +154,7 @@ namespace HawkSync_SM
 
         private void CheckInstanceStatus()
         {
-            if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
+            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.OFFLINE)
             {
                 this.Close();
                 return;
@@ -304,7 +304,7 @@ namespace HawkSync_SM
         {
             listBox_mapsAvailable.Items.Clear();
             availableMaps.Clear();
-            foreach (var map in _state.Instances[ArrayID].availableMaps)
+            foreach (var map in _state.Instances[ArrayID].MapListAvailable)
             {
                 int gametypeIndex = -1;
                 string gametypeString = "";
@@ -380,22 +380,22 @@ namespace HawkSync_SM
         {
             if (process != null)
             {
-                if (_state.Instances[ArrayID].Status == InstanceStatus.LOADINGMAP)
+                if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP)
                 {
                     MessageBox.Show("You cannot score the map while the server is changing maps!", "Error");
                     return;
                 }
-                else if (_state.Instances[ArrayID].Status == InstanceStatus.OFFLINE)
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.OFFLINE)
                 {
                     MessageBox.Show("The server is offline! You shouldn't even be here!", "Error");
                     return;
                 }
-                else if (_state.Instances[ArrayID].Status == InstanceStatus.SCORING)
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)
                 {
                     MessageBox.Show("The server is already scoring! Please wait!", "Error");
                     return;
                 }
-                else if (_state.Instances[ArrayID].Status == InstanceStatus.STARTDELAY || _state.Instances[ArrayID].Status == InstanceStatus.ONLINE)
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.STARTDELAY || _state.Instances[ArrayID].instanceStatus == InstanceStatus.ONLINE)
                 {
                     IntPtr h = process.MainWindowHandle;
                     IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
@@ -533,16 +533,16 @@ namespace HawkSync_SM
                     selectedMaps.Insert(newIndex, mapEntry);
                     list_mapRotation.Items.Insert(newIndex, selected);
                     list_mapRotation.SetSelected(newIndex, true);
-                    _state.Instances[ArrayID].previousMapList = new Dictionary<int, MapList>();
+                    _state.Instances[ArrayID].MapListPrevious = new Dictionary<int, MapList>();
 
-                    foreach (var map in _state.Instances[ArrayID].MapList)
+                    foreach (var map in _state.Instances[ArrayID].MapListCurrent)
                     {
-                        _state.Instances[ArrayID].previousMapList.Add(_state.Instances[ArrayID].previousMapList.Count, map.Value);
+                        _state.Instances[ArrayID].MapListPrevious.Add(_state.Instances[ArrayID].MapListPrevious.Count, map.Value);
                     }
-                    _state.Instances[ArrayID].MapList = new Dictionary<int, MapList>();
+                    _state.Instances[ArrayID].MapListCurrent = new Dictionary<int, MapList>();
                     foreach (var selectedMapListEntry in selectedMaps)
                     {
-                        _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, selectedMapListEntry);
+                        _state.Instances[ArrayID].MapListCurrent.Add(_state.Instances[ArrayID].MapListCurrent.Count, selectedMapListEntry);
                     }
                 }
             }
@@ -560,7 +560,7 @@ namespace HawkSync_SM
                 value_banAdmin.Text = "";
                 return;
             }
-            if (_state.Instances[ArrayID].BanList.Count == 0)
+            if (_state.Instances[ArrayID].PlayerListBans.Count == 0)
             {
                 value_bdPlayerName.Text = "";
                 value_banReason.Text = "";
@@ -570,10 +570,10 @@ namespace HawkSync_SM
             }
             string playerName = grid_bannedPlayerList.Rows[grid_bannedPlayerList.CurrentCell.RowIndex].Cells[0].Value.ToString();
             string playerIP = grid_bannedPlayerList.Rows[grid_bannedPlayerList.CurrentCell.RowIndex].Cells[1].Value.ToString();
-            value_bdPlayerName.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].player;
-            value_banReason.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].reason;
-            value_banDateAdded.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].addedDate.ToString("MMM dd, yyyy h:mm tt");
-            value_banAdmin.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentRow.Index].bannedBy;
+            value_bdPlayerName.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentRow.Index].player;
+            value_banReason.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentRow.Index].reason;
+            value_banDateAdded.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentRow.Index].addedDate.ToString("MMM dd, yyyy h:mm tt");
+            value_banAdmin.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentRow.Index].bannedBy;
             */
         }
 
@@ -581,7 +581,7 @@ namespace HawkSync_SM
         {
             if (e.Button == MouseButtons.Right)
             {
-                int numPlayers = _state.Instances[ArrayID].NumPlayers;
+                int numPlayers = _state.Instances[ArrayID].infoNumPlayers;
                 if (numPlayers == 0)
                 {
                     return;
@@ -689,7 +689,7 @@ namespace HawkSync_SM
         private void dataGridView2_DoubleClick(object sender, EventArgs e)
         {
             //MessageBox.Show("You've clicked on ID: " + dataGridView2.CurrentCell.RowIndex);
-            int numPlayers = _state.Instances[ArrayID].NumPlayers;
+            int numPlayers = _state.Instances[ArrayID].infoNumPlayers;
             if (numPlayers == 0)
             {
                 return;
@@ -715,20 +715,20 @@ namespace HawkSync_SM
             if (cb_enableVPNChecks.Checked)
             {
                 num_vpnAbuseLevel.Enabled = true;
-                _state.Instances[ArrayID].enableVPNCheck = true;
+                _state.Instances[ArrayID].vpnCheckEnabled = true;
                 num_vpnAbuseLevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
             }
             else
             {
                 num_vpnAbuseLevel.Enabled = false;
-                _state.Instances[ArrayID].enableVPNCheck = false;
+                _state.Instances[ArrayID].vpnCheckEnabled = false;
                 num_vpnAbuseLevel.Value = 0;
             }
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `enableVPNCheck` = @vpnCheck WHERE `profile_id` = @profileid;", db);
-            cmd.Parameters.AddWithValue("@vpnCheck", Convert.ToInt32(_state.Instances[ArrayID].enableVPNCheck));
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `vpnCheckEnabled` = @vpnCheck WHERE `profile_id` = @profileid;", db);
+            cmd.Parameters.AddWithValue("@vpnCheck", Convert.ToInt32(_state.Instances[ArrayID].vpnCheckEnabled));
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
@@ -793,9 +793,9 @@ namespace HawkSync_SM
         {
             // disarm player
             int selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            if (!_state.Instances[ArrayID].DisarmPlayers.Contains(selectedPlayerSlot))
+            if (!_state.Instances[ArrayID].PlayerListDisarm.Contains(selectedPlayerSlot))
             {
-                _state.Instances[ArrayID].DisarmPlayers.Add(selectedPlayerSlot);
+                _state.Instances[ArrayID].PlayerListDisarm.Add(selectedPlayerSlot);
                 MessageBox.Show("Player has been disarmed!", "Success");
             }
             else
@@ -808,8 +808,8 @@ namespace HawkSync_SM
         {
             // rearm player
             int selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            _state.Instances[ArrayID].DisarmPlayers.Remove(selectedPlayerSlot);
-            Process process = Process.GetProcessById((int)_state.Instances[ArrayID].PID.GetValueOrDefault());
+            _state.Instances[ArrayID].PlayerListDisarm.Remove(selectedPlayerSlot);
+            Process process = Process.GetProcessById((int)_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
             IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
             int buffer = 0;
@@ -1668,79 +1668,79 @@ namespace HawkSync_SM
              * update Friendly Fire Warning
              * update Show Tracers
              * GAMEPLAY OPTIONS 1
-             * Need to find where the AutoBalance field is being held
+             * Need to find where the gameOptionAutoBalance field is being held
              * 
              */
-            if ((cb_autoBalance.Checked != _state.Instances[ArrayID].AutoBalance) || (cb_ffWarning.Checked != _state.Instances[ArrayID].FriendlyFireWarning) || (cb_Tracers.Checked != _state.Instances[ArrayID].ShowTracers) || (cb_friendFireKills.Checked != _state.Instances[ArrayID].FriendlyFire) || (cb_showFriendTags.Checked != _state.Instances[ArrayID].FriendlyTags) || (cb_TeamClays.Checked != _state.Instances[ArrayID].ShowTeamClays) || (cb_AutoRange.Checked != _state.Instances[ArrayID].AllowAutoRange))
+            if ((cb_autoBalance.Checked != _state.Instances[ArrayID].gameOptionAutoBalance) || (cb_ffWarning.Checked != _state.Instances[ArrayID].gameOptionFFWarn) || (cb_Tracers.Checked != _state.Instances[ArrayID].gameOptionShowTracers) || (cb_friendFireKills.Checked != _state.Instances[ArrayID].gameOptionFF) || (cb_showFriendTags.Checked != _state.Instances[ArrayID].gameOptionFriendlyTags) || (cb_TeamClays.Checked != _state.Instances[ArrayID].gameShowTeamClays) || (cb_AutoRange.Checked != _state.Instances[ArrayID].gameOptionAutoRange))
             {
-                _state.Instances[ArrayID].AutoBalance = cb_autoBalance.Checked;
-                _state.Instances[ArrayID].FriendlyFireWarning = cb_ffWarning.Checked;
-                _state.Instances[ArrayID].ShowTracers = cb_Tracers.Checked;
-                _state.Instances[ArrayID].FriendlyFire = cb_friendFireKills.Checked;
-                _state.Instances[ArrayID].FriendlyTags = cb_showFriendTags.Checked;
-                _state.Instances[ArrayID].ShowTeamClays = cb_TeamClays.Checked;
-                _state.Instances[ArrayID].AllowAutoRange = cb_AutoRange.Checked;
+                _state.Instances[ArrayID].gameOptionAutoBalance = cb_autoBalance.Checked;
+                _state.Instances[ArrayID].gameOptionFFWarn = cb_ffWarning.Checked;
+                _state.Instances[ArrayID].gameOptionShowTracers = cb_Tracers.Checked;
+                _state.Instances[ArrayID].gameOptionFF = cb_friendFireKills.Checked;
+                _state.Instances[ArrayID].gameOptionFriendlyTags = cb_showFriendTags.Checked;
+                _state.Instances[ArrayID].gameShowTeamClays = cb_TeamClays.Checked;
+                _state.Instances[ArrayID].gameOptionAutoRange = cb_AutoRange.Checked;
                 serverManagerUpdateMemory.GamePlayOptions(_state, ArrayID);
-                SQLiteCommand UpdateGamePlayOptionsOneCmd = new SQLiteCommand("UPDATE `instances_config` SET `auto_balance` = @AutoBalance, `friendly_fire_warning` = @FriendlyFireWarning, `show_tracers` = @ShowTracers, `friendly_fire` = @friendly_fire, `friendly_tags` = @friendlytags, `show_team_clays` = @show_team_clays, `allow_auto_range` = @AllowAutoRange WHERE `profile_id` = @profileid;", db);
-                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@AutoBalance", Convert.ToInt32(cb_autoBalance.Checked));
-                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@FriendlyFireWarning", Convert.ToInt32(cb_ffWarning.Checked));
-                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@ShowTracers", Convert.ToInt32(cb_Tracers.Checked));
+                SQLiteCommand UpdateGamePlayOptionsOneCmd = new SQLiteCommand("UPDATE `instances_config` SET `auto_balance` = @gameOptionAutoBalance, `friendly_fire_warning` = @gameOptionFFWarn, `show_tracers` = @gameOptionShowTracers, `friendly_fire` = @friendly_fire, `friendly_tags` = @friendlytags, `show_team_clays` = @show_team_clays, `allow_auto_range` = @gameOptionAutoRange WHERE `profile_id` = @profileid;", db);
+                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@gameOptionAutoBalance", Convert.ToInt32(cb_autoBalance.Checked));
+                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@gameOptionFFWarn", Convert.ToInt32(cb_ffWarning.Checked));
+                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@gameOptionShowTracers", Convert.ToInt32(cb_Tracers.Checked));
                 UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@friendly_fire", Convert.ToInt32(cb_friendFireKills.Checked));
                 UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@friendlytags", Convert.ToInt32(cb_showFriendTags.Checked));
                 UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@show_team_clays", Convert.ToInt32(cb_TeamClays.Checked));
-                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@AllowAutoRange", Convert.ToInt32(cb_AutoRange.Checked));
-                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@gameOptionAutoRange", Convert.ToInt32(cb_AutoRange.Checked));
+                UpdateGamePlayOptionsOneCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 UpdateGamePlayOptionsOneCmd.ExecuteNonQuery();
                 UpdateGamePlayOptionsOneCmd.Dispose();
             }
 
             // update server name
-            if (smT_serverName.Text != _state.Instances[ArrayID].ServerName)
+            if (smT_serverName.Text != _state.Instances[ArrayID].gameServerName)
             {
-                _state.Instances[ArrayID].ServerName = smT_serverName.Text;
+                _state.Instances[ArrayID].gameServerName = smT_serverName.Text;
                 serverManagerUpdateMemory.UpdateServerName(_state, ArrayID);
                 SQLiteCommand UpdateServerNameCmd = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @servername WHERE `profile_id` = @profileid;", db);
                 UpdateServerNameCmd.Parameters.AddWithValue("@servername", smT_serverName.Text);
-                UpdateServerNameCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                UpdateServerNameCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 UpdateServerNameCmd.ExecuteNonQuery();
                 UpdateServerNameCmd.Dispose();
             }
 
             // update country code
-            if (smCB_country.Text != _state.Instances[ArrayID].CountryCode)
+            if (smCB_country.Text != _state.Instances[ArrayID].gameCountryCode)
             {
-                _state.Instances[ArrayID].CountryCode = smCB_country.Text;
+                _state.Instances[ArrayID].gameCountryCode = smCB_country.Text;
                 serverManagerUpdateMemory.UpdateCountryCode(_state, ArrayID);
                 SQLiteCommand updateCountryCode = new SQLiteCommand("UPDATE `instances_config` SET `country_code` = @countrycode WHERE `profile_id` = @profileid;", db);
                 updateCountryCode.Parameters.AddWithValue("@countrycode", smCB_country.Text);
-                updateCountryCode.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateCountryCode.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateCountryCode.ExecuteNonQuery();
                 updateCountryCode.Dispose();
             }
 
             // Doesn't Work, can only be set on server start.
             /*
-            if (smT_serverPassword.Text != _state.Instances[ArrayID].Password)
+            if (smT_serverPassword.Text != _state.Instances[ArrayID].gamePasswordLobby)
             {
-                int oldPw = _state.Instances[ArrayID].Password.Length;
-                _state.Instances[ArrayID].Password = smT_serverPassword.Text;
+                int oldPw = _state.Instances[ArrayID].gamePasswordLobby.Length;
+                _state.Instances[ArrayID].gamePasswordLobby = smT_serverPassword.Text;
                 serverManagerUpdateMemory.UpdateServerPassword(_state, ArrayID, oldPw);
                 SQLiteCommand updateServerPasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `server_password` = @serverpassword WHERE `profile_id` = @profileid;", db);
                 updateServerPasswordCmd.Parameters.AddWithValue("@serverpassword", smT_serverPassword.Text);
-                updateServerPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateServerPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateServerPasswordCmd.ExecuteNonQuery();
                 updateServerPasswordCmd.Dispose();
             }*/
 
             // Doesn't Work, can only be set on server start? 
             /*
-            if (smCB_sessionType.SelectedIndex != _state.Instances[ArrayID].SessionType)
+            if (smCB_sessionType.SelectedIndex != _state.Instances[ArrayID].gameSessionType)
             {
-                _state.Instances[ArrayID].SessionType = smCB_sessionType.SelectedIndex;
+                _state.Instances[ArrayID].gameSessionType = smCB_sessionType.SelectedIndex;
                 serverManagerUpdateMemory.UpdateSessionType(_state, ArrayID);
                 SQLiteCommand updateSessionTypeCmd = new SQLiteCommand("UPDATE `instances_config` SET `session_type` = @sessiontype WHERE `profile_id` = @profileid;", db);
                 updateSessionTypeCmd.Parameters.AddWithValue("@sessiontype", smCB_sessionType.SelectedIndex);
-                updateSessionTypeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateSessionTypeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateSessionTypeCmd.ExecuteNonQuery();
                 updateSessionTypeCmd.Dispose();
             }*/
@@ -1748,45 +1748,45 @@ namespace HawkSync_SM
             /*
              * update Max Slots
              */
-            if (Convert.ToInt32(smNum_maxSlots.Value) != _state.Instances[ArrayID].MaxSlots)
+            if (Convert.ToInt32(smNum_maxSlots.Value) != _state.Instances[ArrayID].gameMaxSlots)
             {
-                _state.Instances[ArrayID].MaxSlots = Convert.ToInt32(smNum_maxSlots.Value);
+                _state.Instances[ArrayID].gameMaxSlots = Convert.ToInt32(smNum_maxSlots.Value);
                 serverManagerUpdateMemory.UpdateMaxSlots(_state, ArrayID);
                 SQLiteCommand updateMaxSlotsCmd = new SQLiteCommand("UPDATE `instances_config` SET `max_slots` = @maxslots WHERE `profile_id` = @profileid;", db);
                 updateMaxSlotsCmd.Parameters.AddWithValue("@maxslots", Convert.ToInt32(smNum_maxSlots.Value));
-                updateMaxSlotsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateMaxSlotsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateMaxSlotsCmd.ExecuteNonQuery();
                 updateMaxSlotsCmd.Dispose();
             }
 
             /*
              * update Time Limit
-             * Need to find where the TimeLimit field is being held
+             * Need to find where the gameTimeLimit field is being held
              * 
              */
-            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].TimeLimit)
+            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].gameTimeLimit)
             {
-                _state.Instances[ArrayID].TimeLimit = cb_timeLimit.SelectedIndex;
+                _state.Instances[ArrayID].gameTimeLimit = cb_timeLimit.SelectedIndex;
                 serverManagerUpdateMemory.UpdateTimeLimit(_state, ArrayID);
                 SQLiteCommand updateTimeLimitCmd = new SQLiteCommand("UPDATE `instances_config` SET `time_limit` = @timelimit WHERE `profile_id` = @profileid;", db);
                 updateTimeLimitCmd.Parameters.AddWithValue("@timelimit", cb_timeLimit.SelectedIndex);
-                updateTimeLimitCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateTimeLimitCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateTimeLimitCmd.ExecuteNonQuery();
                 updateTimeLimitCmd.Dispose();
             }
 
             /*
              * update Start Delay
-             * Need to find where the StartDelay field is being held
+             * Need to find where the gameStartDelay field is being held
              * 
              */
-            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].StartDelay)
+            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].gameStartDelay)
             {
-                _state.Instances[ArrayID].StartDelay = cb_startDelay.SelectedIndex;
+                _state.Instances[ArrayID].gameStartDelay = cb_startDelay.SelectedIndex;
                 serverManagerUpdateMemory.UpdateStartDelay(_state, ArrayID);
                 SQLiteCommand updateStartDelayCmd = new SQLiteCommand("UPDATE `instances_config` SET `start_delay` = @startdelay WHERE `profile_id` = @profileid;", db);
                 updateStartDelayCmd.Parameters.AddWithValue("@startdelay", cb_startDelay.SelectedIndex);
-                updateStartDelayCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateStartDelayCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateStartDelayCmd.ExecuteNonQuery();
                 updateStartDelayCmd.Dispose();
             }
@@ -1796,13 +1796,13 @@ namespace HawkSync_SM
              * Need to find where the Loop Maps field is being held
              * 
              */
-            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].LoopMaps)
+            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].gameLoopMaps)
             {
-                _state.Instances[ArrayID].LoopMaps = cb_replayMaps.SelectedIndex;
+                _state.Instances[ArrayID].gameLoopMaps = cb_replayMaps.SelectedIndex;
                 serverManagerUpdateMemory.UpdateLoopMaps(_state, ArrayID);
                 SQLiteCommand updateLoopMapsCmd = new SQLiteCommand("UPDATE `instances_config` SET `loop_maps` = @loopmaps WHERE `profile_id` = @profileid;", db);
                 updateLoopMapsCmd.Parameters.AddWithValue("@loopmaps", cb_replayMaps.SelectedIndex);
-                updateLoopMapsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateLoopMapsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateLoopMapsCmd.ExecuteNonQuery();
                 updateLoopMapsCmd.Dispose();
             }
@@ -1812,29 +1812,29 @@ namespace HawkSync_SM
              * Need to find where the Respawn Time field is being held
              * 
              */
-            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].RespawnTime)
+            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].gameRespawnTime)
             {
-                _state.Instances[ArrayID].RespawnTime = cb_respawnTime.SelectedIndex;
+                _state.Instances[ArrayID].gameRespawnTime = cb_respawnTime.SelectedIndex;
                 serverManagerUpdateMemory.UpdateRespawnTime(_state, ArrayID);
                 SQLiteCommand updateRespawnTimeCmd = new SQLiteCommand("UPDATE `instances_config` SET `respawn_time` = @respawntime WHERE `profile_id` = @profileid;", db);
                 updateRespawnTimeCmd.Parameters.AddWithValue("@respawntime", cb_respawnTime.SelectedIndex);
-                updateRespawnTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateRespawnTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateRespawnTimeCmd.ExecuteNonQuery();
                 updateRespawnTimeCmd.Dispose();
             }
 
             /*
              * update Require Nova Login
-             * Need to find where the RequireNovaLogin field is being held
+             * Need to find where the gameRequireNova field is being held
              * 
              */
-            if (cb_requireNova.Checked != _state.Instances[ArrayID].RequireNovaLogin)
+            if (cb_requireNova.Checked != _state.Instances[ArrayID].gameRequireNova)
             {
-                _state.Instances[ArrayID].RequireNovaLogin = cb_requireNova.Checked;
+                _state.Instances[ArrayID].gameRequireNova = cb_requireNova.Checked;
                 serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, ArrayID);
                 SQLiteCommand updateRequireNovaLoginCmd = new SQLiteCommand("UPDATE `instances_config` SET `require_novalogic` = @requirenovalogic WHERE `profile_id` = @profileid;", db);
                 updateRequireNovaLoginCmd.Parameters.AddWithValue("@requirenovalogic", Convert.ToInt32(cb_requireNova.Checked));
-                updateRequireNovaLoginCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateRequireNovaLoginCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateRequireNovaLoginCmd.ExecuteNonQuery();
                 updateRequireNovaLoginCmd.Dispose();
 
@@ -1842,51 +1842,51 @@ namespace HawkSync_SM
 
             /*
              * update Allow Custom Skins
-             * Need to find where the AllowCustomSkins field is being held
+             * Need to find where the gameCustomSkins field is being held
              * 
              */
-            if (cb_customSkin.Checked != _state.Instances[ArrayID].AllowCustomSkins)
+            if (cb_customSkin.Checked != _state.Instances[ArrayID].gameCustomSkins)
             {
-                _state.Instances[ArrayID].AllowCustomSkins = cb_customSkin.Checked;
+                _state.Instances[ArrayID].gameCustomSkins = cb_customSkin.Checked;
                 serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, ArrayID);
                 SQLiteCommand updateCustomSkinsCmd = new SQLiteCommand("UPDATE `instances_config` SET `allow_custom_skins` = @customskins WHERE `profile_id` = @profileid;", db);
                 updateCustomSkinsCmd.Parameters.AddWithValue("@customskins", Convert.ToInt32(cb_customSkin.Checked));
-                updateCustomSkinsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateCustomSkinsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateCustomSkinsCmd.ExecuteNonQuery();
                 updateCustomSkinsCmd.Dispose();
             }
 
             /*
-             * update MOTD
-             * Need to find where the MOTD field is being held
+             * update gameMOTD
+             * Need to find where the gameMOTD field is being held
              * 
              */
-            if (richTextBox1.Text != _state.Instances[ArrayID].MOTD)
+            if (richTextBox1.Text != _state.Instances[ArrayID].gameMOTD)
             {
-                _state.Instances[ArrayID].MOTD = richTextBox1.Text;
+                _state.Instances[ArrayID].gameMOTD = richTextBox1.Text;
                 serverManagerUpdateMemory.UpdateMOTD(_state, ArrayID);
                 SQLiteCommand updateMOTDCmd = new SQLiteCommand("UPDATE `instances_config` SET `motd` = @motd WHERE `profile_id` = @profileid;", db);
                 updateMOTDCmd.Parameters.AddWithValue("@motd", richTextBox1.Text);
-                updateMOTDCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateMOTDCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateMOTDCmd.ExecuteNonQuery();
                 updateMOTDCmd.Dispose();
             }
 
             /*
-             * update MinPing /w MinPingValue
-             * Need to find where the MinPing and MinPingValue field are being held
+             * update gameMinPing /w gameMinPingValue
+             * Need to find where the gameMinPing and gameMinPingValue field are being held
              * 
              */
-            if (cb_minPing.Checked != _state.Instances[ArrayID].MinPing || Convert.ToInt32(num_minPing.Text) != _state.Instances[ArrayID].MinPingValue)
+            if (cb_minPing.Checked != _state.Instances[ArrayID].gameMinPing || Convert.ToInt32(num_minPing.Text) != _state.Instances[ArrayID].gameMinPingValue)
             {
-                _state.Instances[ArrayID].MinPing = cb_minPing.Checked;
+                _state.Instances[ArrayID].gameMinPing = cb_minPing.Checked;
                 if (cb_minPing.Checked == true)
                 {
-                    _state.Instances[ArrayID].MinPingValue = Convert.ToInt32(num_minPing.Text);
+                    _state.Instances[ArrayID].gameMinPingValue = Convert.ToInt32(num_minPing.Text);
                 }
                 else
                 {
-                    _state.Instances[ArrayID].MinPingValue = 0;
+                    _state.Instances[ArrayID].gameMinPingValue = 0;
                 }
                 serverManagerUpdateMemory.UpdateMinPing(_state, ArrayID);
                 serverManagerUpdateMemory.UpdateMinPingValue(_state, ArrayID);
@@ -1900,26 +1900,26 @@ namespace HawkSync_SM
                 {
                     updateMinPingCmd.Parameters.AddWithValue("@minpingvalue", 0);
                 }
-                updateMinPingCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateMinPingCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateMinPingCmd.ExecuteNonQuery();
                 updateMinPingCmd.Dispose();
             }
 
             /*
-             * update MaxPing /w MaxPingValue
-             * Need to find where the MaxPing and MaxPingValue field is being held
+             * update gameMaxPing /w gameMaxPingValue
+             * Need to find where the gameMaxPing and gameMaxPingValue field is being held
              * 
              */
-            if (cb_maxPing.Checked != _state.Instances[ArrayID].MaxPing || Convert.ToInt32(num_maxPing.Text) != _state.Instances[ArrayID].MaxPingValue)
+            if (cb_maxPing.Checked != _state.Instances[ArrayID].gameMaxPing || Convert.ToInt32(num_maxPing.Text) != _state.Instances[ArrayID].gameMaxPingValue)
             {
-                _state.Instances[ArrayID].MaxPing = cb_maxPing.Checked;
+                _state.Instances[ArrayID].gameMaxPing = cb_maxPing.Checked;
                 if (cb_maxPing.Checked == true)
                 {
-                    _state.Instances[ArrayID].MaxPingValue = Convert.ToInt32(num_maxPing.Text);
+                    _state.Instances[ArrayID].gameMaxPingValue = Convert.ToInt32(num_maxPing.Text);
                 }
                 else
                 {
-                    _state.Instances[ArrayID].MinPingValue = 0;
+                    _state.Instances[ArrayID].gameMinPingValue = 0;
                 }
                 serverManagerUpdateMemory.UpdateMaxPing(_state, ArrayID);
                 serverManagerUpdateMemory.UpdateMaxPingValue(_state, ArrayID);
@@ -1933,166 +1933,166 @@ namespace HawkSync_SM
                 {
                     updateMaxPingCmd.Parameters.AddWithValue("@maxpingvalue", 0);
                 }
-                updateMaxPingCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateMaxPingCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateMaxPingCmd.ExecuteNonQuery();
                 updateMaxPingCmd.Dispose();
             }
 
             /*
              * update One Shot Kills
-             * Need to find where the OneShotKills field is being held
+             * Need to find where the gameOneShotKills field is being held
              * 
              */
-            if (cb_oneShotKills.Checked != _state.Instances[ArrayID].OneShotKills)
+            if (cb_oneShotKills.Checked != _state.Instances[ArrayID].gameOneShotKills)
             {
-                _state.Instances[ArrayID].OneShotKills = cb_oneShotKills.Checked;
+                _state.Instances[ArrayID].gameOneShotKills = cb_oneShotKills.Checked;
                 serverManagerUpdateMemory.UpdateOneShotKills(_state, ArrayID);
                 SQLiteCommand updateOneShotCmd = new SQLiteCommand("UPDATE `instances_config` SET `oneshotkills` = @oneshotkills WHERE `profile_id` = @profileid;", db);
                 updateOneShotCmd.Parameters.AddWithValue("@oneshotkills", Convert.ToInt32(cb_oneShotKills.Checked));
-                updateOneShotCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateOneShotCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateOneShotCmd.ExecuteNonQuery();
                 updateOneShotCmd.Dispose();
             }
 
             /*
              * update Fat Bullets
-             * Need to find where the FatBullets field is being held
+             * Need to find where the gameFatBullets field is being held
              * 
              */
-            if (cb_fatBullets.Checked != _state.Instances[ArrayID].FatBullets)
+            if (cb_fatBullets.Checked != _state.Instances[ArrayID].gameFatBullets)
             {
-                _state.Instances[ArrayID].FatBullets = cb_fatBullets.Checked;
+                _state.Instances[ArrayID].gameFatBullets = cb_fatBullets.Checked;
                 serverManagerUpdateMemory.UpdateFatBullets(_state, ArrayID);
                 SQLiteCommand updateFatBulletsCmd = new SQLiteCommand("UPDATE `instances_config` SET `fatbullets` = @fatbullets WHERE `profile_id` = @profileid;", db);
                 updateFatBulletsCmd.Parameters.AddWithValue("@fatbullets", Convert.ToInt32(cb_fatBullets.Checked));
-                updateFatBulletsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateFatBulletsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateFatBulletsCmd.ExecuteNonQuery();
                 updateFatBulletsCmd.Dispose();
             }
 
             /*
              * update Destroy Buildings
-             * Need to find where the DestroyBuildings field is being held
+             * Need to find where the gameDestroyBuildings field is being held
              * 
              */
-            if (cb_destroyBuildings.Checked != _state.Instances[ArrayID].DestroyBuildings)
+            if (cb_destroyBuildings.Checked != _state.Instances[ArrayID].gameDestroyBuildings)
             {
-                _state.Instances[ArrayID].DestroyBuildings = cb_destroyBuildings.Checked;
+                _state.Instances[ArrayID].gameDestroyBuildings = cb_destroyBuildings.Checked;
                 serverManagerUpdateMemory.UpdateDestroyBuildings(_state, ArrayID);
                 SQLiteCommand updateDestroyBuildingsCmd = new SQLiteCommand("UPDATE `instances_config` SET `destroybuildings` = @destroybuildings WHERE `profile_id` = @profileid;", db);
                 updateDestroyBuildingsCmd.Parameters.AddWithValue("@destroybuildings", Convert.ToInt32(cb_destroyBuildings.Checked));
-                updateDestroyBuildingsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateDestroyBuildingsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateDestroyBuildingsCmd.ExecuteNonQuery();
                 updateDestroyBuildingsCmd.Dispose();
             }
 
             /*
-             * update Blue Password
-             * Need to find where the BluePassword field is being held
+             * update Blue gamePasswordLobby
+             * Need to find where the gamePasswordBlue field is being held
              * 
              */
-            if (text_bluePass.Text != _state.Instances[ArrayID].BluePassword)
+            if (text_bluePass.Text != _state.Instances[ArrayID].gamePasswordBlue)
             {
-                int oldPw = _state.Instances[ArrayID].BluePassword.Length;
-                _state.Instances[ArrayID].BluePassword = text_bluePass.Text;
+                int oldPw = _state.Instances[ArrayID].gamePasswordBlue.Length;
+                _state.Instances[ArrayID].gamePasswordBlue = text_bluePass.Text;
                 serverManagerUpdateMemory.UpdateBluePassword(_state, ArrayID, oldPw);
-                SQLiteCommand updateBluePasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `blue_team_password` = @BluePassword WHERE `profile_id` = @profileid;", db);
-                updateBluePasswordCmd.Parameters.AddWithValue("@BluePassword", text_bluePass.Text);
-                updateBluePasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                SQLiteCommand updateBluePasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `blue_team_password` = @gamePasswordBlue WHERE `profile_id` = @profileid;", db);
+                updateBluePasswordCmd.Parameters.AddWithValue("@gamePasswordBlue", text_bluePass.Text);
+                updateBluePasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateBluePasswordCmd.ExecuteNonQuery();
                 updateBluePasswordCmd.Dispose();
-                MessageBox.Show("Blue Team Password will be applied on the next map!");
+                MessageBox.Show("Blue Team gamePasswordLobby will be applied on the next map!");
             }
 
             /*
-             * update Red Password
-             * Need to find where the RedPassword field is being held
+             * update Red gamePasswordLobby
+             * Need to find where the gamePasswordRed field is being held
              * 
              */
-            if (text_redPass.Text != _state.Instances[ArrayID].RedPassword)
+            if (text_redPass.Text != _state.Instances[ArrayID].gamePasswordRed)
             {
-                int oldPw = _state.Instances[ArrayID].RedPassword.Length;
-                _state.Instances[ArrayID].RedPassword = text_redPass.Text;
+                int oldPw = _state.Instances[ArrayID].gamePasswordRed.Length;
+                _state.Instances[ArrayID].gamePasswordRed = text_redPass.Text;
                 serverManagerUpdateMemory.UpdateRedPassword(_state, ArrayID, oldPw);
-                SQLiteCommand updateRedPasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `red_team_password` = @RedPassword WHERE `profile_id` = @profileid;", db);
-                updateRedPasswordCmd.Parameters.AddWithValue("@RedPassword", text_redPass.Text);
-                updateRedPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                SQLiteCommand updateRedPasswordCmd = new SQLiteCommand("UPDATE `instances_config` SET `red_team_password` = @gamePasswordRed WHERE `profile_id` = @profileid;", db);
+                updateRedPasswordCmd.Parameters.AddWithValue("@gamePasswordRed", text_redPass.Text);
+                updateRedPasswordCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateRedPasswordCmd.ExecuteNonQuery();
                 updateRedPasswordCmd.Dispose();
-                MessageBox.Show("Red Team Password will be applied on the next map!");
+                MessageBox.Show("Red Team gamePasswordLobby will be applied on the next map!");
             }
 
-            if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].FlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].PSPTakeOverTime))
+            if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].gameFlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].gamePSPTOTimer))
             {
-                _state.Instances[ArrayID].FlagReturnTime = Convert.ToInt32(num_flagReturn.Value);
-                _state.Instances[ArrayID].PSPTakeOverTime = Convert.ToInt32(num_pspTimer.Value);
+                _state.Instances[ArrayID].gameFlagReturnTime = Convert.ToInt32(num_flagReturn.Value);
+                _state.Instances[ArrayID].gamePSPTOTimer = Convert.ToInt32(num_pspTimer.Value);
                 serverManagerUpdateMemory.UpdateFlagReturnTime(_state, ArrayID);
                 serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, ArrayID);
                 SQLiteCommand updateFlagReturnTimeCmd = new SQLiteCommand("UPDATE `instances_config` SET `flagreturntime` = @flagreturntime WHERE `profile_id` = @profileid;", db);
                 updateFlagReturnTimeCmd.Parameters.AddWithValue("@flagreturntime", Convert.ToInt32(num_flagReturn.Value));
-                updateFlagReturnTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateFlagReturnTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateFlagReturnTimeCmd.ExecuteNonQuery();
                 updateFlagReturnTimeCmd.Dispose();
                 SQLiteCommand updatePSPTakeOverTimeCmd = new SQLiteCommand("UPDATE `instances_config` SET `psptakeover` = @psptakeover WHERE `profile_id` = @profileid;", db);
                 updatePSPTakeOverTimeCmd.Parameters.AddWithValue("@psptakeover", Convert.ToInt32(num_pspTimer.Value));
-                updatePSPTakeOverTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updatePSPTakeOverTimeCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updatePSPTakeOverTimeCmd.ExecuteNonQuery();
                 updatePSPTakeOverTimeCmd.Dispose();
             }
 
-            if (Convert.ToInt32(num_MaxTeamLives.Value) != _state.Instances[ArrayID].MaxTeamLives)
+            if (Convert.ToInt32(num_MaxTeamLives.Value) != _state.Instances[ArrayID].gameMaxTeamLives)
             {
-                _state.Instances[ArrayID].MaxTeamLives = Convert.ToInt32(num_MaxTeamLives.Value);
+                _state.Instances[ArrayID].gameMaxTeamLives = Convert.ToInt32(num_MaxTeamLives.Value);
                 serverManagerUpdateMemory.UpdateMaxTeamLives(_state, ArrayID);
-                SQLiteCommand updateMaxTeamLivesCmd = new SQLiteCommand("UPDATE `instances_config` SET `max_team_lives` = @MaxTeamLives WHERE `profile_id` = @profileid;", db);
-                updateMaxTeamLivesCmd.Parameters.AddWithValue("@MaxTeamLives", Convert.ToInt32(num_MaxTeamLives.Value));
-                updateMaxTeamLivesCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                SQLiteCommand updateMaxTeamLivesCmd = new SQLiteCommand("UPDATE `instances_config` SET `max_team_lives` = @gameMaxTeamLives WHERE `profile_id` = @profileid;", db);
+                updateMaxTeamLivesCmd.Parameters.AddWithValue("@gameMaxTeamLives", Convert.ToInt32(num_MaxTeamLives.Value));
+                updateMaxTeamLivesCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateMaxTeamLivesCmd.ExecuteNonQuery();
                 updateMaxTeamLivesCmd.Dispose();
             }
 
             /*
              * update Friendly Fire Kills
-             * Need to find where the FriendlyFireKills field is being held
+             * Need to find where the gameFriendlyFireKills field is being held
              * Kicks a player if their FF is above this point.
              * 
              */
-            if (Convert.ToInt32(num_maxFriendKills.Value) != _state.Instances[ArrayID].FriendlyFireKills)
+            if (Convert.ToInt32(num_maxFriendKills.Value) != _state.Instances[ArrayID].gameFriendlyFireKills)
             {
-                _state.Instances[ArrayID].FriendlyFireKills = Convert.ToInt32(num_maxFriendKills.Value);
+                _state.Instances[ArrayID].gameFriendlyFireKills = Convert.ToInt32(num_maxFriendKills.Value);
                 serverManagerUpdateMemory.UpdateFriendlyFireKills(_state, ArrayID);
-                SQLiteCommand updateFriendlyFireKillsCmd = new SQLiteCommand("UPDATE `instances_config` SET `friendly_fire_kills` = @FriendlyFireKills WHERE `profile_id` = @profileid;", db);
-                updateFriendlyFireKillsCmd.Parameters.AddWithValue("@FriendlyFireKills", Convert.ToInt32(num_maxFriendKills.Value));
-                updateFriendlyFireKillsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                SQLiteCommand updateFriendlyFireKillsCmd = new SQLiteCommand("UPDATE `instances_config` SET `friendly_fire_kills` = @gameFriendlyFireKills WHERE `profile_id` = @profileid;", db);
+                updateFriendlyFireKillsCmd.Parameters.AddWithValue("@gameFriendlyFireKills", Convert.ToInt32(num_maxFriendKills.Value));
+                updateFriendlyFireKillsCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateFriendlyFireKillsCmd.ExecuteNonQuery();
                 updateFriendlyFireKillsCmd.Dispose();
             }
 
             // Flag Ball Score
-            if (num_scoreFB.Value != _state.Instances[ArrayID].FBScore)
+            if (num_scoreFB.Value != _state.Instances[ArrayID].gameScoreFlags)
             {
-                _state.Instances[ArrayID].FBScore = Convert.ToInt32(num_scoreFB.Value);
+                _state.Instances[ArrayID].gameScoreFlags = Convert.ToInt32(num_scoreFB.Value);
                 SQLiteCommand updateFBScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `fbscore` = @fbscore WHERE `profile_id` = @profileid;", db);
-                updateFBScoreCmd.Parameters.AddWithValue("@fbscore", _state.Instances[ArrayID].FBScore);
-                updateFBScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateFBScoreCmd.Parameters.AddWithValue("@fbscore", _state.Instances[ArrayID].gameScoreFlags);
+                updateFBScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateFBScoreCmd.ExecuteNonQuery();
                 updateFBScoreCmd.Dispose();
             }
-            if (num_scoreKOTH.Value != _state.Instances[ArrayID].ZoneTimer)
+            if (num_scoreKOTH.Value != _state.Instances[ArrayID].gameScoreZoneTime)
             {
-                _state.Instances[ArrayID].ZoneTimer = Convert.ToInt32(num_scoreKOTH.Value);
+                _state.Instances[ArrayID].gameScoreZoneTime = Convert.ToInt32(num_scoreKOTH.Value);
                 SQLiteCommand updateKOTHScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
-                updateKOTHScoreCmd.Parameters.AddWithValue("@zoneTimer", _state.Instances[ArrayID].ZoneTimer);
-                updateKOTHScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateKOTHScoreCmd.Parameters.AddWithValue("@zoneTimer", _state.Instances[ArrayID].gameScoreZoneTime);
+                updateKOTHScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateKOTHScoreCmd.ExecuteNonQuery();
                 updateKOTHScoreCmd.Dispose();
             }
-            if (num_scoreDM.Value != _state.Instances[ArrayID].GameScore)
+            if (num_scoreDM.Value != _state.Instances[ArrayID].gameScoreKills)
             {
-                _state.Instances[ArrayID].GameScore = Convert.ToInt32(num_scoreDM.Value);
+                _state.Instances[ArrayID].gameScoreKills = Convert.ToInt32(num_scoreDM.Value);
                 SQLiteCommand updateGameScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `game_score` = @gamescore WHERE `profile_id` = @profileid;", db);
-                updateGameScoreCmd.Parameters.AddWithValue("@gamescore", _state.Instances[ArrayID].GameScore);
-                updateGameScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateGameScoreCmd.Parameters.AddWithValue("@gamescore", _state.Instances[ArrayID].gameScoreKills);
+                updateGameScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateGameScoreCmd.ExecuteNonQuery();
                 updateGameScoreCmd.Dispose();
             }
@@ -2142,16 +2142,16 @@ namespace HawkSync_SM
             serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, ArrayID);
 
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `weaponrestrictions` = @weaponrestrictions WHERE `profile_id` = @profileid;", db);
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.Parameters.AddWithValue("@weaponrestrictions", JsonConvert.SerializeObject(weaponsClass));
             cmd.ExecuteNonQuery();
 
-            if (endOfMapTimer_TrackBar.Value != _state.Instances[ArrayID].ScoreBoardDelay)
+            if (endOfMapTimer_TrackBar.Value != _state.Instances[ArrayID].gameScoreBoardDelay)
             {
-                _state.Instances[ArrayID].ScoreBoardDelay = endOfMapTimer_TrackBar.Value;
+                _state.Instances[ArrayID].gameScoreBoardDelay = endOfMapTimer_TrackBar.Value;
                 SQLiteCommand updateGameScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `scoreboard_override` = @scoreboard_override WHERE `profile_id` = @profileid;", db);
-                updateGameScoreCmd.Parameters.AddWithValue("@scoreboard_override", _state.Instances[ArrayID].ScoreBoardDelay);
-                updateGameScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                updateGameScoreCmd.Parameters.AddWithValue("@scoreboard_override", _state.Instances[ArrayID].gameScoreBoardDelay);
+                updateGameScoreCmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 updateGameScoreCmd.ExecuteNonQuery();
                 updateGameScoreCmd.Dispose();
             }
@@ -2167,7 +2167,7 @@ namespace HawkSync_SM
             DialogResult killPlayer = MessageBox.Show("Are you sure you want to kill: " + _state.Instances[ArrayID].PlayerList[slotNum].name + " ?", "Important!", MessageBoxButtons.YesNo);
             if (killPlayer == DialogResult.Yes)
             {
-                Process process = Process.GetProcessById((int)_state.Instances[ArrayID].PID.GetValueOrDefault());
+                Process process = Process.GetProcessById((int)_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
                 IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
                 int buffer = 0;
@@ -2214,9 +2214,9 @@ namespace HawkSync_SM
             // activate God Mode
             int slotNum = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
             // check if user is already in GodMode...
-            if (!_state.Instances[ArrayID].GodModeList.Contains(slotNum))
+            if (!_state.Instances[ArrayID].PlayerListGodMod.Contains(slotNum))
             {
-                _state.Instances[ArrayID].GodModeList.Add(slotNum);
+                _state.Instances[ArrayID].PlayerListGodMod.Add(slotNum);
                 MessageBox.Show("God mode has been activated successfully!", "Success");
             }
             else
@@ -2230,10 +2230,10 @@ namespace HawkSync_SM
             // deactivate God Mode
             int slotNum = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
 
-            if (_state.Instances[ArrayID].GodModeList.Contains(slotNum))
+            if (_state.Instances[ArrayID].PlayerListGodMod.Contains(slotNum))
             {
-                _state.Instances[ArrayID].GodModeList.Remove(slotNum);
-                Process process = Process.GetProcessById((int)_state.Instances[ArrayID].PID.GetValueOrDefault());
+                _state.Instances[ArrayID].PlayerListGodMod.Remove(slotNum);
+                Process process = Process.GetProcessById((int)_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
                 IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
 
                 int buffer = 0;
@@ -2292,7 +2292,7 @@ namespace HawkSync_SM
                 switchTeam = ob_playerList.Teams.TEAM_BLUE;
             }
 
-            _state.Instances[ArrayID].ChangeTeamList.Add(new ob_playerChangeTeamList
+            _state.Instances[ArrayID].TeamListChange.Add(new ob_playerChangeTeamList
             {
                 slotNum = slotNum,
                 Team = (int)switchTeam
@@ -2309,8 +2309,8 @@ namespace HawkSync_SM
                 MessageBox.Show("Invalid IP Address Provided!", "Error");
                 return;
             }
-            int index = _state.Instances[ArrayID].VPNWhiteList.Count;
-            _state.Instances[ArrayID].VPNWhiteList.Add(index, new ob_ipWhitelist
+            int index = _state.Instances[ArrayID].IPWhiteList.Count;
+            _state.Instances[ArrayID].IPWhiteList.Add(index, new ob_ipWhitelist
             {
                 Description = description,
                 IPAddress = ipaddress.ToString()
@@ -2318,7 +2318,7 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.Parameters.AddWithValue("@description", description);
             cmd.Parameters.AddWithValue("@PublicIP", ipaddress.ToString());
             cmd.ExecuteNonQuery();
@@ -2344,7 +2344,7 @@ namespace HawkSync_SM
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `warnlevel` = @warnlevel WHERE `profile_id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@warnlevel", _state.IPQualityCache[ArrayID].WarnLevel);
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
@@ -2356,13 +2356,13 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid AND `description` = @description AND `address` = @PublicIP;", db);
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
-            cmd.Parameters.AddWithValue("@description", _state.Instances[ArrayID].VPNWhiteList[index].Description);
-            cmd.Parameters.AddWithValue("@PublicIP", _state.Instances[ArrayID].VPNWhiteList[index].IPAddress.ToString());
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
+            cmd.Parameters.AddWithValue("@description", _state.Instances[ArrayID].IPWhiteList[index].Description);
+            cmd.Parameters.AddWithValue("@PublicIP", _state.Instances[ArrayID].IPWhiteList[index].IPAddress.ToString());
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
-            _state.Instances[ArrayID].VPNWhiteList.Remove(index);
+            _state.Instances[ArrayID].IPWhiteList.Remove(index);
             grid_vpn_allowlist.DataSource = GenerateVPNTable();
             MessageBox.Show("IP Address Removed Successfully.", "Success");
         }
@@ -2404,7 +2404,7 @@ namespace HawkSync_SM
             bannedPlayersTable.Columns.Add("Time Remaining".ToString());
 
 
-            foreach (var item in _state.Instances[ArrayID].BanList)
+            foreach (var item in _state.Instances[ArrayID].PlayerListBans)
             {
                 DataRow bannedRow = bannedPlayersTable.NewRow();
                 bannedRow["Name"] = item.player;
@@ -2464,46 +2464,46 @@ namespace HawkSync_SM
             }
             dropDown_mapSettingsGameType.SelectedIndex = 0;
 
-            // get PID from database
-            process = Process.GetProcessById(_state.Instances[ArrayID].PID.GetValueOrDefault());
-            smT_serverName.Text = _state.Instances[ArrayID].ServerName;
-            smT_serverPassword.Text = _state.Instances[ArrayID].Password;
-            smCB_country.SelectedItem = _state.Instances[ArrayID].CountryCode;
-            smCB_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
-            smNum_maxSlots.Value = _state.Instances[ArrayID].MaxSlots;
-            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].LoopMaps;
-            num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
-            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            cb_gameDedicated.Checked = _state.Instances[ArrayID].Dedicated;
-            cb_requireNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            cb_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            cb_autoBalance.Checked = _state.Instances[ArrayID].AutoBalance;
-            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
-            num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
-            richTextBox1.Text = _state.Instances[ArrayID].MOTD;
-            cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
-            cb_oneShotKills.Checked = _state.Instances[ArrayID].OneShotKills;
-            cb_destroyBuildings.Checked = _state.Instances[ArrayID].DestroyBuildings;
-            num_minPing.Text = _state.Instances[ArrayID].MinPingValue.ToString();
-            cb_maxPing.Checked = _state.Instances[ArrayID].MaxPing;
-            num_maxPing.Text = _state.Instances[ArrayID].MaxPingValue.ToString();
-            cb_friendFireKills.Checked = _state.Instances[ArrayID].FriendlyFire;
-            cb_showFriendTags.Checked = _state.Instances[ArrayID].FriendlyTags;
-            cb_ffWarning.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            num_maxFriendKills.Value = _state.Instances[ArrayID].FriendlyFireKills;
-            text_bluePass.Text = _state.Instances[ArrayID].BluePassword;
-            text_redPass.Text = _state.Instances[ArrayID].RedPassword;
-            cb_Tracers.Checked = _state.Instances[ArrayID].ShowTracers;
-            cb_TeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
-            cb_fatBullets.Checked = _state.Instances[ArrayID].FatBullets;
+            // get instanceAttachedPID from database
+            process = Process.GetProcessById(_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
+            smT_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            smT_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
+            smCB_country.SelectedItem = _state.Instances[ArrayID].gameCountryCode;
+            smCB_sessionType.SelectedIndex = _state.Instances[ArrayID].gameSessionType;
+            smNum_maxSlots.Value = _state.Instances[ArrayID].gameMaxSlots;
+            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].gameLoopMaps;
+            num_pspTimer.Value = _state.Instances[ArrayID].gamePSPTOTimer;
+            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            cb_gameDedicated.Checked = _state.Instances[ArrayID].gameDedicated;
+            cb_requireNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            cb_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            cb_autoBalance.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            num_flagReturn.Value = _state.Instances[ArrayID].gameFlagReturnTime;
+            num_MaxTeamLives.Value = _state.Instances[ArrayID].gameMaxTeamLives;
+            richTextBox1.Text = _state.Instances[ArrayID].gameMOTD;
+            cb_minPing.Checked = _state.Instances[ArrayID].gameMinPing;
+            cb_oneShotKills.Checked = _state.Instances[ArrayID].gameOneShotKills;
+            cb_destroyBuildings.Checked = _state.Instances[ArrayID].gameDestroyBuildings;
+            num_minPing.Text = _state.Instances[ArrayID].gameMinPingValue.ToString();
+            cb_maxPing.Checked = _state.Instances[ArrayID].gameMaxPing;
+            num_maxPing.Text = _state.Instances[ArrayID].gameMaxPingValue.ToString();
+            cb_friendFireKills.Checked = _state.Instances[ArrayID].gameOptionFF;
+            cb_showFriendTags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            cb_ffWarning.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            num_maxFriendKills.Value = _state.Instances[ArrayID].gameFriendlyFireKills;
+            text_bluePass.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            text_redPass.Text = _state.Instances[ArrayID].gamePasswordRed;
+            cb_Tracers.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            cb_TeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            cb_AutoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
+            cb_fatBullets.Checked = _state.Instances[ArrayID].gameFatBullets;
             cb_enableAutoMsg.Checked = Convert.ToBoolean(_state.Instances[ArrayID].AutoMessages.enable_msg);
             num_autoMsgInterval.ValueChanged -= new EventHandler(this.numericUpDown1_ValueChanged);
             num_autoMsgInterval.Value = _state.Instances[ArrayID].AutoMessages.interval;
             num_autoMsgInterval.ValueChanged += numericUpDown1_ValueChanged;
-            foreach (var map in _state.Instances[ArrayID].MapList)
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
             {
                 list_mapRotation.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" + map.Value.MapFile + ">");
                 selectedMaps.Add(new MapList
@@ -2622,17 +2622,17 @@ namespace HawkSync_SM
             {
                 listBox_playerWarnMessages.Items.Add(warnMsg);
             }
-            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
+            label_currentMapPlaying.Text = _state.Instances[ArrayID].infoCurrentMapName;
 
 
             // enable/Disable VPNCheck for Instance
-            cb_enableVPNChecks.Checked = _state.Instances[ArrayID].enableVPNCheck;
+            cb_enableVPNChecks.Checked = _state.Instances[ArrayID].vpnCheckEnabled;
             num_vpnAbuseLevel.Value = _state.IPQualityCache[ArrayID].WarnLevel;
 
-            num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
-            num_scoreKOTH.Value = _state.Instances[ArrayID].ZoneTimer;
-            num_scoreDM.Value = _state.Instances[ArrayID].GameScore;
-            endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].ScoreBoardDelay;
+            num_scoreFB.Value = _state.Instances[ArrayID].gameScoreFlags;
+            num_scoreKOTH.Value = _state.Instances[ArrayID].gameScoreZoneTime;
+            num_scoreDM.Value = _state.Instances[ArrayID].gameScoreKills;
+            endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].gameScoreBoardDelay;
 
         }
 
@@ -2642,7 +2642,7 @@ namespace HawkSync_SM
             VPNTable.Columns.Add("Description".ToString());
             VPNTable.Columns.Add("IP Address".ToString());
 
-            foreach (var item in _state.Instances[ArrayID].VPNWhiteList)
+            foreach (var item in _state.Instances[ArrayID].IPWhiteList)
             {
                 DataRow newRow = VPNTable.NewRow();
                 newRow["Description"] = item.Value.Description;
@@ -2675,7 +2675,7 @@ namespace HawkSync_SM
             */
             int colorbuffer_written = 0;
             byte[] colorcode;
-            Process process = Process.GetProcessById(_state.Instances[ArrayID].PID.GetValueOrDefault());
+            Process process = Process.GetProcessById(_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
             IntPtr h = process.MainWindowHandle;
             IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
             switch (MsgLocation)
@@ -2764,7 +2764,7 @@ namespace HawkSync_SM
             db.Open();
 
             SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
-            query.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            query.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             query.Parameters.AddWithValue("@playername", playerName);
             query.Parameters.AddWithValue("@playerip", ipaddress);
             query.Parameters.AddWithValue("@date", DateTime.Now);
@@ -2774,7 +2774,7 @@ namespace HawkSync_SM
             query.Parameters.AddWithValue("@bannedby", drop_adminList.SelectedItem.ToString());
             query.ExecuteNonQuery();
             query.Dispose();
-            _state.Instances[ArrayID].BanList.Add(new ob_playerBanList
+            _state.Instances[ArrayID].PlayerListBans.Add(new ob_playerBanList
             {
                 expires = "-1",
                 id = (int)db.LastInsertRowId,
@@ -2821,9 +2821,9 @@ namespace HawkSync_SM
             string playerName = grid_bannedPlayerList.Rows[grid_bannedPlayerList.CurrentCell.RowIndex].Cells[0].Value.ToString();
             string playerIP = grid_bannedPlayerList.Rows[grid_bannedPlayerList.CurrentCell.RowIndex].Cells[1].Value.ToString();
             int playerIndex = -1;
-            for (int i = 0; i < _state.Instances[ArrayID].BanList.Count; i++)
+            for (int i = 0; i < _state.Instances[ArrayID].PlayerListBans.Count; i++)
             {
-                if (_state.Instances[ArrayID].BanList[i].ipaddress == playerIP && _state.Instances[ArrayID].BanList[i].player == playerName)
+                if (_state.Instances[ArrayID].PlayerListBans[i].ipaddress == playerIP && _state.Instances[ArrayID].PlayerListBans[i].player == playerName)
                 {
                     playerIndex = i;
                     break;
@@ -2839,13 +2839,13 @@ namespace HawkSync_SM
                 SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
-                cmd.Parameters.AddWithValue("@banid", _state.Instances[ArrayID].BanList[playerIndex].id);
-                cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                cmd.Parameters.AddWithValue("@banid", _state.Instances[ArrayID].PlayerListBans[playerIndex].id);
+                cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 db.Close();
                 db.Dispose();
-                _state.Instances[ArrayID].BanList.RemoveAt(playerIndex);
+                _state.Instances[ArrayID].PlayerListBans.RemoveAt(playerIndex);
                 bannedPlayersTable.Rows.Remove(bannedPlayersTable.Rows[grid_bannedPlayerList.CurrentRow.Index]);
 
                 int index = -1;
@@ -2904,7 +2904,7 @@ namespace HawkSync_SM
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `id` = @warningid AND `instanceid` = @instanceid;", db);
             cmd.Parameters.AddWithValue("@warningid", index);
-            cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].instanceID);
             cmd.ExecuteNonQuery();
             db.Close();
             _state.Instances[ArrayID].CustomWarnings.RemoveAt(index);
@@ -2923,7 +2923,7 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `customwarnings` (`id`, `instanceid`, `message`) VALUES (NULL, @instanceid, @warningmsg);", db);
-            cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].instanceID);
             cmd.Parameters.AddWithValue("@warningmsg", textBox_playerWarnMessageAdd.Text);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
@@ -2985,23 +2985,23 @@ namespace HawkSync_SM
 
         private void button23_Click(object sender, EventArgs e)
         {
-            if (_state.Instances[ArrayID].Status == InstanceStatus.LOADINGMAP || _state.Instances[ArrayID].Status == InstanceStatus.SCORING)
+            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP || _state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)
             {
                 MessageBox.Show("Please wait for the server to change maps before updating the map cycle!", "Error");
                 return;
             }
-            _state.Instances[ArrayID].previousMapList.Clear(); // because fuck you
-            _state.Instances[ArrayID].previousMapList = new Dictionary<int, MapList>();
-            foreach (var mapEntry in _state.Instances[ArrayID].MapList)
+            _state.Instances[ArrayID].MapListPrevious.Clear(); // because fuck you
+            _state.Instances[ArrayID].MapListPrevious = new Dictionary<int, MapList>();
+            foreach (var mapEntry in _state.Instances[ArrayID].MapListCurrent)
             {
-                _state.Instances[ArrayID].previousMapList.Add(_state.Instances[ArrayID].previousMapList.Count, mapEntry.Value);
+                _state.Instances[ArrayID].MapListPrevious.Add(_state.Instances[ArrayID].MapListPrevious.Count, mapEntry.Value);
             }
 
-            _state.Instances[ArrayID].MapList.Clear(); // because fuck you
-            _state.Instances[ArrayID].MapList = new Dictionary<int, MapList>();
+            _state.Instances[ArrayID].MapListCurrent.Clear(); // because fuck you
+            _state.Instances[ArrayID].MapListCurrent = new Dictionary<int, MapList>();
             foreach (var map in selectedMaps)
             {
-                _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, map);
+                _state.Instances[ArrayID].MapListCurrent.Add(_state.Instances[ArrayID].MapListCurrent.Count, map);
             }
             ServerManagement serverManagerUpdateMemory = new ServerManagement();
             serverManagerUpdateMemory.UpdateMapCycle(_state, ArrayID);
@@ -3010,8 +3010,8 @@ namespace HawkSync_SM
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `mapcycle` = @updateMapCycle WHERE `profile_id` = @profileid;", db);
-            cmd.Parameters.AddWithValue("@updateMapCycle", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapList));
-            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+            cmd.Parameters.AddWithValue("@updateMapCycle", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapListCurrent));
+            cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.ExecuteNonQuery();
             cmd.Dispose();
             db.Close();
@@ -3019,7 +3019,7 @@ namespace HawkSync_SM
 
             MapListEdited = false;
 
-            MessageBox.Show("Map list was updated successfully!", "Success");
+            MessageBox.Show("infoCurrentMapName list was updated successfully!", "Success");
         }
 
         private void button22_Click(object sender, EventArgs e)
@@ -3029,7 +3029,7 @@ namespace HawkSync_SM
                 MessageBox.Show("You MUST update the maplist before setting the next map.", "Error");
                 return;
             }
-            if (_state.Instances[ArrayID].Status == InstanceStatus.LOADINGMAP || _state.Instances[ArrayID].Status == InstanceStatus.OFFLINE || _state.Instances[ArrayID].Status == InstanceStatus.SCORING)
+            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP || _state.Instances[ArrayID].instanceStatus == InstanceStatus.OFFLINE || _state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)
             {
                 MessageBox.Show("Please wait for the server to be ready. Please try again later.", "Error");
                 return;
@@ -3041,8 +3041,8 @@ namespace HawkSync_SM
             }
             ServerManagement serverManagerUpdateMemory = new ServerManagement();
             serverManagerUpdateMemory.UpdateNextMap(_state, ArrayID, list_mapRotation.SelectedIndex);
-            //_state.Instances[ArrayID].mapListCount = _state.Instances[ArrayID].MapList.Count;
-            MessageBox.Show("Next Map Updated Successfully!", "Success");
+            //_state.Instances[ArrayID].infoCounterMaps = _state.Instances[ArrayID].MapListCurrent.Count;
+            MessageBox.Show("Next infoCurrentMapName Updated Successfully!", "Success");
         }
 
         private void button24_Click(object sender, EventArgs e)
@@ -3080,7 +3080,7 @@ namespace HawkSync_SM
                 }
                 selectedMaps = new List<MapList>();
                 selectedMaps = SM_PopupLoadRotation._mapList;
-                MessageBox.Show("Map Rotation Loaded!", "Success");
+                MessageBox.Show("infoCurrentMapName Rotation Loaded!", "Success");
             }
         }
 

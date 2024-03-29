@@ -117,9 +117,9 @@ namespace HawkSync_SM
                 }
                 label19.Text = ipquality.fraud_score.ToString();
                 label20.Text = "False";
-                for (int whitelist = 0; whitelist < _state.Instances[ArrayID].VPNWhiteList.Count; whitelist++)
+                for (int whitelist = 0; whitelist < _state.Instances[ArrayID].IPWhiteList.Count; whitelist++)
                 {
-                    if (_state.Instances[ArrayID].VPNWhiteList[whitelist].IPAddress == IPAddress.Parse(_state.Instances[ArrayID].PlayerList[playerSlot].address).ToString())
+                    if (_state.Instances[ArrayID].IPWhiteList[whitelist].IPAddress == IPAddress.Parse(_state.Instances[ArrayID].PlayerList[playerSlot].address).ToString())
                     {
                         label20.Text = "True";
                         break;
@@ -131,12 +131,12 @@ namespace HawkSync_SM
 
             label23.Text = "False";
             label24.Text = "N/A";
-            for (int banned = 0; banned < _state.Instances[ArrayID].BanList.Count; banned++)
+            for (int banned = 0; banned < _state.Instances[ArrayID].PlayerListBans.Count; banned++)
             {
-                if (_state.Instances[ArrayID].BanList[banned].ipaddress == _state.Instances[ArrayID].PlayerList[playerSlot].address)
+                if (_state.Instances[ArrayID].PlayerListBans[banned].ipaddress == _state.Instances[ArrayID].PlayerList[playerSlot].address)
                 {
                     label23.Text = "True";
-                    label24.Text = _state.Instances[ArrayID].BanList[banned].reason;
+                    label24.Text = _state.Instances[ArrayID].PlayerListBans[banned].reason;
                     break;
                 }
             }

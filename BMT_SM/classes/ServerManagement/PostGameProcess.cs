@@ -47,9 +47,9 @@ namespace HawkSync_SM
         List<ob_PlayerChatLog> _chatLogs;
         int ArrayID = 0;
 
-        public PostGameProcess(AppState state, int instanceid, List<ob_PlayerChatLog> chatlogs)
+        public PostGameProcess(AppState state, int rowID, List<ob_PlayerChatLog> chatlogs)
         {
-            ArrayID = instanceid;
+            ArrayID = rowID;
 
             _connection = new SQLiteConnection(ProgramConfig.DBConfig);
             _state = state;
@@ -69,13 +69,13 @@ namespace HawkSync_SM
         {
             ServerManagement Serv = new ServerManagement();
             scoreManagement scores = Serv.GetCurrentGameScores(ref _state, ArrayID);
-            _state.Instances[ArrayID].currentScores = scores;
+            _state.Instances[ArrayID].infoCurrentScores = scores;
         }
 
         private void ResetPlayers()
         {
             // Clear the Player Stats
-            _state.Instances[ArrayID].playerStats.Clear();
+            _state.Instances[ArrayID].PlayerStats.Clear();
         }
 
         private void InsertChatLogs()
@@ -86,7 +86,7 @@ namespace HawkSync_SM
                             " VALUES (NULL, @ProfileId, @Name, @Msg, @Team, @DateSent);";
                 var command = new SQLiteCommand(query, _connection);
                 var chatMessage = message;
-                command.Parameters.AddWithValue("@ProfileId", _state.Instances[ArrayID].Id);
+                command.Parameters.AddWithValue("@ProfileId", _state.Instances[ArrayID].instanceID);
                 command.Parameters.AddWithValue("@Name", chatMessage.PlayerName);
                 command.Parameters.AddWithValue("@Msg", chatMessage.msg);
                 command.Parameters.AddWithValue("@Team", chatMessage.team);

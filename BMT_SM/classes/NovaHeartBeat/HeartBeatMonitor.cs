@@ -24,14 +24,14 @@ namespace HawkSync_SM.classes
         {
             foreach (var instance in _state.Instances)
             {
-                if (instance.Value.ReportNovaCC == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaCC, DateTime.Now) < 0 && instance.Value.Status != InstanceStatus.OFFLINE)
+                if (instance.Value.ReportNovaCC == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaCC, DateTime.Now) < 0 && instance.Value.instanceStatus != InstanceStatus.OFFLINE)
                 {
                     List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
                     WebClient client = new WebClient
                     {
                         BaseAddress = "http://ext.novaworld.cc/"
                     };
-                    client.Headers["User-Agent"] = "Babstats.net BMTv4";
+                    client.Headers["User-Agent"] = "Babstats.net HawkSync";
                     //client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
                     client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
                     NameValueCollection vars = new NameValueCollection
@@ -42,27 +42,27 @@ namespace HawkSync_SM.classes
                         { "SKey", "SECRET_KEY" },
                         { "DataType", "0x100" },
                         { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].ServerName },
-                        { "Port", _state.Instances[instance.Key].GamePort.ToString() },
+                        { "Name", _state.Instances[instance.Key].gameServerName },
+                        { "Port", _state.Instances[instance.Key].profileBindPort.ToString() },
                         { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].CountryCode },
-                        { "Type", "Dedicated" },
-                        { "GameType", _state.Instances[instance.Key].GameTypeName },
+                        { "Country", _state.Instances[instance.Key].gameCountryCode },
+                        { "Type", "gameDedicated" },
+                        { "profileServerType", _state.Instances[instance.Key].GameTypeName },
                         { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].MaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].CurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].CurrentMap.MapFile },
-                        { "TimeRemaining", (_state.Instances[instance.Key].StartDelay + _state.Instances[instance.Key].TimeRemaining * 60).ToString() },
-                        { "Password", (_state.Instances[instance.Key].Password != string.Empty ? "Y" : "" )},
-                        { "Message", _state.Instances[instance.Key].MOTD }
+                        { "MaxPlayers", _state.Instances[instance.Key].gameMaxSlots.ToString() },
+                        { "MissionName", _state.Instances[instance.Key].infoCurrentMap.MapName },
+                        { "MissionFile", _state.Instances[instance.Key].infoCurrentMap.MapFile },
+                        { "infoMapTimeRemaining", (_state.Instances[instance.Key].gameStartDelay + _state.Instances[instance.Key].infoMapTimeRemaining * 60).ToString() },
+                        { "gamePasswordLobby", (_state.Instances[instance.Key].gamePasswordLobby != string.Empty ? "Y" : "" )},
+                        { "Message", _state.Instances[instance.Key].gameMOTD }
                     };
-                    if (_state.Instances[instance.Key].IsTeamSabre == true)
+                    if (_state.Instances[instance.Key].infoTeamSabre == true)
                     {
-                        vars.Add("Mod", "TS:");
+                        vars.Add("profileGameMod", "TS:");
                     }
                     else
                     {
-                        vars.Add("Mod", "");
+                        vars.Add("profileGameMod", "");
                     }
                     if (_state.Instances[instance.Key].PlayerList.Count > 0)
                     {
@@ -108,7 +108,7 @@ namespace HawkSync_SM.classes
         {
             foreach (var instance in _state.Instances)
             {
-                if (instance.Value.ReportNovaHQ == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaHQ, DateTime.Now) < 0 && instance.Value.Status != InstanceStatus.OFFLINE)
+                if (instance.Value.ReportNovaHQ == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaHQ, DateTime.Now) < 0 && instance.Value.instanceStatus != InstanceStatus.OFFLINE)
                 {
                     List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
                     WebClient client = new WebClient
@@ -126,34 +126,34 @@ namespace HawkSync_SM.classes
                         { "SKey", "SECRET_KEY" },
                         { "DataType", "0x100" },
                         { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].ServerName },
-                        { "Port", _state.Instances[instance.Key].GamePort.ToString() },
+                        { "Name", _state.Instances[instance.Key].gameServerName },
+                        { "Port", _state.Instances[instance.Key].profileBindPort.ToString() },
                         { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].CountryCode },
-                        { "Type", "Dedicated" },
-                        { "GameType", _state.Instances[instance.Key].GameTypeName },
+                        { "Country", _state.Instances[instance.Key].gameCountryCode },
+                        { "Type", "gameDedicated" },
+                        { "profileServerType", _state.Instances[instance.Key].GameTypeName },
                         { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].MaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].CurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].CurrentMap.MapFile },
-                        { "TimeRemaining", (_state.Instances[instance.Key].StartDelay + _state.Instances[instance.Key].TimeRemaining * 60).ToString() }
+                        { "MaxPlayers", _state.Instances[instance.Key].gameMaxSlots.ToString() },
+                        { "MissionName", _state.Instances[instance.Key].infoCurrentMap.MapName },
+                        { "MissionFile", _state.Instances[instance.Key].infoCurrentMap.MapFile },
+                        { "infoMapTimeRemaining", (_state.Instances[instance.Key].gameStartDelay + _state.Instances[instance.Key].infoMapTimeRemaining * 60).ToString() }
                     };
-                    if (_state.Instances[instance.Key].Password != string.Empty)
+                    if (_state.Instances[instance.Key].gamePasswordLobby != string.Empty)
                     {
-                        vars.Add("Password", "Y");
+                        vars.Add("gamePasswordLobby", "Y");
                     }
                     else
                     {
-                        vars.Add("Password", "");
+                        vars.Add("gamePasswordLobby", "");
                     }
-                    vars.Add("Message", _state.Instances[instance.Key].MOTD);
-                    if (_state.Instances[instance.Key].IsTeamSabre == true)
+                    vars.Add("Message", _state.Instances[instance.Key].gameMOTD);
+                    if (_state.Instances[instance.Key].infoTeamSabre == true)
                     {
-                        vars.Add("Mod", "TS:");
+                        vars.Add("profileGameMod", "TS:");
                     }
                     else
                     {
-                        vars.Add("Mod", "");
+                        vars.Add("profileGameMod", "");
                     }
                     if (_state.Instances[instance.Key].PlayerList.Count > 0)
                     {

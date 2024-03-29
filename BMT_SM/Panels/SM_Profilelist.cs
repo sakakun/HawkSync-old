@@ -88,7 +88,7 @@ namespace HawkSync_SM
                 // Ticker Checks
                 Ticker.Tick += (sender, e) =>
                 {
-                    InstanceSeverCheck();                                                             // Instance Status Check
+                    InstanceSeverCheck();                                                             // Instance instanceStatus Check
                     InstanceTicker();                                                                 // Instance Ticker
                     (new PlayerManagement()).checkPlayerHistory(ref _state);                          // Process Player History
                     (new PlayerManagement()).checkExpiredBans(ref _state);                            // Check for Expired Bans
@@ -114,23 +114,23 @@ namespace HawkSync_SM
         // Server Manager - Process Existing Functions
         private void CheckForCrashedGame(int ArrayID)
         {
-            if (_state.Instances[ArrayID].CrashRecovery == true)
+            if (_state.Instances[ArrayID].instanceCrashRecovery == true)
             {
-                if (DateTime.Compare(_state.Instances[ArrayID].gameCrashCheck, DateTime.Now) < 0)
+                if (DateTime.Compare(_state.Instances[ArrayID].instanceCrashCheckTime, DateTime.Now) < 0)
                 {
-                    if (_state.Instances[ArrayID].gameCrashCounter < 3)
+                    if (_state.Instances[ArrayID].instanceCrashCounter < 3)
                     {
-                        _state.Instances[ArrayID].gameCrashCounter++;
-                        _state.Instances[ArrayID].gameCrashCheck = DateTime.Now.AddSeconds(10.0);
+                        _state.Instances[ArrayID].instanceCrashCounter++;
+                        _state.Instances[ArrayID].instanceCrashCheckTime = DateTime.Now.AddSeconds(10.0);
                         return;
                     }
-                    else if (_state.Instances[ArrayID].gameCrashCounter == 3)
+                    else if (_state.Instances[ArrayID].instanceCrashCounter == 3)
                     {
                         Process[] processes = Process.GetProcesses();
 
                         foreach (Process prs in processes)
                         {
-                            if (prs.Id == _state.Instances[ArrayID].PID.GetValueOrDefault())
+                            if (prs.Id == _state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault())
                             {
                                 prs.Kill();
                                 break;
@@ -141,7 +141,7 @@ namespace HawkSync_SM
                         SQLiteConnection _connection = new SQLiteConnection(ProgramConfig.DBConfig);
                         _connection.Open();
                         SQLiteCommand command = new SQLiteCommand("select `game_type` from instances WHERE id = @id;", _connection);
-                        command.Parameters.AddWithValue("@id", _state.Instances[ArrayID].Id);
+                        command.Parameters.AddWithValue("@id", _state.Instances[ArrayID].instanceID);
                         switch (Convert.ToInt32(command.ExecuteScalar()))
                         {
                             case 0:
@@ -153,12 +153,12 @@ namespace HawkSync_SM
                         }
                         command.Dispose();
                         Process process;
-                        if (_state.Instances[ArrayID].BindAddress == "0.0.0.0")
+                        if (_state.Instances[ArrayID].profileBindIP == "0.0.0.0")
                         {
                             ProcessStartInfo startInfo = new ProcessStartInfo
                             {
-                                FileName = Path.Combine(_state.Instances[ArrayID].GamePath, file_name),
-                                WorkingDirectory = _state.Instances[ArrayID].GamePath,
+                                FileName = Path.Combine(_state.Instances[ArrayID].profileServerPath, file_name),
+                                WorkingDirectory = _state.Instances[ArrayID].profileServerPath,
                                 Arguments = "/w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
                                 WindowStyle = ProcessWindowStyle.Minimized
                             };
@@ -169,8 +169,8 @@ namespace HawkSync_SM
                             ProcessStartInfo startInfo = new ProcessStartInfo
                             {
                                 FileName = Path.Combine(Environment.CurrentDirectory, "bind.exe"),
-                                WorkingDirectory = _state.Instances[ArrayID].GamePath,
-                                Arguments = $"{_state.Instances[ArrayID].BindAddress} \"{Path.Combine(_state.Instances[ArrayID].GamePath, file_name)}\" /w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
+                                WorkingDirectory = _state.Instances[ArrayID].profileServerPath,
+                                Arguments = $"{_state.Instances[ArrayID].profileBindIP} \"{Path.Combine(_state.Instances[ArrayID].profileServerPath, file_name)}\" /w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
                                 WindowStyle = ProcessWindowStyle.Minimized
                             };
                             process = Process.Start(startInfo);
@@ -184,9 +184,9 @@ namespace HawkSync_SM
                         List<int> currentPIDs = new List<int>();
                         foreach (var instance in _state.Instances)
                         {
-                            if (instance.Value.PID != 0)
+                            if (instance.Value.instanceAttachedPID != 0)
                             {
-                                currentPIDs.Add(instance.Value.PID.GetValueOrDefault());
+                                currentPIDs.Add(instance.Value.instanceAttachedPID.GetValueOrDefault());
                             }
                         }
                         Process[] bhdprocesses = Process.GetProcessesByName("dfbhd");
@@ -195,40 +195,40 @@ namespace HawkSync_SM
                             if (!currentPIDs.Contains(activeProcess.Id) && activeProcess.StartTime > DateTime.Now.AddMinutes(-1))
                             {
                                 activeProcess.MaxWorkingSet = new IntPtr(0x7fffffff);
-                                _state.Instances[ArrayID].PID = activeProcess.Id;
+                                _state.Instances[ArrayID].instanceAttachedPID = activeProcess.Id;
                                 _state.ApplicationProcesses[ArrayID] = activeProcess;
                             }
                         }
 
-                        SetWindowText(_state.ApplicationProcesses[ArrayID].Handle, _state.Instances[ArrayID].GameName);
+                        SetWindowText(_state.ApplicationProcesses[ArrayID].Handle, _state.Instances[ArrayID].profileName);
                         var baseAddr = 0x400000;
-                        IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
-                        _state.Instances[ArrayID].ProcessHandle = processHandle;
+                        IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
+                        _state.Instances[ArrayID].instanceProcessHandle = processHandle;
 
                         SQLiteCommand updatePid = new SQLiteCommand("UPDATE `instances_pid` SET `pid` = @pid WHERE `profile_id` = @profileid;", _connection);
-                        updatePid.Parameters.AddWithValue("@pid", _state.Instances[ArrayID].PID.GetValueOrDefault());
-                        updatePid.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                        updatePid.Parameters.AddWithValue("@pid", _state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
+                        updatePid.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                         updatePid.ExecuteNonQuery();
                         updatePid.Dispose();
 
 
-                        if (_state.Instances[ArrayID].HostName != "Host")
+                        if (_state.Instances[ArrayID].gameHostName != "Host")
                         {
                             int buffer = 0;
                             byte[] PointerAddr = new byte[4];
                             var Pointer = baseAddr + 0x005ED600;
                             ReadProcessMemory((int)processHandle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
                             int buffer2 = 0;
-                            byte[] Hostname = Encoding.Default.GetBytes(_state.Instances[ArrayID].HostName + "\0");
+                            byte[] Hostname = Encoding.Default.GetBytes(_state.Instances[ArrayID].gameHostName + "\0");
                             var Address2HostName = BitConverter.ToInt32(PointerAddr, 0);
                             MemoryProcessor.Write(_state.Instances[ArrayID], (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
                         }
 
-                        // wait for ServerRC to be online
+                        // wait for Server to be online
                         int counter = 0;
                         while (true)
                         {
-                            if (_state.Instances[ArrayID].Status == InstanceStatus.ONLINE || _state.Instances[ArrayID].Status == InstanceStatus.STARTDELAY || counter == 10)
+                            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.ONLINE || _state.Instances[ArrayID].instanceStatus == InstanceStatus.STARTDELAY || counter == 10)
                             {
                                 break;
                             }
@@ -255,12 +255,12 @@ namespace HawkSync_SM
                         serverManagerUpdateMemory.UpdateRespawnTime(_state, ArrayID);
                         serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, ArrayID);
 
-                        _state.Instances[ArrayID].gameCrashCounter = 0;
-                        _state.Instances[ArrayID].gameCrashCheck = DateTime.Now.AddSeconds(10.0);
+                        _state.Instances[ArrayID].instanceCrashCounter = 0;
+                        _state.Instances[ArrayID].instanceCrashCheckTime = DateTime.Now.AddSeconds(10.0);
                         _connection.Close();
                         _connection.Dispose();
 
-                        _state.eventLog.WriteEntry("BMTv4 has detected a ServerRC crash!\n\nProfile Name: " + _state.Instances[ArrayID].GameName + "\nMap File: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapFile + "\nMap Title: " + _state.Instances[ArrayID].MapList[_state.Instances[ArrayID].mapIndex + 1].MapName + "\n\nThe ServerRC has been automatically restarted.", EventLogEntryType.Warning);
+                        _state.eventLog.WriteEntry("HawkSync has detected a Server crash!\n\nProfile Name: " + _state.Instances[ArrayID].profileName + "\nMap File: " + _state.Instances[ArrayID].MapListCurrent[_state.Instances[ArrayID].infoCurrentMapIndex + 1].MapFile + "\nMap Title: " + _state.Instances[ArrayID].MapListCurrent[_state.Instances[ArrayID].infoCurrentMapIndex + 1].MapName + "\n\nThe Server has been automatically restarted.", EventLogEntryType.Warning);
                     }
                 }
             }
@@ -276,22 +276,22 @@ namespace HawkSync_SM
         {
             foreach (var instance in _state.Instances)
             {
-                if (instance.Value.ProcessHandle == IntPtr.Zero)
+                if (instance.Value.instanceProcessHandle == IntPtr.Zero)
                 {
-                    if (serverManagement.ProcessExist(instance.Value.PID.GetValueOrDefault()))
+                    if (serverManagement.ProcessExist(instance.Value.instanceAttachedPID.GetValueOrDefault()))
                     {
-                        instance.Value.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.Value.PID.GetValueOrDefault());
-                        if (instance.Value.ProcessHandle == IntPtr.Zero)
+                        instance.Value.instanceProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.Value.instanceAttachedPID.GetValueOrDefault());
+                        if (instance.Value.instanceProcessHandle == IntPtr.Zero)
                         {
-                            log.Error("Failed to attach to process " + instance.Value.PID.GetValueOrDefault());
+                            log.Error("Failed to attach to process " + instance.Value.instanceAttachedPID.GetValueOrDefault());
                         }
                         else
                         {
-                            log.Info("Attached to process " + instance.Value.PID.GetValueOrDefault());
+                            log.Info("Attached to process " + instance.Value.instanceAttachedPID.GetValueOrDefault());
                         }
                         if (!_state.ApplicationProcesses.ContainsKey(instance.Key))
                         {
-                            _state.ApplicationProcesses.Add(instance.Key, Process.GetProcessById(instance.Value.PID.GetValueOrDefault()));
+                            _state.ApplicationProcesses.Add(instance.Key, Process.GetProcessById(instance.Value.instanceAttachedPID.GetValueOrDefault()));
                         }
                     }
                 }
@@ -320,19 +320,19 @@ namespace HawkSync_SM
 
                     DataRow row = table_profileList.Rows[rowId];
                     DateTime currentTime = DateTime.Now;
-                    if (DateTime.Compare(instance.NextUpdateTime, currentTime) < 0)
+                    if (DateTime.Compare(instance.instanceNextUpdateTime, currentTime) < 0)
                     {
-                        if (instance.PID != null)
+                        if (instance.instanceAttachedPID != null)
                         {
                             try
                             {
-                                var PID = instance.PID.GetValueOrDefault();
-                                if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
+                                var PID = instance.instanceAttachedPID.GetValueOrDefault();
+                                if (serverManagement.ProcessExist(instance.instanceAttachedPID.GetValueOrDefault()))
                                 {
                                     event_getChatLogs(ref _state, rowId);
-                                    // set process name incase the PID changes...
+                                    // set process name incase the instanceAttachedPID changes...
                                     serverManagement.SetNovaID(ref _state, rowId);
-                                    //SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.GameName}");
+                                    //SetWindowText(_state.ApplicationProcesses[rowId].MainWindowHandle, $"{instance.profileName}");
 
                                     int timeRemainingInGame = serverManagement.GetTimeLeft(ref _state, rowId);
                                     var map = serverManagement.GetCurrentMission(ref _state, rowId);
@@ -348,11 +348,11 @@ namespace HawkSync_SM
                                         }
                                     }
 
-                                    instance.Status = serverManagement.CheckStatus(ref _state, rowId);
+                                    instance.instanceStatus = serverManagement.CheckStatus(ref _state, rowId);
                                     serverManagement.UpdateGlobalGameType(ref _state, rowId);
                                     // prevents loading garbage data while switching maps,
                                     // should also prevent ghosts from showing on the playerlist.
-                                    if (instance.Status != InstanceStatus.LOADINGMAP)
+                                    if (instance.instanceStatus != InstanceStatus.LOADINGMAP)
                                     {
                                         try
                                         {
@@ -366,7 +366,7 @@ namespace HawkSync_SM
                                         ipManagement.CheckBans(ref _state, rowId, PID);
                                     }
 
-                                    if (instance.EnableWebStats == true && instance.Status == InstanceStatus.ONLINE)
+                                    if (instance.WebStatsEnabled == true && instance.instanceStatus == InstanceStatus.ONLINE)
                                     {
 
                                         (new PlayerStatsManager()).CollectPlayerStats(_state, rowId);
@@ -374,10 +374,10 @@ namespace HawkSync_SM
                                     }
 
                                     // important for clearing stupid map cycle shit
-                                    instance.mapCounter = serverManagement.UpdateMapCycleCounter(ref _state, rowId);
+                                    instance.infoMapCycleIndex = serverManagement.UpdateMapCycleCounter(ref _state, rowId);
 
                                     // Update Firewall IP Records Here
-                                    instance.Firewall.DenyTraffic(instance.GameName, instance.GamePath, instance.BanList);
+                                    instance.Firewall.DenyTraffic(instance.profileName, instance.profileServerPath, instance.PlayerListBans);
 
                                     // check for VPNs
                                     if (ProgramConfig.EnableVPNCheck == true)
@@ -385,40 +385,40 @@ namespace HawkSync_SM
                                         ipManagement.Check4VPN(ref _state, rowId);
                                     }
 
-                                    if (instance.Status != InstanceStatus.LOADINGMAP && instance.Status != InstanceStatus.SCORING)
+                                    if (instance.instanceStatus != InstanceStatus.LOADINGMAP && instance.instanceStatus != InstanceStatus.SCORING)
                                     {
                                         event_processPlayerWarnings(rowId);
                                     }
 
-                                    if (instance.Status == InstanceStatus.LOADINGMAP)
+                                    if (instance.instanceStatus == InstanceStatus.LOADINGMAP)
                                     {
-                                        if (instance.IsRunningPostGameProcesses == false)
+                                        if (instance.instancePostProcRun == false)
                                         {
-                                            instance.IsRunningPostGameProcesses = true;
+                                            instance.instancePostProcRun = true;
                                             if (ProgramConfig.ApplicationDebug)
                                             {
                                                 log.Info("Instance " + rowId + " is running the Loading Process Handler.");
                                             }
-                                            PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, instance.ChatLog);
+                                            PostGameProcess postGameProcess = new PostGameProcess(_state, rowId, instance.ChatLog);
                                             postGameProcess.Run();
                                             instance.ChatLog.Clear();
 
                                             // Reset Babstats TimeStamps
-                                            if (instance.EnableWebStats && instance.WebStatsSoftware == 2)
+                                            if (instance.WebStatsEnabled && instance.WebStatsSoftware == 2)
                                             {
-                                                instance.WebStatsBabstatsTimer = new BabstatsTimerStorage();
+                                                instance.WebStatsBabstatsTimer = new BabstatsTimer();
                                             }
                                         }
-                                        instance.collectPlayerStats = true;
-                                        instance.IsRunningScoringGameProcesses = false;
+                                        instance.infoCollectPlayerStats = true;
+                                        instance.instanceScoreProcRun = false;
                                         CheckForCrashedGame(rowId);
                                     }
 
-                                    if (instance.Status == InstanceStatus.SCORING)
+                                    if (instance.instanceStatus == InstanceStatus.SCORING)
                                     {
-                                        if (instance.IsRunningScoringGameProcesses == false)
+                                        if (instance.instanceScoreProcRun == false)
                                         {
-                                            instance.IsRunningScoringGameProcesses = true;
+                                            instance.instanceScoreProcRun = true;
                                             if (ProgramConfig.ApplicationDebug)
                                             {
                                                 log.Info("Instance " + rowId + " is running the Scoring Process Handler.");
@@ -428,39 +428,39 @@ namespace HawkSync_SM
                                         }
                                     }
 
-                                    if (instance.Status == InstanceStatus.LOADINGMAP || instance.Status == InstanceStatus.SCORING)
+                                    if (instance.instanceStatus == InstanceStatus.LOADINGMAP || instance.instanceStatus == InstanceStatus.SCORING)
                                     {
                                         serverManagement.ChangePlayerTeam(ref _state, rowId);
                                     }
 
-                                    if (instance.Status == InstanceStatus.STARTDELAY || instance.Status == InstanceStatus.ONLINE)
+                                    if (instance.instanceStatus == InstanceStatus.STARTDELAY || instance.instanceStatus == InstanceStatus.ONLINE)
                                     {
-                                        instance.gameCrashCounter = 0;
+                                        instance.instanceCrashCounter = 0;
                                         serverManagement.ResetGodMode(ref _state, rowId);
                                         serverManagement.ProcessDisarmedPlayers(ref _state, rowId);
                                         chatManagement.ProcessAutoMessages(ref _state, rowId);
                                         serverManagement.ChangeGameScore(ref _state, rowId);
                                         serverManagement.GetCurrentMapIndex(ref _state, rowId);
-                                        if (instance.IsRunningPostGameProcesses == true)
+                                        if (instance.instancePostProcRun == true)
                                         {
-                                            instance.IsRunningPostGameProcesses = false;
+                                            instance.instancePostProcRun = false;
                                         }
-                                        if (instance.IsRunningScoringGameProcesses == true)
+                                        if (instance.instanceScoreProcRun == true)
                                         {
-                                            instance.IsRunningScoringGameProcesses = false;
+                                            instance.instanceScoreProcRun = false;
                                         }
                                         
                                     }
 
-                                    if (instance.Status != InstanceStatus.OFFLINE)
+                                    if (instance.instanceStatus != InstanceStatus.OFFLINE)
                                     {
-                                        instance.CurrentMap = get_currentMap(rowId, currentGameType); // always get the current map so long as the instance is not offline.
+                                        instance.infoCurrentMap = get_currentMap(rowId, currentGameType); // always get the current map so long as the instance is not offline.
                                     }
 
                                     // Babstats Tick Process
-                                    if (instance.EnableWebStats && instance.WebStatsSoftware == 2)
+                                    if (instance.WebStatsEnabled && instance.WebStatsSoftware == 2)
                                     {
-                                        BabstatsTimerStorage babstatsTime = instance.WebStatsBabstatsTimer;
+                                        BabstatsTimer babstatsTime = instance.WebStatsBabstatsTimer;
                                         // if DateTime.Now is 20 seconds greater than babstatsTime.updateTimeStamp
                                         if(babstatsTime.updateTimeStamp.AddSeconds(20) < DateTime.Now)
                                         {
@@ -479,27 +479,27 @@ namespace HawkSync_SM
                                     {
                                         case 0:
                                             row["Time Remaining"] = "< 1 Minute";
-                                            instance.TimeFlag = true;
+                                            instance.infoMarkerTime = true;
                                             break;
                                         case 1:
                                             row["Time Remaining"] = timeRemainingInGame + " Minute";
-                                            instance.TimeFlag = false;
+                                            instance.infoMarkerTime = false;
                                             break;
                                         default:
                                             row["Time Remaining"] = timeRemainingInGame + " Minutes";
-                                            instance.TimeFlag = false;
+                                            instance.infoMarkerTime = false;
                                             break;
                                     }
 
-                                    row["Map"] = map;
-                                    row["Slots"] = currentPlayers + "/" + instance.MaxSlots;
+                                    row["infoCurrentMapName"] = map;
+                                    row["Slots"] = currentPlayers + "/" + instance.gameMaxSlots;
                                     row["Game Type"] = currentGameType;
-                                    instance.gameMapType = serverManagement.GetCurrentGameType(ref _state, rowId);
-                                    instance.NextUpdateTime = currentTime.AddMilliseconds(100);
-                                    instance.LastUpdateTime = currentTime;
-                                    instance.Map = map;
-                                    instance.TimeRemaining = timeRemainingInGame;
-                                    instance.NumPlayers = currentPlayers;
+                                    instance.infoMapGameType = serverManagement.GetCurrentGameType(ref _state, rowId);
+                                    instance.instanceNextUpdateTime = currentTime.AddMilliseconds(100);
+                                    instance.instanceLastUpdateTime = currentTime;
+                                    instance.infoCurrentMapName = map;
+                                    instance.infoMapTimeRemaining = timeRemainingInGame;
+                                    instance.infoNumPlayers = currentPlayers;
                                     instance.GameTypeName = currentGameType;
 
                                     event_setStatusImage(rowId);
@@ -512,11 +512,11 @@ namespace HawkSync_SM
                                 else
                                 {
                                     row["Time Remaining"] = "";
-                                    row["Map"] = "";
+                                    row["infoCurrentMapName"] = "";
                                     row["Slots"] = "";
                                     row["Game Type"] = "";
-                                    instance.Status = InstanceStatus.OFFLINE;
-                                    instance.TimeFlag = false;
+                                    instance.instanceStatus = InstanceStatus.OFFLINE;
+                                    instance.infoMarkerTime = false;
                                     event_setStatusImage(rowId);
                                     if (list_serverProfiles.SelectedRows[0].Index == rowId)
                                     {
@@ -536,17 +536,17 @@ namespace HawkSync_SM
                             {
                                 if (ProgramConfig.ApplicationDebug)
                                 {
-                                    _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
+                                    _state.eventLog.WriteEntry("HawkSync TV has detected an error!\n\n" + e.ToString(), EventLogEntryType.Error);
                                     log.Error("An error occurred: " + e);
                                 }
-                                if (serverManagement.ProcessExist((int)instance.PID) == false)
+                                if (serverManagement.ProcessExist((int)instance.instanceAttachedPID) == false)
                                 {
                                     row["Time Remaining"] = "";
-                                    row["Map"] = "";
+                                    row["infoCurrentMapName"] = "";
                                     row["Slots"] = "";
                                     row["Game Type"] = "";
-                                    instance.Status = InstanceStatus.OFFLINE;
-                                    instance.TimeFlag = false;
+                                    instance.instanceStatus = InstanceStatus.OFFLINE;
+                                    instance.infoMarkerTime = false;
                                     event_setStatusImage(rowId);
                                     if (list_serverProfiles.SelectedRows[0].Index == rowId)
                                     {
@@ -589,11 +589,11 @@ namespace HawkSync_SM
                             // Check for TeamSabre
                             bool TeamSabre = result.GetInt32(result.GetOrdinal("game_type")) == 0 && File.Exists(result.GetString(result.GetOrdinal("gamepath")) + "\\EXP1.pff");
 
-                            // Initialize WebstatsURL and EnableWebStats
+                            // Initialize WebstatsURL and WebStatsEnabled
                             string WebstatsURL = "";
                             bool EnableWebStats;
 
-                            // Switch case for setting WebstatsURL and EnableWebStats
+                            // Switch case for setting WebstatsURL and WebStatsEnabled
                             switch (result.GetInt32(result.GetOrdinal("stats")))
                             {
                                 case 1:
@@ -606,7 +606,7 @@ namespace HawkSync_SM
                                     break;
                             }
 
-                            // Deserialize mapList and availableMaps
+                            // Deserialize mapList and MapListAvailable
                             Dictionary<int, MapList> mapList = result.GetString(result.GetOrdinal("mapcycle")) != "[]" ? JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("mapcycle"))) : new Dictionary<int, MapList>();
                             Dictionary<int, MapList> availableMaps = result.GetString(result.GetOrdinal("availablemaps")) != "[]" ? JsonConvert.DeserializeObject<Dictionary<int, MapList>>(result.GetString(result.GetOrdinal("availablemaps"))) : new Dictionary<int, MapList>();
 
@@ -617,87 +617,83 @@ namespace HawkSync_SM
                             Instance instance = new Instance
                             {
                                 // Assigning properties...
-                                Id = result.GetInt32(result.GetOrdinal("id")),
+                                instanceID = result.GetInt32(result.GetOrdinal("id")),
                                 ChatLog = new List<ob_PlayerChatLog>(),
-                                GamePath = result.GetString(result.GetOrdinal("gamepath")),
-                                GameType = result.GetInt32(result.GetOrdinal("game_type")),
-                                GameName = result.GetString(result.GetOrdinal("name")),
-                                HostName = result.GetString(result.GetOrdinal("host_name")),
-                                CountryCode = result.GetString(result.GetOrdinal("country_code")),
-                                ServerName = result.GetString(result.GetOrdinal("server_name")),
-                                Password = result.GetString(result.GetOrdinal("server_password")),
-                                MOTD = result.GetString(result.GetOrdinal("motd")),
-                                Dedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
-                                SessionType = result.GetInt32(result.GetOrdinal("session_type")),
-                                MaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
-                                GameScore = result.GetInt32(result.GetOrdinal("game_score")),
-                                FBScore = result.GetInt32(result.GetOrdinal("fbscore")),
-                                KOTHScore = result.GetInt32(result.GetOrdinal("kothscore")),
-                                ZoneTimer = result.GetInt32(result.GetOrdinal("zone_timer")),
-                                WindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
-                                LoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
-                                RespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
-                                RequireNovaLogin = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
-                                AllowCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
-                                MaxKills = result.GetInt32(result.GetOrdinal("max_kills")),
-                                BindAddress = result.GetString(result.GetOrdinal("bind_address")),
-                                GamePort = result.GetInt32(result.GetOrdinal("port")),
-                                TimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
-                                StartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
-                                MinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
-                                MinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
-                                MaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
-                                MaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
-                                OneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
-                                FatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
-                                DestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
-                                FriendlyFire = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
-                                FriendlyFireWarning = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
-                                FriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
-                                FriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
-                                PSPTakeOverTime = result.GetInt32(result.GetOrdinal("psptakeover")),
-                                AllowAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
-                                AutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
-                                BluePassword = result.GetString(result.GetOrdinal("blue_team_password")),
-                                RedPassword = result.GetString(result.GetOrdinal("red_team_password")),
-                                FlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
-                                MaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
-                                ShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
-                                ShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
+                                profileServerPath = result.GetString(result.GetOrdinal("gamepath")),
+                                profileServerType = result.GetInt32(result.GetOrdinal("game_type")),
+                                profileName = result.GetString(result.GetOrdinal("name")),
+                                gameHostName = result.GetString(result.GetOrdinal("host_name")),
+                                gameCountryCode = result.GetString(result.GetOrdinal("country_code")),
+                                gameServerName = result.GetString(result.GetOrdinal("server_name")),
+                                gamePasswordLobby = result.GetString(result.GetOrdinal("server_password")),
+                                gameMOTD = result.GetString(result.GetOrdinal("motd")),
+                                gameDedicated = result.GetBoolean(result.GetOrdinal("run_dedicated")),
+                                gameSessionType = result.GetInt32(result.GetOrdinal("session_type")),
+                                gameMaxSlots = result.GetInt32(result.GetOrdinal("max_slots")),
+                                gameScoreKills = result.GetInt32(result.GetOrdinal("game_score")),
+                                gameScoreFlags = result.GetInt32(result.GetOrdinal("fbscore")),
+                                gameScoreZoneTime = result.GetInt32(result.GetOrdinal("kothscore")),
+                                gameWindowedMode = result.GetBoolean(result.GetOrdinal("windowed_mode")),
+                                gameLoopMaps = result.GetInt32(result.GetOrdinal("loop_maps")),
+                                gameRespawnTime = result.GetInt32(result.GetOrdinal("respawn_time")),
+                                gameRequireNova = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("require_novalogic"))),
+                                gameCustomSkins = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_custom_skins"))),
+                                profileBindIP = result.GetString(result.GetOrdinal("bind_address")),
+                                profileBindPort = result.GetInt32(result.GetOrdinal("port")),
+                                gameTimeLimit = result.GetInt32(result.GetOrdinal("time_limit")),
+                                gameStartDelay = result.GetInt32(result.GetOrdinal("start_delay")),
+                                gameMinPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_min_ping"))),
+                                gameMinPingValue = result.GetInt32(result.GetOrdinal("min_ping")),
+                                gameMaxPing = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enable_max_ping"))),
+                                gameMaxPingValue = result.GetInt32(result.GetOrdinal("max_ping")),
+                                gameOneShotKills = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("oneshotkills"))),
+                                gameFatBullets = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("fatbullets"))),
+                                gameDestroyBuildings = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("destroybuildings"))),
+                                gameOptionFF = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire"))),
+                                gameOptionFFWarn = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_fire_warning"))),
+                                gameOptionFriendlyTags = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("friendly_tags"))),
+                                gameFriendlyFireKills = result.GetInt32(result.GetOrdinal("friendly_fire_kills")),
+                                gamePSPTOTimer = result.GetInt32(result.GetOrdinal("psptakeover")),
+                                gameOptionAutoRange = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("allow_auto_range"))),
+                                gameOptionAutoBalance = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("auto_balance"))),
+                                gamePasswordBlue = result.GetString(result.GetOrdinal("blue_team_password")),
+                                gamePasswordRed = result.GetString(result.GetOrdinal("red_team_password")),
+                                gameFlagReturnTime = result.GetInt32(result.GetOrdinal("flagreturntime")),
+                                gameMaxTeamLives = result.GetInt32(result.GetOrdinal("max_team_lives")),
+                                gameShowTeamClays = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_team_clays"))),
+                                gameOptionShowTracers = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("show_tracers"))),
                                 RoleRestrictions = onload_convertRoleRestrictions(result.GetString(result.GetOrdinal("rolerestrictions"))),
                                 WeaponRestrictions = onload_convertWeaponRestrictions(result.GetString(result.GetOrdinal("weaponrestrictions"))),
-                                LastUpdateTime = DateTime.Now,
-                                NextUpdateTime = DateTime.Now.AddSeconds(2.0),
-                                nextWebStatsStatusUpdate = DateTime.Now.AddSeconds(2.0),
-                                EnableWebStats = EnableWebStats,
-                                enableVPNCheck = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNCheck"))),
+                                instanceLastUpdateTime = DateTime.Now,
+                                instanceNextUpdateTime = DateTime.Now.AddSeconds(2.0),
+                                WebStatsEnabled = EnableWebStats,
+                                vpnCheckEnabled = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("vpnCheckEnabled"))),
                                 WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
                                 WebstatsURL = WebstatsURL,
-                                availableMaps = availableMaps,
-                                MapList = mapList,
-                                mapListCount = mapList.Count,
-                                WebstatsIdVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
-                                Status = InstanceStatus.OFFLINE,
-                                anti_stat_padding = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
-                                anti_stat_padding_min_minutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
-                                anti_stat_padding_min_players = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
-                                CrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
-                                misc_show_ranks = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
-                                misc_left_leaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
-                                WebStatsId = result.GetOrdinal("stats_server_id").ToString(),
+                                MapListAvailable = availableMaps,
+                                MapListCurrent = mapList,
+                                infoCounterMaps = mapList.Count,
+                                WebstatsVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
+                                instanceStatus = InstanceStatus.OFFLINE,
+                                WebStatsASPEnabled = result.GetInt32(result.GetOrdinal("WebStatsASPEnabled")),
+                                WebStatsASPMinMinutes = result.GetInt32(result.GetOrdinal("WebStatsASPMinMinutes")),
+                                WebStatsASPMinPlayers = result.GetInt32(result.GetOrdinal("WebStatsASPMinPlayers")),
+                                instanceCrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
+                                WebStatsAnnouncements = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("WebStatsAnnouncements"))),
+                                gameAllowLeftLeaning = result.GetInt32(result.GetOrdinal("gameAllowLeftLeaning")),
+                                WebStatsProfileID = result.GetOrdinal("stats_server_id").ToString(),
                                 PlayerList = new Dictionary<int, ob_playerList>(),
-                                previousMapList = new Dictionary<int, MapList>(),
-                                IPWhiteList = new Dictionary<string, string>(),
-                                ScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
+                                MapListPrevious = new Dictionary<int, MapList>(),
+                                gameScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
                                 ReportNovaHQ = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novahq_master"))),
                                 ReportNovaCC = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("novacc_master"))),
                                 Plugins = plugins,
                                 VoteMapStandBy = true,
-                                IsTeamSabre = TeamSabre
+                                infoTeamSabre = TeamSabre
                             };
 
-                            // Initialize collectPlayerStats
-                            //var collectPlayerStats = new CollectedPlayerStatsPlayers { Player = new Dictionary<string, CollectedPlayerStats>() };
+                            // Initialize infoCollectPlayerStats
+                            //var infoCollectPlayerStats = new CollectedPlayerStatsPlayers { Player = new Dictionary<string, CollectedPlayerStats>() };
 
                             // Get instanceId
                             int instanceId = _state.Instances.Count;
@@ -711,35 +707,35 @@ namespace HawkSync_SM
                             };
                             */
 
-                            // Set PID if not null
+                            // Set instanceAttachedPID if not null
                             if (!result.IsDBNull(result.GetOrdinal("pid")))
                             {
-                                instance.PID = result.GetInt32(result.GetOrdinal("pid"));
-                                _state.eventLog.WriteEntry("Found PID: " + instance.PID.GetValueOrDefault(), EventLogEntryType.Information);
+                                instance.instanceAttachedPID = result.GetInt32(result.GetOrdinal("pid"));
+                                _state.eventLog.WriteEntry("Found instanceAttachedPID: " + instance.instanceAttachedPID.GetValueOrDefault(), EventLogEntryType.Information);
                             }
 
                             // Check if process exists and attach if so
-                            if (serverManagement.ProcessExist(instance.PID.GetValueOrDefault()))
+                            if (serverManagement.ProcessExist(instance.instanceAttachedPID.GetValueOrDefault()))
                             {
                                 // Attempt to attach to process
-                                _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.Id, EventLogEntryType.Information);
+                                _state.eventLog.WriteEntry("Attempting to attach... ID: " + instance.instanceID, EventLogEntryType.Information);
                                 if (!_state.ApplicationProcesses.ContainsKey(_state.Instances.Count))
                                 {
-                                    if (Process.GetProcessById(instance.PID.GetValueOrDefault()).ProcessName == "dfbhd")
+                                    if (Process.GetProcessById(instance.instanceAttachedPID.GetValueOrDefault()).ProcessName == "dfbhd")
                                     {
-                                        _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.PID.GetValueOrDefault()));
+                                        _state.ApplicationProcesses.Add(_state.Instances.Count, Process.GetProcessById(instance.instanceAttachedPID.GetValueOrDefault()));
                                     }
                                 }
                                 try
                                 {
-                                    instance.ProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.PID.GetValueOrDefault());
+                                    instance.instanceProcessHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, instance.instanceAttachedPID.GetValueOrDefault());
                                 }
                                 catch (Exception e)
                                 {
                                     throw e;
                                 }
                                 // Check if process handle is valid
-                                if (instance.ProcessHandle == null || instance.ProcessHandle == IntPtr.Zero)
+                                if (instance.instanceProcessHandle == null || instance.instanceProcessHandle == IntPtr.Zero)
                                 {
                                     _state.eventLog.WriteEntry("Unable to attach to process...", EventLogEntryType.Error, 0, 0);
                                     throw new Exception("Unable to attach to process...");
@@ -747,19 +743,19 @@ namespace HawkSync_SM
                             }
                             else
                             {
-                                _state.eventLog.WriteEntry("Could not find PID: " + instance.PID.GetValueOrDefault(), EventLogEntryType.Warning);
+                                _state.eventLog.WriteEntry("Could not find instanceAttachedPID: " + instance.instanceAttachedPID.GetValueOrDefault(), EventLogEntryType.Warning);
                             }
 
-                            _state.eventLog.WriteEntry("Attachment successful: " + instance.Id, EventLogEntryType.Information);
-                            _state.eventLog.WriteEntry("Adding instance: " + instance.Id, EventLogEntryType.Information);
+                            _state.eventLog.WriteEntry("Attachment successful: " + instance.instanceID, EventLogEntryType.Information);
+                            _state.eventLog.WriteEntry("Adding instance: " + instance.instanceID, EventLogEntryType.Information);
 
                             // Initialize ConsoleQueue and add starting message
                             _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue { queue = new List<Queue>(), nextCmd = DateTime.Now.AddSeconds(10) });
-                            _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue { text = "BMTv4 is starting...", Type = ConsoleQueueType.MESSAGE, color = ChatColor.NORMAL });
+                            _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue { text = "HawkSync is starting...", Type = ConsoleQueueType.MESSAGE, color = ChatColor.NORMAL });
 
                             // Add instance to AppState
                             _state.Instances.Add(_state.Instances.Count, instance);
-                            //_state.PlayerStats.Add(_state.PlayerStats.Count, collectPlayerStats);
+                            //_state.PlayerStats.Add(_state.PlayerStats.Count, infoCollectPlayerStats);
 
                         }
                     }
@@ -768,7 +764,7 @@ namespace HawkSync_SM
             catch (Exception e)
             {
                 // Log error
-                _state.eventLog.WriteEntry("BMTv4 TV has detected an error!\n\n" + e, EventLogEntryType.Error);
+                _state.eventLog.WriteEntry("HawkSync TV has detected an error!\n\n" + e, EventLogEntryType.Error);
                 log.Debug(e);
                 Console.WriteLine(e);
             }
@@ -838,20 +834,20 @@ namespace HawkSync_SM
         private MapList get_currentMap(int rowId, string currentGameType)
         {
             MapList map = new MapList();
-            int currentIndex = _state.Instances[rowId].mapIndex;
-            if (!_state.Instances[rowId].MapList.ContainsKey(currentIndex))
+            int currentIndex = _state.Instances[rowId].infoCurrentMapIndex;
+            if (!_state.Instances[rowId].MapListCurrent.ContainsKey(currentIndex))
             {
-                if (!_state.Instances[rowId].previousMapList.ContainsKey(currentIndex))
+                if (!_state.Instances[rowId].MapListPrevious.ContainsKey(currentIndex))
                 {
                     throw new Exception("Something went wrong while trying to retrieve maplists. #41");
                 }
-                map.MapName = _state.Instances[rowId].previousMapList[currentIndex].MapName;
-                map.MapFile = _state.Instances[rowId].previousMapList[currentIndex].MapFile;
+                map.MapName = _state.Instances[rowId].MapListPrevious[currentIndex].MapName;
+                map.MapFile = _state.Instances[rowId].MapListPrevious[currentIndex].MapFile;
             }
             else
             {
-                map.MapName = _state.Instances[rowId].MapList[currentIndex].MapName;
-                map.MapFile = _state.Instances[rowId].MapList[currentIndex].MapFile;
+                map.MapName = _state.Instances[rowId].MapListCurrent[currentIndex].MapName;
+                map.MapFile = _state.Instances[rowId].MapListCurrent[currentIndex].MapFile;
             }
             return map;
         }
@@ -861,13 +857,13 @@ namespace HawkSync_SM
         {
             table_profileList.Columns.Add("ID".ToString());
             table_profileList.Columns.Add("Game Name".ToString());
-            table_profileList.Columns.Add("Mod".ToString(), typeof(byte[]));
+            table_profileList.Columns.Add("profileGameMod".ToString(), typeof(byte[]));
             table_profileList.Columns.Add("Slots".ToString());
-            table_profileList.Columns.Add("Map".ToString());
+            table_profileList.Columns.Add("infoCurrentMapName".ToString());
             table_profileList.Columns.Add("Game Type".ToString());
             table_profileList.Columns.Add("Time Remaining".ToString());
-            table_profileList.Columns.Add("Web Stats Status".ToString());
-            table_profileList.Columns.Add("Server Status".ToString(), typeof(byte[]));
+            table_profileList.Columns.Add("Web Stats instanceStatus".ToString());
+            table_profileList.Columns.Add("Server instanceStatus".ToString(), typeof(byte[]));
             ProgramConfig.NovaStatusCheck = DateTime.Now;
             onLoad_buildProfileList();
             list_serverProfiles.DataSource = table_profileList;
@@ -881,21 +877,21 @@ namespace HawkSync_SM
             SQLiteCommand warnlevelquery = new SQLiteCommand("SELECT `warnlevel` FROM `instances_config` WHERE `profile_id` = @profileid;", hawkSyncDB);
             foreach (var item in _state.Instances)
             {
-                warnlevelquery.Parameters.AddWithValue("@profileid", item.Value.Id);
+                warnlevelquery.Parameters.AddWithValue("@profileid", item.Value.instanceID);
                 SQLiteDataReader warnLevelRead = warnlevelquery.ExecuteReader();
                 warnLevelRead.Read();
-                _state.Instances[item.Key].BanList = onload_getBanPlayerList(item.Value.Id);
-                _state.Instances[item.Key].VPNWhiteList = ipManagement.cache_loadWhitelist(item.Key, item.Value.Id, hawkSyncDB);
-                _state.Instances[item.Key].GodModeList = new List<int>();
-                _state.Instances[item.Key].ChangeTeamList = new List<ob_playerChangeTeamList>();
-                _state.Instances[item.Key].CustomWarnings = onload_getCustomWarnings(item.Value.Id, hawkSyncDB);
+                _state.Instances[item.Key].PlayerListBans = onload_getBanPlayerList(item.Value.instanceID);
+                _state.Instances[item.Key].IPWhiteList = ipManagement.cache_loadWhitelist(item.Key, item.Value.instanceID, hawkSyncDB);
+                _state.Instances[item.Key].PlayerListGodMod = new List<int>();
+                _state.Instances[item.Key].TeamListChange = new List<ob_playerChangeTeamList>();
+                _state.Instances[item.Key].CustomWarnings = onload_getCustomWarnings(item.Value.instanceID, hawkSyncDB);
                 _state.Instances[item.Key].WarningQueue = new List<ob_WarnPlayerClass>();
-                _state.Instances[item.Key].DisarmPlayers = new List<int>();
-                _state.Instances[item.Key].WeaponRestrictions = onload_getWeaponRestrictions(item.Value.Id, hawkSyncDB);
-                _state.Instances[item.Key].AutoMessages = onload_getAutoMessages(item.Value.Id, hawkSyncDB);
-                _state.Instances[item.Key].previousTeams = new List<ob_playerPreviousTeam>();
-                _state.Instances[item.Key].savedmaprotations = onload_getSavedMapRotations(item.Value.Id, hawkSyncDB);
-                _state.Instances[item.Key].CurrentMap = new MapList();
+                _state.Instances[item.Key].PlayerListDisarm = new List<int>();
+                _state.Instances[item.Key].WeaponRestrictions = onload_getWeaponRestrictions(item.Value.instanceID, hawkSyncDB);
+                _state.Instances[item.Key].AutoMessages = onload_getAutoMessages(item.Value.instanceID, hawkSyncDB);
+                _state.Instances[item.Key].TeamListPrevious = new List<ob_playerPreviousTeam>();
+                _state.Instances[item.Key].MapListRotationDB = onload_getSavedMapRotations(item.Value.instanceID, hawkSyncDB);
+                _state.Instances[item.Key].infoCurrentMap = new MapList();
                 _state.Instances[item.Key].WelcomeQueue = new List<WelcomePlayer>();
                 _state.Instances[item.Key].VoteMapsTally = new List<VoteMapsTally>();
                 _state.Instances[item.Key].VoteMapTimer = new Timer
@@ -905,7 +901,7 @@ namespace HawkSync_SM
                 _state.IPQualityCache.Add(item.Key, new ipqualityscore
                 {
                     WarnLevel = warnLevelRead.GetInt32(warnLevelRead.GetOrdinal("warnlevel")),
-                    IPInformation = ipManagement.cache_loadIPQuality(item.Value.Id, hawkSyncDB)
+                    IPInformation = ipManagement.cache_loadIPQuality(item.Value.instanceID, hawkSyncDB)
                 });
                 warnLevelRead.Close();
                 warnLevelRead.Dispose();
@@ -1007,22 +1003,22 @@ namespace HawkSync_SM
 
                 // Add Instance to the Profile Table
                 DataRow dr = table_profileList.NewRow();
-                if (_state.Instances[lastIndex].GameType == 1)
+                if (_state.Instances[lastIndex].profileServerType == 1)
                 {
                     img = "jo.gif";
                 }
-                else if (_state.Instances[lastIndex].GameType == 0)
+                else if (_state.Instances[lastIndex].profileServerType == 0)
                 {
-                    img = _state.Instances[lastIndex].IsTeamSabre ? "bhdts.gif" : "bhd.gif";
+                    img = _state.Instances[lastIndex].infoTeamSabre ? "bhdts.gif" : "bhd.gif";
                 }
                 else
                 {
                     img = "bhd.gif";
                 }
-                dr["ID"] = _state.Instances[lastIndex].Id;
-                dr["Game Name"] = _state.Instances[lastIndex].GameName;
-                dr["Mod"] = get_imageResource(img);
-                dr["Server Status"] = get_imageResource("notactive.gif");
+                dr["ID"] = _state.Instances[lastIndex].instanceID;
+                dr["Game Name"] = _state.Instances[lastIndex].profileName;
+                dr["profileGameMod"] = get_imageResource(img);
+                dr["Server instanceStatus"] = get_imageResource("notactive.gif");
                 table_profileList.Rows.Add(dr);
                 event_setStatusImage(lastIndex);
 
@@ -1061,15 +1057,15 @@ namespace HawkSync_SM
                 editProfile.event_editProfile(ref _state, id);
 
                 statusIMG = "notactive.gif";
-                if (_state.Instances[id].GameType == 0 && _state.Instances[id].IsTeamSabre == true)
+                if (_state.Instances[id].profileServerType == 0 && _state.Instances[id].infoTeamSabre == true)
                 {
                     img = "bhdts.gif";
                 }
-                else if (_state.Instances[id].GameType == 0 && _state.Instances[id].IsTeamSabre == false)
+                else if (_state.Instances[id].profileServerType == 0 && _state.Instances[id].infoTeamSabre == false)
                 {
                     img = "bhd.gif";
                 }
-                else if (_state.Instances[id].GameType == 1)
+                else if (_state.Instances[id].profileServerType == 1)
                 {
                     img = "jo.gif";
                 }
@@ -1078,9 +1074,9 @@ namespace HawkSync_SM
                     img = "bhd.gif";
                 }
                 DataRow editRow = table_profileList.Rows[id];
-                editRow["Game Name"] = _state.Instances[id].GameName;
-                editRow["Mod"] = get_imageResource(img);
-                editRow["Server Status"] = get_imageResource(statusIMG);
+                editRow["Game Name"] = _state.Instances[id].profileName;
+                editRow["profileGameMod"] = get_imageResource(img);
+                editRow["Server instanceStatus"] = get_imageResource(statusIMG);
 
                 editProfile.Close();
                 MessageBox.Show("Profile edited successfully!", "Success");
@@ -1121,7 +1117,7 @@ namespace HawkSync_SM
                                 DELETE FROM `ipqualitycache` WHERE `profile_id` = @profileid;
                                 DELETE FROM `playerbans` WHERE `profileid` = @profileid;
                                 DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid;";
-                        command.Parameters.AddWithValue("@profileid", _state.Instances[id].Id);
+                        command.Parameters.AddWithValue("@profileid", _state.Instances[id].instanceID);
                         Console.WriteLine(command.Parameters);
                         command.ExecuteNonQuery();
 
@@ -1167,22 +1163,22 @@ namespace HawkSync_SM
             }
 
             Instance instance = _state.Instances[list_serverProfiles.SelectedRows[0].Index];
-            if (instance.Status != InstanceStatus.OFFLINE)
+            if (instance.instanceStatus != InstanceStatus.OFFLINE)
             {
-                // Run stop ServerRC stuff
-                if (!instance.PID.HasValue)
+                // Run stop Server stuff
+                if (!instance.instanceAttachedPID.HasValue)
                 {
                     return;
                 }
 
-                var p = Process.GetProcessById((int)instance.PID);
+                var p = Process.GetProcessById((int)instance.instanceAttachedPID);
                 p.Kill();
                 p.Dispose();
                 event_serverOffline();
 
                 // Call regardless.
-                instance.Firewall.DeleteFirewallRules(instance.GameName, "Allow");
-                instance.Firewall.DeleteFirewallRules(instance.GameName, "Deny");
+                instance.Firewall.DeleteFirewallRules(instance.profileName, "Allow");
+                instance.Firewall.DeleteFirewallRules(instance.profileName, "Deny");
 
                 return;
             }
@@ -1249,7 +1245,7 @@ namespace HawkSync_SM
             try
             {
                 //0x80
-                if (_state.Instances[profileid].Status == InstanceStatus.OFFLINE || _state.Instances[profileid].Status == InstanceStatus.LOADINGMAP)
+                if (_state.Instances[profileid].instanceStatus == InstanceStatus.OFFLINE || _state.Instances[profileid].instanceStatus == InstanceStatus.LOADINGMAP)
                 {
                     return;
                 }
@@ -1349,7 +1345,7 @@ namespace HawkSync_SM
 
         }
         /*
-         * Event: Server Status Change
+         * Event: Server instanceStatus Change
          * Changes the status images.
          */
         public void event_setStatusImage(int key)
@@ -1357,7 +1353,7 @@ namespace HawkSync_SM
             DataRow row = table_profileList.Rows[key];
 
             var resourceName = "";
-            switch (_state.Instances[key].Status)
+            switch (_state.Instances[key].instanceStatus)
             {
                 case InstanceStatus.ONLINE:
                     resourceName = "hosting.gif";
@@ -1375,8 +1371,8 @@ namespace HawkSync_SM
                     resourceName = "notactive.gif";
                     break;
             }
-            row["Server Status"] = new byte[0];
-            row["Server Status"] = get_imageResource(resourceName);
+            row["Server instanceStatus"] = new byte[0];
+            row["Server instanceStatus"] = get_imageResource(resourceName);
 
             table_profileList.Rows.CopyTo(row.ItemArray, key);
         }
@@ -1388,14 +1384,14 @@ namespace HawkSync_SM
             int intCount = 0;
             while (intCount < _state.Instances.Count)
             {
-                if (_state.Instances[intCount].Status == InstanceStatus.ONLINE ||
-                    _state.Instances[intCount].Status == InstanceStatus.SCORING ||
-                    _state.Instances[intCount].Status == InstanceStatus.LOADINGMAP ||
-                    _state.Instances[intCount].Status == InstanceStatus.STARTDELAY)
+                if (_state.Instances[intCount].instanceStatus == InstanceStatus.ONLINE ||
+                    _state.Instances[intCount].instanceStatus == InstanceStatus.SCORING ||
+                    _state.Instances[intCount].instanceStatus == InstanceStatus.LOADINGMAP ||
+                    _state.Instances[intCount].instanceStatus == InstanceStatus.STARTDELAY)
                 {
                     event_ServerOnline();
                 }
-                else if (_state.Instances[intCount].Status == InstanceStatus.OFFLINE)
+                else if (_state.Instances[intCount].instanceStatus == InstanceStatus.OFFLINE)
                 {
                     event_serverOffline();
                 }
@@ -1417,16 +1413,16 @@ namespace HawkSync_SM
             {
                 string img;
                 string statusIMG;
-                int findInstanceIndex = bindingSource.Find("ID", _state.Instances[i].Id);
+                int findInstanceIndex = bindingSource.Find("ID", _state.Instances[i].instanceID);
                 if (findInstanceIndex == -1)
                 {
                     DataRow dr = table_profileList.NewRow();
                     statusIMG = "notactive.gif";
-                    if (_state.Instances[i].GameType == 0 && _state.Instances[i].IsTeamSabre == true)
+                    if (_state.Instances[i].profileServerType == 0 && _state.Instances[i].infoTeamSabre == true)
                     {
                         img = "bhdts.gif";
                     }
-                    else if (_state.Instances[i].GameType == 0 && _state.Instances[i].IsTeamSabre == false)
+                    else if (_state.Instances[i].profileServerType == 0 && _state.Instances[i].infoTeamSabre == false)
                     {
                         img = "bhd.gif";
                     }
@@ -1435,10 +1431,10 @@ namespace HawkSync_SM
                         img = "bhd.gif";
                     }
                     Console.WriteLine($"{dr["Game Name"]}");
-                    dr["ID"] = _state.Instances[i].Id;
-                    dr["Game Name"] = _state.Instances[i].GameName;
-                    dr["Mod"] = get_imageResource(img);
-                    dr["Server Status"] = get_imageResource(statusIMG);
+                    dr["ID"] = _state.Instances[i].instanceID;
+                    dr["Game Name"] = _state.Instances[i].profileName;
+                    dr["profileGameMod"] = get_imageResource(img);
+                    dr["Server instanceStatus"] = get_imageResource(statusIMG);
                     table_profileList.Rows.Add(dr);
                 }
             }
@@ -1451,20 +1447,20 @@ namespace HawkSync_SM
             list_serverProfiles.Columns["ID"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             list_serverProfiles.Columns["Game Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             list_serverProfiles.Columns["Game Name"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            list_serverProfiles.Columns["Mod"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            list_serverProfiles.Columns["Mod"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            list_serverProfiles.Columns["profileGameMod"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            list_serverProfiles.Columns["profileGameMod"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             list_serverProfiles.Columns["Slots"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             list_serverProfiles.Columns["Slots"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            list_serverProfiles.Columns["Map"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            list_serverProfiles.Columns["Map"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            list_serverProfiles.Columns["infoCurrentMapName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            list_serverProfiles.Columns["infoCurrentMapName"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             list_serverProfiles.Columns["Game Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             list_serverProfiles.Columns["Game Type"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             list_serverProfiles.Columns["Time Remaining"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             list_serverProfiles.Columns["Time Remaining"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            list_serverProfiles.Columns["Web Stats Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            list_serverProfiles.Columns["Web Stats Status"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            list_serverProfiles.Columns["Server Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            list_serverProfiles.Columns["Server Status"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            list_serverProfiles.Columns["Web Stats instanceStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            list_serverProfiles.Columns["Web Stats instanceStatus"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            list_serverProfiles.Columns["Server instanceStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            list_serverProfiles.Columns["Server instanceStatus"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //set all rows to middlecenter
             list_serverProfiles.RowsDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             // prevent header selection
@@ -1739,17 +1735,17 @@ namespace HawkSync_SM
         {
             try
             {
-                WatsonTcpServer ServerRC = _state.server;
-                ServerRC.Events.MessageReceived += RCEvents_MessageReceived;
-                ServerRC.Events.ClientConnected += RCEvents_ClientConnected;
-                ServerRC.Events.ServerStarted += RCEvents_ServerStarted;
-                ServerRC.Events.ServerStopped += RCEvents_ServerStopped;
-                ServerRC.Events.StreamReceived += RCEvents_StreamReceived;
-                ServerRC.Events.ExceptionEncountered += RCEvents_ExceptionEncountered;
-                ServerRC.Callbacks.SyncRequestReceived = RC_RunCommand;
+                WatsonTcpServer Server = _state.server;
+                Server.Events.MessageReceived += RCEvents_MessageReceived;
+                Server.Events.ClientConnected += RCEvents_ClientConnected;
+                Server.Events.ServerStarted += RCEvents_ServerStarted;
+                Server.Events.ServerStopped += RCEvents_ServerStopped;
+                Server.Events.StreamReceived += RCEvents_StreamReceived;
+                Server.Events.ExceptionEncountered += RCEvents_ExceptionEncountered;
+                Server.Callbacks.SyncRequestReceived = RC_RunCommand;
                 if (ProgramConfig.RCEnabled == true)
                 {
-                    ServerRC.Start();
+                    Server.Start();
                 }
             }
             catch (Exception e)

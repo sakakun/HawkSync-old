@@ -44,11 +44,11 @@ namespace HawkSync_SM.classes.ChatManagement
                         if (msg.Contains("$(NextMap)"))
                         {
                             int mapIndex = 0;
-                            if (_state.Instances[id].mapIndex != _state.Instances[id].MapList.Count)
+                            if (_state.Instances[id].infoCurrentMapIndex != _state.Instances[id].MapListCurrent.Count)
                             {
-                                mapIndex = _state.Instances[id].mapIndex + 1;
+                                mapIndex = _state.Instances[id].infoCurrentMapIndex + 1;
                             }
-                            msg = msg.Replace("$(NextMap)", "Next Map: " + _state.Instances[id].MapList[mapIndex].MapName);
+                            msg = msg.Replace("$(NextMap)", "Next infoCurrentMapName: " + _state.Instances[id].MapListCurrent[mapIndex].MapName);
                         }
                         else if (msg.Contains("$(HighestEXP)"))
                         {

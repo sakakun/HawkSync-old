@@ -18,24 +18,24 @@ namespace HawkSync_SM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (_state.Instances[ArrayID].savedmaprotations.Count == 0)
+            if (_state.Instances[ArrayID].MapListRotationDB.Count == 0)
             {
                 return;
             }
 
             int selectedMapCycle = comboBox1.SelectedIndex;
 
-            _state.Instances[ArrayID].previousMapList = new Dictionary<int, MapList>();
-            foreach (var mapEntry in _state.Instances[ArrayID].MapList)
+            _state.Instances[ArrayID].MapListPrevious = new Dictionary<int, MapList>();
+            foreach (var mapEntry in _state.Instances[ArrayID].MapListCurrent)
             {
-                _state.Instances[ArrayID].previousMapList.Add(_state.Instances[ArrayID].previousMapList.Count, mapEntry.Value);
+                _state.Instances[ArrayID].MapListPrevious.Add(_state.Instances[ArrayID].MapListPrevious.Count, mapEntry.Value);
             }
-            _state.Instances[ArrayID].MapList = new Dictionary<int, MapList>();
-            foreach (var map in _state.Instances[ArrayID].savedmaprotations[selectedMapCycle].mapcycle)
+            _state.Instances[ArrayID].MapListCurrent = new Dictionary<int, MapList>();
+            foreach (var map in _state.Instances[ArrayID].MapListRotationDB[selectedMapCycle].mapcycle)
             {
-                _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, map);
+                _state.Instances[ArrayID].MapListCurrent.Add(_state.Instances[ArrayID].MapListCurrent.Count, map);
             }
-            _mapList = _state.Instances[ArrayID].savedmaprotations[selectedMapCycle].mapcycle;
+            _mapList = _state.Instances[ArrayID].MapListRotationDB[selectedMapCycle].mapcycle;
             this.Close();
         }
 
@@ -46,9 +46,9 @@ namespace HawkSync_SM
 
         private void Popup_LoadRotation_Load(object sender, EventArgs e)
         {
-            if (_state.Instances[ArrayID].savedmaprotations.Count != 0)
+            if (_state.Instances[ArrayID].MapListRotationDB.Count != 0)
             {
-                foreach (var entry in _state.Instances[ArrayID].savedmaprotations)
+                foreach (var entry in _state.Instances[ArrayID].MapListRotationDB)
                 {
                     comboBox1.Items.Add(entry.Description);
                 }

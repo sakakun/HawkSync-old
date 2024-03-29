@@ -64,29 +64,29 @@ namespace HawkSync_SM
             // Server Query Name
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x001BF400, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x001BF400, Ptr1, Ptr1.Length, ref Ptr1Read);
             int Ptr2 = BitConverter.ToInt32(Ptr1, 0);
 
             byte[] ServerName = new byte[31];
             int ServerNamePtrRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Ptr2 + 0x4, ServerName, ServerName.Length, ref ServerNamePtrRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)Ptr2 + 0x4, ServerName, ServerName.Length, ref ServerNamePtrRead);
             string ServerNameQuery = Encoding.Default.GetString(ServerName).Replace("\0", "");
             // end Server Query Name
 
             // Server Name Display
             byte[] Ptr3 = new byte[4];
             int Ptr3Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Ptr2 + 0x000A7088, Ptr3, Ptr3.Length, ref Ptr3Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)Ptr2 + 0x000A7088, Ptr3, Ptr3.Length, ref Ptr3Read);
             int ServerDisplayerName = BitConverter.ToInt32(Ptr3, 0);
 
             byte[] ServerNameDisplay = new byte[31];
             int ServerNameRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)ServerDisplayerName + 0x30, ServerNameDisplay, ServerNameDisplay.Length, ref ServerNameRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)ServerDisplayerName + 0x30, ServerNameDisplay, ServerNameDisplay.Length, ref ServerNameRead);
             string ServerDisplayName = Encoding.Default.GetString(ServerNameDisplay).Replace("\0", "");
             // end Server Name Display
 
             // since either one or the other isn't what it should be.. just update them both. Call it a day.
-            byte[] ServerNameBytes = Encoding.Default.GetBytes(_state.Instances[InstanceID].ServerName);
+            byte[] ServerNameBytes = Encoding.Default.GetBytes(_state.Instances[InstanceID].gameServerName);
             int bytesWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], ServerDisplayerName, ServerNameBytes, ServerNameBytes.Length, ref bytesWritten);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr2, ServerNameBytes, ServerNameBytes.Length, ref bytesWritten);
@@ -99,25 +99,25 @@ namespace HawkSync_SM
             // read country code Nova
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000AC7C8, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000AC7C8, Ptr1, Ptr1.Length, ref Ptr1Read);
             int Ptr2Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] Ptr2 = new byte[4];
             int Ptr2Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Ptr2Addr + 0x11, Ptr2, Ptr2.Length, ref Ptr2Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)Ptr2Addr + 0x11, Ptr2, Ptr2.Length, ref Ptr2Read);
             string NovaCountryCode = Encoding.Default.GetString(Ptr2);
 
 
             byte[] Ptr3 = new byte[4];
             int Ptr3Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000A7088, Ptr3, Ptr3.Length, ref Ptr3Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000A7088, Ptr3, Ptr3.Length, ref Ptr3Read);
             int Ptr4 = BitConverter.ToInt32(Ptr3, 0);
             byte[] Ptr5Addr = new byte[4];
             int Ptr5AddrRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Ptr4 + 0x50 + 0x53, Ptr5Addr, Ptr5Addr.Length, ref Ptr5AddrRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)Ptr4 + 0x50 + 0x53, Ptr5Addr, Ptr5Addr.Length, ref Ptr5AddrRead);
             string QueryCountryCode = Encoding.Default.GetString(Ptr5Addr);
 
 
-            byte[] CounryCode = Encoding.Default.GetBytes(_state.Instances[InstanceID].CountryCode);
+            byte[] CounryCode = Encoding.Default.GetBytes(_state.Instances[InstanceID].gameCountryCode);
             int bytesWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr4 + 0xA3, CounryCode, CounryCode.Length, ref bytesWritten);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr2Addr + 0x11, CounryCode, CounryCode.Length, ref bytesWritten);
@@ -133,20 +133,20 @@ namespace HawkSync_SM
             int Ptr1Read = 0;
             int Ptr2Read = 0;
             int Ptr3Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x005f2028, Ptr1, Ptr1.Length, ref Ptr1Read);
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x006343A0, Ptr2, Ptr2.Length, ref Ptr2Read);
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x00ACE088, Ptr3, Ptr3.Length, ref Ptr3Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x005f2028, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x006343A0, Ptr2, Ptr2.Length, ref Ptr2Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x00ACE088, Ptr3, Ptr3.Length, ref Ptr3Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             int Ptr2Addr = BitConverter.ToInt32(Ptr2, 0);
             int Ptr3Addr = BitConverter.ToInt32(Ptr3, 0);
             byte[] ServerPasswordBytes = new byte[16];
             int ServerPasswordRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, ServerPasswordBytes, ServerPasswordBytes.Length, ref ServerPasswordRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, ServerPasswordBytes, ServerPasswordBytes.Length, ref ServerPasswordRead);
             string ServerPassword = Encoding.Default.GetString(ServerPasswordBytes).Replace("\0", "");
 
             int ServerPasswordWritten = 0;
-            byte[] ServerPasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].Password);
+            byte[] ServerPasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].gamePasswordLobby);
             if (ServerPasswordWrite.Length == 0)
             {
                 ServerPasswordWrite = new byte[oldPwLength];
@@ -162,16 +162,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DDC3C, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DDC3C, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] SessionTypeBytes = new byte[4];
             int SessionTypeRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, SessionTypeBytes, SessionTypeBytes.Length, ref SessionTypeRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, SessionTypeBytes, SessionTypeBytes.Length, ref SessionTypeRead);
             int SessionType = BitConverter.ToInt32(SessionTypeBytes, 0);
 
             int SessionTypeWritten = 0;
-            byte[] SessionTypeBytesWrite = BitConverter.GetBytes(_state.Instances[InstanceID].SessionType);
+            byte[] SessionTypeBytesWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameSessionType);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, SessionTypeBytesWrite, SessionTypeBytesWrite.Length, ref SessionTypeWritten);
         }
         public void UpdateMaxSlots(AppState _state, int InstanceID)
@@ -180,16 +180,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D97A0, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D97A0, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MaxSlotsBytes = new byte[4];
             int MaxSlotsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MaxSlotsBytes, MaxSlotsBytes.Length, ref MaxSlotsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MaxSlotsBytes, MaxSlotsBytes.Length, ref MaxSlotsRead);
             int MaxSlots = BitConverter.ToInt32(MaxSlotsBytes, 0);
 
             int MaxSlotsWritten = 0;
-            byte[] MaxSlotsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MaxSlots);
+            byte[] MaxSlotsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMaxSlots);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MaxSlotsWrite, MaxSlotsWrite.Length, ref MaxSlotsWritten);
         }
         public void UpdateTimeLimit(AppState _state, int InstanceID)
@@ -198,16 +198,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DD1DC, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DD1DC, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] TimeLimitBytes = new byte[4];
             int TimeLimitRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, TimeLimitBytes, TimeLimitBytes.Length, ref TimeLimitRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, TimeLimitBytes, TimeLimitBytes.Length, ref TimeLimitRead);
             int TimeLimit = BitConverter.ToInt32(TimeLimitBytes, 0);
 
             int TimeLimitWritten = 0;
-            byte[] TimeLimitWrite = BitConverter.GetBytes(_state.Instances[InstanceID].TimeLimit);
+            byte[] TimeLimitWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameTimeLimit);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, TimeLimitWrite, TimeLimitWrite.Length, ref TimeLimitWritten);
         }
         public void UpdateStartDelay(AppState _state, int InstanceID)
@@ -216,16 +216,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D7F00, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D7F00, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] StartDelayBytes = new byte[4];
             int StartDelayRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, StartDelayBytes, StartDelayBytes.Length, ref StartDelayRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, StartDelayBytes, StartDelayBytes.Length, ref StartDelayRead);
             int StartDelay = BitConverter.ToInt32(StartDelayBytes, 0);
 
             int StartDelayWritten = 0;
-            byte[] StartDelayWrite = BitConverter.GetBytes(_state.Instances[InstanceID].StartDelay);
+            byte[] StartDelayWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameStartDelay);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, StartDelayWrite, StartDelayWrite.Length, ref StartDelayWritten);
         }
         public void UpdateLoopMaps(AppState _state, int InstanceID)
@@ -234,16 +234,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB6A0, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB6A0, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] LoopMapsBytes = new byte[4];
             int LoopMapsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, LoopMapsBytes, LoopMapsBytes.Length, ref LoopMapsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, LoopMapsBytes, LoopMapsBytes.Length, ref LoopMapsRead);
             int LoopMaps = BitConverter.ToInt32(LoopMapsBytes, 0);
 
             int LoopMapsWritten = 0;
-            byte[] LoopMapsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].LoopMaps);
+            byte[] LoopMapsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameLoopMaps);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, LoopMapsWrite, LoopMapsWrite.Length, ref LoopMapsWritten);
         }
         public void UpdateRespawnTime(AppState _state, int InstanceID)
@@ -252,16 +252,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DD4E8, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DD4E8, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] RespawnTimeBytes = new byte[4];
             int RespawnTimeRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, RespawnTimeBytes, RespawnTimeBytes.Length, ref RespawnTimeRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, RespawnTimeBytes, RespawnTimeBytes.Length, ref RespawnTimeRead);
             int RespawnTime = BitConverter.ToInt32(RespawnTimeBytes, 0);
 
             int RespawnTimeWritten = 0;
-            byte[] RespawnTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].RespawnTime);
+            byte[] RespawnTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameRespawnTime);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, RespawnTimeWrite, RespawnTimeWrite.Length, ref RespawnTimeWritten);
         }
         public void UpdateRequireNovaLogin(AppState _state, int InstanceID)
@@ -270,16 +270,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D9960, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D9960, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] RequireNovaBytes = new byte[4];
             int RequireNovaRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, RequireNovaBytes, RequireNovaBytes.Length, ref RequireNovaRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, RequireNovaBytes, RequireNovaBytes.Length, ref RequireNovaRead);
             int RequireNova = BitConverter.ToInt32(RequireNovaBytes, 0);
 
             int RequireNovaWritten = 0;
-            byte[] RequireNovaWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].RequireNovaLogin));
+            byte[] RequireNovaWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].gameRequireNova));
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, RequireNovaWrite, RequireNovaWrite.Length, ref RequireNovaWritten);
         }
         public void UpdateAllowCustomSkins(AppState _state, int InstanceID)
@@ -288,16 +288,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000AD760, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000AD760, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] AllowCustomSkinsBytes = new byte[4];
             int AllowCustomSkinsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, AllowCustomSkinsBytes, AllowCustomSkinsBytes.Length, ref AllowCustomSkinsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, AllowCustomSkinsBytes, AllowCustomSkinsBytes.Length, ref AllowCustomSkinsRead);
             int AllowCustomSkins = BitConverter.ToInt32(AllowCustomSkinsBytes, 0);
 
             int AllowCustomSkinsWritten = 0;
-            byte[] AllowCustomSkinsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].AllowCustomSkins));
+            byte[] AllowCustomSkinsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].gameCustomSkins));
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, AllowCustomSkinsWrite, AllowCustomSkinsWrite.Length, ref AllowCustomSkinsWritten);
         }
         public void UpdateMOTD(AppState _state, int InstanceID)
@@ -306,16 +306,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D9AAC, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D9AAC, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MOTDBytes = new byte[85];
             int MOTDRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MOTDBytes, MOTDBytes.Length, ref MOTDRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MOTDBytes, MOTDBytes.Length, ref MOTDRead);
             string MOTD = Encoding.Default.GetString(MOTDBytes).Replace("\0", "");
 
             int MOTDWritten = 0;
-            byte[] MOTDWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].MOTD);
+            byte[] MOTDWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].gameMOTD);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MOTDWrite, MOTDWrite.Length, ref MOTDWritten);
         }
         public void UpdateMinPing(AppState _state, int InstanceID)
@@ -324,16 +324,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB628, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB628, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MinPingBytes = new byte[4];
             int MinPingRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MinPingBytes, MinPingBytes.Length, ref MinPingRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MinPingBytes, MinPingBytes.Length, ref MinPingRead);
             int MinPing = BitConverter.ToInt32(MinPingBytes, 0);
 
             byte[] MinPingWrite = new byte[4];
-            MinPingWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MinPing);
+            MinPingWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMinPing);
 
             int MinPingWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MinPingWrite, MinPingWrite.Length, ref MinPingWritten);
@@ -344,16 +344,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D7FB8, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D7FB8, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MinPingValueBytes = new byte[4];
             int MinPingValueRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MinPingValueBytes, MinPingValueBytes.Length, ref MinPingValueRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MinPingValueBytes, MinPingValueBytes.Length, ref MinPingValueRead);
             int MinPingValue = BitConverter.ToInt32(MinPingValueBytes, 0);
 
             int MinPingValueWritten = 0;
-            byte[] MinPingValueWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MinPingValue);
+            byte[] MinPingValueWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMinPingValue);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MinPingValueWrite, MinPingValueWrite.Length, ref MinPingValueWritten);
         }
         public void UpdateMaxPing(AppState _state, int InstanceID)
@@ -362,16 +362,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB634, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB634, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MaxPingBytes = new byte[4];
             int MaxPingRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr + 0x4, MaxPingBytes, MaxPingBytes.Length, ref MaxPingRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr + 0x4, MaxPingBytes, MaxPingBytes.Length, ref MaxPingRead);
             int MaxPing = BitConverter.ToInt32(MaxPingBytes, 0);
 
             byte[] MaxPingWrite = new byte[4];
-            MaxPingWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MaxPing);
+            MaxPingWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMaxPing);
 
             int MaxPingWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr + 0x4, MaxPingWrite, MaxPingWrite.Length, ref MaxPingWritten);
@@ -382,16 +382,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB634, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB634, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MaxPingValueBytes = new byte[4];
             int MaxPingValueRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MaxPingValueBytes, MaxPingValueBytes.Length, ref MaxPingValueRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MaxPingValueBytes, MaxPingValueBytes.Length, ref MaxPingValueRead);
             int MaxPingValue = BitConverter.ToInt32(MaxPingValueBytes, 0);
 
             int MaxPingValueWritten = 0;
-            byte[] MaxPingValueWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MaxPingValue);
+            byte[] MaxPingValueWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMaxPingValue);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MaxPingValueWrite, MaxPingValueWrite.Length, ref MaxPingValueWritten);
         }
         public void UpdateOneShotKills(AppState _state, int InstanceID)
@@ -400,17 +400,17 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D8580, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D8580, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] OneShotKillsBytes = new byte[4];
             int OneShotKillsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, OneShotKillsBytes, OneShotKillsBytes.Length, ref OneShotKillsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, OneShotKillsBytes, OneShotKillsBytes.Length, ref OneShotKillsRead);
             int OneShotKills = BitConverter.ToInt32(OneShotKillsBytes, 0);
 
             int OneShotKillsWritten = 0;
             byte[] OneShotKillsWrite = new byte[4];
-            OneShotKillsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].OneShotKills));
+            OneShotKillsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].gameOneShotKills));
 
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, OneShotKillsWrite, OneShotKillsWrite.Length, ref OneShotKillsWritten);
         }
@@ -420,17 +420,17 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D7F14, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D7F14, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] FatBulletsBytes = new byte[4];
             int FatBulletsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, FatBulletsBytes, FatBulletsBytes.Length, ref FatBulletsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, FatBulletsBytes, FatBulletsBytes.Length, ref FatBulletsRead);
             int FatBullets = BitConverter.ToInt32(FatBulletsBytes, 0);
 
             int FatBulletsWritten = 0;
             byte[] FatBulletsWrite = new byte[4];
-            FatBulletsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].FatBullets));
+            FatBulletsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].gameFatBullets));
 
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, FatBulletsWrite, FatBulletsWrite.Length, ref FatBulletsWritten);
         }
@@ -440,17 +440,17 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D99B8, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D99B8, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] DestroyBuildingsBytes = new byte[4];
             int DestroyBuildingsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, DestroyBuildingsBytes, DestroyBuildingsBytes.Length, ref DestroyBuildingsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, DestroyBuildingsBytes, DestroyBuildingsBytes.Length, ref DestroyBuildingsRead);
             int DestroyBuildings = BitConverter.ToInt32(DestroyBuildingsBytes, 0);
 
             int DestroyBuildingsWritten = 0;
             byte[] DestroyBuildingsWrite = new byte[4];
-            DestroyBuildingsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].DestroyBuildings));
+            DestroyBuildingsWrite = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].gameDestroyBuildings));
 
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, DestroyBuildingsWrite, DestroyBuildingsWrite.Length, ref DestroyBuildingsWritten);
         }
@@ -460,16 +460,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x005F204A, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x005F204A, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] BluePasswordBytes = new byte[16];
             int BluePasswordRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, BluePasswordBytes, BluePasswordBytes.Length, ref BluePasswordRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, BluePasswordBytes, BluePasswordBytes.Length, ref BluePasswordRead);
             string BluePassword = Encoding.Default.GetString(BluePasswordBytes).Replace("\0", "");
 
             int BluePasswordWritten = 0;
-            byte[] BluePasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].BluePassword);
+            byte[] BluePasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].gamePasswordBlue);
             if (BluePasswordWrite.Length == 0)
             {
                 BluePasswordWrite = new byte[oldPwLength];
@@ -482,16 +482,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x006343D3, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x006343D3, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] RedPasswordBytes = new byte[16];
             int RedPasswordRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr + 0x33, RedPasswordBytes, RedPasswordBytes.Length, ref RedPasswordRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr + 0x33, RedPasswordBytes, RedPasswordBytes.Length, ref RedPasswordRead);
             string RedPassword = Encoding.Default.GetString(RedPasswordBytes).Replace("\0", "");
 
             int RedPasswordWritten = 0;
-            byte[] RedPasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].RedPassword);
+            byte[] RedPasswordWrite = Encoding.Default.GetBytes(_state.Instances[InstanceID].gamePasswordRed);
             if (RedPasswordWrite.Length == 0)
             {
                 RedPasswordWrite = new byte[oldPwLength];
@@ -504,16 +504,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB6FC, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB6FC, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] PSPTakeOverTimeBytes = new byte[4];
             int PSPTakeOverTimeRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr + 0x4, PSPTakeOverTimeBytes, PSPTakeOverTimeBytes.Length, ref PSPTakeOverTimeRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr + 0x4, PSPTakeOverTimeBytes, PSPTakeOverTimeBytes.Length, ref PSPTakeOverTimeRead);
             int PSPTakeOverTimeValue = BitConverter.ToInt32(PSPTakeOverTimeBytes, 0);
 
             int PSPTakeOverTimeWritten = 0;
-            byte[] PSPTakeOverTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].PSPTakeOverTime);
+            byte[] PSPTakeOverTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gamePSPTOTimer);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr + 0x4, PSPTakeOverTimeWrite, PSPTakeOverTimeWrite.Length, ref PSPTakeOverTimeWritten);
         }
         public void UpdateFlagReturnTime(AppState _state, int InstanceID)
@@ -522,16 +522,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB6AC, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB6AC, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] FlagReturnTimeBytes = new byte[4];
             int FlagReturnTimeRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, FlagReturnTimeBytes, FlagReturnTimeBytes.Length, ref FlagReturnTimeRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, FlagReturnTimeBytes, FlagReturnTimeBytes.Length, ref FlagReturnTimeRead);
             int FlagReturnTime = BitConverter.ToInt32(FlagReturnTimeBytes, 0);
 
             int FlagReturnTimeWritten = 0;
-            byte[] FlagReturnTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].FlagReturnTime);
+            byte[] FlagReturnTimeWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameFlagReturnTime);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, FlagReturnTimeWrite, FlagReturnTimeWrite.Length, ref FlagReturnTimeWritten);
         }
         public void UpdateMaxTeamLives(AppState _state, int InstanceID)
@@ -540,16 +540,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D8554, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D8554, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] MaxTeamLivesBytes = new byte[4];
             int MaxTeamLivesRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, MaxTeamLivesBytes, MaxTeamLivesBytes.Length, ref MaxTeamLivesRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, MaxTeamLivesBytes, MaxTeamLivesBytes.Length, ref MaxTeamLivesRead);
             int MaxTeamLives = BitConverter.ToInt32(MaxTeamLivesBytes, 0);
 
             int MaxTeamLivesWritten = 0;
-            byte[] MaxTeamLivesWrite = BitConverter.GetBytes(_state.Instances[InstanceID].MaxTeamLives);
+            byte[] MaxTeamLivesWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameMaxTeamLives);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, MaxTeamLivesWrite, MaxTeamLivesWrite.Length, ref MaxTeamLivesWritten);
         }
         public void UpdateFriendlyFireKills(AppState _state, int InstanceID)
@@ -558,16 +558,16 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000DB684, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000DB684, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] FriendlyFireKillsBytes = new byte[4];
             int FriendlyFireKillsRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, FriendlyFireKillsBytes, FriendlyFireKillsBytes.Length, ref FriendlyFireKillsRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, FriendlyFireKillsBytes, FriendlyFireKillsBytes.Length, ref FriendlyFireKillsRead);
             int FriendlyFireKills = BitConverter.ToInt32(FriendlyFireKillsBytes, 0);
 
             int FriendlyFireKillsWritten = 0;
-            byte[] FriendlyFireKillsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].FriendlyFireKills);
+            byte[] FriendlyFireKillsWrite = BitConverter.GetBytes(_state.Instances[InstanceID].gameFriendlyFireKills);
             MemoryProcessor.Write(_state.Instances[InstanceID], Ptr1Addr, FriendlyFireKillsWrite, FriendlyFireKillsWrite.Length, ref FriendlyFireKillsWritten);
         }
         public void GamePlayOptions(AppState _state, int InstanceID)
@@ -578,12 +578,12 @@ namespace HawkSync_SM
 
             byte[] Ptr1 = new byte[4];
             int Ptr1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)baseAddr + 0x000D7D6C, Ptr1, Ptr1.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)baseAddr + 0x000D7D6C, Ptr1, Ptr1.Length, ref Ptr1Read);
 
             int Ptr1Addr = BitConverter.ToInt32(Ptr1, 0);
             byte[] GamePlayOptionsOneBytes = new byte[4];
             int GamePlayOptionsOneRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Addr, GamePlayOptionsOneBytes, GamePlayOptionsOneBytes.Length, ref GamePlayOptionsOneRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Addr, GamePlayOptionsOneBytes, GamePlayOptionsOneBytes.Length, ref GamePlayOptionsOneRead);
             int GamePlayOptionsOne = BitConverter.ToInt32(GamePlayOptionsOneBytes, 0);
 
             int GamePlayOptionsOneWritten = 0;
@@ -591,13 +591,13 @@ namespace HawkSync_SM
         }
         public int CalulateGameOptions(Instance theInstance)
         {
-            bool autoBalance = theInstance.AutoBalance;
-            bool friendlyFire = theInstance.FriendlyFire;
-            bool friendlyTags = theInstance.FriendlyTags;
-            bool friendlyFireWarning = theInstance.FriendlyFireWarning;
-            bool showTracers = theInstance.ShowTracers;
-            bool showTeamClays = theInstance.ShowTeamClays;
-            bool allowAutoRange = theInstance.AllowAutoRange;
+            bool autoBalance = theInstance.gameOptionAutoBalance;
+            bool friendlyFire = theInstance.gameOptionFF;
+            bool friendlyTags = theInstance.gameOptionFriendlyTags;
+            bool friendlyFireWarning = theInstance.gameOptionFFWarn;
+            bool showTracers = theInstance.gameOptionShowTracers;
+            bool showTeamClays = theInstance.gameShowTeamClays;
+            bool allowAutoRange = theInstance.gameOptionAutoRange;
 
             if (autoBalance == true && friendlyFire == false && friendlyTags == false && friendlyFireWarning == false && showTracers == false && showTeamClays == false && allowAutoRange == false)
             {
@@ -824,7 +824,7 @@ namespace HawkSync_SM
             byte[] Ptr1Bytes = new byte[4];
             int Ptr1Read = 0;
             int Ptr1Location = baseAddr + 0x0015C4B0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, Ptr1Location, Ptr1Bytes, Ptr1Bytes.Length, ref Ptr1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, Ptr1Location, Ptr1Bytes, Ptr1Bytes.Length, ref Ptr1Read);
 
             int Ptr1 = BitConverter.ToInt32(Ptr1Bytes, 0);
             int WeaponEntry = Ptr1 + 0x268;
@@ -950,7 +950,7 @@ namespace HawkSync_SM
         }
         public void UpdateMapCycle(AppState _state, int InstanceID)
         {
-            if (_state.Instances[InstanceID].previousMapList.Count > 128)
+            if (_state.Instances[InstanceID].MapListPrevious.Count > 128)
             {
                 throw new Exception("Someway, somehow, someone bypassed the maplist checks. You are NOT allowed to have more than 128 maps. #88");
             }
@@ -958,27 +958,27 @@ namespace HawkSync_SM
 
             byte[] ServerMapCyclePtr = new byte[4];
             int Pointer2Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
             int mapCycleServerAddress = BitConverter.ToInt32(ServerMapCyclePtr, 0);
 
             int mapCycleTotalAddress = mapCycleServerAddress + 0x4;
-            byte[] mapTotal = BitConverter.GetBytes(_state.Instances[InstanceID].MapList.Count);
+            byte[] mapTotal = BitConverter.GetBytes(_state.Instances[InstanceID].MapListCurrent.Count);
             int mapTotalWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], mapCycleTotalAddress, mapTotal, mapTotal.Length, ref mapTotalWritten);
 
 
             int mapCycleCurrentIndex = mapCycleServerAddress + 0xC;
-            byte[] resetMapIndex = BitConverter.GetBytes(_state.Instances[InstanceID].MapList.Count);
+            byte[] resetMapIndex = BitConverter.GetBytes(_state.Instances[InstanceID].MapListCurrent.Count);
             int resetMapIndexWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], mapCycleCurrentIndex, resetMapIndex, resetMapIndex.Length, ref resetMapIndexWritten);
 
 
             byte[] mapCycleListAddress = new byte[4];
             int mapCycleListAddressRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, mapCycleServerAddress, mapCycleListAddress, mapCycleListAddress.Length, ref mapCycleListAddressRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, mapCycleServerAddress, mapCycleListAddress, mapCycleListAddress.Length, ref mapCycleListAddressRead);
             int mapCycleList = BitConverter.ToInt32(mapCycleListAddress, 0);
 
-            foreach (var entry in _state.Instances[InstanceID].previousMapList)
+            foreach (var entry in _state.Instances[InstanceID].MapListPrevious)
             {
                 int mapFileIndexLocation = mapCycleList;
                 string mapFileName = "";
@@ -999,7 +999,7 @@ namespace HawkSync_SM
         }
         public void UpdateMapCycle2(AppState _state, int InstanceID)
         {
-            if (_state.Instances[InstanceID].MapList.Count > 128)
+            if (_state.Instances[InstanceID].MapListCurrent.Count > 128)
             {
                 throw new Exception("Someway, somehow, someone bypassed the maplist checks. You are NOT allowed to have more than 128 maps. #89");
             }
@@ -1007,55 +1007,55 @@ namespace HawkSync_SM
 
             byte[] Pointer1Bytes = new byte[4];
             int Pointer1Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, appEntry + 0x000DC6D8, Pointer1Bytes, Pointer1Bytes.Length, ref Pointer1Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, appEntry + 0x000DC6D8, Pointer1Bytes, Pointer1Bytes.Length, ref Pointer1Read);
             int mapCycleClientAddress = BitConverter.ToInt32(Pointer1Bytes, 0);
 
             string mapCycleClientString = "";
 
-            mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapList[0].MapFile, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
-            if (_state.Instances[InstanceID].MapList[0].MapName.Length > 31)
+            mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapListCurrent[0].MapFile, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
+            if (_state.Instances[InstanceID].MapListCurrent[0].MapName.Length > 31)
             {
                 string ModifiedmapTitle = "";
                 for (int i = 0; i < 31; i++)
                 {
-                    string mapTitle = _state.Instances[InstanceID].MapList[0].MapName;
+                    string mapTitle = _state.Instances[InstanceID].MapListCurrent[0].MapName;
                     ModifiedmapTitle += mapTitle[i];
                 }
                 mapCycleClientString += _state.autoRes.StringToHex(ModifiedmapTitle, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 ";
             }
             else
             {
-                mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapList[0].MapName, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 ";
+                mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapListCurrent[0].MapName, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 ";
             }
-            mapCycleClientString += _state.autoRes.IntToHex(_state.Instances[InstanceID].MaxKills) + " 14 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
-            mapCycleClientString += _state.autoRes.BoolToHex(_state.Instances[InstanceID].MapList[0].CustomMap) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 "; // custom map flag for FIRST MAP IN ROTATION
+            mapCycleClientString += _state.autoRes.IntToHex(_state.Instances[InstanceID].gameScoreKills) + " 14 00 00 00 05 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
+            mapCycleClientString += _state.autoRes.BoolToHex(_state.Instances[InstanceID].MapListCurrent[0].CustomMap) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 "; // custom map flag for FIRST MAP IN ROTATION
 
-            for (int Index = 0; Index < _state.Instances[InstanceID].MapList.Count; Index++)
+            for (int Index = 0; Index < _state.Instances[InstanceID].MapListCurrent.Count; Index++)
             {
                 if (Index != 0)
                 {
-                    mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapList[Index].MapFile, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
-                    if (_state.Instances[InstanceID].MapList[Index].MapName.Length > 31)
+                    mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapListCurrent[Index].MapFile, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
+                    if (_state.Instances[InstanceID].MapListCurrent[Index].MapName.Length > 31)
                     {
                         string ModifiedmapTitleLoop = "";
                         for (int iMap = 0; iMap < 31; iMap++)
                         {
-                            ModifiedmapTitleLoop += _state.Instances[InstanceID].MapList[Index].MapName[iMap];
+                            ModifiedmapTitleLoop += _state.Instances[InstanceID].MapListCurrent[Index].MapName[iMap];
                         }
                         mapCycleClientString += _state.autoRes.StringToHex(ModifiedmapTitleLoop, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
                     }
                     else
                     {
-                        mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapList[Index].MapName, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
+                        mapCycleClientString += _state.autoRes.StringToHex(_state.Instances[InstanceID].MapListCurrent[Index].MapName, 28) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 20 B5 B6 01 00 00 00 00 53 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
                     }
-                    mapCycleClientString += _state.autoRes.BoolToHex(_state.Instances[InstanceID].MapList[Index].CustomMap) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
+                    mapCycleClientString += _state.autoRes.BoolToHex(_state.Instances[InstanceID].MapListCurrent[Index].CustomMap) + " 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ";
                 }
             }
 
             byte[] mapCycleClientBytes = HexConverter.ToByteArray(mapCycleClientString.Replace(" ", ""));
             int mapCycleClientWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], mapCycleClientAddress, mapCycleClientBytes, mapCycleClientBytes.Length, ref mapCycleClientWritten);
-            UpdateSecondaryMapList(_state, _state.Instances[InstanceID].ProcessHandle, InstanceID);
+            UpdateSecondaryMapList(_state, _state.Instances[InstanceID].instanceProcessHandle, InstanceID);
         }
         public void UpdateSecondaryMapList(AppState _state, IntPtr handle, int InstanceID)
         {
@@ -1066,13 +1066,13 @@ namespace HawkSync_SM
             int mapCycleServerAddress = BitConverter.ToInt32(ServerMapCyclePtr, 0);
 
             int mapCycleTotalAddress = mapCycleServerAddress + 0x4;
-            byte[] mapTotal = BitConverter.GetBytes(_state.Instances[InstanceID].MapList.Count);
+            byte[] mapTotal = BitConverter.GetBytes(_state.Instances[InstanceID].MapListCurrent.Count);
             int mapTotalWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], mapCycleTotalAddress, mapTotal, mapTotal.Length, ref mapTotalWritten);
 
 
             int mapCycleCurrentIndex = mapCycleServerAddress + 0xC;
-            byte[] resetMapIndex = BitConverter.GetBytes(_state.Instances[InstanceID].MapList.Count);
+            byte[] resetMapIndex = BitConverter.GetBytes(_state.Instances[InstanceID].MapListCurrent.Count);
             int resetMapIndexWritten = 0;
             MemoryProcessor.Write(_state.Instances[InstanceID], mapCycleCurrentIndex, resetMapIndex, resetMapIndex.Length, ref resetMapIndexWritten);
 
@@ -1083,27 +1083,27 @@ namespace HawkSync_SM
             int mapCycleList = BitConverter.ToInt32(mapCycleListAddress, 0);
 
 
-            for (int i = 0; i < _state.Instances[InstanceID].MapList.Count; i++)
+            for (int i = 0; i < _state.Instances[InstanceID].MapListCurrent.Count; i++)
             {
                 int mapFileIndexLocation = mapCycleList;
-                byte[] mapFileBytes = Encoding.ASCII.GetBytes(_state.Instances[InstanceID].MapList[i].MapFile);
+                byte[] mapFileBytes = Encoding.ASCII.GetBytes(_state.Instances[InstanceID].MapListCurrent[i].MapFile);
                 int mapFileBytesWritten = 0;
                 MemoryProcessor.Write(_state.Instances[InstanceID], mapFileIndexLocation, mapFileBytes, mapFileBytes.Length, ref mapFileBytesWritten);
                 mapFileIndexLocation += 0x20;
 
-                byte[] customMapFlag = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].MapList[i].CustomMap));
+                byte[] customMapFlag = BitConverter.GetBytes(Convert.ToInt32(_state.Instances[InstanceID].MapListCurrent[i].CustomMap));
                 int customMapFlagWritten = 0;
                 MemoryProcessor.Write(_state.Instances[InstanceID], mapFileIndexLocation, customMapFlag, customMapFlag.Length, ref customMapFlagWritten);
                 mapCycleList += 0x24;
             }
 
-            /*if (_state.Instances[InstanceID].MapList.Count != _state.Instances[InstanceID].mapListCount)
+            /*if (_state.Instances[InstanceID].MapListCurrent.Count != _state.Instances[InstanceID].infoCounterMaps)
             {
-                for (int i = 0; i < _state.Instances[InstanceID].mapListCount; i++)
+                for (int i = 0; i < _state.Instances[InstanceID].infoCounterMaps; i++)
                 {
-                    if (_state.Instances[InstanceID].MapList.ContainsKey(i))
+                    if (_state.Instances[InstanceID].MapListCurrent.ContainsKey(i))
                     {
-                        byte[] mapFileBytes = Encoding.ASCII.GetBytes(_state.Instances[InstanceID].MapList[i].MapFile);
+                        byte[] mapFileBytes = Encoding.ASCII.GetBytes(_state.Instances[InstanceID].MapListCurrent[i].MapFile);
                         int mapFileBytesWritten = 0;
                         WriteProcessMemory((int)handle, mapCycleList, mapFileBytes, mapFileBytes.Length, ref mapFileBytesWritten);
 
@@ -1112,9 +1112,9 @@ namespace HawkSync_SM
 
                 }
             }
-            else if (_state.Instances[InstanceID].MapList.Count == _state.Instances[InstanceID].mapListCount)
+            else if (_state.Instances[InstanceID].MapListCurrent.Count == _state.Instances[InstanceID].infoCounterMaps)
             {
-                for (int i = 0; i < _state.Instances[InstanceID].MapList.Count; i++)
+                for (int i = 0; i < _state.Instances[InstanceID].MapListCurrent.Count; i++)
                 {
 
                 }
@@ -1125,14 +1125,14 @@ namespace HawkSync_SM
             int appEntry = 0x400000;
             byte[] ServerMapCyclePtr = new byte[4];
             int Pointer2Read = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
             int MapCycleIndex = BitConverter.ToInt32(ServerMapCyclePtr, 0) + 0xC;
             int NewMapIndex = NextMapIndex;
             if (NewMapIndex - 1 == -1)
             {
-                NewMapIndex = _state.Instances[InstanceID].MapList.Count;
+                NewMapIndex = _state.Instances[InstanceID].MapListCurrent.Count;
             }
-            else if (_state.Instances[InstanceID].MapList.ContainsKey(NewMapIndex - 1))
+            else if (_state.Instances[InstanceID].MapListCurrent.ContainsKey(NewMapIndex - 1))
             {
                 NewMapIndex--;
             }
@@ -1142,16 +1142,16 @@ namespace HawkSync_SM
         }
         public void SetHostnames(Instance _instance)
         {
-            bool processExists = ProcessExist(_instance.PID.GetValueOrDefault());
+            bool processExists = ProcessExist(_instance.instanceAttachedPID.GetValueOrDefault());
             if (processExists == true)
             {
                 int buffer = 0;
                 byte[] PointerAddr = new byte[4];
                 var baseAddr = 0x400000;
                 var Pointer = baseAddr + 0x005ED600;
-                ReadProcessMemory((int)_instance.ProcessHandle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
+                ReadProcessMemory((int)_instance.instanceProcessHandle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
                 int buffer2 = 0;
-                byte[] Hostname = Encoding.Default.GetBytes(_instance.HostName + "\0");
+                byte[] Hostname = Encoding.Default.GetBytes(_instance.gameHostName + "\0");
                 var Address2HostName = BitConverter.ToInt32(PointerAddr, 0);
                 MemoryProcessor.Write(_instance, (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
             }
@@ -1203,16 +1203,16 @@ namespace HawkSync_SM
         {
             Instance instance = _state.Instances[InstaceID];
 
-            if (instance.Status == InstanceStatus.LOADINGMAP)
+            if (instance.instanceStatus == InstanceStatus.LOADINGMAP)
             {
-                return (instance.StartDelay + instance.TimeLimit);
+                return (instance.gameStartDelay + instance.gameTimeLimit);
             }
 
             var baseAddr = 0x400000;
             byte[] Ptr = new byte[4];
             int ReadPtr = 0;
 
-            ReadProcessMemory((int)instance.ProcessHandle, (int)baseAddr + 0x00061098, Ptr, Ptr.Length, ref ReadPtr);
+            ReadProcessMemory((int)instance.instanceProcessHandle, (int)baseAddr + 0x00061098, Ptr, Ptr.Length, ref ReadPtr);
             int MapTimeAddr = BitConverter.ToInt32(Ptr, 0);
 
             Stopwatch stopwatchProcessingTime = new Stopwatch();
@@ -1220,16 +1220,16 @@ namespace HawkSync_SM
 
             byte[] MapTimeMs = new byte[4];
             int MapTimeRead = 0;
-            ReadProcessMemory((int)instance.ProcessHandle, MapTimeAddr, MapTimeMs, MapTimeMs.Length, ref MapTimeRead);
+            ReadProcessMemory((int)instance.instanceProcessHandle, MapTimeAddr, MapTimeMs, MapTimeMs.Length, ref MapTimeRead);
             int MapTime = BitConverter.ToInt32(MapTimeMs, 0);
             int MapTimeInSeconds = MapTime / 60;
 
             DateTime MapStartTime = DateTime.Now - TimeSpan.FromSeconds(MapTimeInSeconds);
-            DateTime MapEndTime = MapStartTime + TimeSpan.FromMinutes(instance.StartDelay + instance.TimeLimit);
+            DateTime MapEndTime = MapStartTime + TimeSpan.FromMinutes(instance.gameStartDelay + instance.gameTimeLimit);
 
             byte[] TimeOffset = new byte[4];
             int TimeOffsetRead = 0;
-            ReadProcessMemory((int)instance.ProcessHandle, MapTimeAddr, TimeOffset, TimeOffset.Length, ref TimeOffsetRead);
+            ReadProcessMemory((int)instance.instanceProcessHandle, MapTimeAddr, TimeOffset, TimeOffset.Length, ref TimeOffsetRead);
             int intTimeOffset = BitConverter.ToInt32(TimeOffset, 0);
 
             TimeSpan TimeRemaining = MapEndTime - (DateTime.Now + TimeSpan.FromMilliseconds(stopwatchProcessingTime.ElapsedMilliseconds) - TimeSpan.FromMilliseconds(intTimeOffset));
@@ -1246,11 +1246,11 @@ namespace HawkSync_SM
 
             byte[] startaddr = new byte[4];
             int startaddr_read = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startList, startaddr, startaddr.Length, ref startaddr_read);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)startList, startaddr, startaddr.Length, ref startaddr_read);
             var firstplayer = BitConverter.ToInt32(startaddr, 0) + 0x28;
 
             byte[] scanbeginaddr = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)firstplayer, scanbeginaddr, scanbeginaddr.Length, ref startaddr_read);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)firstplayer, scanbeginaddr, scanbeginaddr.Length, ref startaddr_read);
             int beginaddr = BitConverter.ToInt32(scanbeginaddr, 0);
 
             if (reqslot != 1)
@@ -1263,14 +1263,14 @@ namespace HawkSync_SM
             byte[] read_name = new byte[15];
             int bytesread = 0;
 
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
             var PlayerName = Encoding.Default.GetString(read_name).Replace("\0", "");
 
             if (string.IsNullOrEmpty(PlayerName))
             {
                 beginaddr += 0xAF33C;
                 // Retry read if player name is empty
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + 0x1C, read_name, read_name.Length, ref bytesread);
                 PlayerName = Encoding.Default.GetString(read_name).Replace("\0", "");
             }
 
@@ -1282,7 +1282,7 @@ namespace HawkSync_SM
             }
 
             byte[] read_ping = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB40, read_ping, read_ping.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + 0x000ADB40, read_ping, read_ping.Length, ref bytesread);
 
             int[] offsets = {
                 0x000ADAB4, 0x000ADA94, 0x000ADA98, 0x000ADA8C, 0x000ADAD0,
@@ -1297,7 +1297,7 @@ namespace HawkSync_SM
             for (int i = 0; i < offsets.Length; i++)
             {
                 byte[] read_data = new byte[4];
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets[i], read_data, read_data.Length, ref bytesread);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + offsets[i], read_data, read_data.Length, ref bytesread);
                 stats[i] = BitConverter.ToInt32(read_data, 0);
             }
 
@@ -1314,7 +1314,7 @@ namespace HawkSync_SM
             for (int i = 0; i < offsets2.Length; i++)
             {
                 byte[] read_data = new byte[4];
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + offsets2[i], read_data, read_data.Length, ref bytesread);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + offsets2[i], read_data, read_data.Length, ref bytesread);
                 stats2[i] = BitConverter.ToInt32(read_data, 0);
             }
             //Console.WriteLine(PlayerName);
@@ -1322,19 +1322,19 @@ namespace HawkSync_SM
             //Console.WriteLine(JsonConvert.SerializeObject(stats2));
 
             byte[] read_playerObjectLocation = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + 0x5E7C, read_playerObjectLocation, read_playerObjectLocation.Length, ref bytesread);
             int read_playerObject = BitConverter.ToInt32(read_playerObjectLocation, 0);
 
             byte[] read_selectedWeapon = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x178, read_selectedWeapon, read_selectedWeapon.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)read_playerObject + 0x178, read_selectedWeapon, read_selectedWeapon.Length, ref bytesread);
             int SelectedWeapon = BitConverter.ToInt32(read_selectedWeapon, 0);
 
             byte[] read_selectedCharacterClass = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)read_playerObject + 0x244, read_selectedCharacterClass, read_selectedCharacterClass.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)read_playerObject + 0x244, read_selectedCharacterClass, read_selectedCharacterClass.Length, ref bytesread);
             int SelectedCharacterClass = BitConverter.ToInt32(read_selectedCharacterClass, 0);
 
             byte[] read_weapons = new byte[250];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)beginaddr + 0x000ADB70, read_weapons, read_weapons.Length, ref bytesread);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)beginaddr + 0x000ADB70, read_weapons, read_weapons.Length, ref bytesread);
             var MemoryWeapons = Encoding.Default.GetString(read_weapons).Replace("\0", "|");
             string[] weapons = MemoryWeapons.Split('|');
             List<string> WeaponList = new List<string>();
@@ -1396,7 +1396,7 @@ namespace HawkSync_SM
         {
             int bytesRead = 0;
             byte[] buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0065DCBC, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, 0x0065DCBC, buffer, buffer.Length, ref bytesRead);
             int CurrentPlayers = BitConverter.ToInt32(buffer, 0);
             return CurrentPlayers;
         }
@@ -1405,7 +1405,7 @@ namespace HawkSync_SM
             // memory polling
             int bytesRead = 0;
             byte[] buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x009F21A4, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, 0x009F21A4, buffer, buffer.Length, ref bytesRead);
             int GameType = BitConverter.ToInt32(buffer, 0);
 
             return GameType;
@@ -1415,7 +1415,7 @@ namespace HawkSync_SM
             // memory polling
             int bytesRead = 0;
             byte[] buffer = new byte[26];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, 0x0071569C, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, 0x0071569C, buffer, buffer.Length, ref bytesRead);
             string MissionName = Encoding.Default.GetString(buffer);
 
             return MissionName.Replace("\0", "");
@@ -1428,16 +1428,16 @@ namespace HawkSync_SM
 
             int playerIpAddressPointerBuffer = 0;
             byte[] PointerAddr_2 = new byte[4];
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, baseAddr + playerIpAddressPointerOffset, PointerAddr_2, PointerAddr_2.Length, ref playerIpAddressPointerBuffer);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, baseAddr + playerIpAddressPointerOffset, PointerAddr_2, PointerAddr_2.Length, ref playerIpAddressPointerBuffer);
 
             int IPList = BitConverter.ToInt32(PointerAddr_2, 0) + playernameOffset;
 
             int failureCounter = 0;
-            while (failureCounter <= _state.Instances[instanceid].MaxSlots)
+            while (failureCounter <= _state.Instances[instanceid].gameMaxSlots)
             {
                 byte[] playername_bytes = new byte[15];
                 int playername_buffer = 0;
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, IPList, playername_bytes, playername_bytes.Length, ref playername_buffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, IPList, playername_bytes, playername_bytes.Length, ref playername_buffer);
                 var currentPlayerName = Encoding.Default.GetString(playername_bytes).Replace("\0", "");
 
                 if (currentPlayerName == playername)
@@ -1450,19 +1450,19 @@ namespace HawkSync_SM
                 failureCounter++;
             }
 
-            if (failureCounter > _state.Instances[instanceid].MaxSlots)
+            if (failureCounter > _state.Instances[instanceid].gameMaxSlots)
             {
                 return null;
             }
 
             byte[] playerIPBytesPtr = new byte[4];
             int playerIPBufferPtr = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, IPList + 0xA4, playerIPBytesPtr, playerIPBytesPtr.Length, ref playerIPBufferPtr);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, IPList + 0xA4, playerIPBytesPtr, playerIPBytesPtr.Length, ref playerIPBufferPtr);
 
             int PlayerIPLocation = BitConverter.ToInt32(playerIPBytesPtr, 0) + 4;
             byte[] playerIPAddressBytes = new byte[4];
             int playerIPAddressBuffer = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, PlayerIPLocation, playerIPAddressBytes, playerIPAddressBytes.Length, ref playerIPAddressBuffer);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, PlayerIPLocation, playerIPAddressBytes, playerIPAddressBytes.Length, ref playerIPAddressBuffer);
 
             IPAddress playerIp = new IPAddress(playerIPAddressBytes);
             return playerIp.ToString();
@@ -1479,30 +1479,30 @@ namespace HawkSync_SM
                 var Pointer = baseAddr + 0x005ED600;
 
                 byte[] PointerAddr9 = new byte[4];
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                 var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
 
                 byte[] playerListStartingLocationByteArray = new byte[4];
-                ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref buffer);
+                ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref buffer);
 
                 int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                 int failureCount = 0;
 
                 for (int i = 0; i < NumPlayers; i++)
                 {
-                    if (failureCount == _state.Instances[instanceid].MaxSlots)
+                    if (failureCount == _state.Instances[instanceid].gameMaxSlots)
                     {
                         break;
                     }
 
                     byte[] slotNumberValue = new byte[4];
                     int slotNumberLocation = playerlistStartingLocation + 0xC;
-                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, slotNumberLocation, slotNumberValue, slotNumberValue.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, slotNumberLocation, slotNumberValue, slotNumberValue.Length, ref buffer);
                     int playerSlot = BitConverter.ToInt32(slotNumberValue, 0);
 
                     byte[] playerNameBytes = new byte[15];
                     int playerNameLocation = playerlistStartingLocation + 0x1C;
-                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerNameLocation, playerNameBytes, playerNameBytes.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, playerNameLocation, playerNameBytes, playerNameBytes.Length, ref buffer);
                     string formattedPlayerName = Encoding.Default.GetString(playerNameBytes).Replace("\0", "");
 
                     if (string.IsNullOrEmpty(formattedPlayerName) || string.IsNullOrWhiteSpace(formattedPlayerName))
@@ -1515,7 +1515,7 @@ namespace HawkSync_SM
 
                     byte[] playerTeamBytes = new byte[4];
                     int playerTeamLocation = playerlistStartingLocation + 0x90;
-                    ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, playerTeamLocation, playerTeamBytes, playerTeamBytes.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, playerTeamLocation, playerTeamBytes, playerTeamBytes.Length, ref buffer);
                     int playerTeam = BitConverter.ToInt32(playerTeamBytes, 0);
 
                     string playerIP = GetPlayerIpAddress(ref _state, instanceid, formattedPlayerName).ToString();
@@ -1602,13 +1602,13 @@ namespace HawkSync_SM
             int appEntry = 0x400000;
             byte[] ServerMapCyclePtr = new byte[4];
             int Pointer2Read = 0;
-            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
+            ReadProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, appEntry + 0x005ED5F8, ServerMapCyclePtr, ServerMapCyclePtr.Length, ref Pointer2Read);
             int MapCycleIndex = BitConverter.ToInt32(ServerMapCyclePtr, 0) + 0xC;
             byte[] mapIndexBytes = new byte[4];
             int mapIndexRead = 0;
-            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
+            ReadProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
 
-            _state.Instances[ArrayID].mapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
+            _state.Instances[ArrayID].infoCurrentMapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
         }
         public scoreManagement GetCurrentGameScores(ref AppState _state, int ArrayID)
         {
@@ -1625,19 +1625,19 @@ namespace HawkSync_SM
             // Grab total games played
             bytesRead = 0;
             buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr1, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, startingPtr1, buffer, buffer.Length, ref bytesRead);
             int totalGames = BitConverter.ToInt32(buffer, 0);
 
             // Grab blue player wins
             bytesRead = 0;
             buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr2, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, startingPtr2, buffer, buffer.Length, ref bytesRead);
             int blueWins = BitConverter.ToInt32(buffer, 0);
 
             // Grab red player wins
             bytesRead = 0;
             buffer = new byte[4];
-            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr3, buffer, buffer.Length, ref bytesRead);
+            ReadProcessMemory((int)_state.Instances[ArrayID].instanceProcessHandle, startingPtr3, buffer, buffer.Length, ref bytesRead);
             int redWins = BitConverter.ToInt32(buffer, 0);
 
             return new scoreManagement(totalGames, blueWins, redWins);
@@ -1650,26 +1650,26 @@ namespace HawkSync_SM
             var baseAddr = 0x400000;
             var startingPtr1 = 0;
             var startingPtr2 = 0;
-            switch (_state.Instances[ArrayID].nextMapGameType)
+            switch (_state.Instances[ArrayID].infoNextMapGameType)
             {
                 // KOTH/TKOTH
                 case 3:
                 case 4:
                     startingPtr1 = baseAddr + 0x5F21B8;
                     startingPtr2 = baseAddr + 0x6344B4;
-                    nextGameScore = _state.Instances[ArrayID].KOTHScore;
+                    nextGameScore = _state.Instances[ArrayID].gameScoreZoneTime;
                     break;
                 // flag ball
                 case 8:
                     startingPtr1 = baseAddr + 0x5F21AC;
                     startingPtr2 = baseAddr + 0x6034B8;
-                    nextGameScore = _state.Instances[ArrayID].FBScore;
+                    nextGameScore = _state.Instances[ArrayID].gameScoreFlags;
                     break;
                 // all other game types...
                 default:
                     startingPtr1 = baseAddr + 0x5F21AC;
                     startingPtr2 = baseAddr + 0x6034B8;
-                    nextGameScore = _state.Instances[ArrayID].GameScore;
+                    nextGameScore = _state.Instances[ArrayID].gameScoreKills;
                     break;
             }
             byte[] nextGameScoreBytes = BitConverter.GetBytes(nextGameScore);
@@ -1686,7 +1686,7 @@ namespace HawkSync_SM
             int baseAddr = 0x400000;
             int mapCycleCounterPtr = baseAddr + 0x5ED644;
 
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, mapCycleCounterPtr, currentMapCycleCountBytes, currentMapCycleCountBytes.Length, ref currentMapCycleCountRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, mapCycleCounterPtr, currentMapCycleCountBytes, currentMapCycleCountBytes.Length, ref currentMapCycleCountRead);
 
             int currentMapCycleCount = BitConverter.ToInt32(currentMapCycleCountBytes, 0);
 
@@ -1694,12 +1694,12 @@ namespace HawkSync_SM
         }
         public void ProcessDisarmedPlayers(ref AppState _state, int rowId)
         {
-            for (int i = 0; i < _state.Instances[rowId].DisarmPlayers.Count; i++)
+            for (int i = 0; i < _state.Instances[rowId].PlayerListDisarm.Count; i++)
             {
-                int playerId = _state.Instances[rowId].DisarmPlayers[i];
+                int playerId = _state.Instances[rowId].PlayerListDisarm[i];
                 if (!_state.Instances[rowId].PlayerList.ContainsKey(playerId))
                 {
-                    _state.Instances[rowId].DisarmPlayers.Remove(playerId);
+                    _state.Instances[rowId].PlayerListDisarm.Remove(playerId);
                     continue;
                 }
 
@@ -1707,11 +1707,11 @@ namespace HawkSync_SM
                 int pointerAddress = baseAddress + 0x005ED600;
                 byte[] pointerBuffer = new byte[4];
                 int bytesRead = 0;
-                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, pointerAddress, pointerBuffer, pointerBuffer.Length, ref bytesRead);
+                ReadProcessMemory((int)_state.Instances[rowId].instanceProcessHandle, pointerAddress, pointerBuffer, pointerBuffer.Length, ref bytesRead);
                 int playerlistStartingLocationPointer = BitConverter.ToInt32(pointerBuffer, 0) + 0x28;
 
                 byte[] playerListStartingLocationByteArray = new byte[4];
-                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref bytesRead);
+                ReadProcessMemory((int)_state.Instances[rowId].instanceProcessHandle, playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref bytesRead);
 
                 int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                 for (int slot = 1; slot < playerId; slot++)
@@ -1727,13 +1727,13 @@ namespace HawkSync_SM
         }
         public void SetNovaID(ref AppState _state, int rowId)
         {
-            if (_state.Instances[rowId].RequireNovaLogin == true)
+            if (_state.Instances[rowId].gameRequireNova == true)
             {
                 return; // since we are requiring nova login, just return.
             }
             byte[] CurrentAppIDBytes = new byte[4];
             int currentAppIDRead = 0;
-            ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, 0x009DDA44, CurrentAppIDBytes, CurrentAppIDBytes.Length, ref currentAppIDRead);
+            ReadProcessMemory((int)_state.Instances[rowId].instanceProcessHandle, 0x009DDA44, CurrentAppIDBytes, CurrentAppIDBytes.Length, ref currentAppIDRead);
             int CurrentAppID = BitConverter.ToInt32(CurrentAppIDBytes, 0);
 
             if (CurrentAppID != 0)
@@ -1745,7 +1745,7 @@ namespace HawkSync_SM
         }
         public void ChangePlayerTeam(ref AppState _state, int rowId)
         {
-            if (_state.Instances[rowId].ChangeTeamList.Count == 0)
+            if (_state.Instances[rowId].TeamListChange.Count == 0)
             {
                 return;
             }
@@ -1757,42 +1757,42 @@ namespace HawkSync_SM
                 var Pointer = baseAddr + 0x005ED600;
 
                 // read the playerlist memory address from the game...
-                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                ReadProcessMemory((int)_state.Instances[rowId].instanceProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                 var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                 byte[] playerListStartingLocationByteArray = new byte[4];
                 int playerListStartingLocationBuffer = 0;
-                ReadProcessMemory((int)_state.Instances[rowId].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                ReadProcessMemory((int)_state.Instances[rowId].instanceProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                 int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
 
-                for (int ii = 0; ii < _state.Instances[rowId].ChangeTeamList.Count; ii++)
+                for (int ii = 0; ii < _state.Instances[rowId].TeamListChange.Count; ii++)
                 {
                     int playerLocationOffset = 0;
-                    for (int i = 1; i < _state.Instances[rowId].ChangeTeamList[ii].slotNum; i++)
+                    for (int i = 1; i < _state.Instances[rowId].TeamListChange[ii].slotNum; i++)
                     {
                         playerLocationOffset += 0xAF33C;
                     }
                     int playerLocation = playerlistStartingLocation + playerLocationOffset;
                     int playerTeamLocation = playerLocation + 0x90;
-                    byte[] teamBytes = BitConverter.GetBytes((int)_state.Instances[rowId].ChangeTeamList[ii].Team);
+                    byte[] teamBytes = BitConverter.GetBytes((int)_state.Instances[rowId].TeamListChange[ii].Team);
                     int bytesWritten = 0;
                     MemoryProcessor.Write(_state.Instances[rowId], playerTeamLocation, teamBytes, teamBytes.Length, ref bytesWritten);
-                    _state.Instances[rowId].ChangeTeamList.RemoveAt(ii);
+                    _state.Instances[rowId].TeamListChange.RemoveAt(ii);
                 }
             }
         }
         public void ResetGodMode(ref AppState _state, int InstanceID)
         {
-            if (_state.Instances[InstanceID].GodModeList.Count == 0)
+            if (_state.Instances[InstanceID].PlayerListGodMod.Count == 0)
             {
                 return;
             }
-            for (int iSlot = 0; iSlot < _state.Instances[InstanceID].GodModeList.Count; iSlot++)
+            for (int iSlot = 0; iSlot < _state.Instances[InstanceID].PlayerListGodMod.Count; iSlot++)
             {
-                int slot = _state.Instances[InstanceID].GodModeList[iSlot];
+                int slot = _state.Instances[InstanceID].PlayerListGodMod[iSlot];
                 if (!_state.Instances[InstanceID].PlayerList.ContainsKey(slot))
                 {
-                    _state.Instances[InstanceID].GodModeList.Remove(slot);
+                    _state.Instances[InstanceID].PlayerListGodMod.Remove(slot);
                 }
                 else
                 {
@@ -1802,11 +1802,11 @@ namespace HawkSync_SM
                     var Pointer = baseAddr + 0x005ED600;
 
                     // read the playerlist memory address from the game...
-                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)Pointer, PointerAddr9, PointerAddr9.Length, ref buffer);
                     var playerlistStartingLocationPointer = BitConverter.ToInt32(PointerAddr9, 0) + 0x28;
                     byte[] playerListStartingLocationByteArray = new byte[4];
                     int playerListStartingLocationBuffer = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)playerlistStartingLocationPointer, playerListStartingLocationByteArray, playerListStartingLocationByteArray.Length, ref playerListStartingLocationBuffer);
 
                     int playerlistStartingLocation = BitConverter.ToInt32(playerListStartingLocationByteArray, 0);
                     for (int i = 1; i < slot; i++)
@@ -1815,7 +1815,7 @@ namespace HawkSync_SM
                     }
                     byte[] playerObjectLocationBytes = new byte[4];
                     int playerObjectLocationRead = 0;
-                    ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
+                    ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, playerlistStartingLocation + 0x11C, playerObjectLocationBytes, playerObjectLocationBytes.Length, ref playerObjectLocationRead);
                     int playerObjectLocation = BitConverter.ToInt32(playerObjectLocationBytes, 0);
 
                     byte[] setPlayerHealth = BitConverter.GetBytes(9999); //set god mode health
@@ -1836,20 +1836,20 @@ namespace HawkSync_SM
             var starterPtr = baseAddr + 0x00062D10;
             byte[] ChatLogPtr = new byte[4];
             int ChatLogPtrRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)starterPtr, ChatLogPtr, ChatLogPtr.Length, ref ChatLogPtrRead);
 
             // get last message sent...
             int ChatLogAddr = BitConverter.ToInt32(ChatLogPtr, 0);
 
             byte[] Message = new byte[74];
             int MessageRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, ChatLogAddr, Message, Message.Length, ref MessageRead);
             string LastMessage = Encoding.Default.GetString(Message).Replace("\0", "");
 
             int msgTypeAddr = ChatLogAddr + 0x78;
             byte[] msgType = new byte[4];
             int msgTypeRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, msgTypeAddr, msgType, msgType.Length, ref msgTypeRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, msgTypeAddr, msgType, msgType.Length, ref msgTypeRead);
             string msgTypeBytes = BitConverter.ToString(msgType).Replace("-", "");
 
             return new string[] { ChatLogAddr.ToString(), LastMessage, msgTypeBytes };
@@ -1867,14 +1867,14 @@ namespace HawkSync_SM
             var startingPtr = baseAddr + 0xACE0E8; // pinger query
             byte[] read_pingergametype = new byte[4];
             int read_pingergametypeBytesRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)startingPtr, read_pingergametype, read_pingergametype.Length, ref read_pingergametypeBytesRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)startingPtr, read_pingergametype, read_pingergametype.Length, ref read_pingergametypeBytesRead);
             int PingerGameType = BitConverter.ToInt32(read_pingergametype, 0);
 
             // get set gametype
             var CurrentGameTypeAddr = baseAddr + 0x5F21A4;
             byte[] read_currentgametype = new byte[4];
             int read_currentgametypeBytesRead = 0;
-            ReadProcessMemory((int)_state.Instances[InstanceID].ProcessHandle, (int)CurrentGameTypeAddr, read_currentgametype, read_currentgametype.Length, ref read_currentgametypeBytesRead);
+            ReadProcessMemory((int)_state.Instances[InstanceID].instanceProcessHandle, (int)CurrentGameTypeAddr, read_currentgametype, read_currentgametype.Length, ref read_currentgametypeBytesRead);
             int CurrentGameType = BitConverter.ToInt32(read_currentgametype, 0);
 
             // to prevent locking of this address simply look at each address before writing to the address...
@@ -1896,13 +1896,13 @@ namespace HawkSync_SM
             var startingPointer = baseAddr + 0x00098334;
             byte[] startingPointerBuffer = new byte[4];
             int startingPointerReadBytes = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)startingPointer, startingPointerBuffer, startingPointerBuffer.Length, ref startingPointerReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)startingPointer, startingPointerBuffer, startingPointerBuffer.Length, ref startingPointerReadBytes);
 
 
             int statusLocationPointer = BitConverter.ToInt32(startingPointerBuffer, 0);
             byte[] statusLocation = new byte[4];
             int statusLocationReadBytes = 0;
-            ReadProcessMemory((int)_state.Instances[instanceid].ProcessHandle, (int)statusLocationPointer, statusLocation, statusLocation.Length, ref statusLocationReadBytes);
+            ReadProcessMemory((int)_state.Instances[instanceid].instanceProcessHandle, (int)statusLocationPointer, statusLocation, statusLocation.Length, ref statusLocationReadBytes);
             int instanceStatus = BitConverter.ToInt32(statusLocation, 0);
 
             return (InstanceStatus)instanceStatus;
@@ -1912,14 +1912,14 @@ namespace HawkSync_SM
 
             try 
             {
-                string autoResPath = Path.Combine(startInstance.GamePath, "autores.bin");
-                string dfvCFGPath = Path.Combine(startInstance.GamePath, "dfv.cfg");
+                string autoResPath = Path.Combine(startInstance.profileServerPath, "autores.bin");
+                string dfvCFGPath = Path.Combine(startInstance.profileServerPath, "dfv.cfg");
 
                 string text = File.ReadAllText(dfvCFGPath);
                 text = text.Replace("// DISPLAY", "[Display]");
                 text = text.Replace("// CONTROLS", "[Controls]");
                 text = text.Replace("// MULTIPLAYER", "[Multiplayer]");
-                text = text.Replace("// MAP", "[Map]");
+                text = text.Replace("// MAP", "[infoCurrentMapName]");
                 text = text.Replace("// SYSTEM", "[System]");
 
                 var configFileFromString = new ConfigParser(text,
@@ -1937,7 +1937,7 @@ namespace HawkSync_SM
                     File.Delete(autoResPath);
                 }
                 MemoryStream ms = new MemoryStream();
-                int dedicatedSlots = startInstance.MaxSlots + Convert.ToInt32(startInstance.Dedicated);
+                int dedicatedSlots = startInstance.gameMaxSlots + Convert.ToInt32(startInstance.gameDedicated);
                 bool loopMaps = true;
 
                 int gamePlayOptionsInt = CalulateGameOptions(startInstance);
@@ -1952,18 +1952,18 @@ namespace HawkSync_SM
                 byte[] graphicsSetup_GUID = Encoding.Default.GetBytes(hw3d_guid);
                 byte[] graphicsSetupMisc_Settings = HexConverter.ToByteArray(_miscGraphicSettings.Replace(" ", ""));
                 byte[] applicationSettingBytes = HexConverter.ToByteArray(applicationSettings.Replace(" ", ""));
-                byte[] windowedModeBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.WindowedMode));
-                byte[] ServerNameBytes = Encoding.Default.GetBytes(startInstance.ServerName);
-                byte[] countryCodeBytes = Encoding.Default.GetBytes(startInstance.CountryCode);
-                byte[] BindAddress = Encoding.Default.GetBytes(startInstance.BindAddress);
-                byte[] firstMapFile = Encoding.Default.GetBytes(startInstance.MapList[0].MapFile);
-                byte[] maxSlotsBytes = BitConverter.GetBytes(startInstance.MaxSlots);
-                byte[] dedicatedBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.Dedicated));
-                byte[] GameScoreBytes = BitConverter.GetBytes(startInstance.GameScore);
-                byte[] StartDelayBytes = BitConverter.GetBytes(startInstance.StartDelay);
-                byte[] serverPasswordBytes = Encoding.Default.GetBytes(startInstance.Password);
-                byte[] redTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.RedPassword);
-                byte[] blueTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.BluePassword);
+                byte[] windowedModeBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameWindowedMode));
+                byte[] ServerNameBytes = Encoding.Default.GetBytes(startInstance.gameServerName);
+                byte[] countryCodeBytes = Encoding.Default.GetBytes(startInstance.gameCountryCode);
+                byte[] BindAddress = Encoding.Default.GetBytes(startInstance.profileBindIP);
+                byte[] firstMapFile = Encoding.Default.GetBytes(startInstance.MapListCurrent[0].MapFile);
+                byte[] maxSlotsBytes = BitConverter.GetBytes(startInstance.gameMaxSlots);
+                byte[] dedicatedBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameDedicated));
+                byte[] GameScoreBytes = BitConverter.GetBytes(startInstance.gameScoreKills);
+                byte[] StartDelayBytes = BitConverter.GetBytes(startInstance.gameStartDelay);
+                byte[] serverPasswordBytes = Encoding.Default.GetBytes(startInstance.gamePasswordLobby);
+                byte[] redTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.gamePasswordRed);
+                byte[] blueTeamPasswordBytes = Encoding.Default.GetBytes(startInstance.gamePasswordBlue);
                 byte[] gamePlayOptionsBytes = BitConverter.GetBytes(gamePlayOptionsInt);
                 byte[] loopMapsBytes;
 
@@ -1976,25 +1976,25 @@ namespace HawkSync_SM
                     loopMapsBytes = BitConverter.GetBytes(1);
                 }
 
-                byte[] gameTypeBytes = BitConverter.GetBytes(_state.autoRes.gameTypes[startInstance.MapList[0].GameType].DatabaseId);
-                byte[] timeLimitBytes = BitConverter.GetBytes(startInstance.TimeLimit);
-                byte[] respawnTimeBytes = BitConverter.GetBytes(startInstance.RespawnTime);
-                byte[] allowCustomSkinsBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.AllowCustomSkins));
-                byte[] requireNovaLoginBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.RequireNovaLogin));
-                byte[] MOTDBytes = Encoding.Default.GetBytes(startInstance.MOTD);
-                byte[] sessionTypeBytes = BitConverter.GetBytes(startInstance.SessionType);
+                byte[] gameTypeBytes = BitConverter.GetBytes(_state.autoRes.gameTypes[startInstance.MapListCurrent[0].GameType].DatabaseId);
+                byte[] timeLimitBytes = BitConverter.GetBytes(startInstance.gameTimeLimit);
+                byte[] respawnTimeBytes = BitConverter.GetBytes(startInstance.gameRespawnTime);
+                byte[] allowCustomSkinsBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameCustomSkins));
+                byte[] requireNovaLoginBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameRequireNova));
+                byte[] MOTDBytes = Encoding.Default.GetBytes(startInstance.gameMOTD);
+                byte[] sessionTypeBytes = BitConverter.GetBytes(startInstance.gameSessionType);
                 byte[] dedicatedSlotsBytes = BitConverter.GetBytes(dedicatedSlots);
                 byte[] graphicsHeaderSettings = BitConverter.GetBytes(-1);
                 byte[] graphicsSetting_1 = BitConverter.GetBytes(8);
-                byte[] startDelayBytes = BitConverter.GetBytes(startInstance.StartDelay);
-                byte[] minPingValueBytes = BitConverter.GetBytes(startInstance.MinPingValue);
-                byte[] enableMinPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MinPing));
-                byte[] maxPingValueBytes = BitConverter.GetBytes(startInstance.MaxPingValue);
-                byte[] enableMaxPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MaxPing));
-                byte[] gamePortBytes = BitConverter.GetBytes(startInstance.GamePort);
-                byte[] flagBallScoreBytes = BitConverter.GetBytes(startInstance.FBScore);
-                byte[] zoneTimerBytes = BitConverter.GetBytes(startInstance.ZoneTimer);
-                byte[] customMapFlagBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MapList[0].CustomMap));
+                byte[] startDelayBytes = BitConverter.GetBytes(startInstance.gameStartDelay);
+                byte[] minPingValueBytes = BitConverter.GetBytes(startInstance.gameMinPingValue);
+                byte[] enableMinPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameMinPing));
+                byte[] maxPingValueBytes = BitConverter.GetBytes(startInstance.gameMaxPingValue);
+                byte[] enableMaxPingBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.gameMaxPing));
+                byte[] gamePortBytes = BitConverter.GetBytes(startInstance.profileBindPort);
+                byte[] flagBallScoreBytes = BitConverter.GetBytes(startInstance.gameScoreFlags);
+                byte[] zoneTimerBytes = BitConverter.GetBytes(startInstance.gameScoreZoneTime);
+                byte[] customMapFlagBytes = BitConverter.GetBytes(Convert.ToInt32(startInstance.MapListCurrent[0].CustomMap));
 
                 byte[] mapListPrehandle = BitConverter.GetBytes(10621344);
                 byte[] finalAppSetup = HexConverter.ToByteArray("00 00 00 00 00 00 00 00 05 00 00 00 00".Replace(" ", ""));
@@ -2187,7 +2187,7 @@ namespace HawkSync_SM
 
                 byte[] endOfMap = HexConverter.ToByteArray("20 B5 B6 01 00 00 00 00 53 01 00 00 00 13 00 00 00 13 00 00 00 04 00 00 00".Replace(" ", ""));
 
-                foreach (var map in startInstance.MapList)
+                foreach (var map in startInstance.MapListCurrent)
                 {
                     byte[] mapFile = Encoding.Default.GetBytes(map.Value.MapFile);
                     ms.Write(mapFile, 0, mapFile.Length);
@@ -2207,7 +2207,7 @@ namespace HawkSync_SM
                     ms.Seek(ms.Position + 0x1C, SeekOrigin.Begin);
                 }
 
-                for (int i = startInstance.MapList.Count; i < 128; i++)
+                for (int i = startInstance.MapListCurrent.Count; i < 128; i++)
                 {
                     byte[] mapFile = Encoding.Default.GetBytes("NA.bms");
                     ms.Write(mapFile, 0, mapFile.Length);
@@ -2248,7 +2248,7 @@ namespace HawkSync_SM
         public bool startGame(Instance startInstance, AppState _state, int ArrayID, SQLiteConnection conn)
         {
             // Variable to be moved to the function that will need it.
-            string file_name = startInstance.GameType == 0 ? "dfbhd.exe" : "jops.exe";
+            string file_name = startInstance.profileServerType == 0 ? "dfbhd.exe" : "jops.exe";
 
             try
             {
@@ -2256,8 +2256,8 @@ namespace HawkSync_SM
                 Process process;
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
-                    FileName = Path.Combine(startInstance.GamePath, file_name),
-                    WorkingDirectory = startInstance.GamePath,
+                    FileName = Path.Combine(startInstance.profileServerPath, file_name),
+                    WorkingDirectory = startInstance.profileServerPath,
                     Arguments = "/w /LOADBAR /NOSYSDUMP /serveonly /autorestart",
                     WindowStyle = ProcessWindowStyle.Minimized
                 };
@@ -2266,9 +2266,9 @@ namespace HawkSync_SM
                 List<int> currentPIDs = new List<int>();
                 foreach (var instance in _state.Instances)
                 {
-                    if (instance.Value.PID != 0)
+                    if (instance.Value.instanceAttachedPID != 0)
                     {
-                        currentPIDs.Add(instance.Value.PID.GetValueOrDefault());
+                        currentPIDs.Add(instance.Value.instanceAttachedPID.GetValueOrDefault());
                     }
                 }
                 Process[] processes = Process.GetProcessesByName("dfbhd");
@@ -2277,12 +2277,12 @@ namespace HawkSync_SM
                     if (!currentPIDs.Contains(activeProcess.Id) && activeProcess.StartTime > DateTime.Now.AddMinutes(-1))
                     {
                         activeProcess.MaxWorkingSet = new IntPtr(0x7fffffff);
-                        startInstance.PID = activeProcess.Id;
+                        startInstance.instanceAttachedPID = activeProcess.Id;
                         _state.ApplicationProcesses[ArrayID] = activeProcess;
                     }
                 }
 
-                string pid_update_db = "UPDATE instances_pid SET pid = " + _state.ApplicationProcesses[ArrayID].Id + " WHERE profile_id = " + startInstance.Id + ";";
+                string pid_update_db = "UPDATE instances_pid SET pid = " + _state.ApplicationProcesses[ArrayID].Id + " WHERE profile_id = " + startInstance.instanceID + ";";
                 SQLiteCommand pid_update = new SQLiteCommand(pid_update_db, conn);
                 pid_update.ExecuteNonQuery();
                 pid_update.Dispose();
@@ -2295,23 +2295,23 @@ namespace HawkSync_SM
 
             // Game Didn't Crash Yay!  Dump Data to the State
             _state.Instances[ArrayID] = startInstance;
-            _state.Instances[ArrayID].gameCrashCounter = 0;
+            _state.Instances[ArrayID].instanceCrashCounter = 0;
 
-            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].PID.GetValueOrDefault());
-            _state.Instances[ArrayID].ProcessHandle = processHandle;
+            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, _state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
+            _state.Instances[ArrayID].instanceProcessHandle = processHandle;
             var baseAddr = 0x400000;
 
             Thread.Sleep(1500);
 
-            SetWindowText(_state.ApplicationProcesses[ArrayID].MainWindowHandle, $"{_state.Instances[ArrayID].GameName}");
-            if (_state.Instances[ArrayID].HostName != "Host")
+            SetWindowText(_state.ApplicationProcesses[ArrayID].MainWindowHandle, $"{_state.Instances[ArrayID].profileName}");
+            if (_state.Instances[ArrayID].gameHostName != "Host")
             {
                 int buffer = 0;
                 byte[] PointerAddr = new byte[4];
                 var Pointer = baseAddr + 0x005ED600;
                 ReadProcessMemory((int)processHandle, (int)Pointer, PointerAddr, PointerAddr.Length, ref buffer);
                 int buffer2 = 0;
-                byte[] Hostname = Encoding.Default.GetBytes(_state.Instances[ArrayID].HostName + "\0");
+                byte[] Hostname = Encoding.Default.GetBytes(_state.Instances[ArrayID].gameHostName + "\0");
                 var Address2HostName = BitConverter.ToInt32(PointerAddr, 0);
                 WriteProcessMemory((int)processHandle, (int)Address2HostName + 0x3C, Hostname, Hostname.Length, ref buffer2);
             }
@@ -2334,12 +2334,12 @@ namespace HawkSync_SM
             ReadProcessMemory((int)processHandle, mapListLocationPtr, mapListLocationPtrBytes, mapListLocationPtrBytes.Length, ref mapListLocationBytesPtrRead);
 
             int mapListNumberOfMaps = BitConverter.ToInt32(mapListLocationPtrBytes, 0) + 0x4;
-            byte[] numberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapList.Count);
+            byte[] numberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapListCurrent.Count);
             int numberofMapsWritten = 0;
             WriteProcessMemory((int)processHandle, mapListNumberOfMaps, numberOfMaps, numberOfMaps.Length, ref numberofMapsWritten);
 
             mapListNumberOfMaps += 0x4;
-            byte[] TotalnumberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapList.Count);
+            byte[] TotalnumberOfMaps = BitConverter.GetBytes(_state.Instances[ArrayID].MapListCurrent.Count);
             int TotalnumberofMapsWritten = 0;
             WriteProcessMemory((int)processHandle, mapListNumberOfMaps, TotalnumberOfMaps, TotalnumberOfMaps.Length, ref TotalnumberofMapsWritten);
 
@@ -2363,8 +2363,8 @@ namespace HawkSync_SM
             if (ProgramConfig.EnableWFB)
             {
                 // Add Firewall Rules
-                _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath);
-                _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].GameName, _state.Instances[ArrayID].GamePath, _state.Instances[ArrayID].BanList);
+                _state.Instances[ArrayID].Firewall.AllowTraffic(_state.Instances[ArrayID].profileName, _state.Instances[ArrayID].profileServerPath);
+                _state.Instances[ArrayID].Firewall.DenyTraffic(_state.Instances[ArrayID].profileName, _state.Instances[ArrayID].profileServerPath, _state.Instances[ArrayID].PlayerListBans);
             }
 
             return true;

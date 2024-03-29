@@ -23,9 +23,9 @@ namespace HawkSync_SM
 
         private void Popup_SaveRotation_Load(object sender, EventArgs e)
         {
-            if (_state.Instances[ArrayID].savedmaprotations.Count != 0)
+            if (_state.Instances[ArrayID].MapListRotationDB.Count != 0)
             {
-                foreach (var entry in _state.Instances[ArrayID].savedmaprotations)
+                foreach (var entry in _state.Instances[ArrayID].MapListRotationDB)
                 {
                     comboBox1.Items.Add(entry.Description);
                 }
@@ -44,12 +44,12 @@ namespace HawkSync_SM
                 SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                 db.Open();
                 SQLiteCommand cmdInsert = new SQLiteCommand("INSERT INTO `instances_map_rotations` (`rotation_id`, `profile_id`, `description`, `mapcycle`) VALUES (NULL, @profileid, @description, @mapcycle);", db);
-                cmdInsert.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].Id);
+                cmdInsert.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
                 cmdInsert.Parameters.AddWithValue("@description", textBox1.Text);
                 cmdInsert.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(mapLists));
                 cmdInsert.ExecuteNonQuery();
                 cmdInsert.Dispose();
-                _state.Instances[ArrayID].savedmaprotations.Add(new savedmaprotations
+                _state.Instances[ArrayID].MapListRotationDB.Add(new savedmaprotations
                 {
                     Description = textBox1.Text,
                     RotationID = (int)db.LastInsertRowId,
@@ -64,12 +64,12 @@ namespace HawkSync_SM
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_map_rotations` SET `mapcycle` = @mapcycle WHERE `rotation_id` = @rotationID;", db);
                 cmd.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(mapLists));
-                cmd.Parameters.AddWithValue("@rotationID", _state.Instances[ArrayID].savedmaprotations[comboBox1.SelectedIndex].RotationID);
+                cmd.Parameters.AddWithValue("@rotationID", _state.Instances[ArrayID].MapListRotationDB[comboBox1.SelectedIndex].RotationID);
                 cmd.ExecuteNonQuery();
                 cmd.Dispose();
                 db.Close();
                 db.Dispose();
-                _state.Instances[ArrayID].savedmaprotations[comboBox1.SelectedIndex].mapcycle = mapLists;
+                _state.Instances[ArrayID].MapListRotationDB[comboBox1.SelectedIndex].mapcycle = mapLists;
             }
             MessageBox.Show("Rotation has been saved!", "Success");
             this.Close();
