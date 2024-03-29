@@ -1558,7 +1558,7 @@ namespace HawkSync_SM
             resources.ApplyResources(this.btn_scoreSkip, "btn_scoreSkip");
             this.btn_scoreSkip.Name = "btn_scoreSkip";
             this.btn_scoreSkip.UseVisualStyleBackColor = true;
-            this.btn_scoreSkip.Click += new System.EventHandler(this.button16_Click);
+            this.btn_scoreSkip.Click += new System.EventHandler(this.event_clickSkipScore);
             // 
             // btn_playMapNext
             // 

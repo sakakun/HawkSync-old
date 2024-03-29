@@ -105,6 +105,7 @@ namespace HawkSync_SM
             dataGridView2.Columns["Username"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
             foreach (var RCClient in _state.rcClients)
             {
+                #pragma warning disable CS0618
                 if (_state.server.IsClientConnected(RCClient.Value.RemoteAddress.ToString() + ":" + RCClient.Value.RemotePort))
                 {
                     DataRow activeConnectionRow = activeConnections.NewRow();
@@ -112,6 +113,7 @@ namespace HawkSync_SM
                     activeConnectionRow["IP"] = RCClient.Value.RemoteAddress.ToString();
                     activeConnections.Rows.Add(activeConnectionRow);
                 }
+                #pragma warning restore CS0618
             }
             dataGridView3.DataSource = activeConnections;
             dataGridView3.Columns["Username"].Width = 80;

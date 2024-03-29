@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Numerics;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading;
@@ -35,7 +39,19 @@ namespace HawkSync_SM.classes.StatManagement
 
     }
 
-    internal class statsBabstats
+    public class BabstatsTimerStorage
+    {
+        public DateTime updateTimeStamp = DateTime.Now;
+        public DateTime reportTimeStamp = DateTime.Now;
+
+        public BabstatsTimerStorage()
+        {
+            updateTimeStamp = DateTime.Now;
+            reportTimeStamp = DateTime.Now;
+        }
+    }
+
+    public class statsBabstats
     {
         public AppState _state;
         public int _instanceID;
@@ -315,7 +331,7 @@ namespace HawkSync_SM.classes.StatManagement
             return line;
         }
 
-        private string line_GameInfo()
+        private string line_GameInfo(bool update = false)
         {
             /*
              * Game #2__&__#3__&__#4__&__#5__&__#6__&__#7__&__#8__&__#9__&__#10
@@ -338,27 +354,36 @@ namespace HawkSync_SM.classes.StatManagement
             int maxPlayers = _state.Instances[_instanceID].MaxSlots;
             int numPlayers = _state.Instances[_instanceID].PlayerList.Count;
 
+            string winner = (update ? "" : $"&__{getTeamWinner(_state, _instanceID)}__");
             bool TeamSabre = _state.Instances[_instanceID].GameType == 0 && File.Exists(_state.Instances[_instanceID].GamePath + "\\EXP1.pff");
             int mod = TeamSabre ? 8 : 7;
 
-            string line = $"Game {timer}__&__{date}__&__{gameMapType}__&__{dedicated}__&__{serverName}__&__{mapName}__&__{maxPlayers}__&__{numPlayers}__&__{mod}\n";
+            string line = $"Game {timer}__&__{date}__&__{gameMapType}__&__{dedicated}__&__{serverName}__&__{mapName}__&__{maxPlayers}__&__{numPlayers}__{winner}&__{mod}\n";
             return line;
         }
 
-        public void generateBabstats_EOM(AppState state, int instanceID)
+        public int getTeamWinner(AppState state, int instanceID)
         {
-            initBabstats(state, instanceID);
-            // Generate data to send to Babstats Server via POST.
-            // This is for End of Map data
-            string ServerLine = line_ServerID();
-            string GameLine = line_GameInfo();
+            int gameType = _state.Instances[_instanceID].GameType;
+            scoreManagement previousScores = _state.Instances[_instanceID].currentScores;
+            scoreManagement currentScores = (new ServerManagement()).GetCurrentGameScores(ref state, instanceID);
+
+            // if GameType 0, then return 0
+            if (gameType == 0){ return 0; }
+            if (currentScores.blueScore > previousScores.blueScore) { return 1; } 
+            if (currentScores.redScore > previousScores.redScore) { return 2; }
+            return 0;
+        }
+
+        public string line_PlayerWeapons(AppState state, int instanceID)
+        {
             string playerLines = "";
 
             foreach (var player in _state.Instances[instanceID].playerStats)
             {
 
                 ob_playerList stats = player.Value.PlayerData;
-                int timer = (player.Value.LastSeen - player.Value.FirstSeen).Seconds;
+                int timer = (int)(player.Value.LastSeen - player.Value.FirstSeen).TotalSeconds;
 
                 string v01 = stats.suicides.ToString();
                 string v02 = stats.teamkills.ToString();
@@ -389,21 +414,123 @@ namespace HawkSync_SM.classes.StatManagement
                 string v27 = "1";
                 string v28 = timer.ToString(); // timer seconds
                 playerLines += $"Player {stats.name}__&__{stats.address}\n";
-                playerLines += $"PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}";
+                playerLines += $"PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}\n";
+
+                foreach( var weapon in _state.Instances[instanceID].playerWeaponStats[player.Value.PlayerId].WeaponStatsList)
+                {
+                    playerLines += $"Weapon {weapon.weaponid} {(int)weapon.timer} {weapon.kills} {weapon.shotsfired}\n";
+                };
 
             }
-
-            Console.WriteLine(ServerLine);
-            Console.WriteLine(GameLine);
-            Console.WriteLine(playerLines);
-
-        }
-
-        public void sendBabstatsImportData(AppState state, int instanceID)
-        {
-
-            this.generateBabstats_EOM(state, instanceID);
             
+            return playerLines;
+
+
         }
+
+        public async void sendBabstatsImportData(AppState state, int instanceID)
+        {
+            initBabstats(state, instanceID);
+            // Generate data to send to Babstats Server via POST.
+            // This is for End of Map data
+            string ServerLine = line_ServerID();
+            string GameLine = line_GameInfo();
+            // generate the data to send to babstats
+            string playerLines = line_PlayerWeapons(state, instanceID);
+
+            Dictionary<string, string> dataArray = new Dictionary<string, string>
+            {
+                { "serverid", _state.Instances[instanceID].WebStatsId },
+                { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines) },
+                { "bmt", "1" }
+            };
+
+            Console.WriteLine("Import Stats: " + JsonConvert.SerializeObject(dataArray["data"]));
+
+            // Convert the dictionary to form data
+            var formData = new FormUrlEncodedContent(dataArray);
+
+            try { 
+                // Create an HttpClient instance
+                using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+                {
+                    // Send a POST request with the form data
+                    var response = await client.PostAsync(_state.Instances[instanceID].WebstatsURL + "stats_import.php", formData);
+
+                    // Check if the request was successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("POST request successful");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"POST request failed with status code {response.StatusCode}");
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("Request timed out");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+        }
+
+        public async void sendBabstatsUpdateData(AppState state, int instanceID)
+        {
+            initBabstats(state, instanceID);
+            string ServerLine = line_ServerID();
+            string GameLine = line_GameInfo(true);
+            string playerLines = line_PlayerWeapons(state, instanceID);
+
+            Dictionary<string, string> dataArray = new Dictionary<string, string>
+            {
+                { "serverid", _state.Instances[instanceID].WebStatsId },
+                { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines+"End\n") },
+                { "bmt", "1" }
+            };
+
+            var formData = new FormUrlEncodedContent(dataArray);
+
+            try
+            {
+                // Create an HttpClient instance
+                using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+                {
+                    // Send a POST request with the form data
+                    var response = await client.PostAsync(_state.Instances[instanceID].WebstatsURL + "status_update.php", formData);
+
+                    // Check if the request was successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine("POST request successful");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"POST request failed with status code {response.StatusCode}");
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("Request timed out");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
+        }
+
+        public async void requestBabstatsReportData(AppState state, int instanceID)
+        {
+            // status_report
+        }
+
     }
+
+
 }

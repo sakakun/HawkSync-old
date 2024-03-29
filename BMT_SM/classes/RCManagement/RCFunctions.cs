@@ -4418,6 +4418,7 @@ namespace HawkSync_SM.RCClasses
             {
                 foreach (var RCClient in _state.rcClients)
                 {
+                    #pragma warning disable CS0618
                     if (_state.server.IsClientConnected(RCClient.Value.RemoteAddress.ToString() + ":" + RCClient.Value.RemotePort))
                     {
                         if (_state.Users[_state.rcClients[sessionID]._username].SuperAdmin == true || _state.Users[RCClient.Value._username].SubAdmin == userID)
@@ -4430,6 +4431,7 @@ namespace HawkSync_SM.RCClasses
                             });
                         }
                     }
+                    #pragma warning restore CS0618
                 }
                 return RCListenerClass.StatusCodes.SUCCESS;
             }

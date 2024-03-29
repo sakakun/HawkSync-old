@@ -67,6 +67,7 @@ namespace HawkSync_SM
         public ServerManagement serverManagement = new ServerManagement();
         public IPManagement ipManagement = new IPManagement();
         public ChatManagement chatManagement = new ChatManagement();
+        public statsBabstats statsBabstats = new statsBabstats();
 
         // Object: Ticker (Used to Refresh Information x Seconds
         private Timer Ticker = new Timer()
@@ -400,8 +401,13 @@ namespace HawkSync_SM
                                             }
                                             PostGameProcess postGameProcess = new PostGameProcess(_state, instance.DataTableColumnId, instance.ChatLog);
                                             postGameProcess.Run();
-
                                             instance.ChatLog.Clear();
+
+                                            // Reset Babstats TimeStamps
+                                            if (instance.EnableWebStats && instance.WebStatsSoftware == 2)
+                                            {
+                                                instance.WebStatsBabstatsTimer = new BabstatsTimerStorage();
+                                            }
                                         }
                                         instance.collectPlayerStats = true;
                                         instance.IsRunningScoringGameProcesses = false;
@@ -424,7 +430,7 @@ namespace HawkSync_SM
 
                                     if (instance.Status == InstanceStatus.LOADINGMAP || instance.Status == InstanceStatus.SCORING)
                                     {
-                                        serverManagement.ChangePlayerTeam(ref _state, rowId); // change player slot's team
+                                        serverManagement.ChangePlayerTeam(ref _state, rowId);
                                     }
 
                                     if (instance.Status == InstanceStatus.STARTDELAY || instance.Status == InstanceStatus.ONLINE)
@@ -435,7 +441,6 @@ namespace HawkSync_SM
                                         chatManagement.ProcessAutoMessages(ref _state, rowId);
                                         serverManagement.ChangeGameScore(ref _state, rowId);
                                         serverManagement.GetCurrentMapIndex(ref _state, rowId);
-                                        //GetCurrentMapIndex(rowId);
                                         if (instance.IsRunningPostGameProcesses == true)
                                         {
                                             instance.IsRunningPostGameProcesses = false;
@@ -444,11 +449,30 @@ namespace HawkSync_SM
                                         {
                                             instance.IsRunningScoringGameProcesses = false;
                                         }
+                                        
                                     }
 
                                     if (instance.Status != InstanceStatus.OFFLINE)
                                     {
                                         instance.CurrentMap = get_currentMap(rowId, currentGameType); // always get the current map so long as the instance is not offline.
+                                    }
+
+                                    // Babstats Tick Process
+                                    if (instance.EnableWebStats && instance.WebStatsSoftware == 2)
+                                    {
+                                        BabstatsTimerStorage babstatsTime = instance.WebStatsBabstatsTimer;
+                                        // if DateTime.Now is 20 seconds greater than babstatsTime.updateTimeStamp
+                                        if(babstatsTime.updateTimeStamp.AddSeconds(20) < DateTime.Now)
+                                        {
+                                            statsBabstats.sendBabstatsUpdateData(_state, rowId);
+                                            babstatsTime.updateTimeStamp = DateTime.Now;
+                                        }
+                                        if(babstatsTime.reportTimeStamp.AddSeconds(60) < DateTime.Now)
+                                        {
+                                            statsBabstats.requestBabstatsReportData(_state, rowId);
+                                            babstatsTime.reportTimeStamp = DateTime.Now;
+                                        }
+
                                     }
 
                                     switch (timeRemainingInGame)
@@ -466,6 +490,7 @@ namespace HawkSync_SM
                                             instance.TimeFlag = false;
                                             break;
                                     }
+
                                     row["Map"] = map;
                                     row["Slots"] = currentPlayers + "/" + instance.MaxSlots;
                                     row["Game Type"] = currentGameType;

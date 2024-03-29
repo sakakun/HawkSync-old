@@ -15,7 +15,6 @@ namespace HawkSync_SM
         AppState _state;
 
         DataTable modTable = null;
-        bool editEntry = false;
 
         public static bool EnableWebServer;
         public SM_Options(AppState state)

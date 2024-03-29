@@ -107,6 +107,7 @@ namespace HawkSync_SM
         public Dictionary<int, ob_playerList> PlayerList { get; set; } = new Dictionary<int, ob_playerList>();
         public Dictionary<int, ob_ipWhitelist> VPNWhiteList { get; set; } = new Dictionary<int, ob_ipWhitelist>();
         public Dictionary<string, PlayerStats> playerStats { get; set; } = new Dictionary<string, PlayerStats>();
+        public Dictionary<string, PlayerWeaponStats> playerWeaponStats { get; set; } = new Dictionary<string, PlayerWeaponStats>();
         public Dictionary<string, string> IPWhiteList { get; set; } = new Dictionary<string, string>();
         public List<ob_playerChangeTeamList> ChangeTeamList { get; set; } = new List<ob_playerChangeTeamList>();
         public PlayerRoles RoleRestrictions { get; set; } = new PlayerRoles();
@@ -140,6 +141,9 @@ namespace HawkSync_SM
         public List<int> modsDetected { get; set; }
         public int Mod { get; set; }
         public FirewallManagement Firewall { get; set; } = new FirewallManagement();
+        public scoreManagement currentScores { get; set; } = new scoreManagement();
+        public BabstatsTimerStorage WebStatsBabstatsTimer { get; set; } = new BabstatsTimerStorage();
+
     }
 
     public enum InstanceStatus

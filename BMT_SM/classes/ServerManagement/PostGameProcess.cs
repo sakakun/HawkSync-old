@@ -1,4 +1,5 @@
 ﻿using HawkSync_SM.classes.StatManagement;
+using HawkSync_SM;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,7 +61,15 @@ namespace HawkSync_SM
         {
             InsertChatLogs();
             ResetPlayers();
+            UpdateScores();
             _connection.Close();
+        }
+
+        private void UpdateScores()
+        {
+            ServerManagement Serv = new ServerManagement();
+            scoreManagement scores = Serv.GetCurrentGameScores(ref _state, ArrayID);
+            _state.Instances[ArrayID].currentScores = scores;
         }
 
         private void ResetPlayers()

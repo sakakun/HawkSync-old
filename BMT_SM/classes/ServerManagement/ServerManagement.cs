@@ -1,4 +1,6 @@
 ﻿using HawkSync_SM.classes.ChatManagement;
+using HawkSync_SM.classes.StatManagement;
+using Newtonsoft.Json;
 using Salaros.Configuration;
 using System;
 using System.Collections.Generic;
@@ -1539,6 +1541,7 @@ namespace HawkSync_SM
                     {
                         try
                         {
+                            
                             currentPlayerList.Add(playerSlot, new ob_playerList
                             {
                                 slot = playerSlot,
@@ -1606,6 +1609,39 @@ namespace HawkSync_SM
             ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, MapCycleIndex, mapIndexBytes, mapIndexBytes.Length, ref mapIndexRead);
 
             _state.Instances[ArrayID].mapIndex = BitConverter.ToInt32(mapIndexBytes, 0);
+        }
+        public scoreManagement GetCurrentGameScores(ref AppState _state, int ArrayID)
+        {
+            // Buffer Stuff
+            int bytesRead = 0;
+            byte[] buffer = new byte[4];
+
+            // This numbers resets based on the type of game being played.
+            var baseAddr = 0x400000;
+            var startingPtr1 = baseAddr + 0x5DDCC4; // Total Games
+            var startingPtr2 = baseAddr + 0x5DDCB4; // Blue Wins
+            var startingPtr3 = baseAddr + 0x5DDCB8; // Red Wins
+            
+            // Grab total games played
+            bytesRead = 0;
+            buffer = new byte[4];
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr1, buffer, buffer.Length, ref bytesRead);
+            int totalGames = BitConverter.ToInt32(buffer, 0);
+
+            // Grab blue player wins
+            bytesRead = 0;
+            buffer = new byte[4];
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr2, buffer, buffer.Length, ref bytesRead);
+            int blueWins = BitConverter.ToInt32(buffer, 0);
+
+            // Grab red player wins
+            bytesRead = 0;
+            buffer = new byte[4];
+            ReadProcessMemory((int)_state.Instances[ArrayID].ProcessHandle, startingPtr3, buffer, buffer.Length, ref bytesRead);
+            int redWins = BitConverter.ToInt32(buffer, 0);
+
+            return new scoreManagement(totalGames, blueWins, redWins);
+
         }
         public void ChangeGameScore(ref AppState _state, int ArrayID)
         {
@@ -2206,9 +2242,6 @@ namespace HawkSync_SM
                 _state.eventLog.WriteEntry("Error creating autores.bin file: " + e.ToString(), EventLogEntryType.Error);
                 return false;
             }
-
-            _state.eventLog.WriteEntry("Someting went wrong creating the autores.bin file. Try Catch Skipped.");
-            return false;
 
         }
     

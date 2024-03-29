@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using static HawkSync_SM.ob_playerList;
 
 namespace HawkSync_SM.classes.StatManagement
 {
@@ -43,21 +46,41 @@ namespace HawkSync_SM.classes.StatManagement
             }
         }
     }
+
+    
     public class PlayerStatsManager
     {
-        public void RecordPlayerStats(AppState _state, int instanceID, string playerId, PlayerStats stats)
+        public void RecordPlayerStats(AppState _state, int instanceID, string playerId, PlayerStats currentStats)
         {
+            int weaponID;
+            weaponID = (int)Enum.Parse(typeof(WeaponStack), currentStats.PlayerData.selectedWeapon);
+            DateTime currentTime = DateTime.Now;
+            DateTime firstSeen = DateTime.Now;
+            WeaponStats recordWeaponStats = new WeaponStats();
+
             try
             {
+
                 if (!_state.Instances[instanceID].playerStats.ContainsKey(playerId))
                 {
-                    _state.Instances[instanceID].playerStats[playerId] = stats;
+                    _state.Instances[instanceID].playerStats[playerId] = currentStats;
+                    WeaponStats.RecordWeaponStats(_state, instanceID, playerId, weaponID, currentStats.PlayerData.kills, currentStats.PlayerData.totalshots, 0);
+                
+                } else
+                {
+                    PlayerStats oldStats = _state.Instances[instanceID].playerStats[playerId];
+                    int diffKills = currentStats.PlayerData.kills - oldStats.PlayerData.kills;
+                    int diffShotsFired = currentStats.PlayerData.totalshots - oldStats.PlayerData.totalshots;
+                    double diffTimer = ((currentTime - _state.Instances[instanceID].playerStats[playerId].LastSeen).TotalSeconds);
+                    WeaponStats.RecordWeaponStats(_state, instanceID, playerId, weaponID, diffKills, diffShotsFired, diffTimer);
+
+                    firstSeen = _state.Instances[instanceID].playerStats[playerId].FirstSeen;
+                    _state.Instances[instanceID].playerStats[playerId] = currentStats;
                 }
 
-                DateTime firstSeen = _state.Instances[instanceID].playerStats[playerId].FirstSeen;
-                _state.Instances[instanceID].playerStats[playerId] = stats;
-                stats.FirstSeen = firstSeen; // fix the first seen time stamp
-                stats.LastSeen = DateTime.Now; // Update the last seen timestamp
+                currentStats.FirstSeen = firstSeen; // fix the first seen time stamp
+                currentStats.LastSeen = currentTime; // Update the last seen timestamp
+
             }
             catch (Exception e)
             {
@@ -69,17 +92,16 @@ namespace HawkSync_SM.classes.StatManagement
         public void CollectPlayerStats(AppState _state, int instanceID)
         {
 
-            // Cycle through all the players in the game and collect their stats
+            // Cycle through all the players in the game and collect their currentStats
             // _state.Instances[instanceID].PlayerList[] contains the player data as ob_playerList object
-            // Needs to be able to pass the whol object using its key to the RecordPlayerStats method
+            // Needs to be able to pass the whole object using its key to the RecordPlayerStats method
             if (_state.Instances[instanceID].PlayerList.Count > 0)
             {
                 foreach (var player in _state.Instances[instanceID].PlayerList)
                 {
                     // Create a new PlayerStats object
-                    PlayerStats stats = new PlayerStats(player.Value.name, player.Value.slot, player.Value.team,
-                        _state.Instances[instanceID].PlayerList[player.Key]);
-                    // Record the stats
+                    PlayerStats stats = new PlayerStats(player.Value.name, player.Value.slot, player.Value.team,_state.Instances[instanceID].PlayerList[player.Key]);
+                    // Record the currentStats
                     RecordPlayerStats(_state, instanceID, stats.PlayerId, stats);
                 }
             }
@@ -87,5 +109,69 @@ namespace HawkSync_SM.classes.StatManagement
         }
 
     }
+    public class PlayerWeaponStats
+    {
+        public string PlayerId { get; set; }
+        public List<InternalWeaponStats> WeaponStatsList { get; set; }
 
+        public PlayerWeaponStats(string playerId)
+        {
+            PlayerId = playerId;
+            WeaponStatsList = new List<InternalWeaponStats>();
+        }
+
+    }
+
+    public class WeaponStats
+    {
+        public static void RecordWeaponStats(AppState _state, int instanceID, string playerId, int weaponId, int kills, int shotsFired, double timer)
+        {
+            // Check if the player already has a weapon currentStats record
+            if (!_state.Instances[instanceID].playerWeaponStats.ContainsKey(playerId))
+            {
+                _state.Instances[instanceID].playerWeaponStats[playerId] = new PlayerWeaponStats(playerId);
+            }
+
+            List<InternalWeaponStats> weaponStats = _state.Instances[instanceID].playerWeaponStats[playerId].WeaponStatsList;
+
+            //Console.WriteLine(JsonConvert.SerializeObject(_state.Instances[instanceID].playerWeaponStats[playerId]));
+
+            // Check if the weapon ID exists in the weaponStats list
+            InternalWeaponStats weaponStatsEntry = weaponStats.FirstOrDefault(ws => ws.weaponid == weaponId);
+
+            // If the weapon ID exists, update the statistics
+            if (weaponStatsEntry != null)
+            {
+                weaponStatsEntry.kills += kills;
+                weaponStatsEntry.shotsfired += shotsFired;
+                weaponStatsEntry.timer += timer;
+            }
+            else
+            {
+                // If the weapon ID doesn't exist, add a new entry
+                weaponStats.Add(new InternalWeaponStats
+                {
+                    weaponid = weaponId,
+                    kills = kills,
+                    shotsfired = shotsFired,
+                    timer = timer
+                });
+            }
+
+        }
+    }
+
+    public class scoreManagement
+    {
+        public int totalScores { get; set; }
+        public int blueScore { get; set; }
+        public int redScore { get; set; }
+
+        public scoreManagement(int _totalScores = 0, int _blueScores = 0, int _redScores = 0)
+        {
+            totalScores = _totalScores;
+            blueScore = _redScores;
+            redScore = _blueScores;
+        }
+    }
 }

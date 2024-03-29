@@ -87,7 +87,7 @@ namespace HawkSync_SM
 
         private void ServerManagerTimer_Tick(object sender, EventArgs e)
         {
-            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;           
+            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
         }
 
         private void CustomWarningMenu(object sender, EventArgs e)
@@ -376,7 +376,7 @@ namespace HawkSync_SM
             MapListEdited = true;
         }
 
-        private void button16_Click(object sender, EventArgs e)
+        private void event_clickSkipScore(object sender, EventArgs e)
         {
             if (process != null)
             {
