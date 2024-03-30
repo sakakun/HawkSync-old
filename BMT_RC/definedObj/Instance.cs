@@ -106,7 +106,7 @@ namespace HawkSync_RC.classes
 
         // DataTable Storage Objects
         public ob_AutoMessages AutoMessages { get; set; } = new ob_AutoMessages();                      /* Storage Object for AutoMessages */
-        public List<ob_PlayerChatLog> ChatLog { get; set; } = new List<ob_PlayerChatLog>();               /* Storage Object for Chat Logs */
+        public List<PlayerChatLog> ChatLog { get; set; } = new List<PlayerChatLog>();               /* Storage Object for Chat Logs */
         public Dictionary<int, MapList> MapListPrevious { get; set; } = new Dictionary<int, MapList>();
         public Dictionary<int, MapList> MapListCurrent { get; set; } = new Dictionary<int, MapList>();
         public Dictionary<int, MapList> MapListAvailable { get; set; } = new Dictionary<int, MapList>();

@@ -1208,11 +1208,6 @@ namespace HawkSync_RC
             // 
             this.cb_respawnTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_respawnTime.FormattingEnabled = true;
-            this.cb_respawnTime.Items.AddRange(new object[] {
-            "No Delay",
-            "1 Minute",
-            "2 Minutes",
-            "3 Minutes"});
             this.cb_respawnTime.Location = new System.Drawing.Point(94, 100);
             this.cb_respawnTime.Name = "cb_respawnTime";
             this.cb_respawnTime.Size = new System.Drawing.Size(130, 21);
