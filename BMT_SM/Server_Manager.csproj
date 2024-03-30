@@ -123,6 +123,7 @@
     <Compile Include="classes\StatManagement\PlayerStats.cs" />
     <Compile Include="classes\StatManagement\statsBabstats.cs" />
     <Compile Include="classes\SupportClasses\DatabaseUpdater.cs" />
+    <Compile Include="classes\SupportClasses\RestoreBackup.cs" />
     <Compile Include="Panels\ChatHistory.cs">
       <SubType>Form</SubType>
     </Compile>

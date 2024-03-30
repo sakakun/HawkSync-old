@@ -377,6 +377,8 @@ namespace HawkSync_SM
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btn_importSettings = new System.Windows.Forms.Button();
+            this.btn_exportSettings = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
             this.tabControl_playerSelection.SuspendLayout();
@@ -1196,6 +1198,8 @@ namespace HawkSync_SM
             // 
             // gB_options
             // 
+            this.gB_options.Controls.Add(this.btn_exportSettings);
+            this.gB_options.Controls.Add(this.btn_importSettings);
             this.gB_options.Controls.Add(this.btn_settingsRevertChanges);
             this.gB_options.Controls.Add(this.btn_UpdateServerSettings);
             resources.ApplyResources(this.gB_options, "gB_options");
@@ -2985,6 +2989,20 @@ namespace HawkSync_SM
             // 
             this.toolTip1.UseAnimation = false;
             // 
+            // btn_importSettings
+            // 
+            resources.ApplyResources(this.btn_importSettings, "btn_importSettings");
+            this.btn_importSettings.Name = "btn_importSettings";
+            this.btn_importSettings.UseVisualStyleBackColor = true;
+            this.btn_importSettings.Click += new System.EventHandler(this.click_importSettings);
+            // 
+            // btn_exportSettings
+            // 
+            resources.ApplyResources(this.btn_exportSettings, "btn_exportSettings");
+            this.btn_exportSettings.Name = "btn_exportSettings";
+            this.btn_exportSettings.UseVisualStyleBackColor = true;
+            this.btn_exportSettings.Click += new System.EventHandler(this.click_exportSettings);
+            // 
             // SM_ServerManager
             // 
             resources.ApplyResources(this, "$this");
@@ -3429,5 +3447,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.Panel panel_chatMessage;
         private System.Windows.Forms.GroupBox groupBox_chatChannel;
         private System.Windows.Forms.Button btn_scoreMap;
+        private System.Windows.Forms.Button btn_importSettings;
+        private System.Windows.Forms.Button btn_exportSettings;
     }
 }

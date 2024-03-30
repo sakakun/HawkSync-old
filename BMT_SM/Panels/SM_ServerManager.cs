@@ -1683,6 +1683,12 @@ namespace HawkSync_SM
         // update server setttings button
         private void click_updateServerSettings(object sender, EventArgs e)
         {
+            event_updateServerSettings();
+        }
+        private void event_updateServerSettings(bool forceUpdate = false)
+        {
+
+
             ServerManagement serverManagerUpdateMemory = new ServerManagement();
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
@@ -1696,7 +1702,7 @@ namespace HawkSync_SM
              * Need to find where the gameOptionAutoBalance field is being held
              * 
              */
-            if ((cb_autoBalance.Checked != _state.Instances[ArrayID].gameOptionAutoBalance) || (cb_ffWarning.Checked != _state.Instances[ArrayID].gameOptionFFWarn) || (cb_Tracers.Checked != _state.Instances[ArrayID].gameOptionShowTracers) || (cb_friendFireKills.Checked != _state.Instances[ArrayID].gameOptionFF) || (cb_showFriendTags.Checked != _state.Instances[ArrayID].gameOptionFriendlyTags) || (cb_TeamClays.Checked != _state.Instances[ArrayID].gameShowTeamClays) || (cb_AutoRange.Checked != _state.Instances[ArrayID].gameOptionAutoRange))
+            if ((cb_autoBalance.Checked != _state.Instances[ArrayID].gameOptionAutoBalance) || (cb_ffWarning.Checked != _state.Instances[ArrayID].gameOptionFFWarn) || (cb_Tracers.Checked != _state.Instances[ArrayID].gameOptionShowTracers) || (cb_friendFireKills.Checked != _state.Instances[ArrayID].gameOptionFF) || (cb_showFriendTags.Checked != _state.Instances[ArrayID].gameOptionFriendlyTags) || (cb_TeamClays.Checked != _state.Instances[ArrayID].gameShowTeamClays) || (cb_AutoRange.Checked != _state.Instances[ArrayID].gameOptionAutoRange) || forceUpdate)
             {
                 _state.Instances[ArrayID].gameOptionAutoBalance = cb_autoBalance.Checked;
                 _state.Instances[ArrayID].gameOptionFFWarn = cb_ffWarning.Checked;
@@ -1720,7 +1726,7 @@ namespace HawkSync_SM
             }
 
             // update server name
-            if (smT_serverName.Text != _state.Instances[ArrayID].gameServerName)
+            if (smT_serverName.Text != _state.Instances[ArrayID].gameServerName || forceUpdate)
             {
                 _state.Instances[ArrayID].gameServerName = smT_serverName.Text;
                 serverManagerUpdateMemory.UpdateServerName(_state, ArrayID);
@@ -1732,7 +1738,7 @@ namespace HawkSync_SM
             }
 
             // update country code
-            if (smCB_country.Text != _state.Instances[ArrayID].gameCountryCode)
+            if (smCB_country.Text != _state.Instances[ArrayID].gameCountryCode || forceUpdate)
             {
                 _state.Instances[ArrayID].gameCountryCode = smCB_country.Text;
                 serverManagerUpdateMemory.UpdateCountryCode(_state, ArrayID);
@@ -1773,7 +1779,7 @@ namespace HawkSync_SM
             /*
              * update Max Slots
              */
-            if (Convert.ToInt32(smNum_maxSlots.Value) != _state.Instances[ArrayID].gameMaxSlots)
+            if (Convert.ToInt32(smNum_maxSlots.Value) != _state.Instances[ArrayID].gameMaxSlots || forceUpdate)
             {
                 _state.Instances[ArrayID].gameMaxSlots = Convert.ToInt32(smNum_maxSlots.Value);
                 serverManagerUpdateMemory.UpdateMaxSlots(_state, ArrayID);
@@ -1789,7 +1795,7 @@ namespace HawkSync_SM
              * Need to find where the gameTimeLimit field is being held
              * 
              */
-            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].gameTimeLimit)
+            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].gameTimeLimit || forceUpdate)
             {
                 _state.Instances[ArrayID].gameTimeLimit = cb_timeLimit.SelectedIndex;
                 serverManagerUpdateMemory.UpdateTimeLimit(_state, ArrayID);
@@ -1805,7 +1811,7 @@ namespace HawkSync_SM
              * Need to find where the gameStartDelay field is being held
              * 
              */
-            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].gameStartDelay)
+            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].gameStartDelay || forceUpdate)
             {
                 _state.Instances[ArrayID].gameStartDelay = cb_startDelay.SelectedIndex;
                 serverManagerUpdateMemory.UpdateStartDelay(_state, ArrayID);
@@ -1821,7 +1827,7 @@ namespace HawkSync_SM
              * Need to find where the Loop Maps field is being held
              * 
              */
-            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].gameLoopMaps)
+            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].gameLoopMaps || forceUpdate)
             {
                 _state.Instances[ArrayID].gameLoopMaps = cb_replayMaps.SelectedIndex;
                 serverManagerUpdateMemory.UpdateLoopMaps(_state, ArrayID);
@@ -1837,7 +1843,7 @@ namespace HawkSync_SM
              * Need to find where the Respawn Time field is being held
              * 
              */
-            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].gameRespawnTime)
+            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].gameRespawnTime || forceUpdate)
             {
                 _state.Instances[ArrayID].gameRespawnTime = cb_respawnTime.SelectedIndex;
                 serverManagerUpdateMemory.UpdateRespawnTime(_state, ArrayID);
@@ -1853,7 +1859,7 @@ namespace HawkSync_SM
              * Need to find where the gameRequireNova field is being held
              * 
              */
-            if (cb_requireNova.Checked != _state.Instances[ArrayID].gameRequireNova)
+            if (cb_requireNova.Checked != _state.Instances[ArrayID].gameRequireNova || forceUpdate)
             {
                 _state.Instances[ArrayID].gameRequireNova = cb_requireNova.Checked;
                 serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, ArrayID);
@@ -1870,7 +1876,7 @@ namespace HawkSync_SM
              * Need to find where the gameCustomSkins field is being held
              * 
              */
-            if (cb_customSkin.Checked != _state.Instances[ArrayID].gameCustomSkins)
+            if (cb_customSkin.Checked != _state.Instances[ArrayID].gameCustomSkins || forceUpdate)
             {
                 _state.Instances[ArrayID].gameCustomSkins = cb_customSkin.Checked;
                 serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, ArrayID);
@@ -1886,7 +1892,7 @@ namespace HawkSync_SM
              * Need to find where the gameMOTD field is being held
              * 
              */
-            if (richTextBox1.Text != _state.Instances[ArrayID].gameMOTD)
+            if (richTextBox1.Text != _state.Instances[ArrayID].gameMOTD || forceUpdate)
             {
                 _state.Instances[ArrayID].gameMOTD = richTextBox1.Text;
                 serverManagerUpdateMemory.UpdateMOTD(_state, ArrayID);
@@ -1902,7 +1908,7 @@ namespace HawkSync_SM
              * Need to find where the gameMinPing and gameMinPingValue field are being held
              * 
              */
-            if (cb_minPing.Checked != _state.Instances[ArrayID].gameMinPing || Convert.ToInt32(num_minPing.Text) != _state.Instances[ArrayID].gameMinPingValue)
+            if (cb_minPing.Checked != _state.Instances[ArrayID].gameMinPing || Convert.ToInt32(num_minPing.Text) != _state.Instances[ArrayID].gameMinPingValue || forceUpdate)
             {
                 _state.Instances[ArrayID].gameMinPing = cb_minPing.Checked;
                 if (cb_minPing.Checked == true)
@@ -1935,7 +1941,7 @@ namespace HawkSync_SM
              * Need to find where the gameMaxPing and gameMaxPingValue field is being held
              * 
              */
-            if (cb_maxPing.Checked != _state.Instances[ArrayID].gameMaxPing || Convert.ToInt32(num_maxPing.Text) != _state.Instances[ArrayID].gameMaxPingValue)
+            if (cb_maxPing.Checked != _state.Instances[ArrayID].gameMaxPing || Convert.ToInt32(num_maxPing.Text) != _state.Instances[ArrayID].gameMaxPingValue || forceUpdate)
             {
                 _state.Instances[ArrayID].gameMaxPing = cb_maxPing.Checked;
                 if (cb_maxPing.Checked == true)
@@ -1968,7 +1974,7 @@ namespace HawkSync_SM
              * Need to find where the gameOneShotKills field is being held
              * 
              */
-            if (cb_oneShotKills.Checked != _state.Instances[ArrayID].gameOneShotKills)
+            if (cb_oneShotKills.Checked != _state.Instances[ArrayID].gameOneShotKills || forceUpdate)
             {
                 _state.Instances[ArrayID].gameOneShotKills = cb_oneShotKills.Checked;
                 serverManagerUpdateMemory.UpdateOneShotKills(_state, ArrayID);
@@ -1984,7 +1990,7 @@ namespace HawkSync_SM
              * Need to find where the gameFatBullets field is being held
              * 
              */
-            if (cb_fatBullets.Checked != _state.Instances[ArrayID].gameFatBullets)
+            if (cb_fatBullets.Checked != _state.Instances[ArrayID].gameFatBullets || forceUpdate)
             {
                 _state.Instances[ArrayID].gameFatBullets = cb_fatBullets.Checked;
                 serverManagerUpdateMemory.UpdateFatBullets(_state, ArrayID);
@@ -2000,7 +2006,7 @@ namespace HawkSync_SM
              * Need to find where the gameDestroyBuildings field is being held
              * 
              */
-            if (cb_destroyBuildings.Checked != _state.Instances[ArrayID].gameDestroyBuildings)
+            if (cb_destroyBuildings.Checked != _state.Instances[ArrayID].gameDestroyBuildings || forceUpdate)
             {
                 _state.Instances[ArrayID].gameDestroyBuildings = cb_destroyBuildings.Checked;
                 serverManagerUpdateMemory.UpdateDestroyBuildings(_state, ArrayID);
@@ -2016,7 +2022,7 @@ namespace HawkSync_SM
              * Need to find where the gamePasswordBlue field is being held
              * 
              */
-            if (text_bluePass.Text != _state.Instances[ArrayID].gamePasswordBlue)
+            if (text_bluePass.Text != _state.Instances[ArrayID].gamePasswordBlue || forceUpdate)
             {
                 int oldPw = _state.Instances[ArrayID].gamePasswordBlue.Length;
                 _state.Instances[ArrayID].gamePasswordBlue = text_bluePass.Text;
@@ -2034,7 +2040,7 @@ namespace HawkSync_SM
              * Need to find where the gamePasswordRed field is being held
              * 
              */
-            if (text_redPass.Text != _state.Instances[ArrayID].gamePasswordRed)
+            if (text_redPass.Text != _state.Instances[ArrayID].gamePasswordRed || forceUpdate)
             {
                 int oldPw = _state.Instances[ArrayID].gamePasswordRed.Length;
                 _state.Instances[ArrayID].gamePasswordRed = text_redPass.Text;
@@ -2047,7 +2053,7 @@ namespace HawkSync_SM
                 MessageBox.Show("Red Team gamePasswordLobby will be applied on the next map!");
             }
 
-            if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].gameFlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].gamePSPTOTimer))
+            if ((Convert.ToInt32(num_flagReturn.Value) != _state.Instances[ArrayID].gameFlagReturnTime) || (Convert.ToInt32(num_pspTimer.Value) != _state.Instances[ArrayID].gamePSPTOTimer) || forceUpdate)
             {
                 _state.Instances[ArrayID].gameFlagReturnTime = Convert.ToInt32(num_flagReturn.Value);
                 _state.Instances[ArrayID].gamePSPTOTimer = Convert.ToInt32(num_pspTimer.Value);
@@ -2065,7 +2071,7 @@ namespace HawkSync_SM
                 updatePSPTakeOverTimeCmd.Dispose();
             }
 
-            if (Convert.ToInt32(num_MaxTeamLives.Value) != _state.Instances[ArrayID].gameMaxTeamLives)
+            if (Convert.ToInt32(num_MaxTeamLives.Value) != _state.Instances[ArrayID].gameMaxTeamLives || forceUpdate)
             {
                 _state.Instances[ArrayID].gameMaxTeamLives = Convert.ToInt32(num_MaxTeamLives.Value);
                 serverManagerUpdateMemory.UpdateMaxTeamLives(_state, ArrayID);
@@ -2082,7 +2088,7 @@ namespace HawkSync_SM
              * Kicks a player if their FF is above this point.
              * 
              */
-            if (Convert.ToInt32(num_maxFriendKills.Value) != _state.Instances[ArrayID].gameFriendlyFireKills)
+            if (Convert.ToInt32(num_maxFriendKills.Value) != _state.Instances[ArrayID].gameFriendlyFireKills || forceUpdate)
             {
                 _state.Instances[ArrayID].gameFriendlyFireKills = Convert.ToInt32(num_maxFriendKills.Value);
                 serverManagerUpdateMemory.UpdateFriendlyFireKills(_state, ArrayID);
@@ -2094,7 +2100,7 @@ namespace HawkSync_SM
             }
 
             // Flag Ball Score
-            if (num_scoreFB.Value != _state.Instances[ArrayID].gameScoreFlags)
+            if (num_scoreFB.Value != _state.Instances[ArrayID].gameScoreFlags || forceUpdate)
             {
                 _state.Instances[ArrayID].gameScoreFlags = Convert.ToInt32(num_scoreFB.Value);
                 SQLiteCommand updateFBScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `fbscore` = @fbscore WHERE `profile_id` = @profileid;", db);
@@ -2103,7 +2109,7 @@ namespace HawkSync_SM
                 updateFBScoreCmd.ExecuteNonQuery();
                 updateFBScoreCmd.Dispose();
             }
-            if (num_scoreKOTH.Value != _state.Instances[ArrayID].gameScoreZoneTime)
+            if (num_scoreKOTH.Value != _state.Instances[ArrayID].gameScoreZoneTime || forceUpdate)
             {
                 _state.Instances[ArrayID].gameScoreZoneTime = Convert.ToInt32(num_scoreKOTH.Value);
                 SQLiteCommand updateKOTHScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
@@ -2112,7 +2118,7 @@ namespace HawkSync_SM
                 updateKOTHScoreCmd.ExecuteNonQuery();
                 updateKOTHScoreCmd.Dispose();
             }
-            if (num_scoreDM.Value != _state.Instances[ArrayID].gameScoreKills)
+            if (num_scoreDM.Value != _state.Instances[ArrayID].gameScoreKills || forceUpdate)
             {
                 _state.Instances[ArrayID].gameScoreKills = Convert.ToInt32(num_scoreDM.Value);
                 SQLiteCommand updateGameScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `game_score` = @gamescore WHERE `profile_id` = @profileid;", db);
@@ -2171,7 +2177,7 @@ namespace HawkSync_SM
             cmd.Parameters.AddWithValue("@weaponrestrictions", JsonConvert.SerializeObject(weaponsClass));
             cmd.ExecuteNonQuery();
 
-            if (endOfMapTimer_TrackBar.Value != _state.Instances[ArrayID].gameScoreBoardDelay)
+            if (endOfMapTimer_TrackBar.Value != _state.Instances[ArrayID].gameScoreBoardDelay || forceUpdate)
             {
                 _state.Instances[ArrayID].gameScoreBoardDelay = endOfMapTimer_TrackBar.Value;
                 SQLiteCommand updateGameScoreCmd = new SQLiteCommand("UPDATE `instances_config` SET `scoreboard_override` = @scoreboard_override WHERE `profile_id` = @profileid;", db);
@@ -2688,60 +2694,6 @@ namespace HawkSync_SM
 
             return;
 
-        }
-
-        private void SendServerMessage(int MsgLocation, string Msg)
-        {
-            /*  
-                0. Global Blue
-                1. Global Yellow (3,6), Notification Orange (2,8)
-                2. Team Red
-                3. Team Blue
-            */
-            int colorbuffer_written = 0;
-            byte[] colorcode;
-            Process process = Process.GetProcessById(_state.Instances[ArrayID].instanceAttachedPID.GetValueOrDefault());
-            IntPtr h = process.MainWindowHandle;
-            IntPtr processHandle = OpenProcess(PROCESS_WM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, false, process.Id);
-            switch (MsgLocation)
-            {
-                case 1:
-                    colorcode = HexConverter.ToByteArray("6A 08".Replace(" ", ""));
-                    WriteProcessMemory((int)processHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                    break;
-                case 2:
-                    colorcode = HexConverter.ToByteArray("6A 04".Replace(" ", ""));
-                    WriteProcessMemory((int)processHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                    break;
-                case 3:
-                    colorcode = HexConverter.ToByteArray("6A 05".Replace(" ", ""));
-                    WriteProcessMemory((int)processHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                    break;
-                default:
-                    colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-                    WriteProcessMemory((int)processHandle, 0x00462ABA, colorcode, colorcode.Length, ref colorbuffer_written);
-                    break;
-            }
-            // post message
-            PostMessage(h, (ushort)WM_KEYDOWN, (ushort)GlobalChat, 0);
-            PostMessage(h, (ushort)WM_KEYUP, (ushort)GlobalChat, 0);
-            Thread.Sleep(50);
-            int bytesWritten = 0;
-            byte[] buffer;
-            buffer = Encoding.Default.GetBytes($"{Msg}\0"); // '\0' marks the end of string
-            WriteProcessMemory((int)processHandle, 0x00879A14, buffer, buffer.Length, ref bytesWritten);
-            Thread.Sleep(50);
-            PostMessage(h, (ushort)WM_KEYDOWN, (ushort)VK_ENTER, 0);
-            PostMessage(h, (ushort)WM_KEYUP, (ushort)VK_ENTER, 0);
-
-            // change color to normal
-            Thread.Sleep(50);
-            int revert_colorbuffer = 0;
-            byte[] revert_colorcode = HexConverter.ToByteArray("6A 01".Replace(" ", ""));
-            WriteProcessMemory((int)processHandle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
-            process.Dispose();
-            CloseHandle(processHandle);
-            chat_textBoxMsg.Text = string.Empty;
         }
 
         private void submit_chatMessage(object sender, EventArgs e)
@@ -3312,5 +3264,57 @@ namespace HawkSync_SM
             }
         }
 
+        private void click_importSettings(object sender, EventArgs e)
+        {
+            (new RestoreBackup()).ImportSettings(_state, ArrayID);
+            event_importUpdateFields();
+            event_updateServerSettings(true);
+        }
+
+        private void click_exportSettings(object sender, EventArgs e)
+        {
+            (new RestoreBackup()).ExportSettings(_state, ArrayID);
+        }
+
+        private void event_importUpdateFields()
+        {
+            smT_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            smT_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
+            smCB_country.SelectedItem = _state.Instances[ArrayID].gameCountryCode;
+            smCB_sessionType.SelectedIndex = _state.Instances[ArrayID].gameSessionType;
+            smNum_maxSlots.Value = _state.Instances[ArrayID].gameMaxSlots;
+            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].gameLoopMaps;
+            num_pspTimer.Value = _state.Instances[ArrayID].gamePSPTOTimer;
+            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            cb_gameDedicated.Checked = _state.Instances[ArrayID].gameDedicated;
+            cb_requireNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            cb_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            cb_autoBalance.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            num_flagReturn.Value = _state.Instances[ArrayID].gameFlagReturnTime;
+            num_MaxTeamLives.Value = _state.Instances[ArrayID].gameMaxTeamLives;
+            richTextBox1.Text = _state.Instances[ArrayID].gameMOTD;
+            cb_minPing.Checked = _state.Instances[ArrayID].gameMinPing;
+            cb_oneShotKills.Checked = _state.Instances[ArrayID].gameOneShotKills;
+            cb_destroyBuildings.Checked = _state.Instances[ArrayID].gameDestroyBuildings;
+            num_minPing.Text = _state.Instances[ArrayID].gameMinPingValue.ToString();
+            cb_maxPing.Checked = _state.Instances[ArrayID].gameMaxPing;
+            num_maxPing.Text = _state.Instances[ArrayID].gameMaxPingValue.ToString();
+            cb_friendFireKills.Checked = _state.Instances[ArrayID].gameOptionFF;
+            cb_showFriendTags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            cb_ffWarning.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            num_maxFriendKills.Value = _state.Instances[ArrayID].gameFriendlyFireKills;
+            text_bluePass.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            text_redPass.Text = _state.Instances[ArrayID].gamePasswordRed;
+            cb_Tracers.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            cb_TeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            cb_AutoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
+            cb_fatBullets.Checked = _state.Instances[ArrayID].gameFatBullets;
+            num_scoreFB.Value = _state.Instances[ArrayID].gameScoreFlags;
+            num_scoreKOTH.Value = _state.Instances[ArrayID].gameScoreZoneTime;
+            num_scoreDM.Value = _state.Instances[ArrayID].gameScoreKills;
+            endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].gameScoreBoardDelay;
+        }
     }
 }
