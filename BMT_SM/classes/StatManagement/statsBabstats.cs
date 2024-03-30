@@ -535,8 +535,6 @@ namespace HawkSync_SM.classes.StatManagement
                 { "bmt", "1" }
             };
 
-            Dictionary<string, string> dataArray2;
-
             var formData = new FormUrlEncodedContent(dataArray);
 
             try

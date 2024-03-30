@@ -1680,7 +1680,6 @@ namespace HawkSync_SM
         }
         public void ScoreMap(ref AppState _state, int InstanceID)
         {
-            int nextGameScore = 0;
             var baseAddr = 0x400000;
             var startingPtr1 = 0;
             startingPtr1 = baseAddr + 0x5F3740;
