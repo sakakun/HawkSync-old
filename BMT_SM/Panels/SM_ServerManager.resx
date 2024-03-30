@@ -167,39 +167,6 @@
   <data name="&gt;&gt;page_players.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;tabPage10.Name" xml:space="preserve">
-    <value>tabPage10</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPage10.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Name" xml:space="preserve">
-    <value>tabPage14</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.Parent" xml:space="preserve">
-    <value>tabCtl_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;tabPage14.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="tabCtl_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>392, 4</value>
-  </data>
-  <data name="tabCtl_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 393</value>
-  </data>
-  <data name="tabCtl_ServerSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
   <data name="&gt;&gt;tabCtl_ServerSettings.Name" xml:space="preserve">
     <value>tabCtl_ServerSettings</value>
   </data>
@@ -211,121 +178,6 @@
   </data>
   <data name="&gt;&gt;tabCtl_ServerSettings.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="btn_exportSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>301, 20</value>
-  </data>
-  <data name="btn_exportSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_exportSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="btn_exportSettings.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Name" xml:space="preserve">
-    <value>btn_exportSettings</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btn_importSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>220, 20</value>
-  </data>
-  <data name="btn_importSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_importSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="btn_importSettings.Text" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Name" xml:space="preserve">
-    <value>btn_importSettings</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="btn_settingsRevertChanges.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
-  </data>
-  <data name="btn_settingsRevertChanges.Location" type="System.Drawing.Point, System.Drawing">
-    <value>87, 21</value>
-  </data>
-  <data name="btn_settingsRevertChanges.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_settingsRevertChanges.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="btn_settingsRevertChanges.Text" xml:space="preserve">
-    <value>Revert</value>
-  </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Name" xml:space="preserve">
-    <value>btn_settingsRevertChanges</value>
-  </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_settingsRevertChanges.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="btn_UpdateServerSettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom</value>
-  </data>
-  <data name="btn_UpdateServerSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 21</value>
-  </data>
-  <data name="btn_UpdateServerSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_UpdateServerSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="btn_UpdateServerSettings.Text" xml:space="preserve">
-    <value>Update</value>
-  </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Name" xml:space="preserve">
-    <value>btn_UpdateServerSettings</value>
-  </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_UpdateServerSettings.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="gB_options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 340</value>
-  </data>
-  <data name="gB_options.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 57</value>
-  </data>
-  <data name="gB_options.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="gB_options.Text" xml:space="preserve">
-    <value>Options</value>
   </data>
   <data name="&gt;&gt;gB_options.Name" xml:space="preserve">
     <value>gB_options</value>
@@ -339,174 +191,6 @@
   <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;gB_motd.Name" xml:space="preserve">
-    <value>gB_motd</value>
-  </data>
-  <data name="&gt;&gt;gB_motd.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gB_motd.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;gB_motd.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Name" xml:space="preserve">
-    <value>cb_autoBalance</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_autoBalance.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Name" xml:space="preserve">
-    <value>cb_customSkin</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_customSkin.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;cb_requireNova.Name" xml:space="preserve">
-    <value>cb_requireNova</value>
-  </data>
-  <data name="&gt;&gt;cb_requireNova.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_requireNova.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_requireNova.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Name" xml:space="preserve">
-    <value>cb_gameDedicated</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_gameDedicated.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Name" xml:space="preserve">
-    <value>cb_respawnTime</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_respawnTime.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Name" xml:space="preserve">
-    <value>label_respawnTime</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_respawnTime.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Name" xml:space="preserve">
-    <value>cb_replayMaps</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_replayMaps.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Name" xml:space="preserve">
-    <value>label_replayMaps</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_replayMaps.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Name" xml:space="preserve">
-    <value>cb_startDelay</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_startDelay.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Name" xml:space="preserve">
-    <value>label_startDelay</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_startDelay.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Name" xml:space="preserve">
-    <value>cb_timeLimit</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;cb_timeLimit.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Name" xml:space="preserve">
-    <value>label_timeLimit</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.Parent" xml:space="preserve">
-    <value>gB_ServerSettings</value>
-  </data>
-  <data name="&gt;&gt;label_timeLimit.ZOrder" xml:space="preserve">
-    <value>12</value>
-  </data>
-  <data name="gB_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 118</value>
-  </data>
-  <data name="gB_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 215</value>
-  </data>
-  <data name="gB_ServerSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gB_ServerSettings.Text" xml:space="preserve">
-    <value>Server Settings</value>
-  </data>
   <data name="&gt;&gt;gB_ServerSettings.Name" xml:space="preserve">
     <value>gB_ServerSettings</value>
   </data>
@@ -518,138 +202,6 @@
   </data>
   <data name="&gt;&gt;gB_ServerSettings.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="&gt;&gt;smNum_maxSlots.Name" xml:space="preserve">
-    <value>smNum_maxSlots</value>
-  </data>
-  <data name="&gt;&gt;smNum_maxSlots.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smNum_maxSlots.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smNum_maxSlots.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Name" xml:space="preserve">
-    <value>label_maxSlots</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_maxSlots.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;smT_serverPassword.Name" xml:space="preserve">
-    <value>smT_serverPassword</value>
-  </data>
-  <data name="&gt;&gt;smT_serverPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smT_serverPassword.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smT_serverPassword.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Name" xml:space="preserve">
-    <value>label_ServerPassword</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_ServerPassword.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Name" xml:space="preserve">
-    <value>smCB_sessionType</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smCB_sessionType.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Name" xml:space="preserve">
-    <value>label_SessionType</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_SessionType.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Name" xml:space="preserve">
-    <value>smCB_country</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smCB_country.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Name" xml:space="preserve">
-    <value>label_Country</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_Country.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_Country.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Name" xml:space="preserve">
-    <value>smT_serverName</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;smT_serverName.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Name" xml:space="preserve">
-    <value>label_serverName</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.Parent" xml:space="preserve">
-    <value>gB_ServerDetails</value>
-  </data>
-  <data name="&gt;&gt;label_serverName.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="gB_ServerDetails.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="gB_ServerDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>380, 107</value>
-  </data>
-  <data name="gB_ServerDetails.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gB_ServerDetails.Text" xml:space="preserve">
-    <value>Server Details</value>
   </data>
   <data name="&gt;&gt;gB_ServerDetails.Name" xml:space="preserve">
     <value>gB_ServerDetails</value>
@@ -806,6 +358,202 @@
   </data>
   <data name="&gt;&gt;page_chat.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="btn_addAutoMsg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>697, 14</value>
+  </data>
+  <data name="btn_addAutoMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_addAutoMsg.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btn_addAutoMsg.Text" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="&gt;&gt;btn_addAutoMsg.Name" xml:space="preserve">
+    <value>btn_addAutoMsg</value>
+  </data>
+  <data name="&gt;&gt;btn_addAutoMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_addAutoMsg.Parent" xml:space="preserve">
+    <value>gb_addMessages</value>
+  </data>
+  <data name="&gt;&gt;btn_addAutoMsg.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="contextMenuStrip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>414, 17</value>
+  </metadata>
+  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 246</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip3.Name" xml:space="preserve">
+    <value>contextMenuStrip3</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="text_newAutoMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="text_newAutoMessage.MaxLength" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="text_newAutoMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>685, 20</value>
+  </data>
+  <data name="text_newAutoMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
+    <value>text_newAutoMessage</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
+    <value>gb_addMessages</value>
+  </data>
+  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="gb_addMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 342</value>
+  </data>
+  <data name="gb_addMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>778, 44</value>
+  </data>
+  <data name="gb_addMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gb_addMessages.Text" xml:space="preserve">
+    <value>Add Message</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
+    <value>gb_addMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="listBox_AutoMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 15</value>
+  </data>
+  <data name="listBox_AutoMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>780, 303</value>
+  </data>
+  <data name="listBox_AutoMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;listBox_AutoMessages.Name" xml:space="preserve">
+    <value>listBox_AutoMessages</value>
+  </data>
+  <data name="&gt;&gt;listBox_AutoMessages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listBox_AutoMessages.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;listBox_AutoMessages.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="cb_enableAutoMsg.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="cb_enableAutoMsg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>514, 325</value>
+  </data>
+  <data name="cb_enableAutoMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 17</value>
+  </data>
+  <data name="cb_enableAutoMsg.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="cb_enableAutoMsg.Text" xml:space="preserve">
+    <value>Enable Auto Messages</value>
+  </data>
+  <data name="&gt;&gt;cb_enableAutoMsg.Name" xml:space="preserve">
+    <value>cb_enableAutoMsg</value>
+  </data>
+  <data name="&gt;&gt;cb_enableAutoMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_enableAutoMsg.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;cb_enableAutoMsg.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label_interval.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label_interval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>648, 326</value>
+  </data>
+  <data name="label_interval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 13</value>
+  </data>
+  <data name="label_interval.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="label_interval.Text" xml:space="preserve">
+    <value>Interval (Minutes)</value>
+  </data>
+  <data name="&gt;&gt;label_interval.Name" xml:space="preserve">
+    <value>label_interval</value>
+  </data>
+  <data name="&gt;&gt;label_interval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_interval.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;label_interval.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="num_autoMsgInterval.Location" type="System.Drawing.Point, System.Drawing">
+    <value>737, 322</value>
+  </data>
+  <data name="num_autoMsgInterval.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="num_autoMsgInterval.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="num_autoMsgInterval.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
+  </data>
+  <data name="&gt;&gt;num_autoMsgInterval.Name" xml:space="preserve">
+    <value>num_autoMsgInterval</value>
+  </data>
+  <data name="&gt;&gt;num_autoMsgInterval.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;num_autoMsgInterval.Parent" xml:space="preserve">
+    <value>gb_autoMessages</value>
+  </data>
+  <data name="&gt;&gt;num_autoMsgInterval.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="gb_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 5</value>
+  </data>
+  <data name="gb_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>790, 390</value>
+  </data>
+  <data name="gb_autoMessages.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="gb_autoMessages.Text" xml:space="preserve">
+    <value>Messages</value>
   </data>
   <data name="&gt;&gt;gb_autoMessages.Name" xml:space="preserve">
     <value>gb_autoMessages</value>
@@ -2521,6 +2269,51 @@
     <value>group_currentPlayers</value>
   </data>
   <data name="&gt;&gt;grid_playerList.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPage10.Name" xml:space="preserve">
+    <value>tabPage10</value>
+  </data>
+  <data name="&gt;&gt;tabPage10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage10.Parent" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;tabPage10.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Name" xml:space="preserve">
+    <value>tabPage14</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.Parent" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;tabPage14.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tabCtl_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>392, 4</value>
+  </data>
+  <data name="tabCtl_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>405, 393</value>
+  </data>
+  <data name="tabCtl_ServerSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Name" xml:space="preserve">
+    <value>tabCtl_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.Parent" xml:space="preserve">
+    <value>page_serverSettings</value>
+  </data>
+  <data name="&gt;&gt;tabCtl_ServerSettings.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="&gt;&gt;gb_GamePlay.Name" xml:space="preserve">
@@ -4338,6 +4131,312 @@
   <data name="&gt;&gt;cbl_roleSelection.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="&gt;&gt;btn_exportSettings.Name" xml:space="preserve">
+    <value>btn_exportSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Name" xml:space="preserve">
+    <value>btn_importSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Name" xml:space="preserve">
+    <value>btn_settingsRevertChanges</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Name" xml:space="preserve">
+    <value>btn_UpdateServerSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="gB_options.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 340</value>
+  </data>
+  <data name="gB_options.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 57</value>
+  </data>
+  <data name="gB_options.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="gB_options.Text" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="&gt;&gt;gB_options.Name" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;gB_options.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gB_options.Parent" xml:space="preserve">
+    <value>page_serverSettings</value>
+  </data>
+  <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btn_settingsRevertChanges.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="btn_settingsRevertChanges.Location" type="System.Drawing.Point, System.Drawing">
+    <value>87, 21</value>
+  </data>
+  <data name="btn_settingsRevertChanges.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_settingsRevertChanges.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="btn_settingsRevertChanges.Text" xml:space="preserve">
+    <value>Revert</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Name" xml:space="preserve">
+    <value>btn_settingsRevertChanges</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_settingsRevertChanges.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="btn_UpdateServerSettings.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom</value>
+  </data>
+  <data name="btn_UpdateServerSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="btn_UpdateServerSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_UpdateServerSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btn_UpdateServerSettings.Text" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Name" xml:space="preserve">
+    <value>btn_UpdateServerSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_UpdateServerSettings.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;gB_motd.Name" xml:space="preserve">
+    <value>gB_motd</value>
+  </data>
+  <data name="&gt;&gt;gB_motd.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gB_motd.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;gB_motd.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cb_autoBalance.Name" xml:space="preserve">
+    <value>cb_autoBalance</value>
+  </data>
+  <data name="&gt;&gt;cb_autoBalance.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_autoBalance.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_autoBalance.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;cb_customSkin.Name" xml:space="preserve">
+    <value>cb_customSkin</value>
+  </data>
+  <data name="&gt;&gt;cb_customSkin.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_customSkin.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_customSkin.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;cb_requireNova.Name" xml:space="preserve">
+    <value>cb_requireNova</value>
+  </data>
+  <data name="&gt;&gt;cb_requireNova.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_requireNova.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_requireNova.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;cb_gameDedicated.Name" xml:space="preserve">
+    <value>cb_gameDedicated</value>
+  </data>
+  <data name="&gt;&gt;cb_gameDedicated.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_gameDedicated.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_gameDedicated.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;cb_respawnTime.Name" xml:space="preserve">
+    <value>cb_respawnTime</value>
+  </data>
+  <data name="&gt;&gt;cb_respawnTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_respawnTime.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_respawnTime.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label_respawnTime.Name" xml:space="preserve">
+    <value>label_respawnTime</value>
+  </data>
+  <data name="&gt;&gt;label_respawnTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_respawnTime.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;label_respawnTime.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;cb_replayMaps.Name" xml:space="preserve">
+    <value>cb_replayMaps</value>
+  </data>
+  <data name="&gt;&gt;cb_replayMaps.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_replayMaps.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_replayMaps.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;label_replayMaps.Name" xml:space="preserve">
+    <value>label_replayMaps</value>
+  </data>
+  <data name="&gt;&gt;label_replayMaps.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_replayMaps.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;label_replayMaps.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;cb_startDelay.Name" xml:space="preserve">
+    <value>cb_startDelay</value>
+  </data>
+  <data name="&gt;&gt;cb_startDelay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_startDelay.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_startDelay.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;label_startDelay.Name" xml:space="preserve">
+    <value>label_startDelay</value>
+  </data>
+  <data name="&gt;&gt;label_startDelay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_startDelay.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;label_startDelay.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;cb_timeLimit.Name" xml:space="preserve">
+    <value>cb_timeLimit</value>
+  </data>
+  <data name="&gt;&gt;cb_timeLimit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_timeLimit.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;cb_timeLimit.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;label_timeLimit.Name" xml:space="preserve">
+    <value>label_timeLimit</value>
+  </data>
+  <data name="&gt;&gt;label_timeLimit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_timeLimit.Parent" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;label_timeLimit.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="gB_ServerSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 118</value>
+  </data>
+  <data name="gB_ServerSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 215</value>
+  </data>
+  <data name="gB_ServerSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="gB_ServerSettings.Text" xml:space="preserve">
+    <value>Server Settings</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerSettings.Name" xml:space="preserve">
+    <value>gB_ServerSettings</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerSettings.Parent" xml:space="preserve">
+    <value>page_serverSettings</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerSettings.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="&gt;&gt;richTextBox1.Name" xml:space="preserve">
     <value>richTextBox1</value>
   </data>
@@ -4724,6 +4823,150 @@
   </data>
   <data name="&gt;&gt;label_timeLimit.ZOrder" xml:space="preserve">
     <value>12</value>
+  </data>
+  <data name="&gt;&gt;smNum_maxSlots.Name" xml:space="preserve">
+    <value>smNum_maxSlots</value>
+  </data>
+  <data name="&gt;&gt;smNum_maxSlots.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smNum_maxSlots.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;smNum_maxSlots.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;label_maxSlots.Name" xml:space="preserve">
+    <value>label_maxSlots</value>
+  </data>
+  <data name="&gt;&gt;label_maxSlots.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_maxSlots.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;label_maxSlots.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;smT_serverPassword.Name" xml:space="preserve">
+    <value>smT_serverPassword</value>
+  </data>
+  <data name="&gt;&gt;smT_serverPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smT_serverPassword.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;smT_serverPassword.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;label_ServerPassword.Name" xml:space="preserve">
+    <value>label_ServerPassword</value>
+  </data>
+  <data name="&gt;&gt;label_ServerPassword.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_ServerPassword.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;label_ServerPassword.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;smCB_sessionType.Name" xml:space="preserve">
+    <value>smCB_sessionType</value>
+  </data>
+  <data name="&gt;&gt;smCB_sessionType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smCB_sessionType.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;smCB_sessionType.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;label_SessionType.Name" xml:space="preserve">
+    <value>label_SessionType</value>
+  </data>
+  <data name="&gt;&gt;label_SessionType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_SessionType.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;label_SessionType.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;smCB_country.Name" xml:space="preserve">
+    <value>smCB_country</value>
+  </data>
+  <data name="&gt;&gt;smCB_country.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smCB_country.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;smCB_country.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;label_Country.Name" xml:space="preserve">
+    <value>label_Country</value>
+  </data>
+  <data name="&gt;&gt;label_Country.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_Country.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;label_Country.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;smT_serverName.Name" xml:space="preserve">
+    <value>smT_serverName</value>
+  </data>
+  <data name="&gt;&gt;smT_serverName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;smT_serverName.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;smT_serverName.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;label_serverName.Name" xml:space="preserve">
+    <value>label_serverName</value>
+  </data>
+  <data name="&gt;&gt;label_serverName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label_serverName.Parent" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;label_serverName.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="gB_ServerDetails.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 4</value>
+  </data>
+  <data name="gB_ServerDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>380, 107</value>
+  </data>
+  <data name="gB_ServerDetails.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="gB_ServerDetails.Text" xml:space="preserve">
+    <value>Server Details</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerDetails.Name" xml:space="preserve">
+    <value>gB_ServerDetails</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerDetails.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerDetails.Parent" xml:space="preserve">
+    <value>page_serverSettings</value>
+  </data>
+  <data name="&gt;&gt;gB_ServerDetails.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="smNum_maxSlots.Location" type="System.Drawing.Point, System.Drawing">
     <value>301, 47</value>
@@ -6435,198 +6678,6 @@
   <data name="&gt;&gt;data_chatViewer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Name" xml:space="preserve">
-    <value>listBox_AutoMessages</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Name" xml:space="preserve">
-    <value>cb_enableAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Name" xml:space="preserve">
-    <value>label_interval</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;label_interval.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Name" xml:space="preserve">
-    <value>num_autoMsgInterval</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gb_autoMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 5</value>
-  </data>
-  <data name="gb_autoMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>790, 390</value>
-  </data>
-  <data name="gb_autoMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="gb_autoMessages.Text" xml:space="preserve">
-    <value>Messages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Name" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.Parent" xml:space="preserve">
-    <value>page_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_autoMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Name" xml:space="preserve">
-    <value>btn_addAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
-    <value>text_newAutoMessage</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="gb_addMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 342</value>
-  </data>
-  <data name="gb_addMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>778, 44</value>
-  </data>
-  <data name="gb_addMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="gb_addMessages.Text" xml:space="preserve">
-    <value>Add Message</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Name" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;gb_addMessages.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="btn_addAutoMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>697, 14</value>
-  </data>
-  <data name="btn_addAutoMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_addAutoMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="btn_addAutoMsg.Text" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Name" xml:space="preserve">
-    <value>btn_addAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;btn_addAutoMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="contextMenuStrip3.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>414, 17</value>
-  </metadata>
-  <data name="contextMenuStrip3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 246</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip3.Name" xml:space="preserve">
-    <value>contextMenuStrip3</value>
-  </data>
-  <data name="&gt;&gt;contextMenuStrip3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="text_newAutoMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 16</value>
-  </data>
-  <data name="text_newAutoMessage.MaxLength" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="text_newAutoMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>685, 20</value>
-  </data>
-  <data name="text_newAutoMessage.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Name" xml:space="preserve">
-    <value>text_newAutoMessage</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.Parent" xml:space="preserve">
-    <value>gb_addMessages</value>
-  </data>
-  <data name="&gt;&gt;text_newAutoMessage.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="toolStripMenuItem134.Size" type="System.Drawing.Size, System.Drawing">
     <value>160, 22</value>
   </data>
@@ -6725,105 +6776,6 @@
   </data>
   <data name="toolStripMenuItem144.Text" xml:space="preserve">
     <value>Lowest Exp</value>
-  </data>
-  <data name="listBox_AutoMessages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 15</value>
-  </data>
-  <data name="listBox_AutoMessages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>780, 303</value>
-  </data>
-  <data name="listBox_AutoMessages.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Name" xml:space="preserve">
-    <value>listBox_AutoMessages</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;listBox_AutoMessages.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cb_enableAutoMsg.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cb_enableAutoMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>514, 325</value>
-  </data>
-  <data name="cb_enableAutoMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 17</value>
-  </data>
-  <data name="cb_enableAutoMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="cb_enableAutoMsg.Text" xml:space="preserve">
-    <value>Enable Auto Messages</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Name" xml:space="preserve">
-    <value>cb_enableAutoMsg</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;cb_enableAutoMsg.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="label_interval.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label_interval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>648, 326</value>
-  </data>
-  <data name="label_interval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 13</value>
-  </data>
-  <data name="label_interval.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label_interval.Text" xml:space="preserve">
-    <value>Interval (Minutes)</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Name" xml:space="preserve">
-    <value>label_interval</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label_interval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;label_interval.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="num_autoMsgInterval.Location" type="System.Drawing.Point, System.Drawing">
-    <value>737, 322</value>
-  </data>
-  <data name="num_autoMsgInterval.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 20</value>
-  </data>
-  <data name="num_autoMsgInterval.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="num_autoMsgInterval.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Center</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Name" xml:space="preserve">
-    <value>num_autoMsgInterval</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.Parent" xml:space="preserve">
-    <value>gb_autoMessages</value>
-  </data>
-  <data name="&gt;&gt;num_autoMsgInterval.ZOrder" xml:space="preserve">
-    <value>4</value>
   </data>
   <metadata name="cm_playerControls.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -7782,6 +7734,54 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>317, 17</value>
   </metadata>
+  <data name="btn_importSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>220, 20</value>
+  </data>
+  <data name="btn_importSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_importSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btn_importSettings.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Name" xml:space="preserve">
+    <value>btn_importSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btn_exportSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>301, 20</value>
+  </data>
+  <data name="btn_exportSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_exportSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btn_exportSettings.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Name" xml:space="preserve">
+    <value>btn_exportSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

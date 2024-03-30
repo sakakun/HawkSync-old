@@ -543,7 +543,7 @@ namespace HawkSync_SM.classes.StatManagement
                 using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
                 {
                     // Send a POST request with the form data
-                    var response = await client.PostAsync(_state.Instances[instanceID].WebstatsURL + "status_update.php", formData);
+                    var response = await client.PostAsync(_state.Instances[instanceID].WebstatsURL + "status_report.php", formData);
 
                     // Check if the request was successful
                     if (response.IsSuccessStatusCode)

@@ -751,7 +751,7 @@ namespace HawkSync_SM
             }
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `vpnCheckEnabled` = @vpnCheck WHERE `profile_id` = @profileid;", db);
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `enableVPNCheck` = @vpnCheck WHERE `profile_id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@vpnCheck", Convert.ToInt32(_state.Instances[ArrayID].vpnCheckEnabled));
             cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
             cmd.ExecuteNonQuery();

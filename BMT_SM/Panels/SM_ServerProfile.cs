@@ -82,7 +82,7 @@ namespace HawkSync_SM
                 SQLiteConnection m_dbConnection = new SQLiteConnection(ProgramConfig.DBConfig);
                 m_dbConnection.Open();
 
-                SQLiteCommand add_profile = new SQLiteCommand("INSERT INTO `instances` (`id`, `name`, `game_type`, `gamepath`, `stats`, `stats_url`, `stats_server_id`, `stats_verified`, `host_name`, `port`, `WebStatsASPEnabled`, `WebStatsASPMinMinutes`, `WebStatsASPMinPlayers`, `misc_crashrecovery`, `misc_babstats_master`, `WebStatsAnnouncements`, `gameAllowLeftLeaning`, `bind_address`, `novahq_master`, `novacc_master`, `plugins`) VALUES (NULL, @profilename, @gametype, @gamepath, @statssoftware, @statsurl, @statsserverid, 0, @host, @port, @anti_stat_pad, @WebStatsASPMinMinutes, @WebStatsASPMinPlayers, @misc_crashrecovery, @misc_babstats_master, @announceranks, @leftleaning, @bindingaddress, @novahq_master, @novacc_master, @plugins); ", m_dbConnection);
+                SQLiteCommand add_profile = new SQLiteCommand("INSERT INTO `instances` (`id`, `name`, `game_type`, `gamepath`, `stats`, `stats_url`, `stats_server_id`, `stats_verified`, `host_name`, `port`, `anti_stat_padding`, `anti_stat_padding_min_minutes`, `anti_stat_padding_min_players`, `misc_crashrecovery`, `misc_babstats_master`, `misc_show_ranks`, `misc_left_leaning`, `bind_address`, `novahq_master`, `novacc_master`, `plugins`) VALUES (NULL, @profilename, @gametype, @gamepath, @statssoftware, @statsurl, @statsserverid, 0, @host, @port, @anti_stat_pad, @WebStatsASPMinMinutes, @WebStatsASPMinPlayers, @misc_crashrecovery, @misc_babstats_master, @announceranks, @leftleaning, @bindingaddress, @novahq_master, @novacc_master, @plugins); ", m_dbConnection);
                 add_profile.Parameters.AddWithValue("@profilename", newProfile.profileName);
                 add_profile.Parameters.AddWithValue("@gametype", newProfile.profileServerType);
                 add_profile.Parameters.AddWithValue("@gamepath", newProfile.profileServerPath);
@@ -105,7 +105,7 @@ namespace HawkSync_SM
                 add_profile.ExecuteNonQuery();
                 add_profile.Dispose();
                 int newID = (int)m_dbConnection.LastInsertRowId;
-                SQLiteCommand add_profile_config = new SQLiteCommand("INSERT INTO instances_config (`profile_id`, `server_name`, `motd`, `country_code`, `server_password`, `session_type`, `max_slots`, `start_delay`, `loop_maps`, `max_kills`, `game_score`, `zone_timer`, `respawn_time`, `time_limit`, `max_team_lives`, `require_novalogic`, `windowed_mode`, `allow_custom_skins`, `run_dedicated`, `game_mod`, `mapcycle`, `blue_team_password`, `red_team_password`, `friendly_fire`, `friendly_fire_warning`, `friendly_fire_kills`, `friendly_tags`, `auto_balance`, `show_tracers`, `show_team_clays`, `allow_auto_range`, `flagreturntime`, `oneshotkills`, `fatbullets`, `destroybuildings`, `rolerestrictions`, `weaponrestrictions`, `enable_min_ping`, `min_ping`, `enable_max_ping`, `max_ping`, `enable_msg`, `auto_messages`, `auto_msg_interval`, `vpnCheckEnabled`, `warnlevel`, `psptakeover`, `availablemaps`, `fbscore`, `kothscore`, `scoreboard_override`) VALUES (@profileid, 'Untitled', 'Put your message here', 'US', '', '0', '50', '0', '1', '19', '19', '4', '4', '4', '10', '0', '1', '0', '1', '0', '[]', '', '', '0', '0', '0', '1', '0', '0', '0', '0', '10', '0', '0', '0', '[]', '[]', '0', '0', '0', '0', '0', '[]', '3', '0', '65', '1', '[]', '20', '20', '45');", m_dbConnection);
+                SQLiteCommand add_profile_config = new SQLiteCommand("INSERT INTO instances_config (`profile_id`, `server_name`, `motd`, `country_code`, `server_password`, `session_type`, `max_slots`, `start_delay`, `loop_maps`, `max_kills`, `game_score`, `zone_timer`, `respawn_time`, `time_limit`, `max_team_lives`, `require_novalogic`, `windowed_mode`, `allow_custom_skins`, `run_dedicated`, `game_mod`, `mapcycle`, `blue_team_password`, `red_team_password`, `friendly_fire`, `friendly_fire_warning`, `friendly_fire_kills`, `friendly_tags`, `auto_balance`, `show_tracers`, `show_team_clays`, `allow_auto_range`, `flagreturntime`, `oneshotkills`, `fatbullets`, `destroybuildings`, `rolerestrictions`, `weaponrestrictions`, `enable_min_ping`, `min_ping`, `enable_max_ping`, `max_ping`, `enable_msg`, `auto_messages`, `auto_msg_interval`, `enableVPNCheck`, `warnlevel`, `psptakeover`, `availablemaps`, `fbscore`, `kothscore`, `scoreboard_override`) VALUES (@profileid, 'Untitled', 'Put your message here', 'US', '', '0', '50', '0', '1', '19', '19', '4', '4', '4', '10', '0', '1', '0', '1', '0', '[]', '', '', '0', '0', '0', '1', '0', '0', '0', '0', '10', '0', '0', '0', '[]', '[]', '0', '0', '0', '0', '0', '[]', '3', '0', '65', '1', '[]', '20', '20', '45');", m_dbConnection);
                 add_profile_config.Parameters.AddWithValue("@profileid", newID);
                 add_profile_config.ExecuteNonQuery();
                 add_profile_config.Dispose();
@@ -136,6 +136,7 @@ namespace HawkSync_SM
                 MessageBox.Show("Please enter a valid gameHostName!", "Error");
                 return;
             }
+
             _state.Instances[ArrayID].profileName = textBox_profileName.Text;
             _state.Instances[ArrayID].profileServerPath = textbox_serverPath.Text;
             _state.Instances[ArrayID].profileServerType = cb_selectGame.SelectedIndex;
@@ -151,7 +152,7 @@ namespace HawkSync_SM
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
-            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances` SET `name` = @profilename, `gamepath` = @gamepath, `game_type` = @gametype, `stats` = @stats, `stats_url` = @statsurl, `stats_server_id` = @statsserverid, `host_name` = @hostname, `bind_address` = @bindaddress, `port` = @serverport, `anti_stat_padding` = @WebStatsASPEnabled, `anti_stat_padding_min_minutes` = @WebStatsASPMinMinutes, `anti_stat_padding_min_players` = @WebStatsASPMinPlayers, `misc_crashrecovery` = @misc_CrashRecovery, `misc_babstats_master` = @misc_babstats_master, `misc_show_ranks` = @WebStatsAnnouncements, `misc_left_leaning` = @gameAllowLeftLeaning, `novahq_master` = @novahq, `novacc_master` = @novacc, `plugins` = @plugins WHERE `id` = @profileid;", db);
+            SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances` SET `name` = @profilename, `gamepath` = @gamepath, `game_type` = @gametype, `stats` = @stats, `stats_url` = @statsurl, `stats_server_id` = @statsserverid, `host_name` = @hostname, `bind_address` = @bindaddress, `port` = @serverport, `anti_stat_padding` = @anti_stat_padding, `anti_stat_padding_min_minutes` = @anti_stat_padding_min_minutes, `anti_stat_padding_min_players` = @anti_stat_padding_min_players, `misc_crashrecovery` = @misc_CrashRecovery, `misc_babstats_master` = @misc_babstats_master, `misc_show_ranks` = @misc_show_ranks, `misc_left_leaning` = @misc_left_leaning, `novahq_master` = @novahq, `novacc_master` = @novacc, `plugins` = @plugins WHERE `id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@profilename", _state.Instances[ArrayID].profileName);
             cmd.Parameters.AddWithValue("@gamepath", _state.Instances[ArrayID].profileServerPath);
             cmd.Parameters.AddWithValue("@gametype", _state.Instances[ArrayID].profileServerType);
@@ -161,13 +162,13 @@ namespace HawkSync_SM
             cmd.Parameters.AddWithValue("@hostname", _state.Instances[ArrayID].gameHostName);
             cmd.Parameters.AddWithValue("@bindaddress", _state.Instances[ArrayID].profileBindIP);
             cmd.Parameters.AddWithValue("@serverport", _state.Instances[ArrayID].profileBindPort);
-            cmd.Parameters.AddWithValue("@WebStatsASPEnabled", _state.Instances[ArrayID].WebStatsASPEnabled);
-            cmd.Parameters.AddWithValue("@WebStatsASPMinMinutes", _state.Instances[ArrayID].WebStatsASPMinMinutes);
-            cmd.Parameters.AddWithValue("@WebStatsASPMinPlayers", _state.Instances[ArrayID].WebStatsASPMinPlayers);
+            cmd.Parameters.AddWithValue("@anti_stat_padding", _state.Instances[ArrayID].WebStatsASPEnabled);
+            cmd.Parameters.AddWithValue("@anti_stat_padding_min_minutes", _state.Instances[ArrayID].WebStatsASPMinMinutes);
+            cmd.Parameters.AddWithValue("@anti_stat_padding_min_players", _state.Instances[ArrayID].WebStatsASPMinPlayers);
             cmd.Parameters.AddWithValue("@misc_CrashRecovery", Convert.ToInt32(_state.Instances[ArrayID].instanceCrashRecovery));
             cmd.Parameters.AddWithValue("@misc_babstats_master", 1);
-            cmd.Parameters.AddWithValue("@WebStatsAnnouncements", _state.Instances[ArrayID].WebStatsAnnouncements);
-            cmd.Parameters.AddWithValue("@gameAllowLeftLeaning", _state.Instances[ArrayID].gameAllowLeftLeaning);
+            cmd.Parameters.AddWithValue("@misc_show_ranks", _state.Instances[ArrayID].WebStatsAnnouncements);
+            cmd.Parameters.AddWithValue("@misc_left_leaning", _state.Instances[ArrayID].gameAllowLeftLeaning);
             cmd.Parameters.AddWithValue("@novahq", Convert.ToInt32(_state.Instances[ArrayID].ReportNovaHQ));
             cmd.Parameters.AddWithValue("@novacc", Convert.ToInt32(_state.Instances[ArrayID].ReportNovaCC));
             cmd.Parameters.AddWithValue("@plugins", JsonConvert.SerializeObject(_state.Instances[ArrayID].Plugins));

@@ -18,6 +18,7 @@ using HawkSync_SM.classes.StatManagement;
 using WatsonTcp;
 using Timer = System.Windows.Forms.Timer;
 using System.ComponentModel;
+using System.Web.Http.Results;
 
 namespace HawkSync_SM
 {
@@ -467,7 +468,7 @@ namespace HawkSync_SM
                                             statsBabstats.sendBabstatsUpdateData(_state, rowId);
                                             babstatsTime.updateTimeStamp = DateTime.Now;
                                         }
-                                        if(babstatsTime.reportTimeStamp.AddSeconds(60) < DateTime.Now)
+                                        if(babstatsTime.reportTimeStamp.AddSeconds(60) < DateTime.Now && instance.WebStatsAnnouncements)
                                         {
                                             statsBabstats.requestBabstatsReportData(_state, rowId);
                                             babstatsTime.reportTimeStamp = DateTime.Now;
@@ -681,7 +682,7 @@ namespace HawkSync_SM
                                 instanceCrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
                                 WebStatsAnnouncements = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
                                 gameAllowLeftLeaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
-                                WebStatsProfileID = result.GetOrdinal("stats_server_id").ToString(),
+                                WebStatsProfileID = result.GetString(result.GetOrdinal("stats_server_id")),
                                 PlayerList = new Dictionary<int, ob_playerList>(),
                                 MapListPrevious = new Dictionary<int, MapList>(),
                                 gameScoreBoardDelay = result.GetInt32(result.GetOrdinal("scoreboard_override")),
@@ -1645,7 +1646,7 @@ namespace HawkSync_SM
                 {
                     while (read.Read())
                     {
-                        customWarnings.Add(read.GetString(read.GetOrdinal("rowObj")));
+                        customWarnings.Add(read.GetString(read.GetOrdinal("message")));
                     }
                 }
             }
