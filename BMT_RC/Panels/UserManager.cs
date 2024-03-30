@@ -89,7 +89,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            foreach (var instance in _state.Instances) comboBox1.Items.Add(instance.Value.GameName);
+            foreach (var instance in _state.Instances) comboBox1.Items.Add(instance.Value.gameServerName);
             comboBox1.SelectedIndex = 0;
             if (_state.UserCodes.SuperAdmin == false)
             {

@@ -29,7 +29,7 @@ namespace HawkSync_RC.TVFunctions
             {
                 { "action", "BMTRC.RotationManager.DeleteRotation" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "RotationID", rotationID }
             };
             var sendCmdString = JsonConvert.SerializeObject(sendCmdArray);
@@ -48,7 +48,7 @@ namespace HawkSync_RC.TVFunctions
             {
                 { "action", "BMTRC.RotationManager.CreateRotation" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "Rotation", JsonConvert.SerializeObject(rotation) },
                 { "description", description }
             };
@@ -68,7 +68,7 @@ namespace HawkSync_RC.TVFunctions
             {
                 { "action", "BMTRC.RotationManager.UpdateRotation" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "Rotation", JsonConvert.SerializeObject(selectedMaps) },
                 { "description", description }
             };

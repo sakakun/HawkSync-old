@@ -387,7 +387,7 @@ namespace HawkSync_SM
 
                                     if (instance.instanceStatus != InstanceStatus.LOADINGMAP && instance.instanceStatus != InstanceStatus.SCORING)
                                     {
-                                        event_processPlayerWarnings(rowId);
+                                        event_processServerMessages(rowId);
                                     }
 
                                     if (instance.instanceStatus == InstanceStatus.LOADINGMAP)
@@ -667,7 +667,7 @@ namespace HawkSync_SM
                                 instanceLastUpdateTime = DateTime.Now,
                                 instanceNextUpdateTime = DateTime.Now.AddSeconds(2.0),
                                 WebStatsEnabled = EnableWebStats,
-                                vpnCheckEnabled = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("vpnCheckEnabled"))),
+                                vpnCheckEnabled = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("enableVPNcheck"))),
                                 WebStatsSoftware = result.GetInt32(result.GetOrdinal("stats")),
                                 WebstatsURL = WebstatsURL,
                                 MapListAvailable = availableMaps,
@@ -675,12 +675,12 @@ namespace HawkSync_SM
                                 infoCounterMaps = mapList.Count,
                                 WebstatsVerified = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("stats_verified"))),
                                 instanceStatus = InstanceStatus.OFFLINE,
-                                WebStatsASPEnabled = result.GetInt32(result.GetOrdinal("WebStatsASPEnabled")),
-                                WebStatsASPMinMinutes = result.GetInt32(result.GetOrdinal("WebStatsASPMinMinutes")),
-                                WebStatsASPMinPlayers = result.GetInt32(result.GetOrdinal("WebStatsASPMinPlayers")),
+                                WebStatsASPEnabled = result.GetInt32(result.GetOrdinal("anti_stat_padding")),
+                                WebStatsASPMinMinutes = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_minutes")),
+                                WebStatsASPMinPlayers = result.GetInt32(result.GetOrdinal("anti_stat_padding_min_players")),
                                 instanceCrashRecovery = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_crashrecovery"))),
-                                WebStatsAnnouncements = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("WebStatsAnnouncements"))),
-                                gameAllowLeftLeaning = result.GetInt32(result.GetOrdinal("gameAllowLeftLeaning")),
+                                WebStatsAnnouncements = Convert.ToBoolean(result.GetInt32(result.GetOrdinal("misc_show_ranks"))),
+                                gameAllowLeftLeaning = result.GetInt32(result.GetOrdinal("misc_left_leaning")),
                                 WebStatsProfileID = result.GetOrdinal("stats_server_id").ToString(),
                                 PlayerList = new Dictionary<int, ob_playerList>(),
                                 MapListPrevious = new Dictionary<int, MapList>(),
@@ -749,7 +749,7 @@ namespace HawkSync_SM
                             _state.eventLog.WriteEntry("Attachment successful: " + instance.instanceID, EventLogEntryType.Information);
                             _state.eventLog.WriteEntry("Adding instance: " + instance.instanceID, EventLogEntryType.Information);
 
-                            // Initialize ConsoleQueue and add starting message
+                            // Initialize ConsoleQueue and add starting rowObj
                             _state.ConsoleQueue.Add(_state.Instances.Count, new ConsoleQueue { queue = new List<Queue>(), nextCmd = DateTime.Now.AddSeconds(10) });
                             _state.ConsoleQueue[_state.Instances.Count].queue.Add(new Queue { text = "HawkSync is starting...", Type = ConsoleQueueType.MESSAGE, color = ChatColor.NORMAL });
 
@@ -885,7 +885,7 @@ namespace HawkSync_SM
                 _state.Instances[item.Key].PlayerListGodMod = new List<int>();
                 _state.Instances[item.Key].TeamListChange = new List<ob_playerChangeTeamList>();
                 _state.Instances[item.Key].CustomWarnings = onload_getCustomWarnings(item.Value.instanceID, hawkSyncDB);
-                _state.Instances[item.Key].WarningQueue = new List<ob_WarnPlayerClass>();
+                _state.Instances[item.Key].ServerMessagesQueue = new List<ob_ServerMessageQueue>();
                 _state.Instances[item.Key].PlayerListDisarm = new List<int>();
                 _state.Instances[item.Key].WeaponRestrictions = onload_getWeaponRestrictions(item.Value.instanceID, hawkSyncDB);
                 _state.Instances[item.Key].AutoMessages = onload_getAutoMessages(item.Value.instanceID, hawkSyncDB);
@@ -1225,18 +1225,33 @@ namespace HawkSync_SM
          * Event: Process Player Warning
          * Process Warning Queue
          */
-        private void event_processPlayerWarnings(int instanceid)
+        private void event_processServerMessages(int instanceid)
         {
-            var warningQueue = _state.Instances[instanceid].WarningQueue;
+            var serverMessages = _state.Instances[instanceid].ServerMessagesQueue;
             var playerList = _state.Instances[instanceid].PlayerList;
+            int channel = 0;
+            string serverMessage = string.Empty;
+            // Process Messages
+            foreach (var rowObj in serverMessages)
+            {
+                channel = 0; serverMessage = rowObj.message;
+                switch (rowObj.slot)
+                {
+                    case 90:
+                        channel = 1; 
+                        break;
+                    case 91:
+                        channel = 2;
+                        break;
+                    default:
+                        serverMessage = $"WARNING!!! {playerList[rowObj.slot].name} - {rowObj.message}";
+                        break;
+                }              
 
-            //while (warningQueue.Count > 0)
-            //{
-                //var item = warningQueue[0];
-                //string playername = playerList[item.slot].name;
-                //(new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[2], $"WARNING!!! {playername} - {item.warningMsg}");
-                //warningQueue.RemoveAt(0);
-            //}
+                (new ServerManagement()).SendChatMessage(ref _state, instanceid, ChatManagement.ChatChannels[channel], serverMessage);
+            }
+            // Clear Messages
+            serverMessages.Clear();
         }
 
         private void event_getChatLogs(ref AppState _state, int profileid)
@@ -1256,7 +1271,7 @@ namespace HawkSync_SM
                 string LastMessage = chatMessage[1];
                 string msgTypeBytes = chatMessage[2];
 
-                // Check for valid next chat message
+                // Check for valid next chat rowObj
                 if (LastMessage == "")
                 {
                     return;
@@ -1630,7 +1645,7 @@ namespace HawkSync_SM
                 {
                     while (read.Read())
                     {
-                        customWarnings.Add(read.GetString(read.GetOrdinal("message")));
+                        customWarnings.Add(read.GetString(read.GetOrdinal("rowObj")));
                     }
                 }
             }

@@ -3723,8 +3723,35 @@
   <data name="&gt;&gt;gb_MapsAvailable.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btn_scoreMap.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btn_scoreMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 227</value>
+  </data>
+  <data name="btn_scoreMap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
+  </data>
+  <data name="btn_scoreMap.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="btn_scoreMap.Text" xml:space="preserve">
+    <value>Score Map</value>
+  </data>
+  <data name="&gt;&gt;btn_scoreMap.Name" xml:space="preserve">
+    <value>btn_scoreMap</value>
+  </data>
+  <data name="&gt;&gt;btn_scoreMap.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_scoreMap.Parent" xml:space="preserve">
+    <value>panel_mapControls</value>
+  </data>
+  <data name="&gt;&gt;btn_scoreMap.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="btn_loadRotation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 281</value>
+    <value>3, 313</value>
   </data>
   <data name="btn_loadRotation.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3745,13 +3772,13 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_loadRotation.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label59.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="label59.Location" type="System.Drawing.Point, System.Drawing">
-    <value>11, 238</value>
+    <value>11, 270</value>
   </data>
   <data name="label59.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 13</value>
@@ -3772,10 +3799,10 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;label59.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="btn_SaveRoation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 255</value>
+    <value>3, 287</value>
   </data>
   <data name="btn_SaveRoation.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3796,10 +3823,10 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_SaveRoation.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="btn_updateMaps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 171</value>
+    <value>2, 169</value>
   </data>
   <data name="btn_updateMaps.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3820,10 +3847,10 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_updateMaps.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="btn_ShuffleMaps.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 111</value>
+    <value>2, 111</value>
   </data>
   <data name="btn_ShuffleMaps.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3844,34 +3871,34 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_ShuffleMaps.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="btn_scoreSkip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 202</value>
-  </data>
-  <data name="btn_scoreSkip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 23</value>
-  </data>
-  <data name="btn_scoreSkip.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="btn_scoreSkip.Text" xml:space="preserve">
-    <value>Skip/Score Map</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Name" xml:space="preserve">
-    <value>btn_scoreSkip</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.Parent" xml:space="preserve">
-    <value>panel_mapControls</value>
-  </data>
-  <data name="&gt;&gt;btn_scoreSkip.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="btn_skipMap.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 198</value>
+  </data>
+  <data name="btn_skipMap.Size" type="System.Drawing.Size, System.Drawing">
+    <value>94, 23</value>
+  </data>
+  <data name="btn_skipMap.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="btn_skipMap.Text" xml:space="preserve">
+    <value>Skip Map</value>
+  </data>
+  <data name="&gt;&gt;btn_skipMap.Name" xml:space="preserve">
+    <value>btn_skipMap</value>
+  </data>
+  <data name="&gt;&gt;btn_skipMap.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_skipMap.Parent" xml:space="preserve">
+    <value>panel_mapControls</value>
+  </data>
+  <data name="&gt;&gt;btn_skipMap.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
   <data name="btn_playMapNext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 141</value>
+    <value>2, 140</value>
   </data>
   <data name="btn_playMapNext.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3892,7 +3919,7 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_playMapNext.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3919,10 +3946,10 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="btn_moveMapDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 60</value>
+    <value>2, 58</value>
   </data>
   <data name="btn_moveMapDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 23</value>
@@ -3943,7 +3970,7 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_moveMapDown.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -3970,7 +3997,7 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="btn_moveMapUp.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 30</value>
@@ -3994,13 +4021,13 @@
     <value>panel_mapControls</value>
   </data>
   <data name="&gt;&gt;btn_moveMapUp.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="panel_mapControls.Location" type="System.Drawing.Point, System.Drawing">
-    <value>353, 44</value>
+    <value>353, 22</value>
   </data>
   <data name="panel_mapControls.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 316</value>
+    <value>103, 368</value>
   </data>
   <data name="panel_mapControls.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

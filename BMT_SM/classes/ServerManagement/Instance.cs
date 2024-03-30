@@ -126,7 +126,7 @@ namespace HawkSync_SM
         public PlayerRoles                              RoleRestrictions    { get; set; } = new PlayerRoles();
         public WeaponsClass                             WeaponRestrictions  { get; set; } = new WeaponsClass();
         public List<string>                             CustomWarnings      { get; set; } = new List<string>();
-        public List<ob_WarnPlayerClass>                 WarningQueue        { get; set; } = new List<ob_WarnPlayerClass>();
+        public List<ob_ServerMessageQueue>              ServerMessagesQueue { get; set; } = new List<ob_ServerMessageQueue>();
         public FirewallManagement                       Firewall            { get; set; } = new FirewallManagement();
 
         // Dynamic Storage Variables

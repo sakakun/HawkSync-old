@@ -171,12 +171,13 @@ namespace HawkSync_SM
             this.label_totalMaps = new System.Windows.Forms.Label();
             this.listBox_mapsAvailable = new System.Windows.Forms.ListBox();
             this.panel_mapControls = new System.Windows.Forms.Panel();
+            this.btn_scoreMap = new System.Windows.Forms.Button();
             this.btn_loadRotation = new System.Windows.Forms.Button();
             this.label59 = new System.Windows.Forms.Label();
             this.btn_SaveRoation = new System.Windows.Forms.Button();
             this.btn_updateMaps = new System.Windows.Forms.Button();
             this.btn_ShuffleMaps = new System.Windows.Forms.Button();
-            this.btn_scoreSkip = new System.Windows.Forms.Button();
+            this.btn_skipMap = new System.Windows.Forms.Button();
             this.btn_playMapNext = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btn_moveMapDown = new System.Windows.Forms.Button();
@@ -1505,12 +1506,13 @@ namespace HawkSync_SM
             // 
             // panel_mapControls
             // 
+            this.panel_mapControls.Controls.Add(this.btn_scoreMap);
             this.panel_mapControls.Controls.Add(this.btn_loadRotation);
             this.panel_mapControls.Controls.Add(this.label59);
             this.panel_mapControls.Controls.Add(this.btn_SaveRoation);
             this.panel_mapControls.Controls.Add(this.btn_updateMaps);
             this.panel_mapControls.Controls.Add(this.btn_ShuffleMaps);
-            this.panel_mapControls.Controls.Add(this.btn_scoreSkip);
+            this.panel_mapControls.Controls.Add(this.btn_skipMap);
             this.panel_mapControls.Controls.Add(this.btn_playMapNext);
             this.panel_mapControls.Controls.Add(this.label2);
             this.panel_mapControls.Controls.Add(this.btn_moveMapDown);
@@ -1518,6 +1520,13 @@ namespace HawkSync_SM
             this.panel_mapControls.Controls.Add(this.btn_moveMapUp);
             resources.ApplyResources(this.panel_mapControls, "panel_mapControls");
             this.panel_mapControls.Name = "panel_mapControls";
+            // 
+            // btn_scoreMap
+            // 
+            resources.ApplyResources(this.btn_scoreMap, "btn_scoreMap");
+            this.btn_scoreMap.Name = "btn_scoreMap";
+            this.btn_scoreMap.UseVisualStyleBackColor = true;
+            this.btn_scoreMap.Click += new System.EventHandler(this.event_clickScoreMap);
             // 
             // btn_loadRotation
             // 
@@ -1553,12 +1562,12 @@ namespace HawkSync_SM
             this.btn_ShuffleMaps.UseVisualStyleBackColor = true;
             this.btn_ShuffleMaps.Click += new System.EventHandler(this.button24_Click);
             // 
-            // btn_scoreSkip
+            // btn_skipMap
             // 
-            resources.ApplyResources(this.btn_scoreSkip, "btn_scoreSkip");
-            this.btn_scoreSkip.Name = "btn_scoreSkip";
-            this.btn_scoreSkip.UseVisualStyleBackColor = true;
-            this.btn_scoreSkip.Click += new System.EventHandler(this.event_clickSkipScore);
+            resources.ApplyResources(this.btn_skipMap, "btn_skipMap");
+            this.btn_skipMap.Name = "btn_skipMap";
+            this.btn_skipMap.UseVisualStyleBackColor = true;
+            this.btn_skipMap.Click += new System.EventHandler(this.event_clickSkipMap);
             // 
             // btn_playMapNext
             // 
@@ -3182,7 +3191,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.ListBox listBox_mapsAvailable;
         private System.Windows.Forms.Label label_EOMtimer;
         private System.Windows.Forms.TrackBar endOfMapTimer_TrackBar;
-        private System.Windows.Forms.Button btn_scoreSkip;
+        private System.Windows.Forms.Button btn_skipMap;
         private System.Windows.Forms.ListBox listBox_AutoMessages;
         private System.Windows.Forms.ContextMenuStrip cm_playerControls;
         private System.Windows.Forms.ToolStripMenuItem cm_armDisarm;
@@ -3419,5 +3428,6 @@ namespace HawkSync_SM
         private System.Windows.Forms.NumericUpDown num_maxPing;
         private System.Windows.Forms.Panel panel_chatMessage;
         private System.Windows.Forms.GroupBox groupBox_chatChannel;
+        private System.Windows.Forms.Button btn_scoreMap;
     }
 }

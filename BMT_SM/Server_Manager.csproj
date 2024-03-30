@@ -249,7 +249,7 @@
       <DependentUpon>ViewUserActivity.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\IPManagement\ob_ipWhitelist.cs" />
-    <Compile Include="classes\ChatManagement\ob_WarnPlayerClass.cs" />
+    <Compile Include="classes\ChatManagement\ob_ServerMessageQueue.cs" />
     <Compile Include="classes\SupportClasses\WeaponsClass.cs" />
     <EmbeddedResource Include="Panels\ChatHistory.resx">
       <DependentUpon>ChatHistory.cs</DependentUpon>

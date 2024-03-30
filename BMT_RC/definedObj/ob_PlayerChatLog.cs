@@ -2,9 +2,9 @@
 
 namespace HawkSync_RC.classes
 {
-    public class ChatLogs
+    public class ob_PlayerChatLog
     {
-        public ChatLogs()
+        public ob_PlayerChatLog()
         {
             Messages = new List<PlayerChatLog>();
             CurrentIndex = 0;

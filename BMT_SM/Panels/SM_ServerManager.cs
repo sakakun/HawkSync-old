@@ -90,13 +90,13 @@ namespace HawkSync_SM
             label_currentMapPlaying.Text = _state.Instances[ArrayID].infoCurrentMapName;
         }
 
-        private void CustomWarningMenu(object sender, EventArgs e)
+        private void event_CustomWarning(object sender, EventArgs e)
         {
             int selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            _state.Instances[ArrayID].WarningQueue.Add(new ob_WarnPlayerClass
+            _state.Instances[ArrayID].ServerMessagesQueue.Add(new ob_ServerMessageQueue
             {
                 slot = selectedPlayerSlot,
-                warningMsg = sender.ToString()
+                message = sender.ToString()
             });
             MessageBox.Show("Player has been warned!", "Success");
         }
@@ -108,8 +108,6 @@ namespace HawkSync_SM
             UpdatePlayerCounter();
             UpdateBanList();
             UpdateChatLogs();
-            //UpdateChatlogDisplay();
-            //UpdateChatlogColors();
         }
         private void UpdateChatLogs()
         {
@@ -376,13 +374,13 @@ namespace HawkSync_SM
             MapListEdited = true;
         }
 
-        private void event_clickSkipScore(object sender, EventArgs e)
+        private void event_clickSkipMap(object sender, EventArgs e)
         {
             if (process != null)
             {
                 if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP)
                 {
-                    MessageBox.Show("You cannot score the map while the server is changing maps!", "Error");
+                    MessageBox.Show("You cannot skip the map while the server is changing maps!", "Error");
                     return;
                 }
                 else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.OFFLINE)
@@ -392,7 +390,7 @@ namespace HawkSync_SM
                 }
                 else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)
                 {
-                    MessageBox.Show("The server is already scoring! Please wait!", "Error");
+                    MessageBox.Show("The map is already changing! Please wait!", "Error");
                     return;
                 }
                 else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.STARTDELAY || _state.Instances[ArrayID].instanceStatus == InstanceStatus.ONLINE)
@@ -413,6 +411,33 @@ namespace HawkSync_SM
                     MessageBox.Show("Command sent!", "Success");
                     CloseHandle(processHandle);
 
+                    return;
+                }
+            }
+        }
+        private void event_clickScoreMap(object sender, EventArgs e)
+        {
+            if (process != null)
+            {
+                if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP)
+                {
+                    MessageBox.Show("You cannot score the map while the server is changing maps!", "Error");
+                    return;
+                }
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.OFFLINE)
+                {
+                    MessageBox.Show("The server is offline! You shouldn't even be here!", "Error");
+                    return;
+                }
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)
+                {
+                    MessageBox.Show("The server is already scoring! Please wait!", "Error");
+                    return;
+                }
+                else if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.STARTDELAY || _state.Instances[ArrayID].instanceStatus == InstanceStatus.ONLINE)
+                {
+
+                    (new ServerManagement()).ScoreMap(ref _state, ArrayID);
                     return;
                 }
             }
@@ -2573,7 +2598,7 @@ namespace HawkSync_SM
                 {
                     Text = item
                 };
-                toolStripItem.Click += CustomWarningMenu;
+                toolStripItem.Click += event_CustomWarning;
                 cm_warnPlayer.DropDownItems.Add(toolStripItem);
             }
 
@@ -2935,7 +2960,7 @@ namespace HawkSync_SM
             {
                 Text = textBox_playerWarnMessageAdd.Text
             };
-            toolStripItem.Click += CustomWarningMenu;
+            toolStripItem.Click += event_CustomWarning;
             cm_warnPlayer.DropDownItems.Add(toolStripItem);
             textBox_playerWarnMessageAdd.Text = string.Empty;
             MessageBox.Show("Warning message has been added sucessfully!", "Success");
@@ -3286,5 +3311,6 @@ namespace HawkSync_SM
                 return;
             }
         }
+
     }
 }

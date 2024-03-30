@@ -31,7 +31,7 @@ namespace HawkSync_RC
             var cmd = new Dictionary<dynamic, dynamic>
             {
                 { "action", "BMTRC.GetAvalMaps" },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "SessionID", RCSetup.SessionID }
             };
             var compressReply = RCSetup.SendCMD(cmd);
@@ -68,59 +68,59 @@ namespace HawkSync_RC
                 comboBox_respawnTime.Items.Add(respawntime);
             }
 
-            textBox_serverName.Text = _state.Instances[ArrayID].ServerName;
-            textBox_MOTD.Text = _state.Instances[ArrayID].MOTD;
-            textBox_countryCode.Text = _state.Instances[ArrayID].CountryCode;
-            textBox_serverPassword.Text = _state.Instances[ArrayID].Password;
+            textBox_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            textBox_MOTD.Text = _state.Instances[ArrayID].gameMOTD;
+            textBox_countryCode.Text = _state.Instances[ArrayID].gameCountryCode;
+            textBox_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
             comboBox_sessionType.SelectedIndex = 0;
             comboBox_sessionType.Enabled = false;
-            comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].MaxSlots;
-            comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].LoopMaps);
-            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].GameScore;
-            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].FBScore;
-            comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].ZoneTimer;
-            comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            checkBox_reqNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            checkBox_windowMode.Checked = _state.Instances[ArrayID].WindowedMode;
-            checkBox_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            checkBox_runDedicated.Checked = _state.Instances[ArrayID].Dedicated;
-            textBox_passBlue.Text = _state.Instances[ArrayID].BluePassword;
-            textBox_passRed.Text = _state.Instances[ArrayID].RedPassword;
-            checkBox_ffire.Checked = _state.Instances[ArrayID].FriendlyFire;
-            checkBox_ffireWarn.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            checkBox_ftags.Checked = _state.Instances[ArrayID].FriendlyTags;
-            checkBox_autoBal.Checked = _state.Instances[ArrayID].AutoBalance;
-            checkBox_showTrace.Checked = _state.Instances[ArrayID].ShowTracers;
-            checkBox_showTeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            checkBox_autoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
-            switch (_state.Instances[ArrayID].MinPing)
+            comboBox_maxPlayers.SelectedItem = _state.Instances[ArrayID].gameMaxSlots;
+            comboBox_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            checkBox_loopMaps.Checked = Convert.ToBoolean(_state.Instances[ArrayID].gameLoopMaps);
+            comboBox_maxKills.SelectedIndex = _state.Instances[ArrayID].gameScoreKills;
+            comboBox_flagsScored.SelectedIndex = _state.Instances[ArrayID].gameScoreFlags;
+            comboBox_zoneTimer.SelectedIndex = _state.Instances[ArrayID].gameScoreZoneTime;
+            comboBox_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            comboBox_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            checkBox_reqNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            checkBox_windowMode.Checked = _state.Instances[ArrayID].gameWindowedMode;
+            checkBox_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            checkBox_runDedicated.Checked = _state.Instances[ArrayID].gameDedicated;
+            textBox_passBlue.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            textBox_passRed.Text = _state.Instances[ArrayID].gamePasswordRed;
+            checkBox_ffire.Checked = _state.Instances[ArrayID].gameOptionFF;
+            checkBox_ffireWarn.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            checkBox_ftags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            checkBox_autoBal.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            checkBox_showTrace.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            checkBox_showTeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            checkBox_autoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
+            switch (_state.Instances[ArrayID].gameMinPing)
             {
                 case false:
                     checkBox_minPing.Checked = false;
                     textBox_minPing.Text = "0";
                     break;
                 case true:
-                    textBox_minPing.Text = Convert.ToString(_state.Instances[ArrayID].MinPingValue);
+                    textBox_minPing.Text = Convert.ToString(_state.Instances[ArrayID].gameMinPingValue);
                     checkBox_minPing.Checked = true;
                     break;
             }
 
-            switch (_state.Instances[ArrayID].MaxPing)
+            switch (_state.Instances[ArrayID].gameMaxPing)
             {
                 case false:
                     checkBox_maxPing.Checked = false;
                     textBox_maxPing.Text = "0";
                     break;
                 case true:
-                    textBox_maxPing.Text = Convert.ToString(_state.Instances[ArrayID].MaxPingValue);
+                    textBox_maxPing.Text = Convert.ToString(_state.Instances[ArrayID].gameMaxPingValue);
                     checkBox_maxPing.Checked = true;
                     break;
             }
 
             selectedMapList.Clear();
-            foreach (var map in _state.Instances[ArrayID].MapList)
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
             {
                 selectedMapList.Add(map.Value);
                 listBox2.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" + map.Value.MapFile +
@@ -210,7 +210,7 @@ namespace HawkSync_RC
             {
                 { "SessionID", RCSetup.SessionID },
                 { "action", "BMTRC.StartInstance" },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "ServerName", textBox_serverName.Text },
                 { "MOTD", textBox_MOTD.Text },
                 { "CountryCode", textBox_countryCode.Text },

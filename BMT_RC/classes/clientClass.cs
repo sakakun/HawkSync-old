@@ -59,8 +59,7 @@ namespace HawkSync_RC.classes
             }
         }
 
-        public OpenClass.Status Login(WatsonTcpClient client, string sessionID = "", string username = "",
-            string password = "")
+        public OpenClass.Status Login(WatsonTcpClient client, string sessionID = "", string username = "", string password = "")
         {
             json_array.Clear();
             json_array.Add("action", "BMTRC.Login");

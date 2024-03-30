@@ -127,11 +127,11 @@ namespace HawkSync_RC
             bannedTable.Columns.Add("Time Remaining");
             UpdateBannedPlayers();
             SetupBannedPlayersTable();
-            RequestVPNWarnLevel(_state.Instances[ArrayID].Id);
+            RequestVPNWarnLevel(_state.Instances[ArrayID].instanceID);
 
 
             // vpn settings
-            checkBox_vpn_disallow.Checked = _state.Instances[ArrayID].enableVPNCheck;
+            checkBox_vpn_disallow.Checked = _state.Instances[ArrayID].vpnCheckEnabled;
             value_vpn_abuselevel.Value = _state.IPQualityScore[ArrayID].WarnLevel;
 
             // warnings
@@ -153,50 +153,50 @@ namespace HawkSync_RC
 
             // server settings
 
-            rcT_serverName.Text = _state.Instances[ArrayID].ServerName;
-            rcT_serverPassword.Text = _state.Instances[ArrayID].Password;
-            rcCB_country.SelectedItem = _state.Instances[ArrayID].CountryCode;
-            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
-            rcNum_maxSlots.Value = _state.Instances[ArrayID].MaxSlots;
-            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].LoopMaps;
-            num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
-            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            cb_gameDedicated.Checked = _state.Instances[ArrayID].Dedicated;
-            cb_requireNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            cb_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            cb_autoBalance.Checked = _state.Instances[ArrayID].AutoBalance;
-            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
+            rcT_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            rcT_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
+            rcCB_country.SelectedItem = _state.Instances[ArrayID].gameCountryCode;
+            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].gameSessionType;
+            rcNum_maxSlots.Value = _state.Instances[ArrayID].gameMaxSlots;
+            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].gameLoopMaps;
+            num_pspTimer.Value = _state.Instances[ArrayID].gamePSPTOTimer;
+            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            cb_gameDedicated.Checked = _state.Instances[ArrayID].gameDedicated;
+            cb_requireNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            cb_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            cb_autoBalance.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            num_flagReturn.Value = _state.Instances[ArrayID].gameFlagReturnTime;
 
-            richTextBox1.Text = _state.Instances[ArrayID].MOTD;
+            richTextBox1.Text = _state.Instances[ArrayID].gameMOTD;
 
 
-            text_bluePass.Text = _state.Instances[ArrayID].BluePassword;
-            text_redPass.Text = _state.Instances[ArrayID].RedPassword;
+            text_bluePass.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            text_redPass.Text = _state.Instances[ArrayID].gamePasswordRed;
             
-            checkBox40.Checked = _state.Instances[ArrayID].FriendlyFire;
-            num_maxFriendKills.Value = _state.Instances[ArrayID].FriendlyFireKills;
-            cb_showFriendTags.Checked = _state.Instances[ArrayID].FriendlyTags;
-            cb_ffWarning.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            cb_Tracers.Checked = _state.Instances[ArrayID].ShowTracers;
-            cb_TeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
+            checkBox40.Checked = _state.Instances[ArrayID].gameOptionFF;
+            num_maxFriendKills.Value = _state.Instances[ArrayID].gameFriendlyFireKills;
+            cb_showFriendTags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            cb_ffWarning.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            cb_Tracers.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            cb_TeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            cb_AutoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
             
-            num_scoreFB.Value = _state.Instances[ArrayID].FBScore;
-            num_scoreKOTH.Value = _state.Instances[ArrayID].ZoneTimer;
-            num_scoreDM.Value = _state.Instances[ArrayID].GameScore;
-            num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
-            cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
-            num_minPing.Enabled = _state.Instances[ArrayID].MinPing;
-            num_minPing.Value = _state.Instances[ArrayID].MinPingValue;
-            cb_maxPing.Checked = _state.Instances[ArrayID].MaxPing;
-            num_maxPing.Value = _state.Instances[ArrayID].MaxPingValue;
-            num_maxPing.Enabled = _state.Instances[ArrayID].MaxPing;
-            endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].ScoreBoardDelay;
-            cb_oneShotKills.Checked = _state.Instances[ArrayID].OneShotKills;
-            cb_fatBullets.Checked = _state.Instances[ArrayID].FatBullets;
-            cb_destroyBuildings.Checked = _state.Instances[ArrayID].DestroyBuildings;
+            num_scoreFB.Value = _state.Instances[ArrayID].gameScoreFlags;
+            num_scoreKOTH.Value = _state.Instances[ArrayID].gameScoreZoneTime;
+            num_scoreDM.Value = _state.Instances[ArrayID].gameScoreKills;
+            num_MaxTeamLives.Value = _state.Instances[ArrayID].gameMaxTeamLives;
+            cb_minPing.Checked = _state.Instances[ArrayID].gameMinPing;
+            num_minPing.Enabled = _state.Instances[ArrayID].gameMinPing;
+            num_minPing.Value = _state.Instances[ArrayID].gameMinPingValue;
+            cb_maxPing.Checked = _state.Instances[ArrayID].gameMaxPing;
+            num_maxPing.Value = _state.Instances[ArrayID].gameMaxPingValue;
+            num_maxPing.Enabled = _state.Instances[ArrayID].gameMaxPing;
+            endOfMapTimer_TrackBar.Value = _state.Instances[ArrayID].gameScoreBoardDelay;
+            cb_oneShotKills.Checked = _state.Instances[ArrayID].gameOneShotKills;
+            cb_fatBullets.Checked = _state.Instances[ArrayID].gameFatBullets;
+            cb_destroyBuildings.Checked = _state.Instances[ArrayID].gameDestroyBuildings;
             cbl_weaponSelection.SetItemChecked(0, _state.Instances[ArrayID].WeaponRestrictions.WPN_COLT45);
             cbl_weaponSelection.SetItemChecked(1, _state.Instances[ArrayID].WeaponRestrictions.WPN_M9BERETTA);
             cbl_weaponSelection.SetItemChecked(2, _state.Instances[ArrayID].WeaponRestrictions.WPN_REMMINGTONSG);
@@ -224,7 +224,7 @@ namespace HawkSync_RC
 
 
             selectedMaps = new List<MapList>();
-            foreach (var item in _state.Instances[ArrayID].MapList)
+            foreach (var item in _state.Instances[ArrayID].MapListCurrent)
             {
                 selectedMaps.Add(item.Value);
                 list_mapRotation.Items.Add("|" + item.Value.GameType + "| " + item.Value.MapName + " <" +
@@ -262,7 +262,7 @@ namespace HawkSync_RC
             // vpn whitelist
             VPNWhiteListTable.Columns.Add("Description");
             VPNWhiteListTable.Columns.Add("IP Address");
-            foreach (var entry in _state.Instances[ArrayID].VPNWhiteList)
+            foreach (var entry in _state.Instances[ArrayID].IPWhiteList)
             {
                 var newEntry = VPNWhiteListTable.NewRow();
                 newEntry["Description"] = entry.Value.Description;
@@ -330,7 +330,7 @@ namespace HawkSync_RC
                 if (myPlayerSlot == -1) playerListMenu_spectate.Enabled = false;
                 // calulcate HostAddress then we can caluate the address of each slot
                 var HostAddr = RCSetup.myPlayerAddress;
-                for (var i = 0; i < _state.Instances[ArrayID].MaxSlots; i++)
+                for (var i = 0; i < _state.Instances[ArrayID].gameMaxSlots; i++)
                 {
                     var tryHostNameBytes = new byte[30];
                     var tryHostNameBytes_Read = 0;
@@ -338,13 +338,13 @@ namespace HawkSync_RC
                         tryHostNameBytes.Length, ref tryHostNameBytes_Read);
                     var tryHostName = Encoding.Default.GetString(tryHostNameBytes);
                     tryHostName = tryHostName.Remove(tryHostName.IndexOf('\0'));
-                    if (tryHostName != _state.Instances[ArrayID].HostName)
+                    if (tryHostName != _state.Instances[ArrayID].gameHostName)
                     {
                         HostAddr -= 0x29C;
                         continue;
                     }
 
-                    if (tryHostName == _state.Instances[ArrayID].HostName) break;
+                    if (tryHostName == _state.Instances[ArrayID].gameHostName) break;
                 }
 
                 RCSetup.HostAddr = HostAddr;
@@ -423,22 +423,22 @@ namespace HawkSync_RC
                         if (index == -1) return;
                         switch (serverData.team)
                         {
-                            case (int)playerlist.Teams.TEAM_GREEN:
+                            case (int)ob_playerList.Teams.TEAM_GREEN:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Green;
                                 break;
-                            case (int)playerlist.Teams.TEAM_BLUE:
+                            case (int)ob_playerList.Teams.TEAM_BLUE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Blue;
                                 break;
-                            case (int)playerlist.Teams.TEAM_RED:
+                            case (int)ob_playerList.Teams.TEAM_RED:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Red;
                                 break;
-                            case (int)playerlist.Teams.TEAM_YELLOW:
+                            case (int)ob_playerList.Teams.TEAM_YELLOW:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Yellow;
                                 break;
-                            case (int)playerlist.Teams.TEAM_PURPLE:
+                            case (int)ob_playerList.Teams.TEAM_PURPLE:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.Purple;
                                 break;
-                            case (int)playerlist.Teams.TEAM_SPEC:
+                            case (int)ob_playerList.Teams.TEAM_SPEC:
                                 grid_playerList.Rows[index].Cells[0].Style.BackColor = Color.White;
                                 break;
                         }
@@ -585,19 +585,19 @@ namespace HawkSync_RC
 
         private void UpdateCurrentMap()
         {
-            label_currentMapPlaying.Text = _state.Instances[ArrayID].Map;
+            label_currentMapPlaying.Text = _state.Instances[ArrayID].infoCurrentMapName;
         }
 
         private void UpdatePlayerAddress()
         {
-            if (_state.Instances[ArrayID].Status == InstanceStatus.SCORING ||
-                _state.Instances[ArrayID].Status == InstanceStatus.LOADINGMAP) return;
+            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING ||
+                _state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP) return;
 
-            if (_state.Instances[ArrayID].Status == InstanceStatus.ONLINE ||
-                _state.Instances[ArrayID].Status == InstanceStatus.STARTDELAY)
+            if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.ONLINE ||
+                _state.Instances[ArrayID].instanceStatus == InstanceStatus.STARTDELAY)
             {
                 var playerListAddress = RCSetup.HostAddr;
-                for (var p = 0; p < _state.Instances[ArrayID].MaxSlots; p++)
+                for (var p = 0; p < _state.Instances[ArrayID].gameMaxSlots; p++)
                 {
                     playerListAddress += 0x29C;
                     var playerNameBytes = new byte[30];
@@ -649,7 +649,7 @@ namespace HawkSync_RC
                 var expires = row["Time Remaining"].ToString();
 
                 // Check if the player is still in the BanList
-                var stillBanned = _state.Instances[ArrayID].BanList.Any(bannedPlayer =>
+                var stillBanned = _state.Instances[ArrayID].PlayerListBans.Any(bannedPlayer =>
                     bannedPlayer.player == playerName && bannedPlayer.ipaddress == playerIP);
 
                 if (!stillBanned)
@@ -671,7 +671,7 @@ namespace HawkSync_RC
             }
 
             // Add new rows for players that are not already in the table
-            foreach (var bannedPlayer in _state.Instances[ArrayID].BanList)
+            foreach (var bannedPlayer in _state.Instances[ArrayID].PlayerListBans)
             {
                 if (!remainingPlayers.Contains(bannedPlayer.player))
                 {
@@ -709,7 +709,7 @@ namespace HawkSync_RC
             /* Player List Context Menu, Called by grid_playerList Mouse Click */
             if (e.Button == MouseButtons.Right)
             {
-                var numPlayers = _state.Instances[ArrayID].NumPlayers;
+                var numPlayers = _state.Instances[ArrayID].infoNumPlayers;
                 if (numPlayers == 0) return;
 
                 var hitTest = grid_playerList.HitTest(e.X, e.Y);
@@ -759,7 +759,7 @@ namespace HawkSync_RC
                 {
                     { "action", action },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", Convert.ToInt32(grid_playerList.SelectedCells[0].Value) },
                     { "banReason", textValue },
                     { "expires", dateTime }
@@ -794,7 +794,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.GetVPNSettings" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id }
+                    { "serverID", _state.Instances[ArrayID].instanceID }
                 };
                 var Response =
                     JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
@@ -818,7 +818,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.DeleteWarning" },
                 { "sessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "warnID", listBox_playerWarnMessages.SelectedIndex }
             };
             var Response =
@@ -850,7 +850,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.CreateWarning" },
                 { "sessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "newWarning", textBox_playerWarnMessageAdd.Text }
             };
             var response =
@@ -876,7 +876,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.WarnPlayer" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "warning", button.Text },
                 { "slot", selectedPlayerSlot }
             };
@@ -909,9 +909,9 @@ namespace HawkSync_RC
             var myPlayerHealth = BitConverter.ToInt32(myPlayerHealthBytes, 0);
 
             // reset SpecMod if player disconnects, or server is scoring, or if my player dies
-            if (spectatePlayerName == "" || _state.Instances[ArrayID].Status == InstanceStatus.SCORING ||
+            if (spectatePlayerName == "" || _state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING ||
                 myPlayerHealth == 0 || (myPlayerHealth > 100 &&
-                                        !_state.Instances[ArrayID].GodModeList.Contains(RCSetup.myPlayerSlot)))
+                                        !_state.Instances[ArrayID].PlayerListGodMod.Contains(RCSetup.myPlayerSlot)))
             {
                 var blankData = new byte[668];
                 var restoreAddrBytes = BitConverter.GetBytes(RCSetup.myPlayerAddress);
@@ -949,13 +949,13 @@ namespace HawkSync_RC
             var updateList = new List<string>();
             // server name
             if (!string.IsNullOrEmpty(rcT_serverName.Text) && !string.IsNullOrWhiteSpace(rcT_serverName.Text) &&
-                rcT_serverName.Text != _state.Instances[ArrayID].ServerName)
+                rcT_serverName.Text != _state.Instances[ArrayID].gameServerName)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateServerName" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "ServerName", rcT_serverName.Text }
                 };
                 var response =
@@ -969,13 +969,13 @@ namespace HawkSync_RC
 
             // country code
             if (rcCB_country.SelectedIndex != 0 &&
-                rcCB_country.SelectedItem.ToString() != _state.Instances[ArrayID].CountryCode)
+                rcCB_country.SelectedItem.ToString() != _state.Instances[ArrayID].gameCountryCode)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateCountryCode" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "CountryCode", rcCB_country.SelectedIndex.ToString() }
                 };
                 var response =
@@ -989,13 +989,13 @@ namespace HawkSync_RC
 
             // server password
             /*
-            if (rcT_serverPassword.Text != _state.Instances[ArrayID].Password)
+            if (rcT_serverPassword.Text != _state.Instances[ArrayID].gamePasswordLobby)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateCountryCode" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "password", rcT_serverPassword.Text }
                 };
                 var response =
@@ -1009,13 +1009,13 @@ namespace HawkSync_RC
             */
             // session type
             /*
-            if (rcCB_sessionType.SelectedIndex != _state.Instances[ArrayID].SessionType)
+            if (rcCB_sessionType.SelectedIndex != _state.Instances[ArrayID].gameSessionType)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateSessionType" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "SessionType", rcCB_sessionType.SelectedIndex }
                 };
                 var response =
@@ -1028,13 +1028,13 @@ namespace HawkSync_RC
             }
             */
             // max slots
-            if (Convert.ToInt32(rcNum_maxSlots.Value) != _state.Instances[ArrayID].MaxSlots)
+            if (Convert.ToInt32(rcNum_maxSlots.Value) != _state.Instances[ArrayID].gameMaxSlots)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateSessionType" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "SessionType", Convert.ToInt32(rcNum_maxSlots.Value) }
                 };
                 var response =
@@ -1047,13 +1047,13 @@ namespace HawkSync_RC
             }
 
             // time limit
-            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].TimeLimit)
+            if (cb_timeLimit.SelectedIndex != _state.Instances[ArrayID].gameTimeLimit)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateTimeLimit" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "TimeLimit", cb_timeLimit.SelectedIndex }
                 };
                 var response =
@@ -1066,13 +1066,13 @@ namespace HawkSync_RC
             }
 
             // start delay
-            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].StartDelay)
+            if (cb_startDelay.SelectedIndex != _state.Instances[ArrayID].gameStartDelay)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateStartDelay" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "StartDelay", cb_startDelay.SelectedIndex }
                 };
                 var response =
@@ -1085,13 +1085,13 @@ namespace HawkSync_RC
             }
 
             // replay maps
-            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].LoopMaps)
+            if (cb_replayMaps.SelectedIndex != _state.Instances[ArrayID].gameLoopMaps)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateLoopMaps" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "LoopMaps", cb_replayMaps.SelectedIndex }
                 };
                 var response =
@@ -1104,13 +1104,13 @@ namespace HawkSync_RC
             }
 
             // Respawn Time
-            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].RespawnTime)
+            if (cb_respawnTime.SelectedIndex != _state.Instances[ArrayID].gameRespawnTime)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateRespawnTime" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "RespawnTime", cb_respawnTime.SelectedIndex }
                 };
                 var response =
@@ -1123,13 +1123,13 @@ namespace HawkSync_RC
             }
 
             // Require Nova
-            if (cb_requireNova.Checked != _state.Instances[ArrayID].RequireNovaLogin)
+            if (cb_requireNova.Checked != _state.Instances[ArrayID].gameRequireNova)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateRequireNovaLogin" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "RequireNovaLogin", cb_requireNova.Checked }
                 };
                 var response =
@@ -1142,13 +1142,13 @@ namespace HawkSync_RC
             }
 
             // Custom Skins
-            if (cb_customSkin.Checked != _state.Instances[ArrayID].AllowCustomSkins)
+            if (cb_customSkin.Checked != _state.Instances[ArrayID].gameCustomSkins)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateAllowCustomSkins" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "AllowCustomSkins", cb_customSkin.Checked }
                 };
                 var response =
@@ -1161,13 +1161,13 @@ namespace HawkSync_RC
             }
 
             // MOTD
-            if (richTextBox1.Text != _state.Instances[ArrayID].MOTD)
+            if (richTextBox1.Text != _state.Instances[ArrayID].gameMOTD)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateMOTD" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "MOTD", richTextBox1.Text }
                 };
                 var response =
@@ -1180,13 +1180,13 @@ namespace HawkSync_RC
             }
 
             // Blue Team Password
-            if (text_bluePass.Text != _state.Instances[ArrayID].BluePassword)
+            if (text_bluePass.Text != _state.Instances[ArrayID].gamePasswordBlue)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateBluePassword" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "BluePassword", text_bluePass.Text }
                 };
                 var response =
@@ -1199,13 +1199,13 @@ namespace HawkSync_RC
             }
 
             // Red Team Password
-            if (text_redPass.Text != _state.Instances[ArrayID].RedPassword)
+            if (text_redPass.Text != _state.Instances[ArrayID].gamePasswordRed)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateRedPassword" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "RedPassword", text_redPass.Text }
                 };
                 var response =
@@ -1217,13 +1217,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Red Team Password.");
             }
 
-            if (Convert.ToInt32(num_scoreFB.Value) != _state.Instances[ArrayID].FBScore)
+            if (Convert.ToInt32(num_scoreFB.Value) != _state.Instances[ArrayID].gameScoreFlags)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateFBScore" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "FBScore", Convert.ToInt32(num_scoreFB.Value) }
                 };
                 var response =
@@ -1235,13 +1235,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Flag Ball Score.");
             }
 
-            if (Convert.ToInt32(num_scoreKOTH.Value) != _state.Instances[ArrayID].ZoneTimer)
+            if (Convert.ToInt32(num_scoreKOTH.Value) != _state.Instances[ArrayID].gameScoreZoneTime)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateKOTHScore" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "KOTHScore", Convert.ToInt32(num_scoreKOTH.Value) }
                 };
                 var response =
@@ -1253,13 +1253,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating KOTH/TKOTH Score.");
             }
 
-            if (Convert.ToInt32(num_scoreDM.Value) != _state.Instances[ArrayID].GameScore)
+            if (Convert.ToInt32(num_scoreDM.Value) != _state.Instances[ArrayID].gameScoreKills)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateGameScore" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "GameScore", Convert.ToInt32(num_scoreDM.Value) }
                 };
                 var response =
@@ -1271,20 +1271,20 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating DM/TDM Score.");
             }
 
-            if (checkBox40.Checked != _state.Instances[ArrayID].FriendlyFire ||
-                cb_showFriendTags.Checked != _state.Instances[ArrayID].FriendlyTags ||
-                cb_TeamClays.Checked != _state.Instances[ArrayID].ShowTeamClays ||
-                cb_autoBalance.Checked != _state.Instances[ArrayID].AutoBalance ||
-                cb_ffWarning.Checked != _state.Instances[ArrayID].FriendlyFireWarning ||
-                cb_Tracers.Checked != _state.Instances[ArrayID].ShowTracers ||
-                cb_AutoRange.Checked != _state.Instances[ArrayID].AllowAutoRange)
+            if (checkBox40.Checked != _state.Instances[ArrayID].gameOptionFF ||
+                cb_showFriendTags.Checked != _state.Instances[ArrayID].gameOptionFriendlyTags ||
+                cb_TeamClays.Checked != _state.Instances[ArrayID].gameShowTeamClays ||
+                cb_autoBalance.Checked != _state.Instances[ArrayID].gameOptionAutoBalance ||
+                cb_ffWarning.Checked != _state.Instances[ArrayID].gameOptionFFWarn ||
+                cb_Tracers.Checked != _state.Instances[ArrayID].gameOptionShowTracers ||
+                cb_AutoRange.Checked != _state.Instances[ArrayID].gameOptionAutoRange)
             {
                 updateList.Add("-- Game Play Options --");
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateGamePlayOptions" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "FriendlyFire", checkBox40.Checked },
                     { "FriendlyTags", cb_showFriendTags.Checked },
                     { "ShowTeamClays", cb_TeamClays.Checked },
@@ -1298,19 +1298,19 @@ namespace HawkSync_RC
                         Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
                 if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
                 {
-                    if (checkBox40.Checked != _state.Instances[ArrayID].FriendlyFire)
+                    if (checkBox40.Checked != _state.Instances[ArrayID].gameOptionFF)
                         updateList.Add(" - Friendly Fire Updated");
-                    if (cb_showFriendTags.Checked != _state.Instances[ArrayID].FriendlyTags)
+                    if (cb_showFriendTags.Checked != _state.Instances[ArrayID].gameOptionFriendlyTags)
                         updateList.Add(" - Friendly Tags Updated");
-                    if (cb_TeamClays.Checked != _state.Instances[ArrayID].ShowTeamClays)
+                    if (cb_TeamClays.Checked != _state.Instances[ArrayID].gameShowTeamClays)
                         updateList.Add(" - Show Team Clays Updated");
-                    if (cb_autoBalance.Checked != _state.Instances[ArrayID].AutoBalance)
+                    if (cb_autoBalance.Checked != _state.Instances[ArrayID].gameOptionAutoBalance)
                         updateList.Add(" - Auto Balance Updated");
-                    if (cb_ffWarning.Checked != _state.Instances[ArrayID].FriendlyFireWarning)
+                    if (cb_ffWarning.Checked != _state.Instances[ArrayID].gameOptionFFWarn)
                         updateList.Add(" - Friendly Fire Warning Updated");
-                    if (cb_Tracers.Checked != _state.Instances[ArrayID].ShowTracers)
+                    if (cb_Tracers.Checked != _state.Instances[ArrayID].gameOptionShowTracers)
                         updateList.Add(" - Show Tracers Updated");
-                    if (cb_AutoRange.Checked != _state.Instances[ArrayID].AllowAutoRange)
+                    if (cb_AutoRange.Checked != _state.Instances[ArrayID].gameOptionAutoRange)
                         updateList.Add(" - Allow Auto Range Updated");
                 }
                 else if ((OpenClass.Status)response["Status"] == OpenClass.Status.FAILURE)
@@ -1319,14 +1319,14 @@ namespace HawkSync_RC
                 }
             }
 
-            if (cb_minPing.Checked != _state.Instances[ArrayID].MinPing ||
-                Convert.ToInt32(num_minPing.Value) != _state.Instances[ArrayID].MinPingValue)
+            if (cb_minPing.Checked != _state.Instances[ArrayID].gameMinPing ||
+                Convert.ToInt32(num_minPing.Value) != _state.Instances[ArrayID].gameMinPingValue)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateMinPing" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "EnablePing", cb_minPing.Checked },
                     { "PingValue", Convert.ToInt32(num_minPing.Value) }
                 };
@@ -1339,14 +1339,14 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Min Ping Settings.");
             }
 
-            if (cb_maxPing.Checked != _state.Instances[ArrayID].MaxPing ||
-                Convert.ToInt32(num_maxPing.Value) != _state.Instances[ArrayID].MaxPingValue)
+            if (cb_maxPing.Checked != _state.Instances[ArrayID].gameMaxPing ||
+                Convert.ToInt32(num_maxPing.Value) != _state.Instances[ArrayID].gameMaxPingValue)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateMaxPing" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "EnablePing", cb_minPing.Checked },
                     { "PingValue", Convert.ToInt32(num_minPing.Value) }
                 };
@@ -1420,7 +1420,7 @@ namespace HawkSync_RC
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateWeapons" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "weapons", weaponsClass }
                 };
                 var response =
@@ -1432,13 +1432,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Weapon Restrictions.");
             }
 
-            if (num_pspTimer.Value != _state.Instances[ArrayID].PSPTakeOverTime)
+            if (num_pspTimer.Value != _state.Instances[ArrayID].gamePSPTOTimer)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdatePSPTime" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "PSPTime", Convert.ToInt32(num_pspTimer.Value) }
                 };
                 var response =
@@ -1450,13 +1450,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating PSP Time.");
             }
 
-            if (num_flagReturn.Value != _state.Instances[ArrayID].FlagReturnTime)
+            if (num_flagReturn.Value != _state.Instances[ArrayID].gameFlagReturnTime)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateFlagReturnTime" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "FlagReturnTime", Convert.ToInt32(num_flagReturn.Value) }
                 };
                 var response =
@@ -1468,13 +1468,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Flag Return Time.");
             }
 
-            if (num_MaxTeamLives.Value != _state.Instances[ArrayID].MaxTeamLives)
+            if (num_MaxTeamLives.Value != _state.Instances[ArrayID].gameMaxTeamLives)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateMaxTeamLives" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "MaxTeamLives", Convert.ToInt32(num_MaxTeamLives.Value) }
                 };
                 var response =
@@ -1486,13 +1486,13 @@ namespace HawkSync_RC
                     updateList.Add("An error occurred while updating Max Team Lives.");
             }
 
-            if (num_maxFriendKills.Value != _state.Instances[ArrayID].FriendlyFireKills)
+            if (num_maxFriendKills.Value != _state.Instances[ArrayID].gameFriendlyFireKills)
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "SessionID", RCSetup.SessionID },
                     { "action", "BMTRC.UpdateFriendlyFireKills" },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "FriendlyFireKills", Convert.ToInt32(num_maxFriendKills.Value) }
                 };
                 var response =
@@ -1523,43 +1523,43 @@ namespace HawkSync_RC
 
             // revert all changes
             // vpn settings
-            checkBox_vpn_disallow.Checked = _state.Instances[ArrayID].enableVPNCheck;
+            checkBox_vpn_disallow.Checked = _state.Instances[ArrayID].vpnCheckEnabled;
             value_vpn_abuselevel.Value = _state.IPQualityScore[ArrayID].WarnLevel;
 
             // server settings
-            rcT_serverName.Text = _state.Instances[ArrayID].ServerName;
-            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].SessionType;
-            rcCB_country.SelectedItem = _state.Instances[ArrayID].CountryCode;
-            rcNum_maxSlots.Value = _state.Instances[ArrayID].MaxSlots;
-            rcT_serverPassword.Text = _state.Instances[ArrayID].Password;
-            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].TimeLimit;
-            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].StartDelay;
-            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].LoopMaps;
-            richTextBox1.Text = _state.Instances[ArrayID].MOTD;
-            cb_gameDedicated.Checked = Convert.ToBoolean(_state.Instances[ArrayID].Dedicated);
-            cb_requireNova.Checked = _state.Instances[ArrayID].RequireNovaLogin;
-            cb_customSkin.Checked = _state.Instances[ArrayID].AllowCustomSkins;
-            cb_autoBalance.Checked = _state.Instances[ArrayID].AutoBalance;
-            text_bluePass.Text = _state.Instances[ArrayID].BluePassword;
-            text_redPass.Text = _state.Instances[ArrayID].RedPassword;
-            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].RespawnTime;
-            checkBox40.Checked = _state.Instances[ArrayID].FriendlyFire;
-            num_maxFriendKills.Value = _state.Instances[ArrayID].FriendlyFireKills;
-            cb_showFriendTags.Checked = _state.Instances[ArrayID].FriendlyTags;
-            cb_ffWarning.Checked = _state.Instances[ArrayID].FriendlyFireWarning;
-            cb_Tracers.Checked = _state.Instances[ArrayID].ShowTracers;
-            cb_TeamClays.Checked = _state.Instances[ArrayID].ShowTeamClays;
-            cb_AutoRange.Checked = _state.Instances[ArrayID].AllowAutoRange;
-            num_pspTimer.Value = _state.Instances[ArrayID].PSPTakeOverTime;
-            num_flagReturn.Value = _state.Instances[ArrayID].FlagReturnTime;
-            num_MaxTeamLives.Value = _state.Instances[ArrayID].MaxTeamLives;
-            cb_minPing.Checked = _state.Instances[ArrayID].MinPing;
-            num_minPing.Value = _state.Instances[ArrayID].MinPingValue;
-            cb_maxPing.Checked = _state.Instances[ArrayID].MaxPing;
-            num_maxPing.Value = _state.Instances[ArrayID].MaxPingValue;
-            cb_oneShotKills.Checked = _state.Instances[ArrayID].OneShotKills;
-            cb_fatBullets.Checked = _state.Instances[ArrayID].FatBullets;
-            cb_destroyBuildings.Checked = _state.Instances[ArrayID].DestroyBuildings;
+            rcT_serverName.Text = _state.Instances[ArrayID].gameServerName;
+            rcCB_sessionType.SelectedIndex = _state.Instances[ArrayID].gameSessionType;
+            rcCB_country.SelectedItem = _state.Instances[ArrayID].gameCountryCode;
+            rcNum_maxSlots.Value = _state.Instances[ArrayID].gameMaxSlots;
+            rcT_serverPassword.Text = _state.Instances[ArrayID].gamePasswordLobby;
+            cb_timeLimit.SelectedIndex = _state.Instances[ArrayID].gameTimeLimit;
+            cb_startDelay.SelectedIndex = _state.Instances[ArrayID].gameStartDelay;
+            cb_replayMaps.SelectedIndex = _state.Instances[ArrayID].gameLoopMaps;
+            richTextBox1.Text = _state.Instances[ArrayID].gameMOTD;
+            cb_gameDedicated.Checked = Convert.ToBoolean(_state.Instances[ArrayID].gameDedicated);
+            cb_requireNova.Checked = _state.Instances[ArrayID].gameRequireNova;
+            cb_customSkin.Checked = _state.Instances[ArrayID].gameCustomSkins;
+            cb_autoBalance.Checked = _state.Instances[ArrayID].gameOptionAutoBalance;
+            text_bluePass.Text = _state.Instances[ArrayID].gamePasswordBlue;
+            text_redPass.Text = _state.Instances[ArrayID].gamePasswordRed;
+            cb_respawnTime.SelectedIndex = _state.Instances[ArrayID].gameRespawnTime;
+            checkBox40.Checked = _state.Instances[ArrayID].gameOptionFF;
+            num_maxFriendKills.Value = _state.Instances[ArrayID].gameFriendlyFireKills;
+            cb_showFriendTags.Checked = _state.Instances[ArrayID].gameOptionFriendlyTags;
+            cb_ffWarning.Checked = _state.Instances[ArrayID].gameOptionFFWarn;
+            cb_Tracers.Checked = _state.Instances[ArrayID].gameOptionShowTracers;
+            cb_TeamClays.Checked = _state.Instances[ArrayID].gameShowTeamClays;
+            cb_AutoRange.Checked = _state.Instances[ArrayID].gameOptionAutoRange;
+            num_pspTimer.Value = _state.Instances[ArrayID].gamePSPTOTimer;
+            num_flagReturn.Value = _state.Instances[ArrayID].gameFlagReturnTime;
+            num_MaxTeamLives.Value = _state.Instances[ArrayID].gameMaxTeamLives;
+            cb_minPing.Checked = _state.Instances[ArrayID].gameMinPing;
+            num_minPing.Value = _state.Instances[ArrayID].gameMinPingValue;
+            cb_maxPing.Checked = _state.Instances[ArrayID].gameMaxPing;
+            num_maxPing.Value = _state.Instances[ArrayID].gameMaxPingValue;
+            cb_oneShotKills.Checked = _state.Instances[ArrayID].gameOneShotKills;
+            cb_fatBullets.Checked = _state.Instances[ArrayID].gameFatBullets;
+            cb_destroyBuildings.Checked = _state.Instances[ArrayID].gameDestroyBuildings;
             cbl_weaponSelection.SetItemChecked(0, _state.Instances[ArrayID].WeaponRestrictions.WPN_COLT45);
             cbl_weaponSelection.SetItemChecked(1, _state.Instances[ArrayID].WeaponRestrictions.WPN_M9BERETTA);
             cbl_weaponSelection.SetItemChecked(2, _state.Instances[ArrayID].WeaponRestrictions.WPN_REMMINGTONSG);
@@ -1603,7 +1603,7 @@ namespace HawkSync_RC
             if (gameTypeId == -1) throw new Exception("FUCK ME UP THE ASSHOLE THIS SHOULD BE WORKING.");
             availableMapList = new Dictionary<int, MapList>();
             listBox_mapsAvailable.Items.Clear();
-            foreach (var avMap in _state.Instances[ArrayID].availableMaps)
+            foreach (var avMap in _state.Instances[ArrayID].MapListAvailable)
                 if (avMap.Value.GameTypes.Contains(gameTypeId))
                 {
                     listBox_mapsAvailable.Items.Add(avMap.Value.MapName + " <" + avMap.Value.MapFile + ">");
@@ -1694,13 +1694,13 @@ namespace HawkSync_RC
         {
             // disarm player
             var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            if (!_state.Instances[ArrayID].DisarmPlayers.Contains(selectedPlayerSlot))
+            if (!_state.Instances[ArrayID].PlayerListDisarm.Contains(selectedPlayerSlot))
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "action", "BMTRC.DisarmPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot }
                 };
                 var response =
@@ -1721,13 +1721,13 @@ namespace HawkSync_RC
         {
             // rearm player
             var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            if (_state.Instances[ArrayID].DisarmPlayers.Contains(selectedPlayerSlot))
+            if (_state.Instances[ArrayID].PlayerListDisarm.Contains(selectedPlayerSlot))
             {
                 var request = new Dictionary<string, dynamic>
                 {
                     { "action", "BMTRC.RearmPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot }
                 };
                 var response =
@@ -1758,7 +1758,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.KillPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot }
                 };
                 var response =
@@ -1779,7 +1779,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.ChangePlayerTeam" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", selectedPlayerSlot }
             };
             var response =
@@ -1804,7 +1804,7 @@ namespace HawkSync_RC
                 if (IPAddress.TryParse(search.Text, out var address))
                 {
                     // search for address since we have a valid address...
-                    var searchBans = _state.Instances[ArrayID].BanList.Where(x => x.ipaddress == address.ToString())
+                    var searchBans = _state.Instances[ArrayID].PlayerListBans.Where(x => x.ipaddress == address.ToString())
                         .ToList();
                     searchBannedTable = new DataTable();
                     searchBannedTable.Columns.Add("Name");
@@ -1826,7 +1826,7 @@ namespace HawkSync_RC
                 }
                 else
                 {
-                    var searchBans = _state.Instances[ArrayID].BanList.Where(x => x.player == search.Text).ToList();
+                    var searchBans = _state.Instances[ArrayID].PlayerListBans.Where(x => x.player == search.Text).ToList();
                     searchBannedTable = new DataTable();
                     searchBannedTable.Columns.Add("Name");
                     searchBannedTable.Columns.Add("IP Address");
@@ -1848,6 +1848,24 @@ namespace HawkSync_RC
             }
         }
 
+        private void mapAction_clickSkip(object sender, EventArgs e)
+        {
+            // score map
+            var request = new Dictionary<string, dynamic>
+            {
+                { "action", "BMTRC.SkipMap" },
+                { "SessionID", RCSetup.SessionID },
+                { "serverID", _state.Instances[ArrayID].instanceID }
+            };
+            var response =
+                JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
+                    Encoding.ASCII.GetString(RCSetup.SendCMD(request)));
+            if ((OpenClass.Status)response["Status"] == OpenClass.Status.SUCCESS)
+                MessageBox.Show("Command sent!", "Success");
+            else
+                MessageBox.Show("HawkSync reported an error. Please try again later.");
+        }
+
         private void mapAction_clickScore(object sender, EventArgs e)
         {
             // score map
@@ -1855,7 +1873,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.ScoreMap" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id }
+                { "serverID", _state.Instances[ArrayID].instanceID }
             };
             var response =
                 JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
@@ -1874,7 +1892,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.UpdateMapCycle" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "MapCycle", selectedMaps }
             };
             var response =
@@ -1894,7 +1912,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            if (_state.Instances[ArrayID].Status != InstanceStatus.ONLINE)
+            if (_state.Instances[ArrayID].instanceStatus != InstanceStatus.ONLINE)
             {
                 MessageBox.Show("Please wait for the server to be ready. Please try again later.", "Error");
                 return;
@@ -1905,7 +1923,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.SetNextMap" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", list_mapRotation.SelectedIndex }
             };
             var response =
@@ -1961,14 +1979,14 @@ namespace HawkSync_RC
             selectedMaps.Insert(newIndex, mapEntry);
             list_mapRotation.Items.Insert(newIndex, selected);
             list_mapRotation.SetSelected(newIndex, true);
-            _state.Instances[ArrayID].previousMapList = new Dictionary<int, MapList>();
+            _state.Instances[ArrayID].MapListPrevious = new Dictionary<int, MapList>();
 
-            foreach (var map in _state.Instances[ArrayID].MapList)
-                _state.Instances[ArrayID].previousMapList
-                    .Add(_state.Instances[ArrayID].previousMapList.Count, map.Value);
-            _state.Instances[ArrayID].MapList = new Dictionary<int, MapList>();
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
+                _state.Instances[ArrayID].MapListPrevious
+                    .Add(_state.Instances[ArrayID].MapListPrevious.Count, map.Value);
+            _state.Instances[ArrayID].MapListCurrent = new Dictionary<int, MapList>();
             foreach (var selectedMapListEntry in selectedMaps)
-                _state.Instances[ArrayID].MapList.Add(_state.Instances[ArrayID].MapList.Count, selectedMapListEntry);
+                _state.Instances[ArrayID].MapListCurrent.Add(_state.Instances[ArrayID].MapListCurrent.Count, selectedMapListEntry);
         }
 
         private void mapAction_clickSaveRotation(object sender, EventArgs e)
@@ -2018,7 +2036,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.AddAutoMsg" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "newMsg", text_newAutoMessage.Text }
             };
             var response =
@@ -2043,7 +2061,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.DeleteAutoMsg" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", listBox_AutoMessages.SelectedIndex }
             };
             var response =
@@ -2067,7 +2085,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.ChangeAutoMsgInterval" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "interval", Convert.ToInt32(num_autoMsgInterval.Value) }
             };
             var response =
@@ -2088,7 +2106,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.RemoveBan" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "PlayerName", playerInfo["Name"].ToString() },
                 { "PlayerIP", playerInfo["IP Address"].ToString() }
             };
@@ -2113,7 +2131,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.UpdateWarnLevel" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "WarnLevel", Convert.ToInt32(value_vpn_abuselevel.Value) }
             };
             var response =
@@ -2131,7 +2149,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.DisallowVPN" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "DisallowVPN", checkBox_vpn_disallow.Checked }
             };
             var response =
@@ -2171,7 +2189,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.AddBan" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "PlayerName", text_adPlayerName.Text },
                     { "banReason", combo_abReason.Text },
                     { "PlayerIP", playerIP.ToString() },
@@ -2215,7 +2233,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.AddVPN" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "Description", textBox_vpnDescription.Text },
                     { "PlayerIP", PlayerAddress.ToString() }
                 };
@@ -2240,7 +2258,7 @@ namespace HawkSync_RC
         {
             // activate god mode
             var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            if (_state.Instances[ArrayID].GodModeList.Contains(selectedPlayerSlot))
+            if (_state.Instances[ArrayID].PlayerListGodMod.Contains(selectedPlayerSlot))
             {
                 MessageBox.Show("The player is already in God Mode!", "Error");
                 return;
@@ -2250,7 +2268,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.EnableGodMode" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", selectedPlayerSlot }
             };
             var response =
@@ -2269,7 +2287,7 @@ namespace HawkSync_RC
         {
             // deactivate god mode
             var selectedPlayerSlot = Convert.ToInt32(grid_playerList.SelectedCells[0].Value);
-            if (!_state.Instances[ArrayID].GodModeList.Contains(selectedPlayerSlot))
+            if (!_state.Instances[ArrayID].PlayerListGodMod.Contains(selectedPlayerSlot))
             {
                 MessageBox.Show("Player is NOT in God Mode!", "Error");
                 return;
@@ -2279,7 +2297,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.DisableGodMode" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", selectedPlayerSlot }
             };
             var response =
@@ -2306,7 +2324,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.SendMsg" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "newMsg", chat_textBoxMsg.Text },
                 { "slot", chat_channelSelection.SelectedIndex }
             };
@@ -2355,7 +2373,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.UpdateScoreboardDelay" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "ScoreboardDelay", Convert.ToInt32(endOfMapTimer_TrackBar.Value) }
             };
 
@@ -2397,7 +2415,7 @@ namespace HawkSync_RC
         {
             availableMapList = new Dictionary<int, MapList>();
             list_mapRotation.Items.Clear();
-            foreach (var map in _state.Instances[ArrayID].MapList)
+            foreach (var map in _state.Instances[ArrayID].MapListCurrent)
             {
                 list_mapRotation.Items.Add("|" + map.Value.GameType + "| " + map.Value.MapName + " <" +
                                            map.Value.MapFile + ">");
@@ -2417,7 +2435,7 @@ namespace HawkSync_RC
                 return;
             }
 
-            if (_state.Instances[ArrayID].BanList.Count == 0)
+            if (_state.Instances[ArrayID].PlayerListBans.Count == 0)
             {
                 value_bdPlayerName.Text = "";
                 value_banReason.Text = "";
@@ -2427,16 +2445,16 @@ namespace HawkSync_RC
                 return;
             }
 
-            value_bdPlayerName.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].player;
-            value_banReason.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].reason;
-            value_banDateAdded.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].addedDate.ToString();
-            value_banIPAddress.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].ipaddress;
-            value_banAdmin.Text = _state.Instances[ArrayID].BanList[grid_bannedPlayerList.CurrentCell.RowIndex].bannedBy;
+            value_bdPlayerName.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentCell.RowIndex].player;
+            value_banReason.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentCell.RowIndex].reason;
+            value_banDateAdded.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentCell.RowIndex].addedDate.ToString();
+            value_banIPAddress.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentCell.RowIndex].ipaddress;
+            value_banAdmin.Text = _state.Instances[ArrayID].PlayerListBans[grid_bannedPlayerList.CurrentCell.RowIndex].bannedBy;
         }
 
         private void playerList_doubleClickPlayerInfo(object sender, EventArgs e)
         {
-            var numPlayers = _state.Instances[ArrayID].NumPlayers;
+            var numPlayers = _state.Instances[ArrayID].infoNumPlayers;
             if (numPlayers == 0) return;
             var playerInfo = new PlayerInfo(_state, RCSetup, ArrayID, Convert.ToInt32(grid_playerList.SelectedCells[0].Value));
             playerInfo.ShowDialog();
@@ -2577,7 +2595,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.EnableAutoMsg" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "active", cb_enableAutoMsg.Checked }
             };
             var response =
@@ -2616,7 +2634,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.EnableVPNCheck" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id }
+                { "serverID", _state.Instances[ArrayID].instanceID }
             };
             var response =
                 JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(
@@ -2653,7 +2671,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.KickPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", kickReason }
                 };
@@ -2685,7 +2703,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.KickPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", customReason }
                 };
@@ -2719,7 +2737,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.BanPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", banReason },
                     { "expires", "-1" }
@@ -2752,7 +2770,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.BanPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", customReason },
                     { "expires", "-1" }
@@ -2820,7 +2838,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.BanPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", banReason },
                     { "expires", banExpires }
@@ -2889,7 +2907,7 @@ namespace HawkSync_RC
                 {
                     { "action", "BMTRC.BanPlayer" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", selectedPlayerSlot },
                     { "banReason", banReason },
                     { "expires", banExpires }

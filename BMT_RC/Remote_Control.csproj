@@ -138,11 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppState.cs" />
-    <Compile Include="definedObj\ChangeTeamClass.cs" />
+    <Compile Include="definedObj\ob_playerChangeTeamList.cs" />
     <Compile Include="definedObj\adminNotes.cs" />
     <Compile Include="classes\autoRestart.cs" />
-    <Compile Include="definedObj\autoMessages.cs" />
-    <Compile Include="definedObj\ChatLogs.cs" />
+    <Compile Include="definedObj\ob_AutoMessages.cs" />
+    <Compile Include="definedObj\ob_PlayerChatLog.cs" />
     <Compile Include="classes\clientClass.cs" />
     <Compile Include="definedObj\CountryCodes.cs" />
     <Compile Include="definedObj\GameType.cs" />
@@ -151,16 +151,16 @@
     <Compile Include="definedObj\ipqualityscore.cs" />
     <Compile Include="definedObj\MapList.cs" />
     <Compile Include="definedObj\OpenClass.cs" />
-    <Compile Include="definedObj\playerbans.cs" />
+    <Compile Include="definedObj\ob_playerBanList.cs" />
     <Compile Include="definedObj\PlayerChatLog.cs" />
     <Compile Include="definedObj\playerHistory.cs" />
-    <Compile Include="definedObj\playerlist.cs" />
+    <Compile Include="definedObj\ob_playerList.cs" />
     <Compile Include="definedObj\PlayerRoles.cs" />
     <Compile Include="definedObj\vm_internal.cs" />
     <Compile Include="definedObj\vm_PluginSettings.cs" />
     <Compile Include="definedObj\wp_PluginSettings.cs" />
     <Compile Include="definedObj\PluginsClass.cs" />
-    <Compile Include="definedObj\PreviousTeams.cs" />
+    <Compile Include="definedObj\ob_playerPreviousTeam.cs" />
     <Compile Include="classes\SupportClasses\Compression.cs" />
     <Compile Include="definedObj\playerAddress.cs" />
     <Compile Include="definedObj\RCInstances.cs" />
@@ -171,8 +171,8 @@
     <Compile Include="definedObj\SystemInfoClass.cs" />
     <Compile Include="definedObj\UserCodes.cs" />
     <Compile Include="definedObj\VoteMapsTally.cs" />
-    <Compile Include="definedObj\VPNWhiteListClass.cs" />
-    <Compile Include="definedObj\WarnPlayerClass.cs" />
+    <Compile Include="definedObj\ob_ipWhitelist.cs" />
+    <Compile Include="definedObj\ob_ServerMessageQueue.cs" />
     <Compile Include="definedObj\WeaponsClass.cs" />
     <Compile Include="definedObj\WelcomePlayer.cs" />
     <Compile Include="Panels\ClientOptions.cs">

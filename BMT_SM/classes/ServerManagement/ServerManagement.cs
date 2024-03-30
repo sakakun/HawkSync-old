@@ -1678,6 +1678,16 @@ namespace HawkSync_SM
             MemoryProcessor.Write(_state.Instances[ArrayID], startingPtr1, nextGameScoreBytes, nextGameScoreBytes.Length, ref nextGameScoreWritten1);
             MemoryProcessor.Write(_state.Instances[ArrayID], startingPtr2, nextGameScoreBytes, nextGameScoreBytes.Length, ref nextGameScoreWritten2);
         }
+        public void ScoreMap(ref AppState _state, int InstanceID)
+        {
+            int nextGameScore = 0;
+            var baseAddr = 0x400000;
+            var startingPtr1 = 0;
+            startingPtr1 = baseAddr + 0x5F3740;
+            byte[] timerBytes = BitConverter.GetBytes(10);
+            int timerWritten1 = 0;
+            MemoryProcessor.Write(_state.Instances[InstanceID], startingPtr1, timerBytes, timerBytes.Length, ref timerWritten1);
+        }
         public int UpdateMapCycleCounter(ref AppState _state, int InstanceID)
         {
             byte[] currentMapCycleCountBytes = new byte[4];

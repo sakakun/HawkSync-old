@@ -2,7 +2,7 @@
 
 namespace HawkSync_RC.classes
 {
-    public class playerlist
+    public class ob_playerList
     {
         public enum CharacterClass
         {

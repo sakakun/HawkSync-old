@@ -179,6 +179,7 @@ namespace HawkSync_RC
             this.label_currentMapCount = new System.Windows.Forms.Label();
             this.label_EOMtimer = new System.Windows.Forms.Label();
             this.panel_mapControls = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.label103 = new System.Windows.Forms.Label();
             this.label96 = new System.Windows.Forms.Label();
             this.label92 = new System.Windows.Forms.Label();
@@ -186,7 +187,7 @@ namespace HawkSync_RC
             this.btn_loadRotation = new System.Windows.Forms.Button();
             this.btn_updateMaps = new System.Windows.Forms.Button();
             this.btn_playMapNext = new System.Windows.Forms.Button();
-            this.btn_scoreSkip = new System.Windows.Forms.Button();
+            this.btn_skipMap = new System.Windows.Forms.Button();
             this.btn_moveMapDown = new System.Windows.Forms.Button();
             this.btn_moveMapUp = new System.Windows.Forms.Button();
             this.btn_ShuffleMaps = new System.Windows.Forms.Button();
@@ -2168,6 +2169,7 @@ namespace HawkSync_RC
             // 
             // panel_mapControls
             // 
+            this.panel_mapControls.Controls.Add(this.button2);
             this.panel_mapControls.Controls.Add(this.label103);
             this.panel_mapControls.Controls.Add(this.label96);
             this.panel_mapControls.Controls.Add(this.label92);
@@ -2175,20 +2177,30 @@ namespace HawkSync_RC
             this.panel_mapControls.Controls.Add(this.btn_loadRotation);
             this.panel_mapControls.Controls.Add(this.btn_updateMaps);
             this.panel_mapControls.Controls.Add(this.btn_playMapNext);
-            this.panel_mapControls.Controls.Add(this.btn_scoreSkip);
+            this.panel_mapControls.Controls.Add(this.btn_skipMap);
             this.panel_mapControls.Controls.Add(this.btn_moveMapDown);
             this.panel_mapControls.Controls.Add(this.btn_moveMapUp);
             this.panel_mapControls.Controls.Add(this.btn_ShuffleMaps);
-            this.panel_mapControls.Location = new System.Drawing.Point(353, 44);
+            this.panel_mapControls.Location = new System.Drawing.Point(353, 22);
             this.panel_mapControls.Name = "panel_mapControls";
-            this.panel_mapControls.Size = new System.Drawing.Size(103, 316);
+            this.panel_mapControls.Size = new System.Drawing.Size(103, 368);
             this.panel_mapControls.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(2, 230);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(97, 23);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Score Map";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.mapAction_clickScore);
             // 
             // label103
             // 
             this.label103.AutoSize = true;
             this.label103.ForeColor = System.Drawing.Color.Blue;
-            this.label103.Location = new System.Drawing.Point(11, 238);
+            this.label103.Location = new System.Drawing.Point(11, 264);
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(83, 13);
             this.label103.TabIndex = 12;
@@ -2216,7 +2228,7 @@ namespace HawkSync_RC
             // 
             // btn_SaveRoation
             // 
-            this.btn_SaveRoation.Location = new System.Drawing.Point(3, 255);
+            this.btn_SaveRoation.Location = new System.Drawing.Point(3, 281);
             this.btn_SaveRoation.Name = "btn_SaveRoation";
             this.btn_SaveRoation.Size = new System.Drawing.Size(97, 23);
             this.btn_SaveRoation.TabIndex = 9;
@@ -2226,7 +2238,7 @@ namespace HawkSync_RC
             // 
             // btn_loadRotation
             // 
-            this.btn_loadRotation.Location = new System.Drawing.Point(3, 281);
+            this.btn_loadRotation.Location = new System.Drawing.Point(3, 307);
             this.btn_loadRotation.Name = "btn_loadRotation";
             this.btn_loadRotation.Size = new System.Drawing.Size(97, 23);
             this.btn_loadRotation.TabIndex = 8;
@@ -2254,15 +2266,15 @@ namespace HawkSync_RC
             this.btn_playMapNext.UseVisualStyleBackColor = true;
             this.btn_playMapNext.Click += new System.EventHandler(this.mapAction_clickPlayMapNext);
             // 
-            // btn_scoreSkip
+            // btn_skipMap
             // 
-            this.btn_scoreSkip.Location = new System.Drawing.Point(2, 202);
-            this.btn_scoreSkip.Name = "btn_scoreSkip";
-            this.btn_scoreSkip.Size = new System.Drawing.Size(97, 23);
-            this.btn_scoreSkip.TabIndex = 5;
-            this.btn_scoreSkip.Text = "Score/Skip Map";
-            this.btn_scoreSkip.UseVisualStyleBackColor = true;
-            this.btn_scoreSkip.Click += new System.EventHandler(this.mapAction_clickScore);
+            this.btn_skipMap.Location = new System.Drawing.Point(2, 202);
+            this.btn_skipMap.Name = "btn_skipMap";
+            this.btn_skipMap.Size = new System.Drawing.Size(97, 23);
+            this.btn_skipMap.TabIndex = 5;
+            this.btn_skipMap.Text = "Skip Map";
+            this.btn_skipMap.UseVisualStyleBackColor = true;
+            this.btn_skipMap.Click += new System.EventHandler(this.mapAction_clickSkip);
             // 
             // btn_moveMapDown
             // 
@@ -2587,7 +2599,7 @@ namespace HawkSync_RC
             this.cm_playerFunCMD,
             this.playerListMenu_spectate});
             this.playerList_contextMenu.Name = "playerList_contextMenu";
-            this.playerList_contextMenu.Size = new System.Drawing.Size(181, 224);
+            this.playerList_contextMenu.Size = new System.Drawing.Size(160, 202);
             // 
             // cm_playerArmDisarm
             // 
@@ -2595,7 +2607,7 @@ namespace HawkSync_RC
             this.toolStripMenuItem13,
             this.toolStripMenuItem14});
             this.cm_playerArmDisarm.Name = "cm_playerArmDisarm";
-            this.cm_playerArmDisarm.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerArmDisarm.Size = new System.Drawing.Size(159, 22);
             this.cm_playerArmDisarm.Text = "Arm/Disarm";
             // 
             // toolStripMenuItem13
@@ -2615,13 +2627,13 @@ namespace HawkSync_RC
             // cm_playerWarn
             // 
             this.cm_playerWarn.Name = "cm_playerWarn";
-            this.cm_playerWarn.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerWarn.Size = new System.Drawing.Size(159, 22);
             this.cm_playerWarn.Text = "Warn Player";
             // 
             // cm_playerKill
             // 
             this.cm_playerKill.Name = "cm_playerKill";
-            this.cm_playerKill.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerKill.Size = new System.Drawing.Size(159, 22);
             this.cm_playerKill.Text = "Kill Player";
             this.cm_playerKill.Click += new System.EventHandler(this.playerListAction_clickKill);
             // 
@@ -2641,7 +2653,7 @@ namespace HawkSync_RC
             this.toolStripSeparator1,
             this.toolStripTextBox12});
             this.cm_kickPlayer.Name = "cm_kickPlayer";
-            this.cm_kickPlayer.Size = new System.Drawing.Size(180, 22);
+            this.cm_kickPlayer.Size = new System.Drawing.Size(159, 22);
             this.cm_kickPlayer.Text = "Kick Player";
             // 
             // toolStripMenuItem1
@@ -2740,7 +2752,7 @@ namespace HawkSync_RC
             this.toolStripMenuItem219,
             this.toolStripMenuItem230});
             this.cm_tempBan.Name = "cm_tempBan";
-            this.cm_tempBan.Size = new System.Drawing.Size(180, 22);
+            this.cm_tempBan.Size = new System.Drawing.Size(159, 22);
             this.cm_tempBan.Text = "Temp Ban";
             // 
             // toolStripMenuItem142
@@ -2759,7 +2771,7 @@ namespace HawkSync_RC
             this.toolStripSeparator13,
             this.toolStripTextBox14});
             this.toolStripMenuItem142.Name = "toolStripMenuItem142";
-            this.toolStripMenuItem142.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem142.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem142.Text = "1 Day";
             // 
             // toolStripMenuItem143
@@ -2861,7 +2873,7 @@ namespace HawkSync_RC
             this.toolStripSeparator14,
             this.toolStripTextBox15});
             this.toolStripMenuItem153.Name = "toolStripMenuItem153";
-            this.toolStripMenuItem153.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem153.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem153.Text = "2 Days";
             this.toolStripMenuItem153.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
@@ -2964,7 +2976,7 @@ namespace HawkSync_RC
             this.toolStripSeparator15,
             this.toolStripTextBox16});
             this.toolStripMenuItem164.Name = "toolStripMenuItem164";
-            this.toolStripMenuItem164.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem164.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem164.Text = "3 Days";
             this.toolStripMenuItem164.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
@@ -3067,7 +3079,7 @@ namespace HawkSync_RC
             this.toolStripSeparator16,
             this.toolStripTextBox17});
             this.toolStripMenuItem175.Name = "toolStripMenuItem175";
-            this.toolStripMenuItem175.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem175.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem175.Text = "4 Days";
             this.toolStripMenuItem175.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
@@ -3170,7 +3182,7 @@ namespace HawkSync_RC
             this.toolStripSeparator17,
             this.toolStripTextBox18});
             this.toolStripMenuItem186.Name = "toolStripMenuItem186";
-            this.toolStripMenuItem186.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem186.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem186.Text = "5 Days";
             this.toolStripMenuItem186.Click += new System.EventHandler(this.cm_clickTempBanPlayer);
             // 
@@ -3273,7 +3285,7 @@ namespace HawkSync_RC
             this.toolStripSeparator18,
             this.toolStripTextBox19});
             this.toolStripMenuItem197.Name = "toolStripMenuItem197";
-            this.toolStripMenuItem197.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem197.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem197.Text = "6 Days";
             // 
             // toolStripMenuItem198
@@ -3375,7 +3387,7 @@ namespace HawkSync_RC
             this.toolStripSeparator19,
             this.toolStripTextBox20});
             this.toolStripMenuItem208.Name = "toolStripMenuItem208";
-            this.toolStripMenuItem208.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem208.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem208.Text = "1 Week";
             // 
             // toolStripMenuItem209
@@ -3477,9 +3489,8 @@ namespace HawkSync_RC
             this.toolStripSeparator20,
             this.toolStripTextBox21});
             this.toolStripMenuItem219.Name = "toolStripMenuItem219";
-            this.toolStripMenuItem219.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem219.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem219.Text = "2 Weeks";
-
             // 
             // toolStripMenuItem220
             // 
@@ -3581,7 +3592,7 @@ namespace HawkSync_RC
             this.toolStripSeparator21,
             this.toolStripTextBox22});
             this.toolStripMenuItem230.Name = "toolStripMenuItem230";
-            this.toolStripMenuItem230.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem230.Size = new System.Drawing.Size(119, 22);
             this.toolStripMenuItem230.Text = "1 Month";
             // 
             // toolStripMenuItem231
@@ -3683,7 +3694,7 @@ namespace HawkSync_RC
             this.toolStripSeparator12,
             this.toolStripTextBox13});
             this.cm_permBan.Name = "cm_permBan";
-            this.cm_permBan.Size = new System.Drawing.Size(180, 22);
+            this.cm_permBan.Size = new System.Drawing.Size(159, 22);
             this.cm_permBan.Text = "Perm Ban";
             // 
             // toolStripMenuItem132
@@ -3772,7 +3783,7 @@ namespace HawkSync_RC
             // playerListMenu_changeTeams
             // 
             this.playerListMenu_changeTeams.Name = "playerListMenu_changeTeams";
-            this.playerListMenu_changeTeams.Size = new System.Drawing.Size(180, 22);
+            this.playerListMenu_changeTeams.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_changeTeams.Text = "Change Team";
             this.playerListMenu_changeTeams.Click += new System.EventHandler(this.playerListAction_clickChangeTeams);
             // 
@@ -3782,7 +3793,7 @@ namespace HawkSync_RC
             this.sub_activeGodMode,
             this.sub_deactivateGodMode});
             this.cm_playerFunCMD.Name = "cm_playerFunCMD";
-            this.cm_playerFunCMD.Size = new System.Drawing.Size(180, 22);
+            this.cm_playerFunCMD.Size = new System.Drawing.Size(159, 22);
             this.cm_playerFunCMD.Text = "Fun Commands";
             // 
             // sub_activeGodMode
@@ -3802,7 +3813,7 @@ namespace HawkSync_RC
             // playerListMenu_spectate
             // 
             this.playerListMenu_spectate.Name = "playerListMenu_spectate";
-            this.playerListMenu_spectate.Size = new System.Drawing.Size(180, 22);
+            this.playerListMenu_spectate.Size = new System.Drawing.Size(159, 22);
             this.playerListMenu_spectate.Text = "Spectate";
             this.playerListMenu_spectate.Click += new System.EventHandler(this.actionSpectate_click);
             // 
@@ -4819,7 +4830,7 @@ namespace HawkSync_RC
         private System.Windows.Forms.Button btn_loadRotation;
         private System.Windows.Forms.Button btn_updateMaps;
         private System.Windows.Forms.Button btn_playMapNext;
-        private System.Windows.Forms.Button btn_scoreSkip;
+        private System.Windows.Forms.Button btn_skipMap;
         private System.Windows.Forms.Button btn_moveMapDown;
         private System.Windows.Forms.Button btn_moveMapUp;
         private System.Windows.Forms.Button btn_ShuffleMaps;
@@ -5192,5 +5203,6 @@ namespace HawkSync_RC
         private ToolStripMenuItem toolStripMenuItem240;
         private ToolStripSeparator toolStripSeparator21;
         private ToolStripTextBox toolStripTextBox22;
+        private Button button2;
     }
 }

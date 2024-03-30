@@ -21,7 +21,7 @@ namespace HawkSync_RC
         {
             if (listBox1.SelectedIndex == -1) return; // nothing selected...
             // load rotation
-            RC_ServerManager.loadList = _state.Instances[ArrayID].savedmaprotations[listBox1.SelectedIndex].mapcycle;
+            RC_ServerManager.loadList = _state.Instances[ArrayID].MapListRotationDB[listBox1.SelectedIndex].mapcycle;
             this.Close();
         }
 
@@ -33,7 +33,7 @@ namespace HawkSync_RC
 
         private void Popup_LoadRotation_Load(object sender, EventArgs e)
         {
-            foreach (var item in _state.Instances[ArrayID].savedmaprotations) listBox1.Items.Add(item.Description);
+            foreach (var item in _state.Instances[ArrayID].MapListRotationDB) listBox1.Items.Add(item.Description);
         }
     }
 }

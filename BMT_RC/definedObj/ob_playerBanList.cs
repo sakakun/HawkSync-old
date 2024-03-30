@@ -2,7 +2,7 @@
 
 namespace HawkSync_RC.classes
 {
-    public class playerbans
+    public class ob_playerBanList
     {
         public int id { get; set; }
         public string player { get; set; }

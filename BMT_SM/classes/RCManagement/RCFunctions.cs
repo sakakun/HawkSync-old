@@ -66,88 +66,6 @@ namespace HawkSync_SM.RCClasses
                 else
                 {
                     RCInstancesConfig.Add(item.Key, _state.Instances[item.Key]);
-
-                    /* RCInstancesConfig.Add(item.Key, new Instance
-                    {
-                        gameOptionAutoRange = item.Value.gameOptionAutoRange,
-                        gameCustomSkins = item.Value.gameCustomSkins,
-                        WebStatsASPEnabled = item.Value.WebStatsASPEnabled,
-                        WebStatsASPMinMinutes = item.Value.WebStatsASPMinMinutes,
-                        WebStatsASPMinPlayers = item.Value.WebStatsASPMinPlayers,
-                        gameOptionAutoBalance = item.Value.gameOptionAutoBalance,
-                        AutoMessages = item.Value.AutoMessages,
-                        MapListAvailable = item.Value.MapListAvailable,
-                        PlayerListBans = item.Value.PlayerListBans,
-                        profileBindIP = item.Value.profileBindIP,
-                        gamePasswordBlue = item.Value.gamePasswordBlue,
-                        ChatLog = item.Value.ChatLog,
-                        TeamListChange = item.Value.TeamListChange,
-                        gameCountryCode = item.Value.gameCountryCode,
-                        CustomWarnings = item.Value.CustomWarnings,
-                        gameDedicated = item.Value.gameDedicated,
-                        gameDestroyBuildings = item.Value.gameDestroyBuildings,
-                        PlayerListDisarm = item.Value.PlayerListDisarm,
-                        vpnCheckEnabled = item.Value.vpnCheckEnabled,
-                        WebStatsEnabled = item.Value.WebStatsEnabled,
-                        gameFatBullets = item.Value.gameFatBullets,
-                        gameScoreFlags = item.Value.gameScoreFlags,
-                        gameFlagReturnTime = item.Value.gameFlagReturnTime,
-                        gameOptionFF = item.Value.gameOptionFF,
-                        gameFriendlyFireKills = item.Value.gameFriendlyFireKills,
-                        gameOptionFFWarn = item.Value.gameOptionFFWarn,
-                        gameOptionFriendlyTags = item.Value.gameOptionFriendlyTags,
-                        infoMapGameType = item.Value.infoMapGameType,
-                        profileName = item.Value.profileName,
-                        gameScoreKills = item.Value.gameScoreKills,
-                        profileServerType = item.Value.profileServerType,
-                        GameTypeName = item.Value.GameTypeName,
-                        PlayerListGodMod = item.Value.PlayerListGodMod,
-                        gameHostName = item.Value.gameHostName,
-                        instanceID = item.Value.instanceID,
-                        IPWhiteList = item.Value.IPWhiteList,
-                        gameScoreZoneTime = item.Value.gameScoreZoneTime,
-                        gameLoopMaps = item.Value.gameLoopMaps,
-                        infoCurrentMapName = item.Value.infoCurrentMapName,
-                        infoMapCycleIndex = item.Value.infoMapCycleIndex,
-                        infoCurrentMapIndex = item.Value.infoCurrentMapIndex,
-                        MapListCurrent = item.Value.MapListCurrent,
-                        infoCounterMaps = item.Value.infoCounterMaps,
-                        MaxKills = item.Value.MaxKills,
-                        gameMaxPing = item.Value.gameMaxPing,
-                        gameMaxPingValue = item.Value.gameMaxPingValue,
-                        gameMaxSlots = item.Value.gameMaxSlots,
-                        gameMaxTeamLives = item.Value.gameMaxTeamLives,
-                        gameMinPing = item.Value.gameMinPing,
-                        gameMinPingValue = item.Value.gameMinPingValue,
-                        gameAllowLeftLeaning = item.Value.gameAllowLeftLeaning,
-                        WebStatsAnnouncements = item.Value.WebStatsAnnouncements,
-                        profileGameMod = item.Value.profileGameMod,
-                        gameMOTD = item.Value.gameMOTD,
-                        infoNumPlayers = item.Value.infoNumPlayers,
-                        gameOneShotKills = item.Value.gameOneShotKills,
-                        gamePasswordLobby = item.Value.gamePasswordLobby,
-                        PlayerList = item.Value.PlayerList,
-                        Plugins = item.Value.Plugins,
-                        gamePSPTOTimer = item.Value.gamePSPTOTimer,
-                        gamePasswordRed = item.Value.gamePasswordRed,
-                        gameRequireNova = item.Value.gameRequireNova,
-                        gameRespawnTime = item.Value.gameRespawnTime,
-                        RoleRestrictions = item.Value.RoleRestrictions,
-                        MapListRotationDB = item.Value.MapListRotationDB,
-                        gameServerName = item.Value.gameServerName,
-                        gameScoreBoardDelay = item.Value.gameScoreBoardDelay,
-                        gameSessionType = item.Value.gameSessionType,
-                        gameShowTeamClays = item.Value.gameShowTeamClays,
-                        gameOptionShowTracers = item.Value.gameOptionShowTracers,
-                        Slots = item.Value.Slots,
-                        gameStartDelay = item.Value.gameStartDelay,
-                        instanceStatus = item.Value.instanceStatus,
-                        gameTimeLimit = item.Value.gameTimeLimit,
-                        infoMapTimeRemaining = item.Value.infoMapTimeRemaining,
-                        IPWhiteList = item.Value.IPWhiteList,
-                        WeaponRestrictions = item.Value.WeaponRestrictions,
-                        gameScoreZoneTime = item.Value.gameScoreZoneTime,
-                    });*/
                 }
             }
             return RCInstancesConfig;
@@ -257,9 +175,9 @@ namespace HawkSync_SM.RCClasses
                 {
                     SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                     db.Open();
-                    SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `customwarnings` (`id`, `instanceid`, `message`) VALUES (NULL, @instanceid, @warningMsg);", db);
+                    SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `customwarnings` (`id`, `instanceid`, `message`) VALUES (NULL, @instanceid, @message);", db);
                     cmd.Parameters.AddWithValue("@instanceid", InstanceID);
-                    cmd.Parameters.AddWithValue("@warningMsg", msg);
+                    cmd.Parameters.AddWithValue("@message", msg);
                     cmd.ExecuteNonQuery();
                     cmd.Dispose();
 
@@ -337,11 +255,7 @@ namespace HawkSync_SM.RCClasses
                         SessionID = sessionid,
                         Username = _state.rcClients[sessionid]._username
                     });
-                    _state.Instances[InstanceIndex].WarningQueue.Add(new ob_WarnPlayerClass
-                    {
-                        slot = slotNum,
-                        warningMsg = warning
-                    });
+                    _state.Instances[InstanceIndex].ServerMessagesQueue.Add(new ob_ServerMessageQueue { slot = slotNum, message = warning });
                     return RCListenerClass.StatusCodes.SUCCESS;
                 }
                 else
@@ -3704,7 +3618,7 @@ namespace HawkSync_SM.RCClasses
             }
         }
 
-        public RCListenerClass.StatusCodes ScoreMap(int InstanceID, string sessionid)
+        public RCListenerClass.StatusCodes SkipMap(int InstanceID, string sessionid)
         {
             try
             {
@@ -3753,6 +3667,81 @@ namespace HawkSync_SM.RCClasses
                         PostMessage(h, (ushort)WM_KEYUP, (ushort)VK_ENTER, 0);
                         process.Dispose();
                         CloseHandle(processHandle);
+
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        db.Open();
+
+                        SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
+                        newEntryCmd.Parameters.AddWithValue("@sessionid", sessionid);
+                        newEntryCmd.Parameters.AddWithValue("@username", _state.rcClients[sessionid]._username);
+                        newEntryCmd.Parameters.AddWithValue("@action", "SkipMap");
+                        newEntryCmd.Parameters.AddWithValue("@address", _state.rcClients[sessionid].RemoteAddress.ToString());
+                        newEntryCmd.Parameters.AddWithValue("@date", DateTime.Now);
+                        newEntryCmd.ExecuteNonQuery();
+                        newEntryCmd.Dispose();
+                        db.Close();
+                        db.Dispose();
+                        _state.RCLogs.Add(new RCLogs
+                        {
+                            Action = "ScoreMap",
+                            Address = _state.rcClients[sessionid].RemoteAddress,
+                            Date = DateTime.Now,
+                            SessionID = sessionid,
+                            Username = _state.rcClients[sessionid]._username
+                        });
+
+                        return RCListenerClass.StatusCodes.SUCCESS;
+                    }
+                    else
+                    {
+                        return RCListenerClass.StatusCodes.FAILURE;
+                    }
+                }
+                else
+                {
+                    return RCListenerClass.StatusCodes.FAILURE;
+                }
+            }
+            catch
+            {
+                return RCListenerClass.StatusCodes.FAILURE;
+            }
+        }
+
+        public RCListenerClass.StatusCodes ScoreMap(int InstanceID, string sessionid)
+        {
+            try
+            {
+                int InstanceIndex = -1;
+                foreach (var item in _state.Instances)
+                {
+                    if (item.Value.instanceID == InstanceID)
+                    {
+                        InstanceIndex = item.Key;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                if (InstanceIndex != -1)
+                {
+                    if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.LOADINGMAP)
+                    {
+                        return RCListenerClass.StatusCodes.FAILURE;
+                    }
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.OFFLINE)
+                    {
+                        return RCListenerClass.StatusCodes.FAILURE;
+                    }
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.SCORING)
+                    {
+                        return RCListenerClass.StatusCodes.FAILURE;
+                    }
+                    else if (_state.Instances[InstanceIndex].instanceStatus == InstanceStatus.STARTDELAY || _state.Instances[InstanceIndex].instanceStatus == InstanceStatus.ONLINE)
+                    {
+                        (new ServerManagement()).ScoreMap(ref _state, InstanceIndex);
 
                         SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
                         db.Open();

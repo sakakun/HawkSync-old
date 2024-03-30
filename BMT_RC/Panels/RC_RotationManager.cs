@@ -27,7 +27,7 @@ namespace HawkSync_RC
             RCSetup = setup;
             uploadDirectory = string.Empty;
             foreach (var instance in _state.Instances)
-                if (instance.Value.Id == instanceID)
+                if (instance.Value.instanceID == instanceID)
                 {
                     ArrayID = instance.Key;
                     break;
@@ -54,7 +54,7 @@ namespace HawkSync_RC
 
             // load saved rotations
             listBox6.Items.Add("New Rotation");
-            foreach (var item in _state.Instances[ArrayID].savedmaprotations) listBox6.Items.Add(item.Description);
+            foreach (var item in _state.Instances[ArrayID].MapListRotationDB) listBox6.Items.Add(item.Description);
             listBox6.SelectedIndex = 0;
         }
 
@@ -74,7 +74,7 @@ namespace HawkSync_RC
             listBox4.Items.Clear();
             avilableMaps.Clear();
             avilableMaps = new List<MapList>();
-            foreach (var item in _state.Instances[ArrayID].availableMaps)
+            foreach (var item in _state.Instances[ArrayID].MapListAvailable)
             {
                 var found = false;
                 foreach (var gametype in item.Value.GameTypes)
@@ -142,11 +142,11 @@ namespace HawkSync_RC
                 listBox5.Items.Clear();
                 var rotationIndex = listBox6.SelectedIndex;
                 rotationIndex--;
-                foreach (var item in _state.Instances[ArrayID].savedmaprotations[rotationIndex].mapcycle)
+                foreach (var item in _state.Instances[ArrayID].MapListRotationDB[rotationIndex].mapcycle)
                     listBox5.Items.Add("|" + item.GameType + "| " + item.MapName + " <" + item.MapFile + ">");
                 label1.Text = listBox5.Items.Count.ToString();
-                textBox14.Text = _state.Instances[ArrayID].savedmaprotations[rotationIndex].Description;
-                selectedMaps = _state.Instances[ArrayID].savedmaprotations[rotationIndex].mapcycle;
+                textBox14.Text = _state.Instances[ArrayID].MapListRotationDB[rotationIndex].Description;
+                selectedMaps = _state.Instances[ArrayID].MapListRotationDB[rotationIndex].mapcycle;
             }
         }
 
@@ -192,7 +192,7 @@ namespace HawkSync_RC
             if (listBox6.SelectedIndex == -1 ||
                 listBox6.SelectedIndex == 0) return; // do nothing since nothing was selected...
             if (TVRotationManagerCMD.DeleteRotation(_state.Instances[ArrayID]
-                    .savedmaprotations[listBox6.SelectedIndex - 1].RotationID) == OpenClass.Status.SUCCESS)
+                    .MapListRotationDB[listBox6.SelectedIndex - 1].RotationID) == OpenClass.Status.SUCCESS)
             {
                 listBox6.Items.RemoveAt(listBox6.SelectedIndex);
                 listBox6.SelectedIndex = listBox6.Items.Count - 1;

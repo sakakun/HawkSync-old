@@ -445,8 +445,6 @@ namespace HawkSync_SM.classes.StatManagement
                 { "bmt", "1" }
             };
 
-            Console.WriteLine("Import Stats: " + JsonConvert.SerializeObject(dataArray["data"]));
-
             // Convert the dictionary to form data
             var formData = new FormUrlEncodedContent(dataArray);
 
@@ -528,7 +526,58 @@ namespace HawkSync_SM.classes.StatManagement
         public async void requestBabstatsReportData(AppState state, int instanceID)
         {
             // status_report
+            string DATA = "1\nDFBHD\n \n \nEnd\n";
             
+            Dictionary<string, string> dataArray = new Dictionary<string, string>
+            {
+                { "serverid", _state.Instances[instanceID].WebStatsProfileID },
+                { "data", Crypt.Base64Encode(DATA) },
+                { "bmt", "1" }
+            };
+
+            Dictionary<string, string> dataArray2;
+
+            var formData = new FormUrlEncodedContent(dataArray);
+
+            try
+            {
+                // Create an HttpClient instance
+                using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+                {
+                    // Send a POST request with the form data
+                    var response = await client.PostAsync(_state.Instances[instanceID].WebstatsURL + "status_update.php", formData);
+
+                    // Check if the request was successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Read the response content as a string
+                        string htmlContent = await response.Content.ReadAsStringAsync();
+
+                        // Split the HTML content into lines
+                        string[] lines = htmlContent.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+                        // Iterate through each line
+                        foreach (string line in lines)
+                        {
+                            if (line == string.Empty) { continue; }
+                            _state.Instances[instanceID].ServerMessagesQueue.Add(new ob_ServerMessageQueue { slot = 91, message = line });
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"POST request failed with status code {response.StatusCode}");
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                Console.WriteLine("Request timed out");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
         }
 
     }

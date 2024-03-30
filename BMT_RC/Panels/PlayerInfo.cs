@@ -85,13 +85,13 @@ namespace HawkSync_RC
             label16.Text = _state.Instances[ArrayID].PlayerList[playerSlot].name;
             label17.Text = _state.Instances[ArrayID].PlayerList[playerSlot].address;
 
-            if (_state.Instances[ArrayID].enableVPNCheck)
+            if (_state.Instances[ArrayID].vpnCheckEnabled)
             {
                 var requestIPInformation = new Dictionary<dynamic, dynamic>
                 {
                     { "action", "BMTRC.GetPlayerIPInfo" },
                     { "SessionID", RCSetup.SessionID },
-                    { "serverID", _state.Instances[ArrayID].Id },
+                    { "serverID", _state.Instances[ArrayID].instanceID },
                     { "slot", playerSlot }
                 };
 
@@ -113,7 +113,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.GetPlayerHistory" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", playerSlot }
             };
 
@@ -134,7 +134,7 @@ namespace HawkSync_RC
             {
                 { "action", "BMTRC.GetAdminNotes" },
                 { "SessionID", RCSetup.SessionID },
-                { "serverID", _state.Instances[ArrayID].Id },
+                { "serverID", _state.Instances[ArrayID].instanceID },
                 { "slot", playerSlot }
             };
 
@@ -151,7 +151,7 @@ namespace HawkSync_RC
                 Close();
             }
 
-            if (_state.Instances[ArrayID].enableVPNCheck)
+            if (_state.Instances[ArrayID].vpnCheckEnabled)
             {
                 switch (PlayerInfoRC.active_vpn)
                 {
@@ -177,20 +177,20 @@ namespace HawkSync_RC
 
             // check VPN whitelist
             label20.Text = "False";
-            for (var whitelist = 0; whitelist < _state.Instances[ArrayID].VPNWhiteList.Count; whitelist++)
-                if (_state.Instances[ArrayID].VPNWhiteList[whitelist].IPAddress == IPAddress
+            for (var whitelist = 0; whitelist < _state.Instances[ArrayID].IPWhiteList.Count; whitelist++)
+                if (_state.Instances[ArrayID].IPWhiteList[whitelist].IPAddress == IPAddress
                         .Parse(_state.Instances[ArrayID].PlayerList[playerSlot].address).ToString())
                 {
                     label20.Text = "True";
                     break;
                 }
 
-            for (var banned = 0; banned < _state.Instances[ArrayID].BanList.Count; banned++)
-                if (_state.Instances[ArrayID].BanList[banned].ipaddress ==
+            for (var banned = 0; banned < _state.Instances[ArrayID].PlayerListBans.Count; banned++)
+                if (_state.Instances[ArrayID].PlayerListBans[banned].ipaddress ==
                     _state.Instances[ArrayID].PlayerList[playerSlot].address)
                 {
                     label23.Text = "True";
-                    label24.Text = _state.Instances[ArrayID].BanList[banned].reason;
+                    label24.Text = _state.Instances[ArrayID].PlayerListBans[banned].reason;
                     break;
                 }
 
