@@ -327,7 +327,7 @@ namespace HawkSync_SM.classes.StatManagement
 
         private string line_ServerID()
         {
-            string line = $"ServerID {_state.Instances[_instanceID].WebStatsProfileID}\n";
+            string line = $"ServerID {_state.Instances[_instanceID].WebStatsProfileID}\r\n";
             return line;
         }
 
@@ -358,7 +358,7 @@ namespace HawkSync_SM.classes.StatManagement
             bool TeamSabre = _state.Instances[_instanceID].profileServerType == 0 && File.Exists(_state.Instances[_instanceID].profileServerPath + "\\EXP1.pff");
             int mod = TeamSabre ? 8 : 7;
 
-            string line = $"Game {timer}__&__{date}__&__{gameMapType}__&__{dedicated}__&__{serverName}__&__{mapName}__&__{maxPlayers}__&__{numPlayers}__{winner}&__{mod}\n";
+            string line = $"Game {timer}__&__{date}__&__{gameMapType}__&__{dedicated}__&__{serverName}__&__{mapName}__&__{maxPlayers}__&__{numPlayers}__{winner}&__{mod}\r\n";
             return line;
         }
 
@@ -413,12 +413,12 @@ namespace HawkSync_SM.classes.StatManagement
                 string v26 = stats.team.ToString();
                 string v27 = "1";
                 string v28 = timer.ToString(); // timer seconds
-                playerLines += $"Player {stats.name}__&__{stats.address}\n";
-                playerLines += $"PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}\n";
+                playerLines += $"  Player {stats.name}__&__{stats.address}\r\n";
+                playerLines += $"   PlayerStats {v01} {v02} {v03} {v04} {v05} {v06} {v07} {v08} {v09} {v10} {v11} {v12} {v13} {v14} {v15} {v16} {v17} {v18} {v19} {v20} {v21} {v22} {v23} {v24} {v25} {v26} {v27} {v28}\r\n";
 
                 foreach( var weapon in _state.Instances[instanceID].PlayerWeaponStats[player.Value.PlayerId].WeaponStatsList)
                 {
-                    playerLines += $"Weapon {weapon.weaponid} {(int)weapon.timer} {weapon.kills} {weapon.shotsfired}\n";
+                    playerLines += $"   Weapon {weapon.weaponid} {(int)weapon.timer} {weapon.kills} {weapon.shotsfired}\r\n";
                 };
 
             }
@@ -438,10 +438,15 @@ namespace HawkSync_SM.classes.StatManagement
             // generate the data to send to babstats
             string playerLines = line_PlayerWeapons(state, instanceID);
 
+            string combinedData = ServerLine + GameLine + playerLines + "End\n";
+
+            byte[] dataBytes = Encoding.GetEncoding("windows-1252").GetBytes(combinedData);
+            string base64EncodedData = Convert.ToBase64String(dataBytes);
+
             Dictionary<string, string> dataArray = new Dictionary<string, string>
             {
                 { "serverid", _state.Instances[instanceID].WebStatsProfileID },
-                { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines) },
+                { "data", base64EncodedData },
                 { "bmt", "1" }
             };
 
@@ -484,10 +489,15 @@ namespace HawkSync_SM.classes.StatManagement
             string GameLine = line_GameInfo(true);
             string playerLines = line_PlayerWeapons(state, instanceID);
 
+            string combinedData = ServerLine + GameLine + playerLines + "End\n";
+
+            byte[] dataBytes = Encoding.GetEncoding("windows-1252").GetBytes(combinedData);
+            string base64EncodedData = Convert.ToBase64String(dataBytes);
+
             Dictionary<string, string> dataArray = new Dictionary<string, string>
             {
                 { "serverid", _state.Instances[instanceID].WebStatsProfileID },
-                { "data", Crypt.Base64Encode(ServerLine+GameLine+playerLines+"End\n") },
+                { "data", base64EncodedData},
                 { "bmt", "1" }
             };
 
@@ -527,11 +537,14 @@ namespace HawkSync_SM.classes.StatManagement
         {
             // status_report
             string DATA = "1\nDFBHD\n \n \nEnd\n";
-            
+
+            byte[] dataBytes = Encoding.GetEncoding("windows-1252").GetBytes(DATA);
+            string base64EncodedData = Convert.ToBase64String(dataBytes);
+
             Dictionary<string, string> dataArray = new Dictionary<string, string>
             {
                 { "serverid", _state.Instances[instanceID].WebStatsProfileID },
-                { "data", Crypt.Base64Encode(DATA) },
+                { "data", base64EncodedData },
                 { "bmt", "1" }
             };
 

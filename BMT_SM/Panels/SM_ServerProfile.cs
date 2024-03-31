@@ -49,7 +49,7 @@ namespace HawkSync_SM
             cb_enableAntiPadding.Checked = false;
             cb_enableAnnoucments.Checked = false;
             cb_enableHBNHQ.Checked = true;
-            cb_enableHBNW.Checked = true;
+            cb_enableHBNWCC.Checked = true;
         }
 
         public void event_addProfile(ref AppState _state, int ArrayID)
@@ -72,7 +72,7 @@ namespace HawkSync_SM
                 newProfile.instanceCrashRecovery = cb_enableAutoRestart.Checked;
                 newProfile.WebStatsAnnouncements = cb_enableAnnoucments.Checked;
                 newProfile.ReportNovaHQ = cb_enableHBNHQ.Checked;
-                newProfile.ReportNovaCC = cb_enableHBNW.Checked;
+                newProfile.ReportNovaCC = cb_enableHBNWCC.Checked;
                 if (cb_selectGame.SelectedIndex == 0 && File.Exists(Path.Combine(newProfile.profileServerPath, "EXP1.pff")))
                 {
                     newProfile.infoTeamSabre = true;
@@ -149,6 +149,8 @@ namespace HawkSync_SM
             _state.Instances[ArrayID].WebStatsASPEnabled = Convert.ToInt32(cb_enableAntiPadding.Checked);
             _state.Instances[ArrayID].instanceCrashRecovery = cb_enableAutoRestart.Checked;
             _state.Instances[ArrayID].WebStatsAnnouncements = cb_enableAnnoucments.Checked;
+            _state.Instances[ArrayID].ReportNovaHQ = cb_enableHBNHQ.Checked;
+            _state.Instances[ArrayID].ReportNovaCC = cb_enableHBNWCC.Checked;
 
             SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
             db.Open();
@@ -192,7 +194,7 @@ namespace HawkSync_SM
             cb_enableAntiPadding.Checked = Convert.ToBoolean(state.Instances[ArrayID].WebStatsASPEnabled);
             cb_enableAnnoucments.Checked = Convert.ToBoolean(state.Instances[ArrayID].WebStatsAnnouncements);
             cb_enableHBNHQ.Checked = Convert.ToBoolean(state.Instances[ArrayID].ReportNovaHQ);
-            cb_enableHBNW.Checked = Convert.ToBoolean(state.Instances[ArrayID].ReportNovaCC);
+            cb_enableHBNWCC.Checked = Convert.ToBoolean(state.Instances[ArrayID].ReportNovaCC);
             textBox_profileName.Text = state.Instances[ArrayID].profileName;
             textbox_serverPath.Text = state.Instances[ArrayID].profileServerPath;
             textBox_statsURL.Text = state.Instances[ArrayID].WebstatsURL;

@@ -16,182 +16,108 @@ namespace HawkSync_SM.classes
 
         public void ProcessHeartBeats(ref AppState _state)
         {
-            updateNovaCC(ref _state);
-            updateNovaHQ(ref _state);
-        }
-
-        internal void updateNovaCC(ref AppState _state)
-        {
             foreach (var instance in _state.Instances)
             {
-                if (instance.Value.ReportNovaCC == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaCC, DateTime.Now) < 0 && instance.Value.instanceStatus != InstanceStatus.OFFLINE)
+                if (instance.Value.ReportNovaCC == true &&
+                    DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaCC, DateTime.Now) < 0
+                    && instance.Value.instanceStatus != InstanceStatus.OFFLINE)
                 {
-                    List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
-                    WebClient client = new WebClient
-                    {
-                        BaseAddress = "http://ext.novaworld.cc/"
-                    };
-                    client.Headers["User-Agent"] = "Babstats.net HawkSync";
-                    //client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
-                    client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-                    NameValueCollection vars = new NameValueCollection
-                    {
-                        { "Encoding", "windows-1252" },
-                        { "PKey", "eYkJaPPR-3WNbgPN93,(ZwxBCnEW" },
-                        { "PVer", "1.0.9" },
-                        { "SKey", "SECRET_KEY" },
-                        { "DataType", "0x100" },
-                        { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].gameServerName },
-                        { "Port", _state.Instances[instance.Key].profileBindPort.ToString() },
-                        { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].gameCountryCode },
-                        { "Type", "gameDedicated" },
-                        { "profileServerType", _state.Instances[instance.Key].GameTypeName },
-                        { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].gameMaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].infoCurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].infoCurrentMap.MapFile },
-                        { "infoMapTimeRemaining", (_state.Instances[instance.Key].gameStartDelay + _state.Instances[instance.Key].infoMapTimeRemaining * 60).ToString() },
-                        { "gamePasswordLobby", (_state.Instances[instance.Key].gamePasswordLobby != string.Empty ? "Y" : "" )},
-                        { "Message", _state.Instances[instance.Key].gameMOTD }
-                    };
-                    if (_state.Instances[instance.Key].infoTeamSabre == true)
-                    {
-                        vars.Add("profileGameMod", "TS:");
-                    }
-                    else
-                    {
-                        vars.Add("profileGameMod", "");
-                    }
-                    if (_state.Instances[instance.Key].PlayerList.Count > 0)
-                    {
-                        foreach (var player in _state.Instances[instance.Key].PlayerList)
-                        {
-                            playerlistHQ.Add(new NovaHQPlayerListClass
-                            {
-                                Deaths = player.Value.deaths,
-                                Kills = player.Value.kills,
-                                NameBase64Encoded = player.Value.nameBase64,
-                                PlayerName = player.Value.name,
-                                TeamId = player.Value.team,
-                                TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(ob_playerList.WeaponStack), player.Value.selectedWeapon)),
-                                WeaponText = player.Value.selectedWeapon
-                            });
-                        }
-                        vars.Add("PlayerList", Crypt.Base64Encode(JsonConvert.SerializeObject(playerlistHQ)));
-                    }
-                    else
-                    {
-                        vars.Add("PlayerList", "eyIwIjogeyJOYW1lIjoiSG9zdCIsIk5hbWVCYXNlNjRFbmNvZGVkIjoiU0c5emRBPT0iLCJLaWxscyI6IjAiLCJEZWF0aHMiOiIwIiwiV2VhcG9uSWQiOiI1IiwiV2VhcG9uVGV4dCI6IkNBUi0xNSIsIlRlYW1JZCI6IjUiLCJUZWFtVGV4dCI6Ik5vbmUiIH19");
-                    }
-                    try
-                    {
-                        byte[] response = client.UploadValues("nwapi.php", vars);
-                        string getResponse = Encoding.Default.GetString(response);
-                    }
-                    catch
-                    {
+                    Instance passInstance = _state.Instances[instance.Key];
+                    sendHeartBeat(ref passInstance, "http://ext.novaworld.cc/", "nwapi.php");
 
-                    }
-                    _state.Instances[instance.Key].NextUpdateNovaCC = DateTime.Now.AddMinutes(1.0);
+                    _state.Instances[instance.Key].NextUpdateNovaCC = DateTime.Now.AddMinutes(30.0);
                 }
-                else
+                if (instance.Value.ReportNovaHQ == true && 
+                    DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaHQ, DateTime.Now) < 0 && 
+                    instance.Value.instanceStatus != InstanceStatus.OFFLINE)
                 {
-                    continue;
-                }
-            }
-        }
+                    Instance passInstance = _state.Instances[instance.Key];
+                    sendHeartBeat(ref passInstance, "http://nw.novahq.net/", "server/heartbeat-dll");
 
-        internal void updateNovaHQ(ref AppState _state)
-        {
-            foreach (var instance in _state.Instances)
-            {
-                if (instance.Value.ReportNovaHQ == true && DateTime.Compare(_state.Instances[instance.Key].NextUpdateNovaHQ, DateTime.Now) < 0 && instance.Value.instanceStatus != InstanceStatus.OFFLINE)
-                {
-                    List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
-                    WebClient client = new WebClient
-                    {
-                        BaseAddress = "http://nw.novahq.net/"
-                    };
-                    /*client.Headers["User-Agent"] = "Babstats v4 " + ProgramConfig.ApplicationVersion;*/
-                    client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
-                    client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
-                    NameValueCollection vars = new NameValueCollection
-                    {
-                        { "Encoding", "windows-1252" },
-                        { "PKey", "eYkJaPPR-3WNbgPN93,(ZwxBCnEW" },
-                        { "PVer", "1.0.9" },
-                        { "SKey", "SECRET_KEY" },
-                        { "DataType", "0x100" },
-                        { "GameID", "dfbhd" },
-                        { "Name", _state.Instances[instance.Key].gameServerName },
-                        { "Port", _state.Instances[instance.Key].profileBindPort.ToString() },
-                        { "CK", "0" },
-                        { "Country", _state.Instances[instance.Key].gameCountryCode },
-                        { "Type", "gameDedicated" },
-                        { "profileServerType", _state.Instances[instance.Key].GameTypeName },
-                        { "CurrentPlayers", _state.Instances[instance.Key].PlayerList.Count.ToString() },
-                        { "MaxPlayers", _state.Instances[instance.Key].gameMaxSlots.ToString() },
-                        { "MissionName", _state.Instances[instance.Key].infoCurrentMap.MapName },
-                        { "MissionFile", _state.Instances[instance.Key].infoCurrentMap.MapFile },
-                        { "infoMapTimeRemaining", (_state.Instances[instance.Key].gameStartDelay + _state.Instances[instance.Key].infoMapTimeRemaining * 60).ToString() }
-                    };
-                    if (_state.Instances[instance.Key].gamePasswordLobby != string.Empty)
-                    {
-                        vars.Add("gamePasswordLobby", "Y");
-                    }
-                    else
-                    {
-                        vars.Add("gamePasswordLobby", "");
-                    }
-                    vars.Add("Message", _state.Instances[instance.Key].gameMOTD);
-                    if (_state.Instances[instance.Key].infoTeamSabre == true)
-                    {
-                        vars.Add("profileGameMod", "TS:");
-                    }
-                    else
-                    {
-                        vars.Add("profileGameMod", "");
-                    }
-                    if (_state.Instances[instance.Key].PlayerList.Count > 0)
-                    {
-                        foreach (var player in _state.Instances[instance.Key].PlayerList)
-                        {
-                            playerlistHQ.Add(new NovaHQPlayerListClass
-                            {
-                                Deaths = player.Value.deaths,
-                                Kills = player.Value.kills,
-                                NameBase64Encoded = player.Value.nameBase64,
-                                PlayerName = player.Value.name,
-                                TeamId = player.Value.team,
-                                TeamText = player.Value.team.ToString(),
-                                WeaponId = Convert.ToInt32(Enum.Parse(typeof(ob_playerList.WeaponStack), player.Value.selectedWeapon)),
-                                WeaponText = player.Value.selectedWeapon
-                            });
-                        }
-                        vars.Add("PlayerList", Crypt.Base64Encode(JsonConvert.SerializeObject(playerlistHQ)));
-                    }
-                    else
-                    {
-                        vars.Add("PlayerList", "eyIwIjogeyJOYW1lIjoiSG9zdCIsIk5hbWVCYXNlNjRFbmNvZGVkIjoiU0c5emRBPT0iLCJLaWxscyI6IjAiLCJEZWF0aHMiOiIwIiwiV2VhcG9uSWQiOiI1IiwiV2VhcG9uVGV4dCI6IkNBUi0xNSIsIlRlYW1JZCI6IjUiLCJUZWFtVGV4dCI6Ik5vbmUiIH19");
-                    }
-                    try
-                    {
-                        byte[] response = client.UploadValues("server/heartbeat-dll", vars);
-                        string getResponse = Encoding.Default.GetString(response);
-                    }
-                    catch
-                    {
-
-                    }
                     _state.Instances[instance.Key].NextUpdateNovaHQ = DateTime.Now.AddSeconds(30.0);
                 }
-                else
+            }
+
+        }
+        //BaseAddress = "http://ext.novaworld.cc/" "nwapi.php"
+        //BaseAddress = "http://nw.novahq.net/" "server/heartbeat-dll"
+
+        internal void sendHeartBeat(ref Instance instance, string strBaseAddress, string strPath)
+        {
+            List<NovaHQPlayerListClass> playerlistHQ = new List<NovaHQPlayerListClass>();
+            WebClient client = new WebClient
+            {
+                BaseAddress = strBaseAddress
+            };
+            client.Headers["User-Agent"] = "NovaHQ Heartbeat DLL (1.0.9)";
+            client.Headers["Content-Type"] = "application/x-www-form-urlencoded";
+            NameValueCollection vars = new NameValueCollection
+                    {
+                        { "Encoding", "Windows-1252" },
+                        { "PKey", "eYkJaPPR-3WNbgPN93,(ZwxBCnEW" },
+                        { "PVer", "1.0.9" },
+                        { "SKey", "wKyPoIh4NSenfXimdnjs" },
+                        { "DataType", "0x100" },
+                        { "GameID", "dfbhd" },
+                        { "Name", instance.gameServerName },
+                        { "Port", instance.profileBindPort.ToString() },
+                        { "CK", "0" },
+                        { "Country", instance.gameCountryCode },
+                        { "Type", "Dedicated" },
+                        { "GameType", instance.GameTypeName },
+                        { "CurrentPlayers", instance.PlayerList.Count.ToString() },
+                        { "MaxPlayers", instance.gameMaxSlots.ToString() },
+                        { "MissionName", instance.infoCurrentMap.MapName },
+                        { "MissionFile", instance.infoCurrentMap.MapFile },
+                        { "TimeRemaining", (instance.gameStartDelay + instance.infoMapTimeRemaining * 60).ToString() }
+                    };
+            if (instance.gamePasswordLobby != string.Empty)
+            {
+                vars.Add("Password", "Y");
+            }
+            else
+            {
+                vars.Add("Password", "");
+            }
+            vars.Add("Message", instance.gameMOTD);
+            if (instance.infoTeamSabre == true)
+            {
+                vars.Add("Mod", "TS:");
+            }
+            else
+            {
+                vars.Add("Mod", "");
+            }
+            if (instance.PlayerList.Count > 0)
+            {
+                foreach (var player in instance.PlayerList)
                 {
-                    continue;
+                    playerlistHQ.Add(new NovaHQPlayerListClass
+                    {
+                        Name = player.Value.name,
+                        NameBase64Encoded = player.Value.nameBase64,
+                        Kills = player.Value.kills,
+                        Deaths = player.Value.deaths,
+                        WeaponId = Convert.ToInt32(Enum.Parse(typeof(ob_playerList.WeaponStack), player.Value.selectedWeapon)),
+                        WeaponText = player.Value.selectedWeapon,
+                        TeamId = player.Value.team,
+                        TeamText = player.Value.team.ToString()
+                    });
                 }
+                vars.Add("PlayerList", Crypt.Base64Encode(JsonConvert.SerializeObject(playerlistHQ)));
+            }
+            else
+            {
+                vars.Add("PlayerList", "eyIwIjogeyJOYW1lIjoiSG9zdCIsIk5hbWVCYXNlNjRFbmNvZGVkIjoiU0c5emRBPT0iLCJLaWxscyI6IjAiLCJEZWF0aHMiOiIwIiwiV2VhcG9uSWQiOiI1IiwiV2VhcG9uVGV4dCI6IkNBUi0xNSIsIlRlYW1JZCI6IjEiLCJUZWFtVGV4dCI6IkJsdWUiIH19");
+            }
+            try
+            {
+                byte[] response = client.UploadValues(strPath, vars);
+                string getResponse = Encoding.Default.GetString(response);
+            }
+            catch
+            {
+
             }
         }
 

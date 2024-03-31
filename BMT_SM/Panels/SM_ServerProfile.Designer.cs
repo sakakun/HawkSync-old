@@ -33,7 +33,7 @@ namespace HawkSync_SM
             this.cb_enableAnnoucments = new System.Windows.Forms.CheckBox();
             this.cb_enableAutoRestart = new System.Windows.Forms.CheckBox();
             this.gp_Options = new System.Windows.Forms.GroupBox();
-            this.cb_enableHBNW = new System.Windows.Forms.CheckBox();
+            this.cb_enableHBNWCC = new System.Windows.Forms.CheckBox();
             this.cb_enableHBNHQ = new System.Windows.Forms.CheckBox();
             this.label_portNumber = new System.Windows.Forms.Label();
             this.num_serverPort = new System.Windows.Forms.NumericUpDown();
@@ -90,13 +90,13 @@ namespace HawkSync_SM
             this.gp_Options.Name = "gp_Options";
             this.gp_Options.TabStop = false;
             // 
-            // cb_enableHBNW
+            // cb_enableHBNWCC
             // 
-            resources.ApplyResources(this.cb_enableHBNW, "cb_enableHBNW");
-            this.cb_enableHBNW.Checked = true;
-            this.cb_enableHBNW.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_enableHBNW.Name = "cb_enableHBNW";
-            this.cb_enableHBNW.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.cb_enableHBNWCC, "cb_enableHBNWCC");
+            this.cb_enableHBNWCC.Checked = true;
+            this.cb_enableHBNWCC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_enableHBNWCC.Name = "cb_enableHBNWCC";
+            this.cb_enableHBNWCC.UseVisualStyleBackColor = true;
             // 
             // cb_enableHBNHQ
             // 
@@ -294,7 +294,7 @@ namespace HawkSync_SM
             // 
             // gb_HBServers
             // 
-            this.gb_HBServers.Controls.Add(this.cb_enableHBNW);
+            this.gb_HBServers.Controls.Add(this.cb_enableHBNWCC);
             this.gb_HBServers.Controls.Add(this.cb_enableHBNHQ);
             resources.ApplyResources(this.gb_HBServers, "gb_HBServers");
             this.gb_HBServers.Name = "gb_HBServers";
@@ -355,7 +355,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.Label label_serverIP;
         private System.Windows.Forms.ComboBox cb_serverIP;
         private System.Windows.Forms.GroupBox gb_HBServers;
-        private System.Windows.Forms.CheckBox cb_enableHBNW;
+        private System.Windows.Forms.CheckBox cb_enableHBNWCC;
         private System.Windows.Forms.CheckBox cb_enableHBNHQ;
         private System.Windows.Forms.CheckBox cb_enableAntiPadding;
     }

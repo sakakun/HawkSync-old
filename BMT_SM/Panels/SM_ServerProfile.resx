@@ -200,35 +200,35 @@
   <data name="&gt;&gt;gp_Options.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="cb_enableHBNW.AutoSize" type="System.Boolean, mscorlib">
+  <data name="cb_enableHBNWCC.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cb_enableHBNW.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="cb_enableHBNWCC.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="cb_enableHBNW.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="cb_enableHBNWCC.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 44</value>
   </data>
-  <data name="cb_enableHBNW.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="cb_enableHBNWCC.Size" type="System.Drawing.Size, System.Drawing">
     <value>193, 17</value>
   </data>
-  <data name="cb_enableHBNW.TabIndex" type="System.Int32, mscorlib">
+  <data name="cb_enableHBNWCC.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
   </data>
-  <data name="cb_enableHBNW.Text" xml:space="preserve">
+  <data name="cb_enableHBNWCC.Text" xml:space="preserve">
     <value>Show on NovaWorld.cc Server List</value>
   </data>
-  <data name="&gt;&gt;cb_enableHBNW.Name" xml:space="preserve">
-    <value>cb_enableHBNW</value>
+  <data name="&gt;&gt;cb_enableHBNWCC.Name" xml:space="preserve">
+    <value>cb_enableHBNWCC</value>
   </data>
-  <data name="&gt;&gt;cb_enableHBNW.Type" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableHBNWCC.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cb_enableHBNW.Parent" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableHBNWCC.Parent" xml:space="preserve">
     <value>gb_HBServers</value>
   </data>
-  <data name="&gt;&gt;cb_enableHBNW.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;cb_enableHBNWCC.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="cb_enableHBNHQ.AutoSize" type="System.Boolean, mscorlib">
