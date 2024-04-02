@@ -1326,6 +1326,7 @@ namespace HawkSync_RC
             // rcT_serverName
             // 
             this.rcT_serverName.Location = new System.Drawing.Point(85, 17);
+            this.rcT_serverName.MaxLength = 30;
             this.rcT_serverName.Name = "rcT_serverName";
             this.rcT_serverName.Size = new System.Drawing.Size(130, 20);
             this.rcT_serverName.TabIndex = 1;
@@ -1479,7 +1480,7 @@ namespace HawkSync_RC
             // 
             this.num_maxPing.Location = new System.Drawing.Point(116, 43);
             this.num_maxPing.Maximum = new decimal(new int[] {
-            900,
+            9999,
             0,
             0,
             0});
@@ -1492,7 +1493,7 @@ namespace HawkSync_RC
             // 
             this.num_minPing.Location = new System.Drawing.Point(116, 19);
             this.num_minPing.Maximum = new decimal(new int[] {
-            900,
+            9999,
             0,
             0,
             0});
@@ -1606,6 +1607,11 @@ namespace HawkSync_RC
             // num_flagReturn
             // 
             this.num_flagReturn.Location = new System.Drawing.Point(116, 39);
+            this.num_flagReturn.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_flagReturn.Name = "num_flagReturn";
             this.num_flagReturn.Size = new System.Drawing.Size(48, 20);
             this.num_flagReturn.TabIndex = 26;
@@ -1614,6 +1620,11 @@ namespace HawkSync_RC
             // num_MaxTeamLives
             // 
             this.num_MaxTeamLives.Location = new System.Drawing.Point(116, 63);
+            this.num_MaxTeamLives.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_MaxTeamLives.Name = "num_MaxTeamLives";
             this.num_MaxTeamLives.Size = new System.Drawing.Size(48, 20);
             this.num_MaxTeamLives.TabIndex = 27;
@@ -1651,6 +1662,11 @@ namespace HawkSync_RC
             // num_pspTimer
             // 
             this.num_pspTimer.Location = new System.Drawing.Point(116, 14);
+            this.num_pspTimer.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_pspTimer.Name = "num_pspTimer";
             this.num_pspTimer.Size = new System.Drawing.Size(48, 20);
             this.num_pspTimer.TabIndex = 25;
@@ -1712,6 +1728,11 @@ namespace HawkSync_RC
             // num_maxFriendKills
             // 
             this.num_maxFriendKills.Location = new System.Drawing.Point(116, 40);
+            this.num_maxFriendKills.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_maxFriendKills.Name = "num_maxFriendKills";
             this.num_maxFriendKills.Size = new System.Drawing.Size(48, 20);
             this.num_maxFriendKills.TabIndex = 22;
@@ -1761,6 +1782,7 @@ namespace HawkSync_RC
             // text_redPass
             // 
             this.text_redPass.Location = new System.Drawing.Point(69, 42);
+            this.text_redPass.MaxLength = 30;
             this.text_redPass.Name = "text_redPass";
             this.text_redPass.Size = new System.Drawing.Size(116, 20);
             this.text_redPass.TabIndex = 16;
@@ -1768,6 +1790,7 @@ namespace HawkSync_RC
             // text_bluePass
             // 
             this.text_bluePass.Location = new System.Drawing.Point(69, 16);
+            this.text_bluePass.MaxLength = 30;
             this.text_bluePass.Name = "text_bluePass";
             this.text_bluePass.Size = new System.Drawing.Size(116, 20);
             this.text_bluePass.TabIndex = 15;
@@ -2342,7 +2365,7 @@ namespace HawkSync_RC
             // chat_textBoxMsg
             // 
             this.chat_textBoxMsg.Location = new System.Drawing.Point(5, 4);
-            this.chat_textBoxMsg.MaxLength = 30;
+            this.chat_textBoxMsg.MaxLength = 59;
             this.chat_textBoxMsg.Name = "chat_textBoxMsg";
             this.chat_textBoxMsg.Size = new System.Drawing.Size(514, 20);
             this.chat_textBoxMsg.TabIndex = 7;
@@ -2516,6 +2539,7 @@ namespace HawkSync_RC
             // text_newAutoMessage
             // 
             this.text_newAutoMessage.Location = new System.Drawing.Point(6, 16);
+            this.text_newAutoMessage.MaxLength = 59;
             this.text_newAutoMessage.Name = "text_newAutoMessage";
             this.text_newAutoMessage.Size = new System.Drawing.Size(685, 20);
             this.text_newAutoMessage.TabIndex = 4;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,15 +31,17 @@ namespace HawkSync_SM.classes.SupportClasses
                 {
                     try
                     {
+
+                        Console.WriteLine("Updating database.");
                         UpdateDatabaseStructure();
-                        Console.WriteLine("Database structure updated successfully.");
-                        UpdateConfigTable();
-                        Console.WriteLine("Config table updated successfully.");
+                        Console.WriteLine("Database updated successfully.");
+
                         return true;
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Error updating database structure: {ex.Message}");
+
                         if (RestoreDatabase())
                         {
                             MessageBox.Show("Database update failed. Restored to previous version.", "Database Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -46,6 +49,7 @@ namespace HawkSync_SM.classes.SupportClasses
                         {
                             MessageBox.Show("Database update failed. Unable to restore to previous version.", "Database Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        
                         return false;
                     }
                 } else
@@ -170,6 +174,30 @@ namespace HawkSync_SM.classes.SupportClasses
                         }
                     }
                 }
+
+                Console.WriteLine("Updating Config Table...");
+
+                List<KeyValuePair<string, string>> existingConfig = GetConfigTable(filePathExisting);
+                List<KeyValuePair<string, string>> templateConfig = GetConfigTable(filePathTemplate);
+
+                Console.WriteLine("Removing Rows...");
+                foreach (var row in existingConfig)
+                {
+                    if (!templateConfig.Exists(r => r.Key == row.Key))
+                    {
+                        RemoveConfigRow(existingConnection, row.Key);
+                    }
+                }
+                Console.WriteLine("Adding Rows...");
+                // Add rows from template config table that are not present in existing
+                foreach (var row in templateConfig)
+                {
+                    if (!existingConfig.Exists(r => r.Key == row.Key))
+                    {
+                        AddConfigRow(existingConnection, row.Key, row.Value);
+                    }
+                }
+
             }
         }
 
@@ -255,35 +283,6 @@ namespace HawkSync_SM.classes.SupportClasses
             }
         }
 
-        public void UpdateConfigTable()
-        {
-            List<KeyValuePair<string, string>> existingConfig = GetConfigTable(filePathExisting);
-            List<KeyValuePair<string, string>> templateConfig = GetConfigTable(filePathTemplate);
-
-            using (SQLiteConnection connection = new SQLiteConnection($"Data Source={filePathExisting};Version=3;"))
-            {
-                connection.Open();
-
-                // Remove rows from existing config table that are not present in template
-                foreach (var row in existingConfig)
-                {
-                    if (!templateConfig.Exists(r => r.Key == row.Key))
-                    {
-                        RemoveConfigRow(connection, row.Key);
-                    }
-                }
-
-                // Add rows from template config table that are not present in existing
-                foreach (var row in templateConfig)
-                {
-                    if (!existingConfig.Exists(r => r.Key == row.Key))
-                    {
-                        AddConfigRow(connection, row.Key, row.Value);
-                    }
-                }
-            }
-        }
-
         private List<KeyValuePair<string, string>> GetConfigTable(string filePath)
         {
             List<KeyValuePair<string, string>> config = new List<KeyValuePair<string, string>>();
@@ -295,8 +294,12 @@ namespace HawkSync_SM.classes.SupportClasses
                 {
                     while (reader.Read())
                     {
-                        string key = reader.GetString(0);
-                        string value = reader.GetString(1);
+                        object keyObj = reader.GetValue(0);
+                        object valueObj = reader.GetValue(1);
+
+                        string key = keyObj != DBNull.Value ? keyObj.ToString() : null;
+                        string value = valueObj != DBNull.Value ? valueObj.ToString() : null;
+
                         config.Add(new KeyValuePair<string, string>(key, value));
                     }
                 }

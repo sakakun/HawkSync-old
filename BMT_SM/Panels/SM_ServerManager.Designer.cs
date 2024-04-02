@@ -29,7 +29,6 @@ namespace HawkSync_SM
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SM_ServerManager));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.page_players = new System.Windows.Forms.TabPage();
@@ -127,6 +126,8 @@ namespace HawkSync_SM
             this.rb_roleSelAll = new System.Windows.Forms.RadioButton();
             this.cbl_roleSelection = new System.Windows.Forms.CheckedListBox();
             this.gB_options = new System.Windows.Forms.GroupBox();
+            this.btn_exportSettings = new System.Windows.Forms.Button();
+            this.btn_importSettings = new System.Windows.Forms.Button();
             this.btn_settingsRevertChanges = new System.Windows.Forms.Button();
             this.btn_UpdateServerSettings = new System.Windows.Forms.Button();
             this.gB_ServerSettings = new System.Windows.Forms.GroupBox();
@@ -203,7 +204,7 @@ namespace HawkSync_SM
             this.gb_addMessages = new System.Windows.Forms.GroupBox();
             this.btn_addAutoMsg = new System.Windows.Forms.Button();
             this.text_newAutoMessage = new System.Windows.Forms.TextBox();
-            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem134 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem135 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem136 = new System.Windows.Forms.ToolStripMenuItem();
@@ -219,7 +220,7 @@ namespace HawkSync_SM
             this.cb_enableAutoMsg = new System.Windows.Forms.CheckBox();
             this.label_interval = new System.Windows.Forms.Label();
             this.num_autoMsgInterval = new System.Windows.Forms.NumericUpDown();
-            this.cm_playerControls = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cm_playerControls = new System.Windows.Forms.ContextMenuStrip();
             this.cm_armDisarm = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
@@ -373,12 +374,10 @@ namespace HawkSync_SM
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.cm_changeTeam = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btn_importSettings = new System.Windows.Forms.Button();
-            this.btn_exportSettings = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.tabControl1.SuspendLayout();
             this.page_players.SuspendLayout();
             this.tabControl_playerSelection.SuspendLayout();
@@ -877,6 +876,11 @@ namespace HawkSync_SM
             // num_MaxTeamLives
             // 
             resources.ApplyResources(this.num_MaxTeamLives, "num_MaxTeamLives");
+            this.num_MaxTeamLives.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_MaxTeamLives.Name = "num_MaxTeamLives";
             // 
             // label_maxTeamLives
@@ -887,6 +891,11 @@ namespace HawkSync_SM
             // num_flagReturn
             // 
             resources.ApplyResources(this.num_flagReturn, "num_flagReturn");
+            this.num_flagReturn.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_flagReturn.Name = "num_flagReturn";
             // 
             // label_flagReturnTimer
@@ -897,6 +906,11 @@ namespace HawkSync_SM
             // num_pspTimer
             // 
             resources.ApplyResources(this.num_pspTimer, "num_pspTimer");
+            this.num_pspTimer.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_pspTimer.Name = "num_pspTimer";
             // 
             // label_PSPtime
@@ -974,13 +988,18 @@ namespace HawkSync_SM
             // num_maxPing
             // 
             resources.ApplyResources(this.num_maxPing, "num_maxPing");
+            this.num_maxPing.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
             this.num_maxPing.Name = "num_maxPing";
             // 
             // num_minPing
             // 
             resources.ApplyResources(this.num_minPing, "num_minPing");
             this.num_minPing.Maximum = new decimal(new int[] {
-            900,
+            9999,
             0,
             0,
             0});
@@ -1026,6 +1045,11 @@ namespace HawkSync_SM
             // num_maxFriendKills
             // 
             resources.ApplyResources(this.num_maxFriendKills, "num_maxFriendKills");
+            this.num_maxFriendKills.Maximum = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
             this.num_maxFriendKills.Name = "num_maxFriendKills";
             // 
             // label_maxFriendKills
@@ -1205,6 +1229,20 @@ namespace HawkSync_SM
             resources.ApplyResources(this.gB_options, "gB_options");
             this.gB_options.Name = "gB_options";
             this.gB_options.TabStop = false;
+            // 
+            // btn_exportSettings
+            // 
+            resources.ApplyResources(this.btn_exportSettings, "btn_exportSettings");
+            this.btn_exportSettings.Name = "btn_exportSettings";
+            this.btn_exportSettings.UseVisualStyleBackColor = true;
+            this.btn_exportSettings.Click += new System.EventHandler(this.click_exportSettings);
+            // 
+            // btn_importSettings
+            // 
+            resources.ApplyResources(this.btn_importSettings, "btn_importSettings");
+            this.btn_importSettings.Name = "btn_importSettings";
+            this.btn_importSettings.UseVisualStyleBackColor = true;
+            this.btn_importSettings.Click += new System.EventHandler(this.click_importSettings);
             // 
             // btn_settingsRevertChanges
             // 
@@ -2988,20 +3026,6 @@ namespace HawkSync_SM
             // toolTip1
             // 
             this.toolTip1.UseAnimation = false;
-            // 
-            // btn_importSettings
-            // 
-            resources.ApplyResources(this.btn_importSettings, "btn_importSettings");
-            this.btn_importSettings.Name = "btn_importSettings";
-            this.btn_importSettings.UseVisualStyleBackColor = true;
-            this.btn_importSettings.Click += new System.EventHandler(this.click_importSettings);
-            // 
-            // btn_exportSettings
-            // 
-            resources.ApplyResources(this.btn_exportSettings, "btn_exportSettings");
-            this.btn_exportSettings.Name = "btn_exportSettings";
-            this.btn_exportSettings.UseVisualStyleBackColor = true;
-            this.btn_exportSettings.Click += new System.EventHandler(this.click_exportSettings);
             // 
             // SM_ServerManager
             // 

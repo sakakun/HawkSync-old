@@ -299,6 +299,99 @@
   <data name="&gt;&gt;page_maps.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="chat_textBoxMsg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 4</value>
+  </data>
+  <data name="chat_textBoxMsg.MaxLength" type="System.Int32, mscorlib">
+    <value>59</value>
+  </data>
+  <data name="chat_textBoxMsg.Size" type="System.Drawing.Size, System.Drawing">
+    <value>514, 20</value>
+  </data>
+  <data name="chat_textBoxMsg.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;chat_textBoxMsg.Name" xml:space="preserve">
+    <value>chat_textBoxMsg</value>
+  </data>
+  <data name="&gt;&gt;chat_textBoxMsg.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chat_textBoxMsg.Parent" xml:space="preserve">
+    <value>panel_chatMessage</value>
+  </data>
+  <data name="&gt;&gt;chat_textBoxMsg.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chat_channelSelection.Items" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="chat_channelSelection.Items1" xml:space="preserve">
+    <value>Yellow</value>
+  </data>
+  <data name="chat_channelSelection.Items2" xml:space="preserve">
+    <value>Orange</value>
+  </data>
+  <data name="chat_channelSelection.Items3" xml:space="preserve">
+    <value>Team Red</value>
+  </data>
+  <data name="chat_channelSelection.Items4" xml:space="preserve">
+    <value>Team Blue</value>
+  </data>
+  <data name="chat_channelSelection.Location" type="System.Drawing.Point, System.Drawing">
+    <value>521, 4</value>
+  </data>
+  <data name="chat_channelSelection.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 21</value>
+  </data>
+  <data name="chat_channelSelection.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;chat_channelSelection.Name" xml:space="preserve">
+    <value>chat_channelSelection</value>
+  </data>
+  <data name="&gt;&gt;chat_channelSelection.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chat_channelSelection.Parent" xml:space="preserve">
+    <value>panel_chatMessage</value>
+  </data>
+  <data name="&gt;&gt;chat_channelSelection.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btn_sendChat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>595, 3</value>
+  </data>
+  <data name="btn_sendChat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_sendChat.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="btn_sendChat.Text" xml:space="preserve">
+    <value>Send Chat</value>
+  </data>
+  <data name="&gt;&gt;btn_sendChat.Name" xml:space="preserve">
+    <value>btn_sendChat</value>
+  </data>
+  <data name="&gt;&gt;btn_sendChat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_sendChat.Parent" xml:space="preserve">
+    <value>panel_chatMessage</value>
+  </data>
+  <data name="&gt;&gt;btn_sendChat.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel_chatMessage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>65, 366</value>
+  </data>
+  <data name="panel_chatMessage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>674, 29</value>
+  </data>
+  <data name="panel_chatMessage.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
   <data name="&gt;&gt;panel_chatMessage.Name" xml:space="preserve">
     <value>panel_chatMessage</value>
   </data>
@@ -311,6 +404,51 @@
   <data name="&gt;&gt;panel_chatMessage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Name" xml:space="preserve">
+    <value>groupBox_chatChannel</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.Parent" xml:space="preserve">
+    <value>panel_chatControls</value>
+  </data>
+  <data name="&gt;&gt;groupBox_chatChannel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;cb_chatPlayerSelect.Name" xml:space="preserve">
+    <value>cb_chatPlayerSelect</value>
+  </data>
+  <data name="&gt;&gt;cb_chatPlayerSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cb_chatPlayerSelect.Parent" xml:space="preserve">
+    <value>panel_chatControls</value>
+  </data>
+  <data name="&gt;&gt;cb_chatPlayerSelect.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;button1.Name" xml:space="preserve">
+    <value>button1</value>
+  </data>
+  <data name="&gt;&gt;button1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
+    <value>panel_chatControls</value>
+  </data>
+  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panel_chatControls.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 332</value>
+  </data>
+  <data name="panel_chatControls.Size" type="System.Drawing.Size, System.Drawing">
+    <value>794, 29</value>
+  </data>
+  <data name="panel_chatControls.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
   <data name="&gt;&gt;panel_chatControls.Name" xml:space="preserve">
     <value>panel_chatControls</value>
   </data>
@@ -322,6 +460,18 @@
   </data>
   <data name="&gt;&gt;panel_chatControls.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="data_chatViewer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="data_chatViewer.RowHeadersWidth" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="data_chatViewer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>794, 323</value>
+  </data>
+  <data name="data_chatViewer.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;data_chatViewer.Name" xml:space="preserve">
     <value>data_chatViewer</value>
@@ -399,7 +549,7 @@
     <value>6, 16</value>
   </data>
   <data name="text_newAutoMessage.MaxLength" type="System.Int32, mscorlib">
-    <value>60</value>
+    <value>59</value>
   </data>
   <data name="text_newAutoMessage.Size" type="System.Drawing.Size, System.Drawing">
     <value>685, 20</value>
@@ -4203,6 +4353,54 @@
   <data name="&gt;&gt;gB_options.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btn_exportSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>301, 20</value>
+  </data>
+  <data name="btn_exportSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_exportSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btn_exportSettings.Text" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Name" xml:space="preserve">
+    <value>btn_exportSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_exportSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btn_importSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>220, 20</value>
+  </data>
+  <data name="btn_importSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_importSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="btn_importSettings.Text" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Name" xml:space="preserve">
+    <value>btn_importSettings</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.Parent" xml:space="preserve">
+    <value>gB_options</value>
+  </data>
+  <data name="&gt;&gt;btn_importSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="btn_settingsRevertChanges.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom</value>
   </data>
@@ -5176,7 +5374,7 @@
     <value>85, 17</value>
   </data>
   <data name="smT_serverName.MaxLength" type="System.Int32, mscorlib">
-    <value>31</value>
+    <value>30</value>
   </data>
   <data name="smT_serverName.Size" type="System.Drawing.Size, System.Drawing">
     <value>130, 20</value>
@@ -6183,204 +6381,6 @@
   <data name="&gt;&gt;btn_moveMapUp.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Name" xml:space="preserve">
-    <value>chat_textBoxMsg</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Name" xml:space="preserve">
-    <value>chat_channelSelection</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Name" xml:space="preserve">
-    <value>btn_sendChat</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel_chatMessage.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 366</value>
-  </data>
-  <data name="panel_chatMessage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>674, 29</value>
-  </data>
-  <data name="panel_chatMessage.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Name" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;panel_chatMessage.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="chat_textBoxMsg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 4</value>
-  </data>
-  <data name="chat_textBoxMsg.MaxLength" type="System.Int32, mscorlib">
-    <value>30</value>
-  </data>
-  <data name="chat_textBoxMsg.Size" type="System.Drawing.Size, System.Drawing">
-    <value>514, 20</value>
-  </data>
-  <data name="chat_textBoxMsg.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Name" xml:space="preserve">
-    <value>chat_textBoxMsg</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_textBoxMsg.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="chat_channelSelection.Items" xml:space="preserve">
-    <value>Global</value>
-  </data>
-  <data name="chat_channelSelection.Items1" xml:space="preserve">
-    <value>Yellow</value>
-  </data>
-  <data name="chat_channelSelection.Items2" xml:space="preserve">
-    <value>Orange</value>
-  </data>
-  <data name="chat_channelSelection.Items3" xml:space="preserve">
-    <value>Team Red</value>
-  </data>
-  <data name="chat_channelSelection.Items4" xml:space="preserve">
-    <value>Team Blue</value>
-  </data>
-  <data name="chat_channelSelection.Location" type="System.Drawing.Point, System.Drawing">
-    <value>521, 4</value>
-  </data>
-  <data name="chat_channelSelection.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 21</value>
-  </data>
-  <data name="chat_channelSelection.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Name" xml:space="preserve">
-    <value>chat_channelSelection</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;chat_channelSelection.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="btn_sendChat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>595, 3</value>
-  </data>
-  <data name="btn_sendChat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_sendChat.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="btn_sendChat.Text" xml:space="preserve">
-    <value>Send Chat</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Name" xml:space="preserve">
-    <value>btn_sendChat</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.Parent" xml:space="preserve">
-    <value>panel_chatMessage</value>
-  </data>
-  <data name="&gt;&gt;btn_sendChat.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Name" xml:space="preserve">
-    <value>groupBox_chatChannel</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;groupBox_chatChannel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Name" xml:space="preserve">
-    <value>cb_chatPlayerSelect</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;cb_chatPlayerSelect.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;button1.Name" xml:space="preserve">
-    <value>button1</value>
-  </data>
-  <data name="&gt;&gt;button1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button1.Parent" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="panel_chatControls.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 332</value>
-  </data>
-  <data name="panel_chatControls.Size" type="System.Drawing.Size, System.Drawing">
-    <value>794, 29</value>
-  </data>
-  <data name="panel_chatControls.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Name" xml:space="preserve">
-    <value>panel_chatControls</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;panel_chatControls.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="groupBox_chatChannel.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
   </data>
@@ -6652,30 +6652,6 @@
     <value>panel_chatControls</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="data_chatViewer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="data_chatViewer.RowHeadersWidth" type="System.Int32, mscorlib">
-    <value>51</value>
-  </data>
-  <data name="data_chatViewer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>794, 323</value>
-  </data>
-  <data name="data_chatViewer.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Name" xml:space="preserve">
-    <value>data_chatViewer</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.Parent" xml:space="preserve">
-    <value>page_chat</value>
-  </data>
-  <data name="&gt;&gt;data_chatViewer.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="toolStripMenuItem134.Size" type="System.Drawing.Size, System.Drawing">
@@ -7734,54 +7710,6 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>317, 17</value>
   </metadata>
-  <data name="btn_importSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>220, 20</value>
-  </data>
-  <data name="btn_importSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_importSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="btn_importSettings.Text" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Name" xml:space="preserve">
-    <value>btn_importSettings</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_importSettings.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="btn_exportSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>301, 20</value>
-  </data>
-  <data name="btn_exportSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
-  </data>
-  <data name="btn_exportSettings.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="btn_exportSettings.Text" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Name" xml:space="preserve">
-    <value>btn_exportSettings</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.Parent" xml:space="preserve">
-    <value>gB_options</value>
-  </data>
-  <data name="&gt;&gt;btn_exportSettings.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
