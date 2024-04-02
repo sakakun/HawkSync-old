@@ -2954,12 +2954,6 @@ namespace HawkSync_SM
             }
         }
 
-        private void event_clickShowChatHistory(object sender, EventArgs e)
-        {
-            ChatHistory chatHistory = new ChatHistory(_state);
-            chatHistory.ShowDialog();
-        }
-
         private void button23_Click(object sender, EventArgs e)
         {
             if (_state.Instances[ArrayID].instanceStatus == InstanceStatus.LOADINGMAP || _state.Instances[ArrayID].instanceStatus == InstanceStatus.SCORING)

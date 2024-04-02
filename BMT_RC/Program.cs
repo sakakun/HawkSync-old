@@ -18,8 +18,7 @@ namespace HawkSync_RC
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    "Babstats", "Remote Control");
+                var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Remote Control");
                 if (!Directory.Exists(appDataPath)) Directory.CreateDirectory(appDataPath);
 
                 // check remote.ini

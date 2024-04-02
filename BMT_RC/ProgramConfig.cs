@@ -9,12 +9,10 @@ namespace HawkSync_RC
     public static class ProgramConfig
     {
         public static string RemoteINI =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats",
-                "Remote Control", "remote.ini");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Remote Control", "remote.ini");
 
         public static string RemoteProfiles =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats",
-                "Remote Control", "profiles.ini");
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Remote Control", "profiles.ini");
 
         public static int timeOut = 50000;
         public static Encoding Encoder = Encoding.Default;

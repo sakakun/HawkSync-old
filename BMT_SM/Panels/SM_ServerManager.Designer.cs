@@ -197,7 +197,6 @@ namespace HawkSync_SM
             this.rb_chatRedTeam = new System.Windows.Forms.RadioButton();
             this.rb_chatBlueTeam = new System.Windows.Forms.RadioButton();
             this.cb_chatPlayerSelect = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.data_chatViewer = new System.Windows.Forms.DataGridView();
             this.page_autoMessages = new System.Windows.Forms.TabPage();
             this.gb_autoMessages = new System.Windows.Forms.GroupBox();
@@ -1691,7 +1690,6 @@ namespace HawkSync_SM
             // 
             this.panel_chatControls.Controls.Add(this.groupBox_chatChannel);
             this.panel_chatControls.Controls.Add(this.cb_chatPlayerSelect);
-            this.panel_chatControls.Controls.Add(this.button1);
             resources.ApplyResources(this.panel_chatControls, "panel_chatControls");
             this.panel_chatControls.Name = "panel_chatControls";
             // 
@@ -1753,13 +1751,6 @@ namespace HawkSync_SM
             resources.GetString("cb_chatPlayerSelect.Items")});
             this.cb_chatPlayerSelect.Name = "cb_chatPlayerSelect";
             this.cb_chatPlayerSelect.SelectedIndexChanged += new System.EventHandler(this.event_dropDownChatPlayerSelect);
-            // 
-            // button1
-            // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.event_clickShowChatHistory);
             // 
             // data_chatViewer
             // 
@@ -3433,7 +3424,7 @@ namespace HawkSync_SM
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ComboBox drop_adminList;
         private System.Windows.Forms.ListBox listBox_playerWarnMessages;
-        private System.Windows.Forms.Button button1;
+
         private System.Windows.Forms.Panel panel_mapControls;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label2;

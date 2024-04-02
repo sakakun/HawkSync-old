@@ -124,12 +124,6 @@
     <Compile Include="classes\StatManagement\statsBabstats.cs" />
     <Compile Include="classes\SupportClasses\DatabaseUpdater.cs" />
     <Compile Include="classes\SupportClasses\RestoreBackup.cs" />
-    <Compile Include="Panels\ChatHistory.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Panels\ChatHistory.Designer.cs">
-      <DependentUpon>ChatHistory.cs</DependentUpon>
-    </Compile>
     <Compile Include="classes\ChatManagement\ob_ChatLogs.cs" />
     <Compile Include="classes\ConsoleQueue.cs" />
     <Compile Include="classes\LogManagement\RCLogs.cs" />
@@ -252,9 +246,6 @@
     <Compile Include="classes\IPManagement\ob_ipWhitelist.cs" />
     <Compile Include="classes\ChatManagement\ob_ServerMessageQueue.cs" />
     <Compile Include="classes\SupportClasses\WeaponsClass.cs" />
-    <EmbeddedResource Include="Panels\ChatHistory.resx">
-      <DependentUpon>ChatHistory.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Panels\SM_ServerProfile.resx">
       <DependentUpon>SM_ServerProfile.cs</DependentUpon>
       <SubType>Designer</SubType>

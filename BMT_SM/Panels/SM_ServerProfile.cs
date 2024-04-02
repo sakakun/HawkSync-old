@@ -118,7 +118,7 @@ namespace HawkSync_SM
                 // Add Instance to Current AppState
                 _state.Instances.Add(ArrayID, newProfile);
                 //_state.PlayerStats.Add(_state.PlayerStats.Count, new CollectedPlayerStatsPlayers());
-                _state.IPQualityCache.Add(_state.IPQualityCache.Count, new ipqualityscore());
+                _state.IPQualityCache.Add(_state.IPQualityCache.Count + 1, new ipqualityscore());
 
 
             }
