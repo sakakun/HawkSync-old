@@ -150,7 +150,6 @@
     <Compile Include="classes\RCManagement\Compression.cs" />
     <Compile Include="classes\SupportClasses\GameType.cs" />
     <Compile Include="classes\SupportClasses\HexConverter.cs" />
-    <Compile Include="GlobalAppState.cs" />
     <Compile Include="classes\StatManagement\InternalPlayerStats.cs" />
     <Compile Include="classes\StatManagement\InternalWeaponStats.cs" />
     <Compile Include="classes\IPManagement\ipqualityClass.cs" />
@@ -205,10 +204,6 @@
       <DependentUpon>SM_ServerManager.cs</DependentUpon>
     </Compile>
     <Compile Include="classes\ServerManagement\Instance.cs" />
-    <Compile Include="Main_Load.cs" />
-    <Compile Include="Main_Load.Designer.cs">
-      <DependentUpon>Main_Load.cs</DependentUpon>
-    </Compile>
     <Compile Include="classes\SupportClasses\sqlite.cs" />
     <Compile Include="Panels\SM_StartGame.cs">
       <SubType>Form</SubType>
@@ -265,9 +260,6 @@
     <EmbeddedResource Include="Panels\SM_ServerManager.resx">
       <DependentUpon>SM_ServerManager.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main_Load.resx">
-      <DependentUpon>Main_Load.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\SM_ProfileList.resx">
       <DependentUpon>SM_ProfileList.cs</DependentUpon>

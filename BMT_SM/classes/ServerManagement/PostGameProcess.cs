@@ -51,7 +51,7 @@ namespace HawkSync_SM
         {
             ArrayID = rowID;
 
-            _connection = new SQLiteConnection(ProgramConfig.DBConfig);
+            _connection = new SQLiteConnection(ProgramConfig.dbConfig);
             _state = state;
             _chatLogs = chatlogs;
             _connection.Open();

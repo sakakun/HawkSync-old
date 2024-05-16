@@ -114,7 +114,7 @@ namespace HawkSync_SM.RCClasses
             {
                 try
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `instanceid` = @instanceid AND `message` = @message;", db);
                     cmd.Parameters.AddWithValue("@instanceid", _state.Instances[InstanceIndex].instanceID);
@@ -173,7 +173,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `customwarnings` (`id`, `instanceid`, `message`) VALUES (NULL, @instanceid, @message);", db);
                     cmd.Parameters.AddWithValue("@instanceid", InstanceID);
@@ -233,7 +233,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -273,7 +273,7 @@ namespace HawkSync_SM.RCClasses
         {
             try
             {
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("SELECT `iso` FROM `country`;", db);
                 SQLiteDataReader read = cmd.ExecuteReader();
@@ -312,7 +312,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -366,7 +366,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -438,7 +438,7 @@ namespace HawkSync_SM.RCClasses
                         return RCListenerClass.StatusCodes.INVALIDBANREASON;
                     }
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand lastID_query =
                         new SQLiteCommand("SELECT `id` FROM `playerbans` ORDER BY `id` DESC LIMIT 1;", db);
@@ -533,7 +533,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -620,7 +620,7 @@ namespace HawkSync_SM.RCClasses
                     process.Dispose();
                     CloseHandle(processHandle);
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -675,7 +675,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].AutoMessages.messages.Remove(_state.Instances[InstanceIndex].AutoMessages.messages[slot]);
-                    SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                     conn.Open();
                     SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
                     automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
@@ -683,7 +683,7 @@ namespace HawkSync_SM.RCClasses
                     automessages.ExecuteNonQuery();
                     conn.Close();
                     conn.Dispose();
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -739,7 +739,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     if (Enabled == true)
                     {
-                        SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                         conn.Open();
                         SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 1 WHERE `profile_id` = @profileid;", conn);
                         automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
@@ -747,7 +747,7 @@ namespace HawkSync_SM.RCClasses
                         automessages.Dispose();
                         conn.Close();
                         conn.Dispose();
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         string action = Enabled ? "EnableAutoMsg" : "DisableAutoMsg";
@@ -775,7 +775,7 @@ namespace HawkSync_SM.RCClasses
                     }
                     else
                     {
-                        SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                         conn.Open();
                         SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 0 WHERE `profile_id` = @profileid;", conn);
                         automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
@@ -783,7 +783,7 @@ namespace HawkSync_SM.RCClasses
                         automessages.Dispose();
                         conn.Close();
                         conn.Dispose();
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -841,7 +841,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     if (_state.Instances[InstanceIndex].PlayerList.ContainsKey(slotNum))
                     {
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -922,7 +922,7 @@ namespace HawkSync_SM.RCClasses
                         _state.Instances[InstanceIndex].MapListCurrent.Add(_state.Instances[InstanceIndex].MapListCurrent.Count, map);
                     }
                     serverManagerUpdateMemory.UpdateMapCycle2(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `mapcycle` = @mapcycle WHERE `profile_id` = @profileid;", db);
@@ -1026,7 +1026,7 @@ namespace HawkSync_SM.RCClasses
                     WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, 0x00462ABA, revert_colorcode, revert_colorcode.Length, ref revert_colorbuffer);
                     process.Dispose();
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -1083,7 +1083,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameRespawnTime = respawnTime;
                     serverManagerUpdateMemory.UpdateRespawnTime(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `respawn_time` = @respawntime WHERE `profile_id` = @profileid;", db);
@@ -1146,7 +1146,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameFlagReturnTime = flagReturnTime;
                     serverManagerUpdateMemory.UpdateFlagReturnTime(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `flagreturntime` = @flagreturntime WHERE `profile_id` = @profileid;", db);
@@ -1208,7 +1208,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameFriendlyFireKills = friendlyFireKills;
                     serverManagerUpdateMemory.UpdateFriendlyFireKills(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `friendly_fire_kills` = @friendly_fire_kills WHERE `profile_id` = @profileid;", db);
@@ -1253,7 +1253,7 @@ namespace HawkSync_SM.RCClasses
             ServerManagement serverManagerUpdateMemory = new ServerManagement();
 
             // DB Connection
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
 
             // Get Instance Index
@@ -1430,7 +1430,7 @@ namespace HawkSync_SM.RCClasses
                 _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].profileName, "Allow");
                 _state.Instances[InstanceID].Firewall.DeleteFirewallRules(_state.Instances[InstanceID].profileName, "Deny");
 
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
 
                 SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -1479,7 +1479,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].gameScoreBoardDelay = scoreboardDelay;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `scoreboard_override` = @scoreboard_override WHERE `profile_id` = @profileid;", db);
@@ -1541,7 +1541,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameMaxTeamLives = maxTeamLives;
                     serverManagerUpdateMemory.UpdateMaxTeamLives(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `max_team_lives` = @gameMaxTeamLives WHERE `profile_id` = @profileid;", db);
@@ -1603,7 +1603,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gamePSPTOTimer = pSPTime;
                     serverManagerUpdateMemory.UpdatePSPTakeOverTime(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `psptakeover` = @gamePSPTOTimer WHERE `profile_id` = @profileid;", db);
@@ -1665,7 +1665,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameCustomSkins = allowCustomSkins;
                     serverManagerUpdateMemory.UpdateAllowCustomSkins(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `allow_custom_skins` = @allow_custom_skins WHERE `profile_id` = @profileid;", db);
@@ -1728,7 +1728,7 @@ namespace HawkSync_SM.RCClasses
                     int oldPw = _state.Instances[InstanceIndex].gamePasswordBlue.Length;
                     _state.Instances[InstanceIndex].gamePasswordBlue = bluePassword;
                     serverManagerUpdateMemory.UpdateBluePassword(_state, InstanceIndex, oldPw);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `blue_team_password` = @blue_team_password WHERE `profile_id` = @profileid;", db);
@@ -1866,7 +1866,7 @@ namespace HawkSync_SM.RCClasses
 
         public RCListenerClass.StatusCodes RemoveAdminNote(string playerName, string msg, string sessionid)
         {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `adminnotes` WHERE `name` = @playername AND `msg` = @msg;", db);
             cmd.Parameters.AddWithValue("@playername", playerName);
@@ -1925,7 +1925,7 @@ namespace HawkSync_SM.RCClasses
                         name = playerName,
                         msg = note
                     });
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `adminnotes` (`userid`, `name`, `msg`) VALUES (@newid, @playername, @msg);", db);
                     cmd.Parameters.AddWithValue("@newid", PlayerID);
@@ -2027,7 +2027,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].gameScoreFlags = fBScore;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
 
@@ -2088,7 +2088,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].gameScoreKills = gameScore;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `game_score` = @game_score WHERE `profile_id` = @profileid;", db);
@@ -2148,7 +2148,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].gameScoreZoneTime = kOTHScore;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `zone_timer` = @zoneTimer WHERE `profile_id` = @profileid;", db);
@@ -2209,7 +2209,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     _state.Instances[InstanceIndex].gameMaxPing = enablePing;
                     _state.Instances[InstanceIndex].gameMaxPingValue = pingValue;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
 
@@ -2273,7 +2273,7 @@ namespace HawkSync_SM.RCClasses
                     _state.Instances[InstanceIndex].WeaponRestrictions = weapons;
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateWeaponRestrictions(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -2336,7 +2336,7 @@ namespace HawkSync_SM.RCClasses
                 {
                     _state.Instances[InstanceIndex].gameMinPing = enablePing;
                     _state.Instances[InstanceIndex].gameMinPingValue = pingValue;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
 
@@ -2407,7 +2407,7 @@ namespace HawkSync_SM.RCClasses
                     _state.Instances[InstanceIndex].gameOptionShowTracers = showTracers;
                     _state.Instances[InstanceIndex].gameOptionAutoRange = allowAutoRange;
                     serverManagerUpdateMemory.GamePlayOptions(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
 
@@ -2477,7 +2477,7 @@ namespace HawkSync_SM.RCClasses
                     int oldPw = _state.Instances[InstanceIndex].gamePasswordRed.Length;
                     _state.Instances[InstanceIndex].gamePasswordRed = redPassword;
                     serverManagerUpdateMemory.UpdateRedPassword(_state, InstanceIndex, oldPw);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `red_team_password` = @redPassword WHERE `profile_id` = @profileid;", db);
@@ -2539,7 +2539,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameMOTD = MOTD;
                     serverManagerUpdateMemory.UpdateMOTD(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `motd` = @motd WHERE `profile_id` = @profileid;", db);
@@ -2601,7 +2601,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameRequireNova = requireNovaLogin;
                     serverManagerUpdateMemory.UpdateRequireNovaLogin(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `require_nova` = @requireNova WHERE `profile_id` = @profileid;", db);
@@ -2664,7 +2664,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameLoopMaps = loopMaps;
                     serverManagerUpdateMemory.UpdateLoopMaps(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `loop_maps` = @loopMaps WHERE `profile_id` = @profileid;", db);
@@ -2726,7 +2726,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameStartDelay = startDelay;
                     serverManagerUpdateMemory.UpdateStartDelay(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `start_delay` = @startDelay WHERE `profile_id` = @profileid;", db);
@@ -2788,7 +2788,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameTimeLimit = timeLimit;
                     serverManagerUpdateMemory.UpdateTimeLimit(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `time_limit` = @timeLimit WHERE `profile_id` = @profileid;", db);
@@ -2850,7 +2850,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameSessionType = sessionType;
                     serverManagerUpdateMemory.UpdateSessionType(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `session_type` = @sessionType WHERE `profile_id` = @profileid;", db);
@@ -2912,7 +2912,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gamePasswordLobby = password;
                     serverManagerUpdateMemory.UpdateServerPassword(_state, InstanceIndex, password.Length);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `server_password` = @serverPassword WHERE `profile_id` = @profileid;", db);
@@ -2974,7 +2974,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameCountryCode = countryCode;
                     serverManagerUpdateMemory.UpdateCountryCode(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `country_code` = @countryCode WHERE `profile_id` = @profileid;", db);
@@ -3036,7 +3036,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     _state.Instances[InstanceIndex].gameServerName = serverName;
                     serverManagerUpdateMemory.UpdateServerName(_state, InstanceIndex);
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `server_name` = @serverName WHERE `profile_id` = @profileid;", db);
@@ -3129,7 +3129,7 @@ namespace HawkSync_SM.RCClasses
                         WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, playerObjectLocation + 0x138, setDamageBy, setDamageBy.Length, ref setDamageByWrite);
                         WriteProcessMemory((int)_state.Instances[InstanceIndex].instanceProcessHandle, playerObjectLocation + 0xE2, setPlayerHealth, setPlayerHealth.Length, ref setPlayerHealthWrite);
 
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -3204,7 +3204,7 @@ namespace HawkSync_SM.RCClasses
                             Description = description,
                             IPAddress = PlayerIP.ToString()
                         });
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
                         SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
                         cmd.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
@@ -3268,7 +3268,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `vpnCheckEnabled` = @vpnCheckEnabled WHERE `profile_id` = @profileid;", db);
@@ -3328,7 +3328,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand updateDB = new SQLiteCommand("UPDATE `instances_config` SET `warnlevel` = @warnLevel WHERE `profile_id` = @profileid;", db);
@@ -3403,7 +3403,7 @@ namespace HawkSync_SM.RCClasses
                     }
                     else
                     {
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
                         SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
                         cmd.Parameters.AddWithValue("@banid", _state.Instances[InstanceIndex].PlayerListBans[playerIndex].id);
@@ -3464,7 +3464,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].AutoMessages.interval = interval;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `auto_msg_interval` = @value WHERE `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@value", interval);
@@ -3523,7 +3523,7 @@ namespace HawkSync_SM.RCClasses
                 if (InstanceIndex != -1)
                 {
                     _state.Instances[InstanceIndex].AutoMessages.messages.Add(newMsg);
-                    SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                     conn.Open();
                     SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
                     automessages.Parameters.AddWithValue("@profileid", _state.Instances[InstanceIndex].instanceID);
@@ -3584,7 +3584,7 @@ namespace HawkSync_SM.RCClasses
                     ServerManagement serverManagerUpdateMemory = new ServerManagement();
                     serverManagerUpdateMemory.UpdateNextMap(_state, InstanceIndex, slot);
                     _state.Instances[InstanceIndex].infoCounterMaps = _state.Instances[InstanceIndex].MapListCurrent.Count;
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -3668,7 +3668,7 @@ namespace HawkSync_SM.RCClasses
                         process.Dispose();
                         CloseHandle(processHandle);
 
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -3743,7 +3743,7 @@ namespace HawkSync_SM.RCClasses
                     {
                         (new ServerManagement()).ScoreMap(ref _state, InstanceIndex);
 
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
 
                         SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -3814,7 +3814,7 @@ namespace HawkSync_SM.RCClasses
                         switchTeam = ob_playerList.Teams.TEAM_BLUE;
                     }
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -3900,7 +3900,7 @@ namespace HawkSync_SM.RCClasses
                     process.Dispose();
                     CloseHandle(processHandle);
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand newEntryCmd = new SQLiteCommand("INSERT INTO `rclogs` (`id`, `sessionid`, `username`, `action`, `address`, `date`) VALUES (NULL, @sessionid, @username, @action, @address, @date);", db);
@@ -4015,7 +4015,7 @@ namespace HawkSync_SM.RCClasses
                         }
                     }
 
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("SELECT `default_maps`.`mission_name`, `default_maps`.`mission_file`, `gametypes`.`id` FROM `default_maps` INNER JOIN `gametypes` ON `default_maps`.`gametype` = `gametypes`.`shortname`;", db);
                     SQLiteDataReader reader = cmd.ExecuteReader();
@@ -4135,7 +4135,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `rotation_id` = @id AND `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@id", RotationID);
@@ -4194,7 +4194,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
 
                     SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `instances_map_rotations` (`rotation_id`, `profile_id`, `description`, `mapcycle`) VALUES (NULL, @profileid, @rotationDescription, @rotation);", db);
@@ -4244,7 +4244,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 if (InstanceIndex != -1)
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_map_rotations` SET `description` = @description, `mapcycle` = @mapcycle WHERE `rotation_id` = @rotationid AND `profile_id` = @profileid;", db);
                     cmd.Parameters.AddWithValue("@description", description);
@@ -4307,7 +4307,7 @@ namespace HawkSync_SM.RCClasses
                     return RCListenerClass.StatusCodes.USERALREADYEXISTS;
                 }
 
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `users` (`id`, `username`, `password`, `permissions`, `superadmin`, `subadmin`) VALUES (NULL, @username, @password, @permissions, @superadmin, @subadmin);", db);
 
@@ -4360,7 +4360,7 @@ namespace HawkSync_SM.RCClasses
                 }
                 else
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `users` WHERE `username` = @username;", db);
                     cmd.Parameters.AddWithValue("@username", username);

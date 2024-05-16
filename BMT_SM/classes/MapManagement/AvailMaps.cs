@@ -89,7 +89,7 @@ namespace HawkSync_SM.classes.MapManagement
                     customMaps.Add(map);
                 }
             }
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("SELECT `default_maps`.`mission_name`, `default_maps`.`mission_file`, `gametypes`.`id` FROM `default_maps` INNER JOIN `gametypes` ON `default_maps`.`gametype` = `gametypes`.`shortname`;", db);
             SQLiteDataReader reader = cmd.ExecuteReader();

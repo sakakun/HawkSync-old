@@ -139,7 +139,7 @@ namespace HawkSync_SM
                 return;
             }
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             if (list_savedMapRotation.SelectedIndex == 0)
             {
@@ -259,7 +259,7 @@ namespace HawkSync_SM
             {
                 return; // do not delete "new rotation"
             }
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `instances_map_rotations` WHERE `rotation_id` = @rotationid;", db);
             int memoryLoc = selectedCycle - 1;

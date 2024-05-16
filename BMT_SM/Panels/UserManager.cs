@@ -351,7 +351,7 @@ namespace HawkSync_SM
                 return;
             }
             string passwordMD5 = Crypt.CreateMD5(textBox2.Text);
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             if (editUser == false)
             {
@@ -713,7 +713,7 @@ namespace HawkSync_SM
                     _state.Users.Remove(user);
                 }
                 usersToDelete.Clear();
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `users` WHERE `username` = @username AND `id` = @userid;", db);
                 cmd.Parameters.AddWithValue("@userid", userid);

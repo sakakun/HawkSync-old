@@ -79,7 +79,7 @@ namespace HawkSync_SM
                 }
 
                 // SQL Add Instance
-                SQLiteConnection m_dbConnection = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection m_dbConnection = new SQLiteConnection(ProgramConfig.dbConfig);
                 m_dbConnection.Open();
 
                 SQLiteCommand add_profile = new SQLiteCommand("INSERT INTO `instances` (`id`, `name`, `game_type`, `gamepath`, `stats`, `stats_url`, `stats_server_id`, `stats_verified`, `host_name`, `port`, `anti_stat_padding`, `anti_stat_padding_min_minutes`, `anti_stat_padding_min_players`, `misc_crashrecovery`, `misc_babstats_master`, `misc_show_ranks`, `misc_left_leaning`, `bind_address`, `novahq_master`, `novacc_master`, `plugins`) VALUES (NULL, @profilename, @gametype, @gamepath, @statssoftware, @statsurl, @statsserverid, 0, @host, @port, @anti_stat_pad, @WebStatsASPMinMinutes, @WebStatsASPMinPlayers, @misc_crashrecovery, @misc_babstats_master, @announceranks, @leftleaning, @bindingaddress, @novahq_master, @novacc_master, @plugins); ", m_dbConnection);
@@ -152,7 +152,7 @@ namespace HawkSync_SM
             _state.Instances[ArrayID].ReportNovaHQ = cb_enableHBNHQ.Checked;
             _state.Instances[ArrayID].ReportNovaCC = cb_enableHBNWCC.Checked;
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances` SET `name` = @profilename, `gamepath` = @gamepath, `game_type` = @gametype, `stats` = @stats, `stats_url` = @statsurl, `stats_server_id` = @statsserverid, `host_name` = @hostname, `bind_address` = @bindaddress, `port` = @serverport, `anti_stat_padding` = @anti_stat_padding, `anti_stat_padding_min_minutes` = @anti_stat_padding_min_minutes, `anti_stat_padding_min_players` = @anti_stat_padding_min_players, `misc_crashrecovery` = @misc_CrashRecovery, `misc_babstats_master` = @misc_babstats_master, `misc_show_ranks` = @misc_show_ranks, `misc_left_leaning` = @misc_left_leaning, `novahq_master` = @novahq, `novacc_master` = @novacc, `plugins` = @plugins WHERE `id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@profilename", _state.Instances[ArrayID].profileName);

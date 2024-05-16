@@ -41,7 +41,7 @@ namespace HawkSync_SM
         {
             if (checkBox1.Checked == true)
             {
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmdInsert = new SQLiteCommand("INSERT INTO `instances_map_rotations` (`rotation_id`, `profile_id`, `description`, `mapcycle`) VALUES (NULL, @profileid, @description, @mapcycle);", db);
                 cmdInsert.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
@@ -60,7 +60,7 @@ namespace HawkSync_SM
             }
             else
             {
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_map_rotations` SET `mapcycle` = @mapcycle WHERE `rotation_id` = @rotationID;", db);
                 cmd.Parameters.AddWithValue("@mapcycle", JsonConvert.SerializeObject(mapLists));

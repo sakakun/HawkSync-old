@@ -224,7 +224,7 @@ namespace HawkSync_SM
                     name = _state.Instances[ArrayID].PlayerList[playerSlot].name,
                     msg = textBox1.Text
                 });
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `adminnotes` (`userid`, `name`, `msg`) VALUES (@newid, @playername, @msg);", db);
                 cmd.Parameters.AddWithValue("@newid", PlayerID);
@@ -263,7 +263,7 @@ namespace HawkSync_SM
 
             if (result == DialogResult.Yes)
             {
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `adminnotes` WHERE `name`= @playername;", db);
                 cmd.Parameters.AddWithValue("@playername", _state.Instances[ArrayID].PlayerList[playerSlot].name);
@@ -294,7 +294,7 @@ namespace HawkSync_SM
             {
                 int selectedIndex = dataGridView13.CurrentCell.RowIndex;
                 string msg = AdminNotes.Rows[selectedIndex]["Msg"].ToString();
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `adminnotes` WHERE `name` = @playername AND `msg` = @msg;", db);
                 cmd.Parameters.AddWithValue("@playername", playerName);

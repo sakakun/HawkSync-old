@@ -61,7 +61,7 @@ namespace HawkSync_SM
         Dictionary<int, GameType> gameTypes = new Dictionary<int, GameType>();
         public DataTable table_profileList = new DataTable();
         public Dictionary<int, Dictionary<int, MapList>> mapList = new Dictionary<int, Dictionary<int, MapList>>();
-        public SQLiteConnection hawkSyncDB = new SQLiteConnection(ProgramConfig.DBConfig);
+        public SQLiteConnection hawkSyncDB = new SQLiteConnection(ProgramConfig.dbConfig);
 
         // Object: Application State (Server Manager)       
         public AppState _state;
@@ -139,7 +139,7 @@ namespace HawkSync_SM
                         }
 
                         string file_name = "";
-                        SQLiteConnection _connection = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection _connection = new SQLiteConnection(ProgramConfig.dbConfig);
                         _connection.Open();
                         SQLiteCommand command = new SQLiteCommand("select `game_type` from instances WHERE id = @id;", _connection);
                         command.Parameters.AddWithValue("@id", _state.Instances[ArrayID].instanceID);
@@ -919,7 +919,7 @@ namespace HawkSync_SM
             _state.SystemInfo = GatherSystemInfo();
             _state.autoRes = SetupAutoRestart(hawkSyncDB);
 
-            GlobalAppState.AppState = _state;
+            ProgramConfig.ApplicationState = _state;
             hawkSyncDB.Close();
             Ticker.Enabled = true;
             Ticker.Start();
@@ -1105,7 +1105,7 @@ namespace HawkSync_SM
                 try
                 {
                     Ticker.Stop();
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     using (SQLiteCommand command = db.CreateCommand())
                     {
@@ -1706,7 +1706,7 @@ namespace HawkSync_SM
         {
             var playerBanList = new List<ob_playerBanList>();
 
-            using (var db = new SQLiteConnection(ProgramConfig.DBConfig))
+            using (var db = new SQLiteConnection(ProgramConfig.dbConfig))
             {
                 db.Open();
                 using (var query = new SQLiteCommand("SELECT * FROM `playerbans` WHERE `profileid` = @profileid;", db))

@@ -18,7 +18,7 @@ namespace HawkSync_SM
          */
         internal void checkPlayerHistory(ref AppState _state)
         {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             foreach (var instance in _state.Instances)
             {
@@ -123,7 +123,7 @@ namespace HawkSync_SM
                             {
                                 _state.Instances[inst.Key].PlayerListBans.Remove(ban);
                                 // remove from SQLiteDB
-                                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                                 db.Open();
                                 SQLiteCommand cmdRemove = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
                                 cmdRemove.Parameters.AddWithValue("@banid", ban.id);

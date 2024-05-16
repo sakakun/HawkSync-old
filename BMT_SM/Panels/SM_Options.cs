@@ -53,7 +53,7 @@ namespace HawkSync_SM
 
         private void event_saveClose(object sender, EventArgs e)
         {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `config` SET `value` = @newValue WHERE `key` = @key;", db);
             // Save() Function

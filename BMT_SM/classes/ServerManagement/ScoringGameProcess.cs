@@ -48,7 +48,7 @@ namespace HawkSync_SM
 
         public ScoringGameProcess(AppState state, int InstanceID)
         {
-            _connection = new SQLiteConnection(ProgramConfig.DBConfig);
+            _connection = new SQLiteConnection(ProgramConfig.dbConfig);
             _state = state;
             ArrayID = InstanceID;
             _connection.Open();

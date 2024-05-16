@@ -72,7 +72,7 @@ namespace HawkSync_SM
                 MessageBox.Show("It appears you've added more maps then allowed.\n\nResetting MapCycle. Please try again.\n\nError: #55", "Uh Oh!");
                 listBox2.Items.Clear();
                 label_mapCount.Text = $"{listBox2.Items.Count} / {max_start_maps}";
-                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                 conn.Open();
                 SQLiteCommand clearmaps = new SQLiteCommand($"UPDATE `instances_config` SET `mapcycle` = '[]' WHERE `profile_id` = @profileid;", conn);
                 clearmaps.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
@@ -193,7 +193,7 @@ namespace HawkSync_SM
             // Pass Instance Array back to main state.           
 
             // Database Connection
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
 
             if (listBox2.Items.Count == 0)
@@ -383,7 +383,7 @@ namespace HawkSync_SM
 
             availableMaps = _state.Instances[ArrayID].MapListAvailable;
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
 
             // fill slot

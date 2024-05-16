@@ -7,7 +7,7 @@ namespace HawkSync_SM
         public string db = "settings.sqlite";
         public string ExecuteNonQuery(string sql)
         {
-            using (SQLiteConnection cnn = new SQLiteConnection(ProgramConfig.DBConfig))
+            using (SQLiteConnection cnn = new SQLiteConnection(ProgramConfig.dbConfig))
             using (SQLiteCommand mycommand = new SQLiteCommand(sql, cnn))
             {
                 cnn.Open();
@@ -17,7 +17,7 @@ namespace HawkSync_SM
         }
         public SQLiteDataReader ExecuteReader(string sql)
         {
-            using (SQLiteConnection cnn = new SQLiteConnection(ProgramConfig.DBConfig))
+            using (SQLiteConnection cnn = new SQLiteConnection(ProgramConfig.dbConfig))
             using (SQLiteCommand mycommand = new SQLiteCommand(sql, cnn))
             {
 

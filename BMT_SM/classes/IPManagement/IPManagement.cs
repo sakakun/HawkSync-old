@@ -211,7 +211,7 @@ namespace HawkSync_SM
 
         private void InsertOrUpdateIPQualityCache(int profileID, ipqualityClass ipInfo)
         {
-            using (var conn = new SQLiteConnection(ProgramConfig.DBConfig))
+            using (var conn = new SQLiteConnection(ProgramConfig.dbConfig))
             {
                 conn.Open();
                 var cmd = new SQLiteCommand(conn);
@@ -244,7 +244,7 @@ namespace HawkSync_SM
 
         private void UpdateIPQualityCache(AppState state, int arrayID, ipqualityClass ipInfo)
         {
-            using (var conn = new SQLiteConnection(ProgramConfig.DBConfig))
+            using (var conn = new SQLiteConnection(ProgramConfig.dbConfig))
             {
                 conn.Open();
                 var cmd = new SQLiteCommand(conn);

@@ -27,7 +27,7 @@ namespace HawkSync_SM
                         addedDate = DateTime.Now,
                         bannedBy = bannedBy
                     });
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand lastID_query = new SQLiteCommand("SELECT `id` FROM `playerbans` ORDER BY `id` DESC LIMIT 1;", db);
                     int NextID = Convert.ToInt32(lastID_query.ExecuteScalar());
@@ -50,7 +50,7 @@ namespace HawkSync_SM
                 }
                 else
                 {
-                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                    SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                     db.Open();
                     SQLiteCommand lastID_query = new SQLiteCommand("SELECT `id` FROM `playerbans` ORDER BY `id` DESC LIMIT 1;", db);
                     int NextID = Convert.ToInt32(lastID_query.ExecuteScalar());

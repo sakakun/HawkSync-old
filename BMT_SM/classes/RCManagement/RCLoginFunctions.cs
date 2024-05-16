@@ -63,7 +63,7 @@ namespace HawkSync_SM.RCClasses
                         {
                             log.Info(">> Client Number: " + _state.rcClients[sessionid].clientNo + " has authenicated as: " + _state.rcClients[sessionid]._username);
                         }
-                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                        SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                         db.Open();
                         SQLiteCommand firstNumChk = new SQLiteCommand("SELECT COUNT(`id`) FROM `rclogs`;", db);
                         int firstNumChkID = Convert.ToInt32(firstNumChk.ExecuteScalar());
@@ -109,7 +109,7 @@ namespace HawkSync_SM.RCClasses
         }
         public UserCodes GetUserPermissions(string sessionid)
         {
-            /*SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            /*SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand firstNumChk = new SQLiteCommand("SELECT COUNT(`id`) FROM `rclogs`;", db);
             int firstNumChkID = Convert.ToInt32(firstNumChk.ExecuteScalar());
@@ -154,12 +154,6 @@ namespace HawkSync_SM.RCClasses
         public RCListenerClass.StatusCodes GetAutoRes(ref string autoRes)
         {
             autoRes = Crypt.Base64Encode(JsonConvert.SerializeObject(_state.autoRes));
-            return RCListenerClass.StatusCodes.SUCCESS;
-        }
-
-        public RCListenerClass.StatusCodes GetFTPPort(ref int ftpPort)
-        {
-            ftpPort = ProgramConfig.RCFTPPort;
             return RCListenerClass.StatusCodes.SUCCESS;
         }
     }

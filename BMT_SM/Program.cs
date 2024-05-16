@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.AxHost;
 
 namespace HawkSync_SM
 {
@@ -27,153 +28,81 @@ namespace HawkSync_SM
             AppContext.SetSwitch("Switch.UseLegacyAccessibilityFeatures.2", false);
             AppContext.SetSwitch("Switch.UseLegacyAccessibilityFeatures", false);
 
-            // Firewall Check & Modification
-            if (IsApplicationAllowed())
-            {
-                Console.WriteLine("Application is already allowed through the firewall.");
-            }
-            else
-            {
-                AddApplicationToFirewall(Process.GetCurrentProcess().MainModule.FileName);
-            }
-
-            // Process Database & Preload Configurations
-            ProcessDatabase();
-            // Load Prefered Language from DB
-            LoadLanguages();
             // Load Remote Control Configurations
-            GetRemoteControlConfig();
+            GetRemoteControlConfig(); 
 
             // Application Version Statements
             Assembly assembly = Assembly.GetExecutingAssembly();
             FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+
             ProgramConfig.ApplicationVersion = fileVersionInfo.FileVersion;
-
-            // Log Application Start
-            log.Info("HawkSync Starting");
-
-            // Trigger Non-Static Application
-            Main_Load loader = new Main_Load();
-        }
-
-        static private bool IsApplicationAllowed()
-        {
-            // Specify the path of the Netsh executable
-            string netshPath = Environment.ExpandEnvironmentVariables("%SystemRoot%\\System32\\netsh.exe");
-
-            // Specify the command to list firewall rules for the program
-            string command = $"advfirewall firewall show rule name=\"Babstats Server Manager\"";
-
-            // Set up the process start info
-            ProcessStartInfo processStartInfo = new ProcessStartInfo
+            ProgramConfig.ApplicationState = new AppState
             {
-                FileName = netshPath,
-                Arguments = command,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true
+                imageCache = LoadImagesToMemory(),
+                Mods = LoadMods(),
             };
 
-            // Start the process
-            using (Process process = new Process { StartInfo = processStartInfo })
-            {
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                // Check if the output contains the rule information
-                return output.Contains("Rule Name:");
-            }
-        }
-        static private void AddApplicationToFirewall(string applicationName)
-        {
-            // Specify the path of the Netsh executable
-            string netshPath = Environment.ExpandEnvironmentVariables("%SystemRoot%\\System32\\netsh.exe");
-
-            // Specify the command to add the application to the firewall
-            string command = $"advfirewall firewall add rule name=\"Babstats Server Manager\" dir=in action=allow program=\"{applicationName}\" enable=yes";
-
-            // Set up the process start info
-            ProcessStartInfo processStartInfo = new ProcessStartInfo
-            {
-                FileName = netshPath,
-                Arguments = command,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                CreateNoWindow = true
-            };
-
-            // Start the process
-            using (Process process = new Process { StartInfo = processStartInfo })
-            {
-                process.Start();
-                string output = process.StandardOutput.ReadToEnd();
-                process.WaitForExit();
-
-                Console.WriteLine(output);
-
-                if (process.ExitCode == 0)
-                {
-                    Console.WriteLine("Application added to the firewall successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Failed to add the application to the firewall.");
-                }
-            }
-        }
-        static private void ProcessDatabase()
-        {
-
-            // setup BMT Global Stuff
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Server Manager");
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Babstats", "Server Manager", "settings.sqlite");
-
-            if (!Directory.Exists(appDataPath)) { Directory.CreateDirectory(appDataPath); }
-
-            // check for DB database
-            bool fileExist = File.Exists(dbPath);
-            // debug mode
-            // if (fileExist && Debugger.IsAttached) { File.Delete(dbPath); fileExist = false; }
-            // database upgrade check
-            if (!fileExist) { File.WriteAllBytes(dbPath, HawkSync_SM.Properties.Resources.settings); }
-            else
-            {
-                File.WriteAllBytes(dbPath + "_check", HawkSync_SM.Properties.Resources.settings);
-                SQLiteDatabaseUpdater dbUpdater = new SQLiteDatabaseUpdater(dbPath, dbPath + "_check");
-                if (dbUpdater.RunUpdater())
-                {
-                    File.Delete(dbPath + "_check");
-                } else
-                {
-                    Environment.Exit(0);
-                }
-            }
-
-
-            // Default Hard Coded Settings
-            ProgramConfig.DBConfig = "Data Source=" + dbPath + ";Version=3;";
-            ProgramConfig.ApplicationDebug = false;
-            ProgramConfig.Encoder = Encoding.Default;
-
-            // Public IP Address
-            IPManagement.public_ip();
+            // Start the Application (Main Profile List)
+            Application.Run(new SM_ProfileList(ProgramConfig.ApplicationState));
 
         }
-        static private void LoadLanguages()
+
+        static byte[] BitmapToByteArray(Bitmap bitmap)
         {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                // Save the bitmap to the stream in a specific format (e.g., PNG, JPEG)
+                bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+
+                // Get the byte array from the memory stream
+                return stream.ToArray();
+            }
+        }
+
+        // Load images to memory
+        static private Dictionary<string, byte[]> LoadImagesToMemory()
+        {
+            Dictionary<string, byte[]> img = new Dictionary<string, byte[]>();
+
+            img.Add("bhd.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.bhd));
+            img.Add("bhdts.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.bhdts));
+            img.Add("notactive.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.notactive));
+            img.Add("loading.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.loading));
+            img.Add("hosting.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.hosting));
+            img.Add("nothosting.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.nothosting));
+            img.Add("scoring.gif", BitmapToByteArray(HawkSync_SM.Properties.Resources.scoring));
+
+            return img;
+        }
+
+        // Load mods from the database
+        static private Dictionary<int, ModsClass> LoadMods()
+        {
+            Dictionary<int, ModsClass> modList = new Dictionary<int, ModsClass>();
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
-            SQLiteCommand langCmd = new SQLiteCommand("SELECT `value` FROM `config` WHERE `key` = 'lang';", db);
-            SQLiteDataReader langReader = langCmd.ExecuteReader();
-            langReader.Read();
-            ProgramConfig.Language = langReader.GetString(0);
-            langReader.Close();
+            SQLiteCommand ModsCmd = new SQLiteCommand("SELECT * FROM `mods`;", db);
+            SQLiteDataReader ModsReader = ModsCmd.ExecuteReader();
+            while (ModsReader.Read())
+            {
+                byte[] buffer = new byte[ModsReader.GetBytes(ModsReader.GetOrdinal("icon"), 0, null, 0, 0)];
+                ModsReader.GetBytes(ModsReader.GetOrdinal("icon"), 0, buffer, 0, buffer.Length);
+                modList.Add(modList.Count, new ModsClass
+                {
+                    ModName = ModsReader.GetString(ModsReader.GetOrdinal("name")),
+                    Game = ModsReader.GetInt32(ModsReader.GetOrdinal("game")),
+                    ExeArgs = ModsReader.GetString(ModsReader.GetOrdinal("args")),
+                    ModIcon = buffer
+                });
+            }
             db.Close();
+            db.Dispose();
+            return modList;
         }
+
         static private void GetRemoteControlConfig()
         {
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand port_query = new SQLiteCommand("SELECT `value` FROM `config` WHERE `key` = 'remote_client_port';", db);
             ProgramConfig.RCPort = Convert.ToInt32(port_query.ExecuteScalar());

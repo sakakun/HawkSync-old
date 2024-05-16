@@ -456,7 +456,7 @@ namespace HawkSync_SM
             _state.Instances[ArrayID].AutoMessages.messages.Remove(listBox_AutoMessages.SelectedItem.ToString());
             listBox_AutoMessages.Items.Remove(listBox_AutoMessages.SelectedItem);
             var json = JsonConvert.SerializeObject(listBox_AutoMessages.Items);
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
             SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
             automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -472,7 +472,7 @@ namespace HawkSync_SM
             listBox_AutoMessages.Items.Add(text_newAutoMessage.Text);
             _state.Instances[ArrayID].AutoMessages.messages.Add(text_newAutoMessage.Text);
             text_newAutoMessage.Text = "";
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
             SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
             automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -491,7 +491,7 @@ namespace HawkSync_SM
                 listBox_AutoMessages.Items.Add(text_newAutoMessage.Text);
                 _state.Instances[ArrayID].AutoMessages.messages.Add(text_newAutoMessage.Text);
                 text_newAutoMessage.Text = "";
-                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                 conn.Open();
                 SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
                 automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -749,7 +749,7 @@ namespace HawkSync_SM
                 _state.Instances[ArrayID].vpnCheckEnabled = false;
                 num_vpnAbuseLevel.Value = 0;
             }
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `enableVPNCheck` = @vpnCheck WHERE `profile_id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@vpnCheck", Convert.ToInt32(_state.Instances[ArrayID].vpnCheckEnabled));
@@ -1691,7 +1691,7 @@ namespace HawkSync_SM
 
             ServerManagement serverManagerUpdateMemory = new ServerManagement();
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
 
             /*
@@ -2346,7 +2346,7 @@ namespace HawkSync_SM
                 Description = description,
                 IPAddress = ipaddress.ToString()
             });
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `vpnwhitelist` (`profile_id`, `description`, `address`) VALUES (@profileid, @description, @PublicIP);", db);
             cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
@@ -2371,7 +2371,7 @@ namespace HawkSync_SM
         {
             _state.IPQualityCache[ArrayID].WarnLevel = (int)num_vpnAbuseLevel.Value;
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `warnlevel` = @warnlevel WHERE `profile_id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@warnlevel", _state.IPQualityCache[ArrayID].WarnLevel);
@@ -2384,7 +2384,7 @@ namespace HawkSync_SM
         private void button14_Click(object sender, EventArgs e)
         {
             int index = grid_vpn_allowlist.SelectedCells[0].RowIndex;
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `vpnwhitelist` WHERE `profile_id` = @profileid AND `description` = @description AND `address` = @PublicIP;", db);
             cmd.Parameters.AddWithValue("@profileid", _state.Instances[ArrayID].instanceID);
@@ -2465,7 +2465,7 @@ namespace HawkSync_SM
             grid_vpn_allowlist.DataSource = GenerateVPNTable();
 
 
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
             SQLiteCommand country_cmd = new SQLiteCommand("SELECT iso FROM `country`;", conn);
             SQLiteDataReader country_read = country_cmd.ExecuteReader();
@@ -2737,7 +2737,7 @@ namespace HawkSync_SM
                 }
             }
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
 
             SQLiteCommand query = new SQLiteCommand("INSERT INTO `playerbans` (`id`, `profileid`, `player`, `ipaddress`, `dateadded`, `lastseen`, `reason`, `expires`, `bannedby`) VALUES (NULL, @profileid, @playername, @playerip, @dateadded, @date, @reason, @expires, @bannedby);", db);
@@ -2813,7 +2813,7 @@ namespace HawkSync_SM
             }
             else
             {
-                SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
                 db.Open();
                 SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `playerbans` WHERE `id` = @banid AND `profileid` = @profileid;", db);
                 cmd.Parameters.AddWithValue("@banid", _state.Instances[ArrayID].PlayerListBans[playerIndex].id);
@@ -2877,7 +2877,7 @@ namespace HawkSync_SM
             }
             cm_warnPlayer.DropDownItems.RemoveAt(menuIndex);
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("DELETE FROM `customwarnings` WHERE `id` = @warningid AND `instanceid` = @instanceid;", db);
             cmd.Parameters.AddWithValue("@warningid", index);
@@ -2897,7 +2897,7 @@ namespace HawkSync_SM
                 MessageBox.Show("Please put in a message and try again.", "Error");
                 return;
             }
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("INSERT INTO `customwarnings` (`id`, `instanceid`, `message`) VALUES (NULL, @instanceid, @warningmsg);", db);
             cmd.Parameters.AddWithValue("@instanceid", _state.Instances[ArrayID].instanceID);
@@ -2978,7 +2978,7 @@ namespace HawkSync_SM
             serverManagerUpdateMemory.UpdateMapCycle(_state, ArrayID);
             serverManagerUpdateMemory.UpdateMapCycle2(_state, ArrayID);
 
-            SQLiteConnection db = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection db = new SQLiteConnection(ProgramConfig.dbConfig);
             db.Open();
             SQLiteCommand cmd = new SQLiteCommand("UPDATE `instances_config` SET `mapcycle` = @updateMapCycle WHERE `profile_id` = @profileid;", db);
             cmd.Parameters.AddWithValue("@updateMapCycle", JsonConvert.SerializeObject(_state.Instances[ArrayID].MapListCurrent));
@@ -3182,7 +3182,7 @@ namespace HawkSync_SM
             // move the selected item up the list...
             MoveMessage(-1);
             // update the database...
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
             SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
             automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -3202,7 +3202,7 @@ namespace HawkSync_SM
             // move the selected item lower on the list...
             MoveMessage(1);
             // update the database...
-            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+            SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
             conn.Open();
             SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `auto_messages` = @messages WHERE `profile_id` = @profileid;", conn);
             automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -3221,7 +3221,7 @@ namespace HawkSync_SM
         {
             if (cb_enableAutoMsg.Checked == true)
             {
-                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                 conn.Open();
                 SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 1 WHERE `profile_id` = @profileid;", conn);
                 automessages.Parameters.AddWithValue("@profileid", Profile_ID);
@@ -3234,7 +3234,7 @@ namespace HawkSync_SM
             }
             else
             {
-                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.DBConfig);
+                SQLiteConnection conn = new SQLiteConnection(ProgramConfig.dbConfig);
                 conn.Open();
                 SQLiteCommand automessages = new SQLiteCommand("UPDATE `instances_config` SET `enable_msg` = 0 WHERE `profile_id` = @profileid;", conn);
                 automessages.Parameters.AddWithValue("@profileid", Profile_ID);

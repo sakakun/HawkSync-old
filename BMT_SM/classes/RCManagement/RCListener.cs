@@ -180,20 +180,6 @@ namespace HawkSync_SM
 
                         var jsonAutoRes = JsonConvert.SerializeObject(reply);
                         return Encoding.ASCII.GetBytes(jsonAutoRes);
-                    case "BMTRC.GetFTPPort":
-                        if (_state.rcClients[json.SessionID].authenticated == true)
-                        {
-                            int ftpPort = 0;
-                            reply.Add("Status", RCLoginFunctions.GetFTPPort(ref ftpPort));
-                            reply.Add("Port", ftpPort);
-                        }
-                        else
-                        {
-                            reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
-                        }
-
-                        var jsonftpPort = JsonConvert.SerializeObject(reply);
-                        return Encoding.ASCII.GetBytes(jsonftpPort);
                     case "BMTRC.KickPlayer":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -815,7 +801,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonprofilelist = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonprofilelist);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonprofilelist);
                     case "BMTRC.GetPlayerIPInfo":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -828,7 +814,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonGetPlayerInfo = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonGetPlayerInfo);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonGetPlayerInfo);
                     case "BMTRC.GetPlayerHistory":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -841,7 +827,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonGetPlayerHistory = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonGetPlayerHistory);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonGetPlayerHistory);
                     case "BMTRC.onload_getPlayerAdminNotes":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -854,7 +840,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonGetAdminNotes = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonGetAdminNotes);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonGetAdminNotes);
                     case "BMTRC.AddAdminNote":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -866,7 +852,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonAddAdminNote = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonAddAdminNote);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonAddAdminNote);
                     case "BMTRC.RemoveAdminNote":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -878,7 +864,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonRemoveAdminNote = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonRemoveAdminNote);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonRemoveAdminNote);
                     case "BMTRC.GetAvalMaps":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -892,7 +878,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonAvalMaps = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonAvalMaps);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonAvalMaps);
                     case "BMTRC.UserManager.GetUsers":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -906,7 +892,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonsubUsers = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonsubUsers);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonsubUsers);
                     case "BMTRC.UserManager.CurrentConnections":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -920,7 +906,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonCurrentConnections = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonCurrentConnections);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonCurrentConnections);
                     case "BMTRC.UserManager.AddUser":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -932,7 +918,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonAddUser = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonAddUser);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonAddUser);
                     case "BMTRC.UserManager.DeleteUser":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -944,7 +930,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonDeleteUser = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonDeleteUser);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonDeleteUser);
                     case "BMTRC.UserManager.GetLogs":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -958,7 +944,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonGetLogs = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonGetLogs);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonGetLogs);
                     case "BMTRC.RotationManager.DeleteRotation":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -970,7 +956,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonDeleteRotation = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonDeleteRotation);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonDeleteRotation);
                     case "BMTRC.RotationManager.CreateRotation":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -982,7 +968,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonCreateRotation = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonCreateRotation);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonCreateRotation);
                     case "BMTRC.RotationManager.UpdateRotation":
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -994,7 +980,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonUpdateRotation = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonUpdateRotation);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonUpdateRotation);
                     default:
                         if (_state.rcClients[json.SessionID].authenticated == true)
                         {
@@ -1005,7 +991,7 @@ namespace HawkSync_SM
                             reply.Add("Status", RCListenerClass.StatusCodes.NOTAUTHENTICATED);
                         }
                         var jsonDefault = JsonConvert.SerializeObject(reply);
-                        return ProgramConfig.Encoder.GetBytes(jsonDefault);
+                        return ProgramConfig.ApplicationEncoding.GetBytes(jsonDefault);
                 }
             }
             catch
